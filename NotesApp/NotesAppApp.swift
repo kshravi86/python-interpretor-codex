@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct SnakePyApp: App {
+struct CodeSnakeApp: App {
     init() {
         CrashHandler.shared.install()
     }
