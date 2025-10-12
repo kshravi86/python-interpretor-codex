@@ -1,0 +1,107 @@
+name: iOS IPA (Sideload)
+
+on:
+  workflow_dispatch:
+    inputs:
+      scheme:
+        description: Xcode scheme name
+        required: false
+        default: NotesApp
+      configuration:
+        description: Build configuration
+        required: false
+        default: Release
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'NotesApp/**'
+      - 'NotesApp.xcodeproj/**'
+      - '.github/workflows/ios-ipa-sideload.yml'
+
+jobs:
+  build-ipa:
+    name: Build unsigned IPA
+    runs-on: macos-14
+    env:
+      PROJECT_PATH: NotesApp.xcodeproj
+      SCHEME: ${{ github.event.inputs.scheme || 'NotesApp' }}
+      CONFIGURATION: ${{ github.event.inputs.configuration || 'Release' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcode-select -p
+
+      - name: Show project schemes
+        run: |
+          xcodebuild -list -project "$PROJECT_PATH"
+
+      - name: Build .app for device (no code signing)
+        run: |
+          set -euo pipefail
+          DERIVED_DATA="$RUNNER_TEMP/Derived"
+          mkdir -p "$DERIVED_DATA"
+          xcodebuild \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
+            -configuration "$CONFIGURATION" \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath "$DERIVED_DATA" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_STYLE=Manual \
+            build
+
+          echo "DERIVED_DATA=$DERIVED_DATA" >> $GITHUB_ENV
+
+      - name: Package unsigned .ipa
+        run: |
+          set -euo pipefail
+          APP_DIR="$DERIVED_DATA/Build/Products/$CONFIGURATION-iphoneos"
+          echo "Looking for .app in: $APP_DIR" && ls -la "$APP_DIR" || true
+          APP_PATH=$(find "$APP_DIR" -mindepth 1 -maxdepth 1 -type d -name "*.app" -print -quit)
+          if [[ -z "${APP_PATH:-}" ]]; then
+            echo "No .app found in $APP_DIR" >&2
+            exit 1
+          fi
+          echo "Found app: $APP_PATH"
+          APP_NAME=$(basename "$APP_PATH" .app)
+          IPA_NAME="${APP_NAME}-unsigned-${CONFIGURATION}.ipa"
+          WORKDIR="$RUNNER_TEMP/payload"
+          mkdir -p "$WORKDIR/Payload"
+          # Copy the .app directory into Payload
+          rsync -a "$APP_PATH" "$WORKDIR/Payload/"
+          (cd "$WORKDIR" && zip -qry "$IPA_NAME" Payload)
+          echo "IPA_PATH=$WORKDIR/$IPA_NAME" >> $GITHUB_ENV
+          echo "BUILT_APP=$APP_PATH" >> $GITHUB_ENV
+
+      - name: Archive dSYMs (optional)
+        run: |
+          set -euo pipefail
+          DSYM_DIR="$DERIVED_DATA/Build/Products/$CONFIGURATION-iphoneos"
+          DSYM_PATH=$(find "$DSYM_DIR" -mindepth 1 -maxdepth 1 -type d -name "*.dSYM" -print -quit || true)
+          if [[ -n "$DSYM_PATH" ]]; then
+            DSYM_ZIP="$RUNNER_TEMP/$(basename "$DSYM_PATH").zip"
+            /usr/bin/zip -qry "$DSYM_ZIP" "$DSYM_PATH"
+            echo "DSYM_ZIP=$DSYM_ZIP" >> $GITHUB_ENV
+          fi
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-ipa-unsigned
+          path: ${{ env.IPA_PATH }}
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload dSYM artifact (if any)
+        if: env.DSYM_ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-dsyms
+          path: ${{ env.DSYM_ZIP }}
+          retention-days: 14
