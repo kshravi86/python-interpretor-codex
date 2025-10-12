@@ -114,13 +114,14 @@ jobs:
           -scheme NotesApp \
           -configuration Release \
           -destination 'generic/platform=iOS' \
-          -archivePath ${{ runner.temp }}/HydrateIQ-Release.xcarchive \
+          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
           CURRENT_PROJECT_VERSION=$NEW_BUILD
 
     - name: Extract App Metadata (version/build/bundle)
       run: |
-        PLIST="${{ runner.temp }}/HydrateIQ-Release.xcarchive/Products/Applications/HydrateIQ.app/Info.plist"
+        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1)
+        PLIST="$APP_DIR/Info.plist"
         if [ ! -f "$PLIST" ]; then echo "::error title=Info.plist not found::$PLIST"; exit 1; fi
         APP_VERSION=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$PLIST")
         APP_BUILD=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$PLIST")
@@ -132,17 +133,22 @@ jobs:
 
     - name: Generate Export Options (manual with profile UUID)
       run: |
+        # Derive team ID from profile if not provided
+        TEAM_ID=${{ secrets.IOS_TEAM_ID }}
+        if [ -z "$TEAM_ID" ]; then
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true)
+        fi
         cat > $RUNNER_TEMP/export-options.plist <<EOF
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
         <plist version="1.0">
         <dict>
             <key>method</key>
-            <string>app-store-connect</string>
+            <string>app-store</string>
             <key>signingStyle</key>
             <string>manual</string>
             <key>teamID</key>
-            <string>T37PH5FAJX</string>
+            <string>${TEAM_ID}</string>
             <key>signingCertificate</key>
             <string>Apple Distribution</string>
             <key>provisioningProfiles</key>
@@ -161,7 +167,7 @@ jobs:
     - name: Export Signed IPA
       run: |
         xcodebuild -exportArchive \
-          -archivePath ${{ runner.temp }}/HydrateIQ-Release.xcarchive \
+          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           -exportPath ${{ runner.temp }}/export-release \
           -exportOptionsPlist $RUNNER_TEMP/export-options.plist
         IPA_PATH=$(ls ${{ runner.temp }}/export-release/*.ipa | head -n 1)
@@ -172,7 +178,7 @@ jobs:
     - name: Upload Signed IPA as Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: HydrateIQ-Release-IPA
+        name: CodeSnake-Release-IPA
         path: ${{ runner.temp }}/export-release/*.ipa
         retention-days: 90
 
