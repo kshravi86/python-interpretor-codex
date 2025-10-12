@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct PyDeckApp: App {
+struct SnakePyApp: App {
     init() {
         CrashHandler.shared.install()
     }

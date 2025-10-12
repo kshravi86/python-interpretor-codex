@@ -19,7 +19,7 @@ jobs:
       APP_PROJECT: NotesApp.xcodeproj
       APP_SCHEME: ${{ github.event.inputs.scheme || 'NotesApp' }}
       EXPORT_METHOD: ${{ github.event.inputs.export_method || 'adhoc' }}
-      BUNDLE_ID: com.venki18.pydeck
+      BUNDLE_ID: com.venki18.snakepy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
