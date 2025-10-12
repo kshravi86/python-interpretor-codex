@@ -1,0 +1,271 @@
+require 'json'
+require 'fileutils'
+
+default_platform(:ios)
+
+platform :ios do
+  desc "UI smoke test on iPhone simulator"
+  lane :ui_smoke do |options|
+    root    = File.expand_path('..', __dir__)
+    project = File.join(root, "NotesApp.xcodeproj")
+    scheme  = options[:scheme]  || "NotesApp"
+    derived = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "DerivedSmoke")
+    FileUtils.mkdir_p(derived)
+
+    sh("xcodebuild -version")
+
+    # Pick a modern iPhone device type
+    dt_json = sh("xcrun simctl list devicetypes -j")
+    devtypes = JSON.parse(dt_json)["devicetypes"]
+    phone = devtypes.find { |dt| dt["name"].start_with?("iPhone 15") } || devtypes.find { |dt| dt["name"].start_with?("iPhone 14") } || devtypes.find { |dt| dt["name"].include?("iPhone") }
+    UI.user_error!("No iPhone device type found") unless phone
+    dt_id = phone["identifier"]
+
+    # Latest available iOS runtime
+    runtimes_json = sh("xcrun simctl list runtimes -j")
+    runtimes = JSON.parse(runtimes_json)["runtimes"]
+    ios = runtimes.select { |r| r["identifier"].start_with?("com.apple.CoreSimulator.SimRuntime.iOS-") && (r["isAvailable"] != false) }
+    ios.sort_by! { |r| r["version"] || r["productVersion"] }
+    UI.user_error!("No available iOS runtimes") if ios.empty?
+    runtime_id = ios.last["identifier"]
+
+    sim_name = "CI iPhone Smoke"
+    # Create-or-reuse
+    devices_json = sh("xcrun simctl list devices #{runtime_id} -j")
+    devices = JSON.parse(devices_json)["devices"][runtime_id] || []
+    udid = devices.find { |d| d["name"] == sim_name }&.dig("udid")
+    unless udid
+      udid = sh("xcrun simctl create \"#{sim_name}\" #{dt_id} #{runtime_id}").strip
+    end
+
+    sh("xcrun simctl shutdown #{udid} || true")
+    sh("xcrun simctl erase #{udid} || true")
+    sh("open -a Simulator || true")
+    sh("xcrun simctl boot #{udid} || true")
+    sh("xcrun simctl bootstatus #{udid} -b || true")
+
+    # Build for simulator
+    sh("xcodebuild -list -project \"#{project}\"")
+    sh(["xcodebuild","clean","-project",project,"-scheme",scheme,"-configuration","Debug","-sdk","iphonesimulator"].join(" "))
+    sh([
+      "xcodebuild","build",
+      "-project",project,
+      "-scheme",scheme,
+      "-configuration","Debug",
+      "-sdk","iphonesimulator",
+      "-destination","id=#{udid}",
+      "-derivedDataPath",derived
+    ].join(" "))
+
+    products = File.join(derived, "Build/Products/Debug-iphonesimulator")
+    app_path = Dir[File.join(products, "*.app")].first
+    UI.user_error!("No .app found at #{products}") unless app_path
+
+    # Prepare screenshots dir
+    out_dir = File.join(root, 'smoke_screens')
+    FileUtils.mkdir_p(out_dir)
+
+    # Install and run a few navigations
+    sh("xcrun simctl install #{udid} \"#{app_path}\"")
+
+    def launch_ok(udid, bid, args)
+      sh("xcrun simctl terminate #{udid} #{bid} || true")
+      out = sh("xcrun simctl launch #{udid} #{bid} --args #{args} || true")
+      UI.message(out)
+      sleep 4
+    end
+
+    bid = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' \"#{File.join(app_path, 'Info.plist')}\"").strip
+    def snap(udid, out_dir, name)
+      path = File.join(out_dir, name)
+      sh("xcrun simctl io #{udid} screenshot \"#{path}\"")
+      UI.message("Saved screenshot: #{path}")
+    end
+
+    # 1) Home
+    launch_ok(udid, bid, "--disable-animations")
+    snap(udid, out_dir, "home.png")
+    # 2) Auto-navigate to level 1
+    launch_ok(udid, bid, "--disable-animations --auto-level 1")
+    snap(udid, out_dir, "level1.png")
+    # 3) Auto-navigate to level 5
+    launch_ok(udid, bid, "--disable-animations --auto-level 5")
+    snap(udid, out_dir, "level5.png")
+
+    # If we got here without a non-zero exit, consider smoke passing.
+    UI.success("UI smoke completed on simulator: #{sim_name}. Screenshots in #{out_dir}")
+  end
+  desc "Capture iPad screenshots via simctl"
+  lane :ipad_screenshots do |options|
+    root    = File.expand_path('..', __dir__)
+    # Resolve project path; if an option is provided and it's relative, anchor to repo root
+    provided_project = options[:project]
+    project = if provided_project && !provided_project.to_s.empty?
+                File.absolute_path(provided_project, root)
+              else
+                File.join(root, "NotesApp.xcodeproj")
+              end
+    scheme  = options[:scheme]  || "NotesApp"
+    xcode   = options[:xcode]   || "15.2"
+    derived = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "DerivedFastlane")
+    FileUtils.mkdir_p(derived)
+
+    sh("xcodebuild -version")
+
+    # Resolve latest available iOS runtime (available:true)
+    runtimes_json = sh("xcrun simctl list runtimes -j")
+    runtimes = JSON.parse(runtimes_json)["runtimes"]
+    ios = runtimes.select { |r| r["identifier"].start_with?("com.apple.CoreSimulator.SimRuntime.iOS-") && (r["isAvailable"] != false) }
+    ios.sort_by! { |r| r["productVersion"].to_s.scan(/\d+/).map(&:to_i) }
+    UI.user_error!("No available iOS runtimes") if ios.empty?
+    runtime_id = ios.last["identifier"]
+
+    # Pick a suitable iPad device type by name (handles memory variants)
+    dt_json = sh("xcrun simctl list devicetypes -j")
+    devtypes = JSON.parse(dt_json)["devicetypes"]
+    want = [
+      "iPad Pro 13-inch (M4)",
+      "iPad Pro (12.9-inch) (6th generation)",
+      "iPad Pro (12.9-inch) (5th generation)",
+      "iPad Pro (12.9-inch) (4th generation)",
+      "iPad Pro (12.9-inch) (3rd generation)",
+      "iPad Pro (12.9-inch)"
+    ]
+    chosen = nil
+    want.each do |prefix|
+      chosen = devtypes.find { |dt| dt["name"].start_with?(prefix) }
+      break if chosen
+    end
+    UI.user_error!("No suitable iPad devicetype found") unless chosen
+    dt_id = chosen["identifier"]
+    dt_name = chosen["name"]
+
+    sim_name = "CI iPad Screenshots"
+    # Find existing device in the chosen runtime by our name
+    devices_json = sh("xcrun simctl list devices #{runtime_id} -j")
+    devices = JSON.parse(devices_json)["devices"][runtime_id] || []
+    udid = devices.find { |d| d["name"] == sim_name }&.dig("udid")
+    unless udid
+      udid = sh("xcrun simctl create \"#{sim_name}\" #{dt_id} #{runtime_id}").strip
+    end
+
+    UI.message("Using runtime: #{runtime_id}")
+    UI.message("Using device: #{dt_id} (#{dt_name}) -> #{udid}")
+
+    # Boot cleanly and normalize status bar + appearance
+    sh("xcrun simctl shutdown #{udid} || true")
+    sh("xcrun simctl erase #{udid} || true")
+    sh("open -a Simulator || true")
+    sh("xcrun simctl boot #{udid} || true")
+    sh("xcrun simctl bootstatus #{udid} -b || true")
+    180.times do
+      state = sh("xcrun simctl list devices | grep #{udid} | sed -E 's/.*\\(([^()]*)\\).*/\\1/' || true").strip
+      break if state == "Booted"
+      sleep 1
+    end
+    sh("xcrun simctl status_bar #{udid} override --time 9:41 --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularBars 0 --dataNetwork wifi || true")
+    sh("xcrun simctl ui #{udid} appearance light || true")
+
+    # Build for the exact simulator id
+    sh("ls -la \"#{root}\" && ls -la \"#{project}\" || true")
+    sh("xcodebuild -list -project \"#{project}\"")
+    sh("xcodebuild clean -project #{project} -scheme #{scheme} -configuration Debug -sdk iphonesimulator || true")
+    # Use destination id= to avoid quoting/space issues that break argument parsing and capture xcresult
+    build_cmd = [
+      "xcodebuild", "build",
+      "-project", "#{project}",
+      "-scheme", scheme,
+      "-configuration", "Debug",
+      "-sdk", "iphonesimulator",
+      "-destination", "id=#{udid}",
+      "-derivedDataPath", derived,
+      "-resultBundlePath", File.join(derived, "build.xcresult"),
+      "ONLY_ACTIVE_ARCH=YES",
+      'EXCLUDED_ARCHS="x86_64"',
+      'VALID_ARCHS=arm64'
+    ]
+    sh(build_cmd.join(" "))
+
+    products = File.join(derived, "Build/Products/Debug-iphonesimulator")
+    app_path = Dir[File.join(products, "*.app")].first
+    UI.user_error!("No .app found in #{products}") unless app_path
+    sh("xcrun simctl install #{udid} \"#{app_path}\"")
+
+    # Prepare capture dirs
+    tmp = ENV["RUNNER_TEMP"] || Dir.mktmpdir
+    src = File.join(tmp, "ipad-screens")
+    out_a = File.join(tmp, "ipad13-2064x2752")
+    out_b = File.join(tmp, "ipad13-2048x2732")
+    FileUtils.mkdir_p([src, out_a, out_b])
+
+    # Determine bundle id
+    info_plist = File.join(app_path, "Info.plist")
+    bid = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' \"#{info_plist}\"").strip
+
+    # Helper to launch, wait, and snapshot
+    def capture(udid, bid, args, path)
+      sh("xcrun simctl terminate #{udid} #{bid} || true")
+      sh("xcrun simctl launch #{udid} #{bid} --args #{args} || true")
+      sleep 6
+      sh("xcrun simctl io #{udid} screenshot \"#{path}\"")
+    end
+
+    # Decide which shots to take for PyDeck (quiz app).
+    # Supported shot keys:
+    #  - home   : Level list
+    #  - level1 : Auto-navigate to level 1
+    #  - level5 : Auto-navigate to level 5
+    shots_opt = options[:shots]
+    shots = if shots_opt.is_a?(Array)
+              shots_opt.map(&:to_s)
+            elsif shots_opt.to_s.strip.length > 0
+              shots_opt.to_s.split(/[,\s]+/)
+            else
+              %w[home level1 level5]
+            end
+
+    seed = "--disable-animations"
+    if shots.include?("home")
+      capture(udid, bid, seed, File.join(src, "home.png"))
+    end
+    if shots.include?("level1")
+      capture(udid, bid, "#{seed} --auto-level 1", File.join(src, "level1.png"))
+    end
+    if shots.include?("level5")
+      capture(udid, bid, "#{seed} --auto-level 5", File.join(src, "level5.png"))
+    end
+    if shots.include?("answer")
+      # Auto-select the correct answer to show green state
+      capture(udid, bid, "#{seed} --auto-level 1 --auto-select-correct", File.join(src, "answer.png"))
+    end
+    if shots.include?("wrong")
+      # Auto-select an incorrect answer to show red state
+      capture(udid, bid, "#{seed} --auto-level 1 --auto-select-wrong", File.join(src, "wrong.png"))
+    end
+
+    # Normalize sizes using the existing Python script
+    script = File.join(root, 'scripts', 'prepare_app_store_screenshots.py')
+    sh("python3 -m venv #{File.join(tmp, 'ssvenv')} && source #{File.join(tmp, 'ssvenv','bin','activate')} && pip install -q --upgrade pip && pip install -q pillow")
+    sh("bash -lc 'source #{File.join(tmp,'ssvenv','bin','activate')} && python \"#{script}\" --source \"#{src}\" --outi13a \"#{out_a}\" --outi13b \"#{out_b}\"'")
+
+    # Copy into repo for convenience
+    out_repo_a = File.join(root, 'images', 'ipad13-2064x2752')
+    out_repo_b = File.join(root, 'images', 'ipad13-2048x2732')
+    FileUtils.mkdir_p(out_repo_a)
+    FileUtils.mkdir_p(out_repo_b)
+    # Copy only files that exist (based on selected shots)
+    Dir[File.join(src, "*.png")].each do |png|
+      base = File.basename(png)
+      src_a = File.join(out_a, base)
+      src_b = File.join(out_b, base)
+      FileUtils.cp(src_a, out_repo_a) if File.exist?(src_a)
+      FileUtils.cp(src_b, out_repo_b) if File.exist?(src_b)
+    end
+
+    # Also export to a simple folder for quick local review
+    quick = File.join(root, 'fastlanepics')
+    FileUtils.mkdir_p(quick)
+    FileUtils.cp(Dir[File.join(out_a, "*.png")], quick) rescue nil
+    UI.success("iPad screenshots captured and normalized.")
+  end
+end

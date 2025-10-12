@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HydrationEntry" representedClassName="HydrationEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="amountMl" optional="NO" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="drinkType" optional="YES" attributeType="String"/>
+        <attribute name="caffeineMg" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="source" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="UserSettings" representedClassName="UserSettings" syncable="YES" codeGenerationType="class">
+        <attribute name="weightKg" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="activityLevel" optional="YES" attributeType="String"/>
+        <attribute name="dailyGoalMl" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="cupSizes" optional="YES" attributeType="String"/>
+        <attribute name="lastWorkout" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+</model>

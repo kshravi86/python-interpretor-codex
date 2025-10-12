@@ -1,0 +1,167 @@
+name: Capture iPad Screenshots v4 (legacy image)
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment for secrets (optional)"
+        required: false
+        default: "prod"
+
+jobs:
+  capture_v4:
+    name: Build app and capture iPad screenshots (v4)
+    runs-on: macos-14
+    environment:
+      name: ${{ inputs.environment }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Xcode (pinned)
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 15.2
+
+    - name: Resolve simulator via xcodebuild or create fallback
+      run: |
+        set -eo pipefail
+        DESTS=$(xcodebuild -showdestinations -project NotesApp.xcodeproj -scheme NotesApp 2>/dev/null || true)
+        LINE=$(printf "%s\n" "$DESTS" | grep "platform:iOS Simulator" | grep -E -m1 'name: iPad' || true)
+        if [ -n "$LINE" ]; then
+          SIM_UDID=$(printf "%s\n" "$LINE" | sed -E 's/.*id: ([0-9A-F-]{36}).*/\1/')
+          echo "Selected destination: $LINE"
+        else
+          echo "No iPad destination from xcodebuild; creating simulator fallback"
+          # Runtime: prefer iOS-17* on Xcode 15.4
+          RUNTIME_ID=$(xcrun simctl list runtimes | sed -n 's/.*- \(com\.apple\.CoreSimulator\.SimRuntime\.iOS-17[^ ]*\).*/\1/p' | head -n1)
+          if [ -z "$RUNTIME_ID" ]; then
+            RUNTIME_ID=$(xcrun simctl list runtimes | sed -n 's/.*- \(com\.apple\.CoreSimulator\.SimRuntime\.iOS-[^ ]*\).*/\1/p' | tail -1)
+          fi
+          DT_LIST=$(xcrun simctl list devicetypes)
+          line=$(printf "%s\n" "$DT_LIST" | grep -F -m1 "iPad Pro (12.9-inch) (6th generation)" || true)
+          [ -z "$line" ] && line=$(printf "%s\n" "$DT_LIST" | grep -F -m1 "iPad Pro (12.9-inch) (5th generation)" || true)
+          [ -z "$line" ] && line=$(printf "%s\n" "$DT_LIST" | grep -F -m1 "iPad Pro (12.9-inch) (4th generation)" || true)
+          [ -z "$line" ] && line=$(printf "%s\n" "$DT_LIST" | grep -F -m1 "iPad Pro 13-inch (M4)" || true)
+          if [ -z "$line" ]; then
+            echo "No suitable iPad devicetype found" >&2
+            xcrun simctl list devicetypes
+            exit 1
+          fi
+          DEVICE_TYPE_ID=$(printf "%s\n" "$line" | sed -E 's/.*\(([^()]*)\)[[:space:]]*$/\1/')
+          SIM_NAME="CI iPad Screenshots"
+          SIM_UDID=$(xcrun simctl create "$SIM_NAME" "$DEVICE_TYPE_ID" "$RUNTIME_ID")
+        fi
+        echo "SIM_UDID=$SIM_UDID" >> $GITHUB_ENV
+
+    - name: Boot destination simulator
+      run: |
+        set -e
+        # Ensure a clean boot for reliable UI
+        # Only shutdown if not already Shutdown to avoid non-zero exit
+        CUR_STATE=$(xcrun simctl list devices | grep "$SIM_UDID" | sed -E 's/.*\(([^()]*)\).*/\1/' || true)
+        if [ "${CUR_STATE}" != "Shutdown" ] && [ -n "${CUR_STATE}" ]; then
+          xcrun simctl shutdown "$SIM_UDID" || true
+        fi
+        xcrun simctl erase "$SIM_UDID" || true
+        open -a Simulator || true
+        xcrun simctl boot "$SIM_UDID" || true
+        # Wait for boot to finish (no --timeout on this simctl)
+        xcrun simctl bootstatus "$SIM_UDID" -b || true
+        # Fallback polling for up to ~180s
+        for i in $(seq 1 180); do
+          state=$(xcrun simctl list devices | grep "$SIM_UDID" | sed -E 's/.*\(([^()]*)\).*/\1/' || true)
+          if [ "$state" = "Booted" ]; then
+            break
+          fi
+          sleep 1
+        done
+        # Try to normalize status bar for cleaner screenshots (ignore failures)
+        xcrun simctl status_bar "$SIM_UDID" override --time 9:41 --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularBars 0 --dataNetwork wifi || true
+
+    - name: Build for Simulator (Debug)
+      run: |
+        set -e
+        xcodebuild build \
+          -project NotesApp.xcodeproj \
+          -scheme NotesApp \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'generic/platform=iOS Simulator' \
+          -derivedDataPath $RUNNER_TEMP/Derived \
+          ONLY_ACTIVE_ARCH=YES
+
+    - name: Install app into simulator
+      run: |
+        set -e
+        APP_DIR="$RUNNER_TEMP/Derived/Build/Products/Debug-iphonesimulator"
+        APP=$(ls -1d "$APP_DIR"/*.app 2>/dev/null | head -n1 || true)
+        if [ -z "$APP" ] || [ ! -d "$APP" ]; then
+          echo "App bundle not found in $APP_DIR" >&2
+          echo "Contents of $APP_DIR:" >&2
+          ls -la "$APP_DIR" || true
+          exit 1
+        fi
+        echo "Found app: $APP"
+        echo "APP_PATH=$APP" >> $GITHUB_ENV
+        xcrun simctl install "$SIM_UDID" "$APP"
+
+    - name: Launch and capture Today
+      run: |
+        set -e
+        mkdir -p $RUNNER_TEMP/ipad-screens
+        APP_PATH=${APP_PATH:-$(ls -1d "$RUNNER_TEMP/Derived/Build/Products/Debug-iphonesimulator"/*.app | head -n1)}
+        BID=$(defaults read "$APP_PATH/Info" CFBundleIdentifier)
+        xcrun simctl terminate "$SIM_UDID" "$BID" || true
+        xcrun simctl launch "$SIM_UDID" "$BID" --args --seed-screenshots --tab today || true
+        sleep 3
+        xcrun simctl io "$SIM_UDID" screenshot "$RUNNER_TEMP/ipad-screens/hydration.png"
+
+    - name: Launch and capture History
+      run: |
+        set -e
+        APP_PATH=${APP_PATH:-$(ls -1d "$RUNNER_TEMP/Derived/Build/Products/Debug-iphonesimulator"/*.app | head -n1)}
+        BID=$(defaults read "$APP_PATH/Info" CFBundleIdentifier)
+        xcrun simctl terminate "$SIM_UDID" "$BID" || true
+        xcrun simctl launch "$SIM_UDID" "$BID" --args --seed-screenshots --tab history || true
+        sleep 3
+        xcrun simctl io "$SIM_UDID" screenshot "$RUNNER_TEMP/ipad-screens/history.png"
+
+    - name: Launch and capture Settings
+      run: |
+        set -e
+        APP_PATH=${APP_PATH:-$(ls -1d "$RUNNER_TEMP/Derived/Build/Products/Debug-iphonesimulator"/*.app | head -n1)}
+        BID=$(defaults read "$APP_PATH/Info" CFBundleIdentifier)
+        xcrun simctl terminate "$SIM_UDID" "$BID" || true
+        xcrun simctl launch "$SIM_UDID" "$BID" --args --seed-screenshots --tab settings || true
+        sleep 3
+        xcrun simctl io "$SIM_UDID" screenshot "$RUNNER_TEMP/ipad-screens/settings.png"
+
+    - name: Launch and capture Add Drink
+      run: |
+        set -e
+        APP_PATH=${APP_PATH:-$(ls -1d "$RUNNER_TEMP/Derived/Build/Products/Debug-iphonesimulator"/*.app | head -n1)}
+        BID=$(defaults read "$APP_PATH/Info" CFBundleIdentifier)
+        xcrun simctl terminate "$SIM_UDID" "$BID" || true
+        xcrun simctl launch "$SIM_UDID" "$BID" --args --seed-screenshots --tab today --screenshot-addsheet || true
+        sleep 2
+        xcrun simctl io "$SIM_UDID" screenshot "$RUNNER_TEMP/ipad-screens/add.png"
+
+    - name: Normalize to accepted iPad 13 sizes
+      run: |
+        set -e
+        python3 -m venv $RUNNER_TEMP/ssvenv
+        source $RUNNER_TEMP/ssvenv/bin/activate
+        pip install -q --upgrade pip
+        pip install -q pillow
+        python scripts/prepare_app_store_screenshots.py --source "$RUNNER_TEMP/ipad-screens" --outi13a "$RUNNER_TEMP/ipad13-2064x2752" --outi13b "$RUNNER_TEMP/ipad13-2048x2732"
+
+    - name: Upload screenshots artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: iPad-screenshots-v4
+        path: |
+          ${{ runner.temp }}/ipad13-2064x2752/*.png
+          ${{ runner.temp }}/ipad13-2048x2732/*.png
+

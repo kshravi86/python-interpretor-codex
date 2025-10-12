@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+*.xccheckout
+*.xcuserdatad/
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Products / build artifacts
+Products/
+*.ipa
+*.xcarchive
+*.zip
+
+# Credentials and provisioning
+*.p12
+*.cer
+*.pem
+*.key
+*.csr
+*.b64
+*.mobileprovision
+
+# Temporary and output folders in repo
+instaaa/
+install18/
+latestprovison/
+newmobile/
+attachments/
+NotesApp/Preview Content/Preview Assets.xcassets/
+
+# Python
+__pycache__/
+*.pyc
+

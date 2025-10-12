@@ -1,0 +1,61 @@
+Run xcodebuild build \
+Command line invocation:
+    /Applications/Xcode_26.app/Contents/Developer/usr/bin/xcodebuild build -project NotesApp.xcodeproj -scheme NotesApp -configuration Debug -destination "platform=iOS Simulator,name=iPhone 16,OS=latest"
+
+2025-10-02 05:58:23.902 xcodebuild[29526:938021] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'NotesApp' in project 'NotesApp' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/usr/bin/momc --dry-run --action generate --swift-version 5.0 --sdkroot /Applications/Xcode_26.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk --iphonesimulator-deployment-target 17.0 --module NotesApp /Users/runner/work/notes-saver-ios/notes-saver-ios/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/notes-saver-ios/notes-saver-ios/NotesApp/Preview Content/Preview Assets.xcassets /Users/runner/work/notes-saver-ios/notes-saver-ios/NotesApp/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_26.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 0af349995a88d496ee6790abbbd1bed2
+Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/XCBuildData/0af349995a88d496ee6790abbbd1bed2.xcbuilddata
+error: Multiple commands produce '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.swiftconstvalues'
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+** BUILD FAILED **
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+
+error: Multiple commands produce '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.o'
+
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+The following build commands failed:
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+	Building project NotesApp with scheme NotesApp and configuration Debug
+error: Multiple commands produce '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.stringsdata'
+(1 failure)
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+    note: Target 'NotesApp' (project 'NotesApp') has Swift tasks not blocking downstream targets
+ClangStatCache /Applications/Xcode_26.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A339-6c2905cfaaa95eb3b3984c07a847cef0.sdkstatcache
+    cd /Users/runner/work/notes-saver-ios/notes-saver-ios/NotesApp.xcodeproj
+    /Applications/Xcode_26.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -o /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A339-6c2905cfaaa95eb3b3984c07a847cef0.sdkstatcache
+
+warning: duplicate output file '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.o' on task: SwiftDriver Compilation NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+warning: duplicate output file '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.stringsdata' on task: SwiftDriver Compilation NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+warning: duplicate output file '/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-fhxualdiasyncbggzmvklttmmvuw/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/Note+CoreDataProperties.swiftconstvalues' on task: SwiftDriver Compilation NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+Error: Process completed with exit code 65.

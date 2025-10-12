@@ -1,0 +1,22 @@
+/* Begin PBXBuildFile section */
+		7A8B9C1D2E3F4567890ABCDE /* NotesAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCDF /* NotesAppApp.swift */; };
+		7A8B9C1D2E3F4567890ABCE0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCE1 /* ContentView.swift */; };
+		7A8B9C1D2E3F4567890ABCE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCE3 /* Assets.xcassets */; };
+		7A8B9C1D2E3F4567890ABCE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCE5 /* Preview Assets.xcassets */; };
+		7A8B9C1D2E3F4567890ABCE6 /* NotesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCE7 /* NotesModel.xcdatamodeld */; };
+		7A8B9C1D2E3F4567890ABCE8 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCE9 /* PersistenceController.swift */; };
+		7A8B9C1D2E3F4567890ABCEA /* NotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCEB /* NotesListView.swift */; };
+		7A8B9C1D2E3F4567890ABCEC /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8B9C1D2E3F4567890ABCED /* NoteDetailView.swift */; };
+        9F0000010000000000000001 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000002 /* TodayView.swift */; };
+        9F0000010000000000000003 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000004 /* HistoryView.swift */; };
+        9F0000010000000000000005 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000006 /* SettingsView.swift */; };
+        9F0000010000000000000007 /* HydrationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000008 /* HydrationHelpers.swift */; };
+        9F0000010000000000000009 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F000001000000000000000A /* NotificationManager.swift */; };
+        9F000001000000000000000B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F000001000000000000000C /* Theme.swift */; };
+        9F000001000000000000000D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F000001000000000000000E /* Toast.swift */; };
+        9F000001000000000000000F /* CelebrationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000010 /* CelebrationOverlay.swift */; };
+        9F0000010000000000000013 /* ScreenshotMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0000010000000000000012 /* ScreenshotMode.swift */; };
+        FCF000010000000000000001 /* FlashcardsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF000010000000000000002 /* FlashcardsData.swift */; };
+        FCF000010000000000000003 /* LevelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF000010000000000000004 /* LevelSelectView.swift */; };
+        FCF000010000000000000005 /* FlashcardsGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF000010000000000000006 /* FlashcardsGameView.swift */; };
+/* End PBXBuildFile section */
