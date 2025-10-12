@@ -18,6 +18,27 @@ jobs:
         with:
           xcode-version: '15.4'
 
+      - name: Precheck certificate (p12 + password)
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${BUILD_CERTIFICATE_BASE64:-}" ]; then echo "::error::Missing BUILD_CERTIFICATE_BASE64"; exit 1; fi
+          if [ -z "${P12_PASSWORD:-}" ]; then echo "::error::Missing P12_PASSWORD"; exit 1; fi
+          TMP=$(mktemp -d)
+          echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode > "$TMP/cert.p12" || { echo "::error::Invalid base64 in BUILD_CERTIFICATE_BASE64"; exit 1; }
+          # Validate password and structure
+          if ! (openssl pkcs12 -in "$TMP/cert.p12" -passin pass:"$P12_PASSWORD" -nokeys -clcerts -info -nodes >/dev/null 2>&1); then
+            echo "::error::p12 password incorrect or file corrupted"; exit 1
+          fi
+          # Ensure a private key exists in the bundle
+          if ! (openssl pkcs12 -in "$TMP/cert.p12" -passin pass:"$P12_PASSWORD" -nocerts -nodes -out /dev/null >/dev/null 2>&1); then
+            echo "::error::p12 does not contain a private key. Re-export .p12 including the private key."; exit 1
+          fi
+          echo "p12 precheck OK ($(/usr/bin/stat -f%z "$TMP/cert.p12" 2>/dev/null || stat -c%s "$TMP/cert.p12") bytes)"
+
       - name: Install Apple Certificate
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
@@ -111,4 +132,3 @@ jobs:
           name: CodeSnake-AppStore-IPA
           path: ${{ runner.temp }}/export-appstore/*.ipa
           retention-days: 30
-
