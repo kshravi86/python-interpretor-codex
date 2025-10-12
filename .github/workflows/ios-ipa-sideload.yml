@@ -26,6 +26,20 @@ jobs:
         with:
           xcode-version: '15.4'
 
+      - name: Precheck signing secrets (p12 + password)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${{ secrets.IOS_CERT_P12_BASE64 || '' }}" ]]; then echo "::error::IOS_CERT_P12_BASE64 is missing"; exit 1; fi
+          if [[ -z "${{ secrets.IOS_CERT_PASSWORD || '' }}" ]]; then echo "::error::IOS_CERT_PASSWORD is missing"; exit 1; fi
+          TMP_DIR=$(mktemp -d)
+          echo "Validating p12 secret..."
+          echo "${{ secrets.IOS_CERT_P12_BASE64 }}" | base64 --decode > "$TMP_DIR/signing.p12" || { echo "::error::Invalid base64 in IOS_CERT_P12_BASE64"; exit 1; }
+          if ! (openssl pkcs12 -in "$TMP_DIR/signing.p12" -passin pass:"${{ secrets.IOS_CERT_PASSWORD }}" -nokeys -clcerts -info -nodes >/dev/null 2>&1); then
+            echo "::error::p12 password incorrect or file corrupted"; exit 1
+          fi
+          echo "p12 precheck OK ($(/usr/bin/stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f "%z" "$TMP_DIR/signing.p12" 2>/dev/null || stat -c%s "$TMP_DIR/signing.p12" ) bytes)"
+
       - name: Import signing certs
         id: certs
         uses: apple-actions/import-codesign-certs@v2
