@@ -45,6 +45,51 @@ jobs:
           fi
           echo "p12 precheck OK ($(/usr/bin/stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f "%z" "$TMP_DIR/signing.p12" 2>/dev/null || stat -c%s "$TMP_DIR/signing.p12" ) bytes)"
 
+      - name: Precheck provisioning profile (type + bundle id)
+        shell: bash
+        env:
+          PROFILE_B64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${PROFILE_B64:-}" ]]; then
+            echo "::error::Missing IOS_PROVISION_PROFILE_BASE64 secret."; exit 1
+          fi
+          TMP=$(mktemp -d)
+          echo "$PROFILE_B64" | base64 --decode > "$TMP/profile.mobileprovision" || { echo "::error::Invalid base64 in IOS_PROVISION_PROFILE_BASE64"; exit 1; }
+          PLIST="$TMP/profile.plist"
+          /usr/bin/security cms -D -i "$TMP/profile.mobileprovision" > "$PLIST"
+          NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$PLIST")
+          UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$PLIST")
+          APPID=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' "$PLIST")
+          GET_TASK_ALLOW=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:get-task-allow' "$PLIST" 2>/dev/null || echo false)
+          if /usr/libexec/PlistBuddy -c 'Print :ProvisionedDevices' "$PLIST" >/dev/null 2>&1; then HAS_DEVICES=true; else HAS_DEVICES=false; fi
+          # Validate bundle id/prefix
+          SUFFIX="${APPID#*.}"
+          PREFIX="${APPID%%.*}"
+          if [[ "$SUFFIX" != "$BUNDLE_ID" ]]; then
+            echo "::error::Profile app id ($SUFFIX) does not match bundle id ($BUNDLE_ID)"; exit 1
+          fi
+          if [[ -n "${{ secrets.IOS_TEAM_ID }}" && "$PREFIX" != "${{ secrets.IOS_TEAM_ID }}" ]]; then
+            echo "::warning::Profile team prefix ($PREFIX) differs from IOS_TEAM_ID (${{ secrets.IOS_TEAM_ID }})";
+          fi
+          # Validate type by export method
+          case "$EXPORT_METHOD" in
+            adhoc)
+              if [[ "$GET_TASK_ALLOW" != "false" || "$HAS_DEVICES" != "true" ]]; then
+                echo "::error::Ad Hoc expected: get-task-allow=false and ProvisionedDevices present. Got get-task-allow=$GET_TASK_ALLOW, ProvisionedDevices=$HAS_DEVICES"; exit 1
+              fi
+              ;;
+            development)
+              if [[ "$GET_TASK_ALLOW" != "true" || "$HAS_DEVICES" != "true" ]]; then
+                echo "::error::Development expected: get-task-allow=true and ProvisionedDevices present. Got get-task-allow=$GET_TASK_ALLOW, ProvisionedDevices=$HAS_DEVICES"; exit 1
+              fi
+              ;;
+            *)
+              echo "::warning::Unsupported EXPORT_METHOD=$EXPORT_METHOD for sideload; continuing"
+              ;;
+          esac
+          echo "Profile OK: $NAME ($UUID) for $APPID; get-task-allow=$GET_TASK_ALLOW; devices=$HAS_DEVICES"
+
       - name: Import signing certs
         id: certs
         uses: apple-actions/import-codesign-certs@v2
