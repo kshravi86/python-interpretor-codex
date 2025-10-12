@@ -1,4 +1,4 @@
-name: iOS IPA (Sideload)
+name: iOS IPA (Sideloadly)
 
 on:
   workflow_dispatch:
@@ -7,17 +7,14 @@ on:
         description: Export method (adhoc or development)
         default: adhoc
         required: true
-      scheme:
-        description: Xcode scheme
-        default: NotesApp
-        required: true
+      # Scheme is fixed in this repo; change in code if needed
 
 jobs:
   build:
     runs-on: macos-14
     env:
       APP_PROJECT: NotesApp.xcodeproj
-      APP_SCHEME: ${{ github.event.inputs.scheme || 'NotesApp' }}
+      APP_SCHEME: NotesApp
       EXPORT_METHOD: ${{ github.event.inputs.export_method || 'adhoc' }}
       BUNDLE_ID: com.venki18.codesnake
     steps:
@@ -143,11 +140,16 @@ jobs:
             -exportOptionsPlist "$EXPORT_PLIST" \
             -exportPath "$OUT" | xcpretty || exit ${PIPESTATUS[0]}
           ls -la "$OUT"
+          # Normalize filename for convenience with Sideloadly
+          IPA=$(ls -1 "$OUT"/*.ipa | head -n1)
+          if [[ -f "$IPA" ]]; then
+            mv "$IPA" "$OUT/CodeSnake-${EXPORT_METHOD}.ipa"
+          fi
           echo "IPA_DIR=$OUT" >> $GITHUB_ENV
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ios-ipa
+          name: codesnake-ipa
           path: ${{ env.IPA_DIR }}/*.ipa
           if-no-files-found: error
