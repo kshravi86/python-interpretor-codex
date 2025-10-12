@@ -1,0 +1,139 @@
+name: iOS IPA (Sideload)
+
+on:
+  workflow_dispatch:
+    inputs:
+      export_method:
+        description: Export method (adhoc or development)
+        default: adhoc
+        required: true
+      scheme:
+        description: Xcode scheme
+        default: NotesApp
+        required: true
+
+jobs:
+  build:
+    runs-on: macos-14
+    env:
+      APP_PROJECT: NotesApp.xcodeproj
+      APP_SCHEME: ${{ github.event.inputs.scheme || 'NotesApp' }}
+      EXPORT_METHOD: ${{ github.event.inputs.export_method || 'adhoc' }}
+      BUNDLE_ID: com.venki18.pydeck
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 15.4
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
+      - name: Import signing certs
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.IOS_CERT_P12_BASE64 }}
+          p12-password: ${{ secrets.IOS_CERT_PASSWORD }}
+
+      - name: Install provisioning profile(s)
+        shell: bash
+        env:
+          PROFILE_B64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p "${HOME}/Library/MobileDevice/Provisioning Profiles"
+          if [[ -z "${PROFILE_B64:-}" ]]; then
+            echo "::error::Missing IOS_PROVISION_PROFILE_BASE64 secret."; exit 1
+          fi
+          TMP=$(mktemp -d)
+          echo "$PROFILE_B64" | base64 --decode > "$TMP/profile.mobileprovision"
+          # Extract Name and UUID to place the file where Xcode expects it
+          PLIST="$TMP/profile.plist"
+          /usr/bin/security cms -D -i "$TMP/profile.mobileprovision" > "$PLIST"
+          NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$PLIST")
+          UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$PLIST")
+          echo "Profile: $NAME ($UUID)"
+          cp "$TMP/profile.mobileprovision" "${HOME}/Library/MobileDevice/Provisioning Profiles/${UUID}.mobileprovision"
+          echo "PROFILE_NAME=$NAME" >> $GITHUB_ENV
+          echo "PROFILE_UUID=$UUID" >> $GITHUB_ENV
+
+      - name: Resolve bundle id and team
+        run: |
+          echo "Using bundle id: $BUNDLE_ID"
+          if [[ -z "${{ secrets.IOS_TEAM_ID }}" ]]; then echo "::warning::IOS_TEAM_ID secret not set; build may fail"; fi
+
+      - name: Build archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          ARCHIVE_PATH="$RUNNER_TEMP/NotesApp.xcarchive"
+          xcodebuild -version
+          xcodebuild -list -project "$APP_PROJECT"
+          xcodebuild \
+            -project "$APP_PROJECT" \
+            -scheme "$APP_SCHEME" \
+            -configuration Release \
+            -archivePath "$ARCHIVE_PATH" \
+            DEVELOPMENT_TEAM=${{ secrets.IOS_TEAM_ID }} \
+            PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            archive | xcpretty || exit ${PIPESTATUS[0]}
+          echo "ARCHIVE_PATH=$ARCHIVE_PATH" >> $GITHUB_ENV
+
+      - name: Create export options
+        shell: bash
+        run: |
+          set -euo pipefail
+          PLIST="$RUNNER_TEMP/exportOptions.plist"
+          cat > "$PLIST" <<'PL'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>${EXPORT_METHOD}</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>destination</key>
+            <string>export</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>${BUNDLE_ID}</key>
+              <string>${PROFILE_NAME}</string>
+            </dict>
+            <key>stripSwiftSymbols</key>
+            <true/>
+            <key>teamID</key>
+            <string>${{ secrets.IOS_TEAM_ID }}</string>
+          </dict>
+          </plist>
+          PL
+          # Expand vars in place
+          sed -i '' "s|\${EXPORT_METHOD}|$EXPORT_METHOD|g" "$PLIST"
+          sed -i '' "s|\${BUNDLE_ID}|$BUNDLE_ID|g" "$PLIST"
+          sed -i '' "s|\${PROFILE_NAME}|$PROFILE_NAME|g" "$PLIST"
+          echo "EXPORT_PLIST=$PLIST" >> $GITHUB_ENV
+
+      - name: Export IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/ipa"
+          mkdir -p "$OUT"
+          xcodebuild -exportArchive \
+            -archivePath "$ARCHIVE_PATH" \
+            -exportOptionsPlist "$EXPORT_PLIST" \
+            -exportPath "$OUT" | xcpretty || exit ${PIPESTATUS[0]}
+          ls -la "$OUT"
+          echo "IPA_DIR=$OUT" >> $GITHUB_ENV
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-ipa
+          path: ${{ env.IPA_DIR }}/*.ipa
+          if-no-files-found: error
+
