@@ -5,6 +5,7 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
     private let webView: WKWebView
     private var isLoaded = false
     private var isReady = false
+    private var lastError: String? = nil
     private var continuations: [String: CheckedContinuation<ExecutionResult, Error>] = [:]
 
     override init() {
@@ -54,21 +55,40 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
         webView.loadFileURL(htmlURL, allowingReadAccessTo: allow)
     }
 
-    private func ensureReady() async throws {
+    private func ensureReady(timeout: TimeInterval = 12.0) async throws {
         if isReady { return }
+        let start = Date()
         try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-            // Poll ready flag via JS in case ready already set after load
-            func check() {
-                webView.evaluateJavaScript("window.__pydeckReady === true") { result, _ in
-                    if let ready = result as? Bool, ready {
+            func fail(_ message: String) {
+                cont.resume(throwing: NSError(domain: "OfflinePyodideExecutor", code: -2, userInfo: [NSLocalizedDescriptionKey: message]))
+            }
+            func tick() {
+                if let err = self.lastError {
+                    fail("Pyodide load failed: \(err)")
+                    return
+                }
+                if self.isReady {
+                    cont.resume()
+                    return
+                }
+                let elapsed = Date().timeIntervalSince(start)
+                if elapsed > timeout {
+                    fail("Timed out waiting for Python runtime. Ensure Pyodide assets are bundled in NotesApp/PyodideAssets/")
+                    return
+                }
+                self.webView.evaluateJavaScript("(window.__pydeckReady===true)?'ready':(window.__pydeckError||'')") { result, _ in
+                    if let s = result as? String, s == "ready" {
                         self.isReady = true
                         cont.resume()
+                    } else if let s = result as? String, !s.isEmpty {
+                        self.lastError = s
+                        fail("Pyodide error: \(s)")
                     } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { check() }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { tick() }
                     }
                 }
             }
-            check()
+            tick()
         }
     }
 }
@@ -93,6 +113,7 @@ extension OfflinePyodideExecutor: WKScriptMessageHandler {
         if type == "error" {
             let id = dict["id"] as? String ?? ""
             let msg = dict["message"] as? String ?? "Unknown error"
+            self.lastError = msg
             if let cont = continuations.removeValue(forKey: id) {
                 cont.resume(throwing: NSError(domain: "OfflinePyodideExecutor", code: -1, userInfo: [NSLocalizedDescriptionKey: msg]))
             }
@@ -105,4 +126,3 @@ extension OfflinePyodideExecutor: WKNavigationDelegate {
         // no-op; ready is signaled by JS
     }
 }
-
