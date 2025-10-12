@@ -30,10 +30,14 @@ jobs:
           xcode-version: '15.4'
 
       - name: Import signing certs
+        id: certs
         uses: apple-actions/import-codesign-certs@v2
         with:
           p12-file-base64: ${{ secrets.IOS_CERT_P12_BASE64 }}
           p12-password: ${{ secrets.IOS_CERT_PASSWORD }}
+
+      - name: Show available code signing identities (debug)
+        run: /usr/bin/security find-identity -v -p codesigning
 
       - name: Install provisioning profile(s)
         shell: bash
@@ -62,11 +66,20 @@ jobs:
           echo "Using bundle id: $BUNDLE_ID"
           if [[ -z "${{ secrets.IOS_TEAM_ID }}" ]]; then echo "::warning::IOS_TEAM_ID secret not set; build may fail"; fi
 
+      - name: Install xcpretty
+        run: sudo gem install xcpretty -N || true
+
       - name: Build archive
         shell: bash
         run: |
           set -euo pipefail
           ARCHIVE_PATH="$RUNNER_TEMP/NotesApp.xcarchive"
+          # Choose a signing identity by export method
+          if [[ "$EXPORT_METHOD" == "adhoc" || "$EXPORT_METHOD" == "app-store" ]]; then
+            IDENTITY="Apple Distribution"
+          else
+            IDENTITY="Apple Development"
+          fi
           xcodebuild -version
           xcodebuild -list -project "$APP_PROJECT"
           xcodebuild \
@@ -77,7 +90,9 @@ jobs:
             DEVELOPMENT_TEAM=${{ secrets.IOS_TEAM_ID }} \
             PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" \
             CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="$IDENTITY" \
             PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            OTHER_CODE_SIGN_FLAGS="--keychain ${{ steps.certs.outputs.keychain-path }}" \
             archive | xcpretty || exit ${PIPESTATUS[0]}
           echo "ARCHIVE_PATH=$ARCHIVE_PATH" >> $GITHUB_ENV
 
@@ -136,4 +151,3 @@ jobs:
           name: ios-ipa
           path: ${{ env.IPA_DIR }}/*.ipa
           if-no-files-found: error
-
