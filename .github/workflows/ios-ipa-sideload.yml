@@ -35,8 +35,13 @@ jobs:
           TMP_DIR=$(mktemp -d)
           echo "Validating p12 secret..."
           echo "${{ secrets.IOS_CERT_P12_BASE64 }}" | base64 --decode > "$TMP_DIR/signing.p12" || { echo "::error::Invalid base64 in IOS_CERT_P12_BASE64"; exit 1; }
+          # Validate password and structure: read certs OK
           if ! (openssl pkcs12 -in "$TMP_DIR/signing.p12" -passin pass:"${{ secrets.IOS_CERT_PASSWORD }}" -nokeys -clcerts -info -nodes >/dev/null 2>&1); then
             echo "::error::p12 password incorrect or file corrupted"; exit 1
+          fi
+          # Ensure a private key exists in the PKCS#12 bundle
+          if ! (openssl pkcs12 -in "$TMP_DIR/signing.p12" -passin pass:"${{ secrets.IOS_CERT_PASSWORD }}" -nocerts -nodes -out /dev/null >/dev/null 2>&1); then
+            echo "::error::p12 does not contain a private key. Re-export .p12 from 'My Certificates' including the private key, or rebuild with openssl -export -inkey <key> -in <cert>."; exit 1
           fi
           echo "p12 precheck OK ($(/usr/bin/stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f%z "$TMP_DIR/signing.p12" 2>/dev/null || stat -f "%z" "$TMP_DIR/signing.p12" 2>/dev/null || stat -c%s "$TMP_DIR/signing.p12" ) bytes)"
 
