@@ -23,6 +23,15 @@ Products/
 *.csr
 *.b64
 *.mobileprovision
+*.p8
+ApiKey_*.p8
+
+# Build outputs and results
+*.xcresult
+
+# Local environment files
+.env
+.env.*
 
 # Temporary and output folders in repo
 instaaa/
@@ -35,4 +44,3 @@ NotesApp/Preview Content/Preview Assets.xcassets/
 # Python
 __pycache__/
 *.pyc
-
