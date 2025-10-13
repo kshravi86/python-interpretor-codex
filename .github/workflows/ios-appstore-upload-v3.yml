@@ -37,6 +37,22 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
 
+    - name: Fetch Pyodide runtime assets
+      run: |
+        set -euo pipefail
+        DEST="NotesApp/PyodideAssets"
+        mkdir -p "$DEST"
+        if [ -f "$DEST/pyodide.js" ]; then echo "Pyodide assets already present"; exit 0; fi
+        VER="${PYODIDE_VERSION:-0.24.1}"
+        URL="https://github.com/pyodide/pyodide/releases/download/${VER}/pyodide-${VER}.tar.bz2"
+        TMP=$(mktemp -d)
+        echo "Downloading Pyodide ${VER}…"; curl -L "$URL" -o "$TMP/pyodide.tar.bz2"
+        tar -xjf "$TMP/pyodide.tar.bz2" -C "$TMP"
+        rsync -a "$TMP/pyodide/" "$DEST/"
+        ls -la "$DEST" | head -n 10
+      env:
+        PYODIDE_VERSION: ${{ vars.PYODIDE_VERSION }}
+
     - name: Prepare App Icons from master (no placeholders)
       run: |
         # Provide a finalized 1024x1024 PNG at branding/app_icon_1024.png or set APP_ICON_MASTER env
