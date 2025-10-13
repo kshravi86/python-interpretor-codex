@@ -46,11 +46,14 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
     private func loadIfNeeded() {
         guard !isLoaded else { return }
         isLoaded = true
-        guard let htmlURL = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Pyodide") else {
-            print("Pyodide index.html not found in bundle")
+        let htmlURL = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Pyodide") ??
+                      Bundle.main.url(forResource: "index", withExtension: "html")
+        guard let htmlURL else {
+            print("Pyodide index.html not found in bundle (expected at Pyodide/index.html or root)")
             return
         }
-        let allow = htmlURL.deletingLastPathComponent().deletingLastPathComponent() // allow reading sibling PyodideAssets
+        // Allow reading the entire app bundle to ensure file:// access to sibling assets works on sim/device
+        let allow = Bundle.main.bundleURL
         webView.navigationDelegate = self
         webView.loadFileURL(htmlURL, allowingReadAccessTo: allow)
     }
