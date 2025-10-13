@@ -116,8 +116,14 @@ jobs:
           echo "--- Autorun output ---"
           cat "$OUTFILE"
           echo "----------------------"
-          grep -q "Hello from Python" "$OUTFILE"
-          grep -q "\n0\n1\n2\n\?$" "$OUTFILE" || grep -q "\n0\n1\n2" "$OUTFILE" || (echo "::error::Expected numeric lines not found"; exit 1)
+          # Normalize CRLF if any
+          OUTN="$RUNNER_TEMP/ui-smoke/out.txt"
+          tr -d '\r' < "$OUTFILE" > "$OUTN"
+          # Expect exact lines anywhere in the file
+          grep -qx "Hello from Python!" "$OUTN" || (echo "::error::Missing greeting line"; exit 1)
+          grep -qx "0" "$OUTN" || (echo "::error::Missing 0 line"; exit 1)
+          grep -qx "1" "$OUTN" || (echo "::error::Missing 1 line"; exit 1)
+          grep -qx "2" "$OUTN" || (echo "::error::Missing 2 line"; exit 1)
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
