@@ -19,7 +19,8 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
     }
 
     func execute(code: String) async throws -> ExecutionResult {
-        try await ensureReady()
+        // Allow generous time for Pyodide to initialize on simulator/devices
+        try await ensureReady(timeout: 60.0)
         let reqId = UUID().uuidString
         let escaped = code
             .replacingOccurrences(of: "\\", with: "\\\\")
