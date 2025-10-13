@@ -33,6 +33,11 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
 
+    - name: Lint Swift code
+      uses: realm/SwiftLint@3.5.1
+      with:
+        args: --strict
+
     - name: Fetch Pyodide runtime assets
       run: |
         set -euo pipefail
