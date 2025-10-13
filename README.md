@@ -5,7 +5,7 @@ An iOS SwiftUI app that lets you write small Python snippets, run them, and see 
 ## Features
 
 - Monospaced code editor using `TextEditor`
-- Run button executes code via a remote Python executor API (Piston-compatible)
+- Runs code locally using a bundled Pyodide runtime
 - Displays stdout, stderr, and exit code
 
 ## Project Structure
@@ -14,7 +14,7 @@ An iOS SwiftUI app that lets you write small Python snippets, run them, and see 
 NotesApp/
   NotesAppApp.swift           # App entry; shows PythonInterpreterView
   PythonInterpreterView.swift # Editor UI + output
-  PythonExecutor.swift        # Remote executor implementation (Piston schema)
+  PythonExecutor.swift        # Shared protocol/result types for executors
   Assets.xcassets/            # App icons and assets
 ```
 
@@ -45,4 +45,3 @@ On launch, `index.html` loads `../PyodideAssets/pyodide.js` from the app bundle 
 2. Select a simulator or device
 3. Run
 
-If you prefer remote execution instead, swap `OfflinePyodideExecutor()` for `RemotePythonExecutor()` in `NotesApp/PythonInterpreterView.swift:15`.

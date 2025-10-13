@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 struct PythonInterpreterView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @State private var code: String = """
 print('Hello from Python!')
 for i in range(3):
@@ -15,14 +16,7 @@ for i in range(3):
     @State private var runDuration: Double? = nil
     @State private var useDarkAppearance: Bool = false
 
-    private let executor: PythonExecutor = {
-        let args = ProcessInfo.processInfo.arguments
-        if args.contains("--smoke-remote") {
-            return RemotePythonExecutor()
-        } else {
-            return OfflinePyodideExecutor()
-        }
-    }()
+    private let executor: PythonExecutor = OfflinePyodideExecutor()
 
     var body: some View {
         VStack(spacing: 0) {
