@@ -1,0 +1,310 @@
+Run set -euo pipefail
+++ head -n1
+++ printf '%s\n' /Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app
++ APP=/Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app
++ '[' -z /Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app ']'
++ '[' '!' -d /Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app ']'
++ xcrun simctl install 0891881D-D0DF-4503-9B51-311DF0409E9E /Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app
+++ /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' /Users/runner/work/_temp/DerivedSmoke/Build/Products/Debug-iphonesimulator/CodeSnake.app/Info.plist
++ BUNDLE=com.venki18.codesnake
+++ printf 'print('\''Hello from Python!'\'')\nfor i in range(3):\n    print(i)'
+++ base64
++ SNIPPET=cHJpbnQoJ0hlbGxvIGZyb20gUHl0aG9uIScpCmZvciBpIGluIHJhbmdlKDMpOgogICAgcHJpbnQoaSk=
+++ xcrun simctl get_app_container 0891881D-D0DF-4503-9B51-311DF0409E9E com.venki18.codesnake app
++ APP_BUNDLE=/Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app
+App bundle: /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app
++ echo 'App bundle: /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app'
++ ls -la /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app/Pyodide
+ls: /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app/Pyodide: No such file or directory
++ true
++ ls -la /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app/PyodideAssets
++ head -n 20
+total 1772632
+ls: stdout: Undefined error: 0
+drwxr-xr-x  444 runner  staff     14208 Oct 13 03:59 .
++ true
++ test -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app/Pyodide/index.html
++ echo '::warning::Missing Pyodide/index.html in bundle'
++ test -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Bundle/Application/FDE5188F-1A6E-4F3A-992E-DFAD9EE5F708/CodeSnake.app/PyodideAssets/pyodide.js
++ xcrun simctl launch 0891881D-D0DF-4503-9B51-311DF0409E9E com.venki18.codesnake --args --disable-animations --autorun-b64 cHJpbnQoJ0hlbGxvIGZyb20gUHl0aG9uIScpCmZvciBpIGluIHJhbmdlKDMpOgogICAgcHJpbnQoaSk= --autorun-save smoke.txt
+drwxr-xr-x   12 runner  staff       384 Oct 13 04:01 ..
+-rw-r--r--    1 runner  staff         1 Oct 13 03:59 .keep
+-rw-r--r--    1 runner  staff    736697 Oct 13 03:59 Brotli-1.0.9-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff      1357 Oct 13 03:59 Brotli-1.0.9-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff   5338257 Oct 13 03:59 Cartopy-0.21.1-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff      5831 Oct 13 03:59 Cartopy-0.21.1-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff  10670080 Oct 13 03:59 Cartopy-tests.tar
+-rw-r--r--    1 runner  staff   5976166 Oct 13 03:59 CoolProp-6.4.3-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff       555 Oct 13 03:59 CoolProp-6.4.3-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff  31236120 Oct 13 03:59 Fiona-1.8.22-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff     50248 Oct 13 03:59 Fiona-1.8.22-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff    493915 Oct 13 03:59 Jinja2-3.1.2-py3-none-any.whl
+-rw-r--r--    1 runner  staff      3539 Oct 13 03:59 Jinja2-3.1.2-py3-none-any.whl.metadata
+-rw-r--r--    1 runner  staff    344976 Oct 13 03:59 Logbook-1.6.0-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff      2629 Oct 13 03:59 Logbook-1.6.0-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff     31299 Oct 13 03:59 MarkupSafe-2.1.3-cp311-cp311-emscripten_3_1_45_wasm32.whl
+-rw-r--r--    1 runner  staff      3003 Oct 13 03:59 MarkupSafe-2.1.3-cp311-cp311-emscripten_3_1_45_wasm32.whl.metadata
+-rw-r--r--    1 runner  staff   2996167 Oct 13 03:59 Pillow-10.0.0-cp311-cp311-emscripten_3_1_45_wasm32.whl
+Warning: Missing Pyodide/index.html in bundle
+com.venki18.codesnake: 7180
++ sleep 12
++ mkdir -p /Users/runner/work/_temp/ui-smoke
++ xcrun simctl io 0891881D-D0DF-4503-9B51-311DF0409E9E screenshot /Users/runner/work/_temp/ui-smoke/home.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: /Users/runner/work/_temp/ui-smoke/home.png
++ ls -la /Users/runner/work/_temp/ui-smoke
+total 208
+drwxr-xr-x   3 runner  staff      96 Oct 13 04:02 .
+drwxr-xr-x  11 runner  staff     352 Oct 13 04:02 ..
+-rw-r--r--@  1 runner  staff  106118 Oct 13 04:02 home.png
+++ xcrun simctl get_app_container 0891881D-D0DF-4503-9B51-311DF0409E9E com.venki18.codesnake data
++ CONTAINER=/Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434
+Data container: /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434
++ echo 'Data container: /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434'
++ OUTFILE=/Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ for i in '{1..12}'
++ '[' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
++ sleep 1
++ '[' '!' -f /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt ']'
+Error: No autorun output file found at /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt
++ echo '::error::No autorun output file found at /Users/runner/Library/Developer/CoreSimulator/Devices/0891881D-D0DF-4503-9B51-311DF0409E9E/data/Containers/Data/Application/29ACE9F8-D0EF-4C78-B118-BC0BF6FCB434/Documents/smoke.txt'
+Recent sim logs:
++ echo 'Recent sim logs:'
++ xcrun simctl spawn 0891881D-D0DF-4503-9B51-311DF0409E9E log show --style compact --last 5m
++ tail -n 200
+getpwuid_r did not find a match for uid 501
+2025-10-13 04:03:08.828 Df apsd[2068:2b95] [com.apple.xpc:connection] [0x600003d05860] invalidated because the current process cancelled the connection by calling xpc_connection_cancel()
++ exit 1
+2025-10-13 04:03:08.828 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_evaluate_trust_async_external_block_invoke_3(1724) [C6290.1.1:1][0x101423ed0] Returning from external verify block with result: true
+2025-10-13 04:03:08.828 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_certificate_verify_callback(1945) [C6290.1.1:1][0x101423ed0] Certificate verification result: OK
+2025-10-13 04:03:08.829 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client read_server_finished
+2025-10-13 04:03:08.829 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client send_end_of_early_data
+2025-10-13 04:03:08.829 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client send_client_encrypted_extensions
+2025-10-13 04:03:08.829 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client send_client_certificate
+2025-10-13 04:03:08.829 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client complete_second_flight
+2025-10-13 04:03:08.830 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS 1.3 client done
+2025-10-13 04:03:08.830 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS client finish_client_handshake
+2025-10-13 04:03:08.830 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2248) [C6290.1.1:1][0x101423ed0] Client handshake state: TLS client done
+2025-10-13 04:03:08.830 Df apsd[2068:ac86] [com.apple.network:boringssl] boringssl_context_info_handler(2237) [C6290.1.1:1][0x101423ed0] Client handshake done
+2025-10-13 04:03:08.830 A  apsd[2068:ac86] (Security) SecKeyCopyPublicBytes
+2025-10-13 04:03:08.830 A  apsd[2068:ac86] (Security) SecKeyCopyAttributes
+2025-10-13 04:03:08.830 A  apsd[2068:ac86] (Security) SecKeyCopyPublicBytes
+2025-10-13 04:03:08.831 Df apsd[2068:ac86] [com.apple.network:boringssl] nw_protocol_boringssl_signal_connected(747) [C6290.1.1:1][0x101423ed0] TLS connected [version(0x0304) ciphersuite(TLS_AES_256_GCM_SHA384) group(0x001d) signature_alg(0x0403) alpn(apns-pack-v1:4096:4096) resumed(0) offered_ticket(0) false_started(0) ocsp_received(0) sct_received(0) connect_time(97ms) flight_time(73ms) rtt(73ms) write_stalls(0) read_stalls(2)]
+2025-10-13 04:03:08.831 Df apsd[2068:ac86] [com.apple.network:connection] nw_flow_connected [C6290.1.1 IPv4#b99804d7:5223 in_progress socket-flow (satisfied (Path is satisfied), interface: en0)] Output protocol connected (tls)
+2025-10-13 04:03:08.831 Df apsd[2068:ac86] [com.apple.network:connection] [C6290.1.1 IPv4#b99804d7:5223 ready socket-flow (satisfied (Path is satisfied), interface: en0)] event: flow:child_finish_connect @0.175s
+2025-10-13 04:03:08.831 Df apsd[2068:ac86] [com.apple.network:connection] [C6290.1 Hostname#00154c67:5223 ready resolver (satisfied (Path is satisfied), interface: en0)] event: flow:child_finish_connect @0.175s
+2025-10-13 04:03:08.833 Df apsd[2068:ac86] [com.apple.network:connection] [C6290.1.1 IPv4#b99804d7:5223 ready socket-flow (satisfied (Path is satisfied), interface: en0)] event: flow:changed_viability @0.177s
+2025-10-13 04:03:08.833 Df apsd[2068:ac86] [com.apple.network:connection] [C6290.1 Hostname#00154c67:5223 ready resolver (satisfied (Path is satisfied), interface: en0)] event: flow:changed_viability @0.177s
+2025-10-13 04:03:08.833 Df apsd[2068:ac86] [com.apple.network:connection] nw_flow_connected [C6290 IPv4#b99804d7:5223 in_progress parent-flow (satisfied (Path is satisfied), interface: en0)] Output protocol connected (endpoint_flow)
+2025-10-13 04:03:08.833 Df apsd[2068:ac86] [com.apple.network:connection] [C6290 IPv4#b99804d7:5223 ready parent-flow (satisfied (Path is satisfied), interface: en0)] event: flow:finish_connect @0.177s
+2025-10-13 04:03:08.834 Df apsd[2068:ac86] [com.apple.network:connection] nw_connection_report_state_with_handler_on_nw_queue [C6290] reporting state ready
+2025-10-13 04:03:08.835 Df apsd[2068:ac86] [com.apple.network:connection] [C6290 IPv4#b99804d7:5223 ready parent-flow (satisfied (Path is satisfied), interface: en0)] event: flow:changed_viability @0.179s
+2025-10-13 04:03:08.836 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b37a4e0> negotiatedProtocol: apns-pack-v1:4096:4096
+2025-10-13 04:03:08.837 Df apsd[2068:2b95] [com.apple.apsd:stream] Negotiated protocol components: (
+    "apns-pack-v1",
+    4096,
+    4096
+)
+2025-10-13 04:03:08.837 Df apsd[2068:2b95] [com.apple.apsd:stream] connectionStatistics: {
+    dns = 2;
+    "tcp_handshake" = 71;
+    tls = 97;
+}
+2025-10-13 04:03:08.837 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: Connected to courier 5-courier.sandbox.push.apple.com (17.188.168.143) connection: <APSCourierConnection: 0x101305e00> usingPackedFormat YES secureHandshakeEnabled YES onInterface: NonCellular
+2025-10-13 04:03:08.838 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> begin tracking protocol connection <APSCourierConnectionProtocolConnection: 0x600000c0eca0; NonCellular>
+2025-10-13 04:03:08.838 Df apsd[2068:2b95] [com.apple.apsd:courier-oversized] [STATEDUMP] <APSUserCourier 0x100a05e10 development 0> protocol connections: (
+    NonCellular=(
+        <NonCellular; connectedFor: 0.2s; isConnected: NO; serverIPAddress: 17.188.168.143; serverHostname: 5-courier.sandbox.push.apple.com; linkQuality: 100>,
+        <userState: Disconnected; trackingState: NotSent; filterMode: Default>
+    )
+) filter version state: <highestSentVersion: 0; highestAckedVersion: 0; stateByInterface: [:]> proxy clients: ()
+2025-10-13 04:03:08.838 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSTokenStore:0x600000205260; development>: copyTokenForDomain sandbox.push.apple.com (null)
+2025-10-13 04:03:08.838 A  apsd[2068:2b95] (Security) SecItemCopyMatching_ios
+2025-10-13 04:03:08.839 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSTokenStore:0x600000205260; development>: copyTokenForDomain sandbox.push.apple.com (null)
+2025-10-13 04:03:08.840 A  apsd[2068:2b95] (Security) SecItemCopyMatching_ios
+2025-10-13 04:03:08.841 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> Sending presence message for 0 with token [length = 0, token = (null)] on interface: <APSCourierConnectionProtocolConnection: 0x600000c0eca0; NonCellular> user: <APSUser: 0x60000020a880; name: 0>
+2025-10-13 04:03:08.841 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourierInterfaceState: 0x600000213ae0> Setting user state from: 3 to: 2
+2025-10-13 04:03:08.841 Df apsd[2068:ac86] [com.apple.apsd:simulator] Could not get certificate from simulator with error Error Domain=SimulatorServicesErrorDomain Code=100 "Connection invalid" UserInfo={NSLocalizedDescription=Connection invalid}! Aborting...
+2025-10-13 04:03:08.842 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourierInterfaceState: 0x600000213ae0> Setting user state from: 2 to: 1
+2025-10-13 04:03:08.842 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> Refreshing cert/nonce/sig failed, not sending a presence
+2025-10-13 04:03:08.842 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> _disconnectStream for interface: NonCellular with reason: 14
+2025-10-13 04:03:08.842 Df apsd[2068:2b95] <APSOutgoingQueue: 0x600000c08cc0>: Removing 0 unsent items from the of queue
+2025-10-13 04:03:08.843 Df apsd[2068:2b95] <APSOutgoingQueue: 0x600000c082a0>: Removing 0 unsent items from the of queue
+2025-10-13 04:03:08.843 Df apsd[2068:2b95] <APSOutgoingQueue: 0x600000c08810>: Removing 0 unsent items from the of queue
+2025-10-13 04:03:08.843 Df apsd[2068:2b95] <APSOutgoingQueue: 0x600000c08330>: Removing 0 unsent items from the of queue
+2025-10-13 04:03:08.847 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b37a4e0> asked to change isSuspended=NO to NO
+2025-10-13 04:03:08.847 Df apsd[2068:2b95] [com.apple.apsd:stream] Closing <APSNWTCPStream: 0x60001b37a4e0> with environment <APSEnvironment: 0x600002604900: development>[development]
+2025-10-13 04:03:08.848 Df apsd[2068:2b95] <APSCourierConnection: 0x101305e00>: Setting is connected 0 on interface NonCellular with reason 14
+2025-10-13 04:03:08.848 Df apsd[2068:2b95] [com.apple.PersistentConnection:com.apple.apsd(sandbox.push.apple.com)-NonCellular] <PCConnectionManager: 0x100a05580>: enableNonCellularConnections changed to NO
+2025-10-13 04:03:08.848 Df apsd[2068:ac86] [com.apple.network:connection] [C6290 4676529D-534D-4146-BA1B-1E823C777EF9 Hostname#00154c67:5223 tcp, traffic class: 300, tls, prefer no proxy, attribution: developer] cancel
+2025-10-13 04:03:08.850 Df apsd[2068:2b95] [com.apple.apsd:courier] Connection closed development NonCellular
+2025-10-13 04:03:08.850 Df apsd[2068:2b95] [com.apple.apsd:daemon] <APSDaemon: 0x600002c08080> received courierConnectionStatusDidChange from <APSUserCourier 0x100a05e10 development 0>.
+2025-10-13 04:03:08.850 Df apsd[2068:ac86] [com.apple.network:connection] [C6290 4676529D-534D-4146-BA1B-1E823C777EF9 Hostname#00154c67:5223 tcp, traffic class: 300, tls, prefer no proxy, attribution: developer] cancelled
+	[C6290.1.1 78A12F49-7A80-4E55-A0C4-2A931EE7D8BA 192.168.64.25:61943<->IPv4#b99804d7:5223]
+	Connected Path: satisfied (Path is satisfied), viable, interface: en0
+	Privacy Stance: Not Eligible
+	Duration: 0.194s, DNS @0.001s took 0.002s, TCP @0.004s took 0.072s, TLS 1.3 took 0.097s
+	bytes in/out: 3729/597, packets in/out: 1/2, rtt: 0.071s, retransmitted bytes: 0, out-of-order bytes: 0
+	ecn packets sent/acked/marked/lost: 2/1/0/0
+2025-10-13 04:03:08.850 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.850 Df apsd[2068:2b95] [com.apple.apsd:daemon] <APSDaemon: 0x600002c08080> updating network guidance isConnected? NO
+2025-10-13 04:03:08.851 E  CodeSnake[7180:a0ca] [com.apple.WebKit:ResourceLoadStatistics] Failed to request storage access quirks from WebPrivacy.
+2025-10-13 04:03:08.851 E  CodeSnake[7180:a0ca] [com.apple.WebKit:ResourceLoadStatistics] Failed to request storage access user agent string quirks from WebPrivacy.
+2025-10-13 04:03:08.851 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.851 Df apsd[2068:2b95] [com.apple.apsd:activityTracking] Attempting to roll activity presence salt. Self:<APSUserCourier 0x100a05e10 development 0>
+2025-10-13 04:03:08.851 Df apsd[2068:2b95] [com.apple.apsd:activityTracking] It has not been long enough since the last roll. Time:571 -- Min Interval:21600
+2025-10-13 04:03:08.851 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0>: Disconnect token 0 with reason 14
+2025-10-13 04:03:08.852 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourierInterfaceState: 0x600000213ae0> Setting user state from: 1 to: 3
+2025-10-13 04:03:08.854 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> clearing tracking of protocol connection <APSCourierConnectionProtocolConnection: 0x600000c0eca0; NonCellular>
+2025-10-13 04:03:08.854 Df apsd[2068:2b95] [com.apple.apsd:courier-oversized] [STATEDUMP] <APSUserCourier 0x100a05e10 development 0> protocol connections: () filter version state: <highestSentVersion: 0; highestAckedVersion: 0; stateByInterface: [:]> proxy clients: ()
+2025-10-13 04:03:08.854 Df apsd[2068:2b95] [com.apple.apsd:courier] APSUserCourier <APSCourierConnectionManager: 0x101305bc0; development> adjusting connection. Connected on 0 interfaces. Current link quality: wwan is unknown; wifi is good
+2025-10-13 04:03:08.854 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.854 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> calling _connectStream with interface preference None
+2025-10-13 04:03:08.855 Df apsd[2068:ac86] [com.apple.network:connection] nw_flow_disconnected [C6290 IPv4#b99804d7:5223 cancelled parent-flow ((null))] Output protocol disconnected
+2025-10-13 04:03:08.855 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x100a06070; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.855 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1013078b0; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.855 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101411270; development/com.apple.aps.StatusKit/StatusKitAgent 0>
+2025-10-13 04:03:08.855 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> attempting to _connectStream. currently onInterface None consecutiveFailures 0 preference None shouldUseDualChannel NO. Connected on 0 interfaces.
+2025-10-13 04:03:08.855 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101308da0; development/com.apple.aps.assistantd.fmip/assistantd 0>
+2025-10-13 04:03:08.861 Df apsd[2068:89f0] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10130b390; development/com.apple.aps.nanotimekit.facesupport/nanotimekitcompaniond 0>
+2025-10-13 04:03:08.861 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: _connectStream - We have no connections, stopping the connectionManager on all interfaces
+2025-10-13 04:03:08.863 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10140f430; development/com.apple.telephonyutilities.callservicesdaemon.voip.push/callservicesd 0>
+2025-10-13 04:03:08.864 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10130be70; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.866 Df apsd[2068:aef4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10140f2e0; development/com.apple.aps.routined/routined 0>
+2025-10-13 04:03:08.866 Df apsd[2068:2b95] <APSCourierConnection: 0x101305e00> asked to stopManager on None, stopping on all interfaces.
+2025-10-13 04:03:08.866 Df apsd[2068:a3a2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x100a077a0; development/com.apple.aps.appstored/appstored 0>
+2025-10-13 04:03:08.866 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10130b250; development/com.apple.telephonyutilities.callservicesdaemon.voip.push.development/callservicesd 0>
+2025-10-13 04:03:08.874 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1013090e0; development/com.apple.findmy.push.com.apple.findmy.container/findmylocated 0>
+2025-10-13 04:03:08.874 Df apsd[2068:89f0] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x100a05cd0; development/com.apple.aps.financed/financed 0>
+2025-10-13 04:03:08.874 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101314410; development/com.apple.SafariBookmarksSyncAgent.Push/SafariBookmarksSyncAgent 0>
+2025-10-13 04:03:08.874 Df apsd[2068:2b95] [com.apple.PersistentConnection:com.apple.apsd(sandbox.push.apple.com)-WWAN] PCConnectionManager was stopped by client
+2025-10-13 04:03:08.874 Df apsd[2068:a3a2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101311360; development/com.apple.aps.suggestd/suggestd 0>
+2025-10-13 04:03:08.876 Df apsd[2068:ac65] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x100a0fd10; development/com.apple.AdSheetPhone.push/adprivacyd 0>
+2025-10-13 04:03:08.878 Df apsd[2068:aef4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x100a06440; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.879 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10140f050; development/com.apple.securityd.aps/securityd 0>
+2025-10-13 04:03:08.879 Df apsd[2068:a3a2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10130a450; development/(null)/securityd 0>
+2025-10-13 04:03:08.879 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10141c790; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.879 Df apsd[2068:2b95] [com.apple.PersistentConnection:com.apple.apsd(sandbox.push.apple.com)-NonCellular] PCConnectionManager was stopped by client
+2025-10-13 04:03:08.879 Df apsd[2068:ac66] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101411a70; development/com.apple.aps.mobileassetd/mobileassetd 0>
+2025-10-13 04:03:08.880 Df apsd[2068:89f0] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1014114d0; development/com.apple.aps.kvsd/syncdefaultsd 0>
+2025-10-13 04:03:08.880 Df apsd[2068:ac65] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101317a40; development/com.apple.aps.itunescloudd/itunescloudd 0>
+2025-10-13 04:03:08.880 Df apsd[2068:aef4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1013124a0; development/com.apple.aps.remindd.dataaccess.dev/remindd 0>
+2025-10-13 04:03:08.880 Df apsd[2068:ac66] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1014176b0; development/com.apple.aps.remindd.dataaccess.demo/remindd 0>
+2025-10-13 04:03:08.880 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> _connectStream - Stopping the connectionManager on our attemptInterface NonCellular
+2025-10-13 04:03:08.881 Df apsd[2068:a3a2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101309420; development/com.apple.coreservices.appleid.aps/sharingd 0>
+2025-10-13 04:03:08.881 Df apsd[2068:a3a4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101411630; development/(null)/homed 0>
+2025-10-13 04:03:08.881 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101426730; development/com.apple.aps.remindd.dataaccess/remindd 0>
+2025-10-13 04:03:08.881 Df apsd[2068:2b95] [com.apple.PersistentConnection:com.apple.apsd(sandbox.push.apple.com)-NonCellular] PCConnectionManager was stopped by client
+2025-10-13 04:03:08.881 Df apsd[2068:aef4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101308710; development/(null)/StatusKitAgent 0>
+2025-10-13 04:03:08.882 Df apsd[2068:aef2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x1014234b0; development/com.apple.fileprovider.extension.push.development/fileproviderd 0>
+2025-10-13 04:03:08.882 Df apsd[2068:a3a2] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10130e700; development/com.apple.aps.ScreenTime/ScreenTimeAgent 0>
+2025-10-13 04:03:08.882 Df apsd[2068:ac66] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10141b440; development/com.apple.ak.aps.sim/akd 0>
+2025-10-13 04:03:08.882 Df apsd[2068:aef4] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x10141e6d0; development/com.apple.fileprovider.extension.push/fileproviderd 0>
+2025-10-13 04:03:08.882 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: isWWANUsable NO  isWiFiUsable YES onInterface NonCellular
+2025-10-13 04:03:08.882 Df apsd[2068:ac65] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101419e30; development/com.apple.aps.amsaccountsd/amsaccountsd 0>
+2025-10-13 04:03:08.882 Df apsd[2068:9e84] [com.apple.apsd:connectionServer] Dispatching low priority message on server: <APSConnectionServer: 0x101311220; development/com.apple.aps.amsengagementd/amsengagementd 0>
+2025-10-13 04:03:08.884 Df apsd[2068:2b95] [com.apple.PersistentConnection:com.apple.apsd(sandbox.push.apple.com)-NonCellular] <PCConnectionManager: 0x100a05580>: enableNonCellularConnections changed to YES
+2025-10-13 04:03:08.884 Df apsd[2068:2b95] <APSCourierConnection: 0x101305e00> Opening stream on interface NonCellular
+2025-10-13 04:03:08.884 Df apsd[2068:2b95] [com.apple.apsd:stream] Opening <APSNWTCPStream: 0x60001b372760> with environment <APSEnvironment: 0x600002604900: development>[development]
+2025-10-13 04:03:08.885 Df apsd[2068:ac86] [com.apple.network:connection] nw_connection_report_state_with_handler_on_nw_queue [C6290] reporting state cancelled
+2025-10-13 04:03:08.885 Df apsd[2068:2b95] loadConfigurationForEnvironment: <APSEnvironment: 0x600002604900: development> development interface: NonCellular
+2025-10-13 04:03:08.885 Df apsd[2068:2b95] [com.apple.apsd:courier] Opening stream onInterface: NonCellular, development
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: Connecting courier stream using configuration bag at https://init.sandbox.push.apple.com/bag and port TCP 5223
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> is no longer in proxy mode.
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] APSUserCourier <APSCourierConnectionManager: 0x101305bc0; development> adjusting connection. Connected on 0 interfaces. Current link quality: wwan is unknown; wifi is good
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> calling _connectStream with interface preference None
+2025-10-13 04:03:08.886 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> attempting to _connectStream. currently onInterface None consecutiveFailures 0 preference None shouldUseDualChannel NO. Connected on 0 interfaces.
+2025-10-13 04:03:08.887 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development> _connectStream - caller is ensuring that we are connected. We are so there's nothing to do here. - Connected on 0 interfaces.
+2025-10-13 04:03:08.887 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.887 Df apsd[2068:ac86] <APSConfiguration: 0x600002904d90> Calling configuration completion blocks, expiration date Mon Oct 13 06:53:35 2025 error: (null)
+2025-10-13 04:03:08.887 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.887 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> is no longer in proxy mode.
+2025-10-13 04:03:08.887 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0> _hasListeningTopics YES
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] Looking up connection on peer: 14044c0   found <APSConnectionServer: 0x100a06070; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] [com.apple.apsd:stream] APSNWTCPStream <APSNWTCPStream: 0x60001b372760> got config <APSConfiguration: 0x600002904d90>  -- opened? YES
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] <APSNetworkMonitor: 0x6000030003f0> setDisableCostDrivenDualChannelAttempts: changing from NO to NO (got number 0)
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] <APSNetworkMonitor: 0x6000030003f0> setPiggybackDualChannelAttempts: changing from 50 to 50 (got number 50)
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] <APSNetworkMonitor: 0x6000030003f0> setCostDrivenDualChannelAttempts: changing from 100 to 100 (got number 100)
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] <APSNetworkMonitor: 0x6000030003f0> setDisableDualModePiggybackTimer: changing from NO to NO (got number (null))
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: keepAliveV2TimeDriftMaximum = 30
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: lastIPCachingPercentage = 0
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>:  lastIPCachingTTLMinutes = 1440
+2025-10-13 04:03:08.888 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: minimumIntervalFallbackEnabled = YES
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>:  delayedReconnectTLSIntervalTrigger = 50
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>:  delayedReconnectTLSInterval = 120
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSUserCourier 0x100a05e10 development 0>:  filterOptimizationsEnabled = YES
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b372760>: nagleEnabled is not available from config bag, default NO
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b372760> env isLoadBalanced, using server count 10 and hostname courier.sandbox.push.apple.com
+2025-10-13 04:03:08.889 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b372760> _connectToServerWithPeerName: courier.sandbox.push.apple.com and port: 5223 forceWWANInterface? NO
+2025-10-13 04:03:08.890 Df apsd[2068:2b95] [com.apple.apsd:stream] <APSNWTCPStream: 0x60001b372760> Set nw_tcp_options_set_no_delay = YES
+2025-10-13 04:03:08.890 Df apsd[2068:2b95] [com.apple.apsd:courier] <APSCourierConnectionManager: 0x101305bc0; development>: Connecting to courier 0-courier.sandbox.push.apple.com with connection: <APSCourierConnection: 0x101305e00> onInterface: NonCellular
+2025-10-13 04:03:08.890 Df apsd[2068:2b95] Looking up connection on peer: 14056e0   found <APSConnectionServer: 0x1013078b0; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.890 Df apsd[2068:ac86] [com.apple.network:connection] [C6291 FF9F54D4-255A-4EDA-BCD6-12B1F1B6751F Hostname#0abbf9b2:5223 tcp, tls, attribution: developer, context: Default Network Context (private), proc: 83A075A1-CC6D-3F5B-8E4E-C67BFAF44DEB, traffic class: 300, prefer no proxy, prohibited subtypes: companion] start
+2025-10-13 04:03:08.890 Df apsd[2068:2b95] Looking up connection on peer: 1419640   found <APSConnectionServer: 0x10130be70; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.891 Df apsd[2068:ac86] [com.apple.network:connection] [C6291 Hostname#0abbf9b2:5223 initial parent-flow ((null))] event: path:start @0.000s
+2025-10-13 04:03:08.891 Df apsd[2068:ac86] [com.apple.network:connection] [C6291 Hostname#0abbf9b2:5223 waiting parent-flow (satisfied (Path is satisfied), interface: en0)] event: path:satisfied @0.000s, uuid: 081FC1FE-4EA5-4674-8157-82159C00E9A7
+2025-10-13 04:03:08.891 Df apsd[2068:2b95] Looking up connection on peer: 130f060   found <APSConnectionServer: 0x10140f2e0; development/com.apple.aps.routined/routined 0>
+2025-10-13 04:03:08.891 Df apsd[2068:2b95] Looking up connection on peer: 14230a0   found <APSConnectionServer: 0x101311360; development/com.apple.aps.suggestd/suggestd 0>
+2025-10-13 04:03:08.891 Df apsd[2068:ac86] [com.apple.network:connection] [C6291 Hostname#0abbf9b2:5223 in_progress parent-flow (satisfied (Path is satisfied), interface: en0)] event: flow:start_connect @0.001s
+2025-10-13 04:03:08.891 Df apsd[2068:ac86] [com.apple.network:connection] nw_connection_report_state_with_handler_on_nw_queue [C6291] reporting state preparing
+2025-10-13 04:03:08.891 Df apsd[2068:2b95] Looking up connection on peer: a06580   found <APSConnectionServer: 0x100a05cd0; development/com.apple.aps.financed/financed 0>
+2025-10-13 04:03:08.891 Df apsd[2068:2b95] Looking up connection on peer: a061b0   found <APSConnectionServer: 0x100a06440; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.891 Df apsd[2068:2b95] Looking up connection on peer: a08ee0   found <APSConnectionServer: 0x10141c790; development/(null)/identityservicesd 0>
+2025-10-13 04:03:08.892 Df apsd[2068:2b95] Looking up connection on peer: 141f490   found <APSConnectionServer: 0x10130a450; development/(null)/securityd 0>
+2025-10-13 04:03:08.892 Df apsd[2068:ac86] [com.apple.network:connection] [C6291 Hostname#0abbf9b2:5223 in_progress parent-flow (satisfied (Path is satisfied), interface: en0)] event: flow:start_child @0.001s
+2025-10-13 04:03:08.892 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1 Hostname#0abbf9b2:5223 initial path ((null))] event: path:start @0.001s
+2025-10-13 04:03:08.892 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1 Hostname#0abbf9b2:5223 waiting path (satisfied (Path is satisfied), interface: en0)] event: path:satisfied @0.001s, uuid: 081FC1FE-4EA5-4674-8157-82159C00E9A7
+2025-10-13 04:03:08.892 Df apsd[2068:2b95] Looking up connection on peer: 14045e0   found <APSConnectionServer: 0x10140f050; development/com.apple.securityd.aps/securityd 0>
+2025-10-13 04:03:08.892 Df apsd[2068:2b95] Looking up connection on peer: a06f80   found <APSConnectionServer: 0x101309420; development/com.apple.coreservices.appleid.aps/sharingd 0>
+2025-10-13 04:03:08.892 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] event: resolver:start_dns @0.002s
+2025-10-13 04:03:08.892 Df apsd[2068:2b95] Looking up connection on peer: 1423210   found <APSConnectionServer: 0x101317a40; development/com.apple.aps.itunescloudd/itunescloudd 0>
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#b99804d7:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#ac0156dd:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#72a0f63a:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#417ef32d:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#c7d5129e:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#5d5b70bd:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#eeb3ff20:5223
+2025-10-13 04:03:08.893 Df apsd[2068:ac86] [com.apple.network:connection] nw_endpoint_resolver_update [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] Adding endpoint handler for IPv4#3cbb3467:5223
+2025-10-13 04:03:08.894 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1 Hostname#0abbf9b2:5223 in_progress resolver (satisfied (Path is satisfied), interface: en0)] event: resolver:receive_dns @0.004s
+2025-10-13 04:03:08.894 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1.1 IPv4#b99804d7:5223 initial path ((null))] event: path:start @0.004s
+2025-10-13 04:03:08.894 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1.1 IPv4#b99804d7:5223 waiting path (satisfied (Path is satisfied), interface: en0)] event: path:satisfied @0.004s, uuid: 84CC6CB8-D182-4A71-B200-7248CBEE6402
+2025-10-13 04:03:08.895 Df apsd[2068:ac86] [com.apple.network:connection] [C6291.1.1 IPv4#b99804d7:5223 in_progress socket-flow (satisfied (Path is satisfied), interface: en0)] event: flow:start_connect @0.004s
+Error: Process completed with exit code 1.
