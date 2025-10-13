@@ -85,9 +85,10 @@ for i in range(3):
                 combined += result.stderr
             }
             if combined.isEmpty { combined = "(no output)" }
-            await MainActor.run { self.output = combined }
-            if let save = autorunSavePath {
-                writeAutorunOutput(combined)
+            let finalCombined = combined
+            await MainActor.run { self.output = finalCombined }
+            if let _ = autorunSavePath {
+                writeAutorunOutput(finalCombined)
             }
         } catch {
             await MainActor.run {
