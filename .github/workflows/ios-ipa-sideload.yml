@@ -41,7 +41,8 @@ jobs:
           echo "Downloading Pyodide ${VER}…"; curl -L "$URL" -o "$TMP/pyodide.tar.bz2"
           tar -xjf "$TMP/pyodide.tar.bz2" -C "$TMP"
           rsync -a "$TMP/pyodide/" "$DEST/"
-          ls -la "$DEST" | head -n 10
+          # head closes the pipe early; ignore SIGPIPE with || true under -euo pipefail
+          ls -la "$DEST" | head -n 10 || true
 
       - name: Precheck signing secrets (p12 + password)
         shell: bash

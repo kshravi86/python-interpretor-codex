@@ -45,7 +45,7 @@ jobs:
         echo "Downloading Pyodide ${VER}…"; curl -L "$URL" -o "$TMP/pyodide.tar.bz2"
         tar -xjf "$TMP/pyodide.tar.bz2" -C "$TMP"
         rsync -a "$TMP/pyodide/" "$DEST/"
-        ls -la "$DEST" | head -n 10
+        ls -la "$DEST" | head -n 10 || true
       env:
         PYODIDE_VERSION: ${{ vars.PYODIDE_VERSION }}
 
