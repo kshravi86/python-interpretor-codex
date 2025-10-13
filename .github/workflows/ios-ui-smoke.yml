@@ -79,20 +79,32 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           APP=$(ls "$DERIVED/Build/Products/Debug-iphonesimulator"/*.app | head -n1)
           if [ -z "$APP" ]; then echo "::error::No .app found in $DERIVED"; exit 1; fi
           xcrun simctl install "${{ steps.sim.outputs.udid }}" "$APP"
           BUNDLE=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
           SNIPPET=$(printf "print('Hello from Python!')\nfor i in range(3):\n    print(i)" | base64)
+          # Launch and do not fail the build even if app exits nonzero
           xcrun simctl launch "${{ steps.sim.outputs.udid }}" "$BUNDLE" --args --disable-animations --autorun-b64 "$SNIPPET" --autorun-save smoke.txt || true
+          # Give the app time to run the snippet and write the file
+          sleep 6
           mkdir -p "$RUNNER_TEMP/ui-smoke"
-          xcrun simctl io "${{ steps.sim.outputs.udid }}" screenshot "$RUNNER_TEMP/ui-smoke/home.png"
+          xcrun simctl io "${{ steps.sim.outputs.udid }}" screenshot "$RUNNER_TEMP/ui-smoke/home.png" || true
           ls -la "$RUNNER_TEMP/ui-smoke"
           # Verify autorun output file inside app container
           CONTAINER=$(xcrun simctl get_app_container "${{ steps.sim.outputs.udid }}" "$BUNDLE" data)
           echo "Data container: $CONTAINER"
           OUTFILE="$CONTAINER/Documents/smoke.txt"
-          if [ ! -f "$OUTFILE" ]; then echo "::error::No autorun output file found at $OUTFILE"; exit 1; fi
+          # Retry loop for up to ~12 seconds to allow file write
+          for i in {1..12}; do
+            if [ -f "$OUTFILE" ]; then break; fi; sleep 1; done
+          if [ ! -f "$OUTFILE" ]; then
+            echo "::error::No autorun output file found at $OUTFILE";
+            echo "Recent sim logs:";
+            xcrun simctl spawn "${{ steps.sim.outputs.udid }}" log show --style compact --last 5m | tail -n 200 || true
+            exit 1
+          fi
           echo "--- Autorun output ---"
           cat "$OUTFILE"
           echo "----------------------"
