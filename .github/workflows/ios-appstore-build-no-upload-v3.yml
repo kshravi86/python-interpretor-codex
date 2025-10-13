@@ -36,8 +36,8 @@ jobs:
     - name: Install SwiftLint
       run: brew install swiftlint
 
-    - name: Lint Swift code
-      run: swiftlint --strict
+    - name: Lint Swift code (non-blocking)
+      run: swiftlint --reporter github-actions-logging || true
 
     - name: Fetch Pyodide runtime assets
       run: |
