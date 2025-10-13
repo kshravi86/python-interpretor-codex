@@ -56,11 +56,16 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
         <body>
         <script>
         (async function() {
-          const candidates = [new URL('PyodideAssets/', location.href), new URL('../PyodideAssets/', location.href)];
+          const CDN = 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/';
+          const candidates = [
+            new URL('PyodideAssets/', location.href),
+            new URL('../PyodideAssets/', location.href),
+            CDN
+          ];
           async function tryLoad(base) {
             return new Promise((resolve, reject) => {
               const s = document.createElement('script');
-              s.src = new URL('pyodide.js', base).toString();
+              s.src = (typeof base === 'string') ? (base + 'pyodide.js') : new URL('pyodide.js', base).toString();
               s.onload = async () => { try { window.pyodide = await loadPyodide({indexURL: base.toString()}); resolve(); } catch(e){ reject(e); } };
               s.onerror = () => reject(new Error('Failed to load ' + s.src));
               document.body.appendChild(s);
