@@ -33,10 +33,11 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
 
+    - name: Install SwiftLint
+      run: brew install swiftlint
+
     - name: Lint Swift code
-      uses: realm/SwiftLint@3.5.1
-      with:
-        args: --strict
+      run: swiftlint --strict
 
     - name: Fetch Pyodide runtime assets
       run: |
