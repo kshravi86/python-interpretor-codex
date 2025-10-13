@@ -37,6 +37,9 @@
         AA1111111111111111111115 /* OfflinePyodideExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111111111111111111116 /* OfflinePyodideExecutor.swift */; };
         AA1111111111111111111117 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = AA1111111111111111111118 /* index.html */; };
         AA1111111111111111111119 /* PyodideAssets in Resources */ = {isa = PBXBuildFile; fileRef = AA1111111111111111111120 /* PyodideAssets */; };
+        BB2222222222222222222201 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222202 /* CodeEditorView.swift */; };
+        BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222204 /* SyntaxHighlighter.swift */; };
+        BB2222222222222222222205 /* Snippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222206 /* Snippets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,9 @@
         AA1111111111111111111116 /* OfflinePyodideExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflinePyodideExecutor.swift; sourceTree = "<group>"; };
         AA1111111111111111111118 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Pyodide/index.html; sourceTree = "<group>"; };
         AA1111111111111111111120 /* PyodideAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PyodideAssets; sourceTree = "<group>"; };
+        BB2222222222222222222202 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
+        BB2222222222222222222204 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
+        BB2222222222222222222206 /* Snippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,9 @@
                 9F0000010000000000000004 /* HistoryView.swift */,
                 9F0000010000000000000006 /* SettingsView.swift */,
                 9F0000010000000000000012 /* ScreenshotMode.swift */,
+                BB2222222222222222222202 /* CodeEditorView.swift */,
+                BB2222222222222222222204 /* SyntaxHighlighter.swift */,
+                BB2222222222222222222206 /* Snippets.swift */,
                 AA1111111111111111111118 /* index.html */,
                 AA1111111111111111111120 /* PyodideAssets */,
                 7A8B9C1D2E3F4567890ABCE7 /* NotesModel.xcdatamodeld */,
@@ -220,6 +229,9 @@
                 AA1111111111111111111113 /* PythonExecutor.swift in Sources */,
                 AA1111111111111111111111 /* PythonInterpreterView.swift in Sources */,
                 AA1111111111111111111115 /* OfflinePyodideExecutor.swift in Sources */,
+                BB2222222222222222222201 /* CodeEditorView.swift in Sources */,
+                BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */,
+                BB2222222222222222222205 /* Snippets.swift in Sources */,
                 9F0000010000000000000001 /* TodayView.swift in Sources */,
                 9F0000010000000000000003 /* HistoryView.swift in Sources */,
                 9F0000010000000000000005 /* SettingsView.swift in Sources */,
