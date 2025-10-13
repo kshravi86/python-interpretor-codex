@@ -51,29 +51,36 @@ final class SyntaxHighlighter {
         // Comments: # ... end of line
         if let regex = try? NSRegularExpression(pattern: "#.*", options: []) {
             regex.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
-                if let r = m?.range {
-                    attr.addAttribute(.foregroundColor, value: theme.comment, range: r)
-                }
+                if let r = m?.range { attr.addAttribute(.foregroundColor, value: theme.comment, range: r) }
             }
         }
-        // Triple-quoted strings '''...''' or """..."""
-        if let triple = try? NSRegularExpression(pattern: "("""[\s\S]*?"""|'''[\s\S]*?''')", options: []) {
-            triple.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
+
+        // Triple-quoted strings: """...""" and '''...''' (match across newlines)
+        if let tripleDQ = try? NSRegularExpression(pattern: #""""""[\s\S]*?""""""# , options: []) {
+            tripleDQ.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
                 if let r = m?.range { attr.addAttribute(.foregroundColor, value: theme.string, range: r) }
             }
         }
+        if let tripleSQ = try? NSRegularExpression(pattern: #"'''[\s\S]*?'''"#, options: []) {
+            tripleSQ.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
+                if let r = m?.range { attr.addAttribute(.foregroundColor, value: theme.string, range: r) }
+            }
+        }
+
         // Single/double quoted strings
-        if let str = try? NSRegularExpression(pattern: "(\"[^\"]*\"|'[^']*')", options: []) {
+        if let str = try? NSRegularExpression(pattern: #"("[^"]*"|'[^']*')"#, options: []) {
             str.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
                 if let r = m?.range { attr.addAttribute(.foregroundColor, value: theme.string, range: r) }
             }
         }
+
         // Numbers
-        if let nums = try? NSRegularExpression(pattern: "\\b\\d+(?:\\.\\d+)?\\b", options: []) {
+        if let nums = try? NSRegularExpression(pattern: #"\b\d+(?:\.\d+)?\b"#, options: []) {
             nums.enumerateMatches(in: text, options: [], range: fullRange) { m, _, _ in
                 if let r = m?.range { attr.addAttribute(.foregroundColor, value: theme.number, range: r) }
             }
         }
+
         // Keywords (basic word boundary scan)
         ns.enumerateSubstrings(in: fullRange, options: .byWords) { (substr, substrRange, _, _) in
             if let s = substr, self.keywords.contains(s) {
@@ -86,3 +93,4 @@ final class SyntaxHighlighter {
         textView.selectedRange = selected
     }
 }
+
