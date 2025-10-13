@@ -19,7 +19,8 @@ final class RemotePythonExecutor: PythonExecutor {
 
     /// Piston requires a language and version. Version may be omitted by some deployments.
     var language: String = "python"
-    var version: String? = nil // e.g., "3.10.0"
+    // Some Piston deployments require an explicit version; default to a common one.
+    var version: String? = "3.10.0"
 
     func execute(code: String) async throws -> ExecutionResult {
         var payload: [String: Any] = [
@@ -62,4 +63,3 @@ final class RemotePythonExecutor: PythonExecutor {
         }
     }
 }
-
