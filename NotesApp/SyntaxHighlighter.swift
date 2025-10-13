@@ -8,13 +8,25 @@ final class SyntaxHighlighter {
         let comment: UIColor
         let number: UIColor
 
-        static func system(dark: Bool) -> Theme {
-            return Theme(
-                base: dark ? .white : .black,
+        static func system(dark: Bool) -> Theme { dark ? defaultDark() : defaultLight() }
+
+        static func defaultLight() -> Theme {
+            Theme(
+                base: UIColor.label,
                 keyword: UIColor.systemPurple,
                 string: UIColor.systemGreen,
                 comment: UIColor.systemGray,
                 number: UIColor.systemOrange
+            )
+        }
+
+        static func defaultDark() -> Theme {
+            Theme(
+                base: UIColor.white,
+                keyword: UIColor.systemPink,
+                string: UIColor.systemGreen,
+                comment: UIColor.systemGray3,
+                number: UIColor.systemYellow
             )
         }
     }
@@ -74,4 +86,3 @@ final class SyntaxHighlighter {
         textView.selectedRange = selected
     }
 }
-

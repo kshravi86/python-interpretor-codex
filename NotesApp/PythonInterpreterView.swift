@@ -15,6 +15,7 @@ for i in range(3):
     @State private var fontSize: CGFloat = 15
     @State private var runDuration: Double? = nil
     @State private var useDarkAppearance: Bool = false
+    @State private var useDarkSyntaxTheme: Bool = false
 
     private let executor: PythonExecutor = OfflinePyodideExecutor()
 
@@ -34,7 +35,7 @@ for i in range(3):
     }
 
     private var editor: some View {
-        CodeEditorView(text: $code, fontSize: fontSize, isDark: useDarkAppearance)
+        CodeEditorView(text: $code, fontSize: fontSize, isDark: useDarkAppearance, theme: useDarkSyntaxTheme ? SyntaxHighlighter.Theme.defaultDark() : SyntaxHighlighter.Theme.defaultLight())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemBackground))
     }
@@ -83,10 +84,13 @@ for i in range(3):
                 Slider(value: $fontSize, in: 12...22)
                     .frame(width: 140)
             }
-            Toggle(isOn: $useDarkAppearance) { Image(systemName: "moon.fill") }
-                .toggleStyle(.switch)
-                .tint(.purple)
-                .padding(.leading, 6)
+            Menu {
+                Button("Light Theme") { useDarkAppearance = false; useDarkSyntaxTheme = false }
+                Button("Dark Theme") { useDarkAppearance = true; useDarkSyntaxTheme = true }
+            } label: {
+                Label("Theme", systemImage: useDarkSyntaxTheme ? "moon.fill" : "sun.max.fill")
+            }
+            .buttonStyle(.bordered)
 
             Spacer()
 

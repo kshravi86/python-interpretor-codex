@@ -5,10 +5,11 @@ struct CodeEditorView: UIViewRepresentable {
     @Binding var text: String
     var fontSize: CGFloat
     var isDark: Bool
+    var theme: SyntaxHighlighter.Theme
 
     func makeUIView(context: Context) -> CodeEditorContainer {
         let v = CodeEditorContainer()
-        v.configure(fontSize: fontSize, isDark: isDark)
+        v.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         v.setText(text)
         v.onTextChanged = { newText in
             if newText != text { self.text = newText }
@@ -17,7 +18,7 @@ struct CodeEditorView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: CodeEditorContainer, context: Context) {
-        uiView.configure(fontSize: fontSize, isDark: isDark)
+        uiView.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         if uiView.text != text { uiView.setText(text) }
     }
 }
@@ -28,6 +29,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private let highlighter = SyntaxHighlighter()
     private var font: UIFont = .monospacedSystemFont(ofSize: 15, weight: .regular)
     private var dark = false
+    private var theme: SyntaxHighlighter.Theme = .defaultLight()
 
     var onTextChanged: ((String) -> Void)?
 
@@ -56,8 +58,9 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
 
     deinit { textView.removeObserver(self, forKeyPath: #keyPath(UITextView.contentOffset)) }
 
-    func configure(fontSize: CGFloat, isDark: Bool) {
+    func configure(fontSize: CGFloat, isDark: Bool, theme: SyntaxHighlighter.Theme) {
         dark = isDark
+        self.theme = theme
         font = .monospacedSystemFont(ofSize: fontSize, weight: .regular)
         textView.font = font
         backgroundColor = isDark ? UIColor.black : UIColor.systemBackground
@@ -99,7 +102,6 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     }
 
     private func applyHighlighting() {
-        let theme = SyntaxHighlighter.Theme.system(dark: dark)
         highlighter.highlight(textView: textView, theme: theme, font: font)
     }
 }
@@ -145,4 +147,3 @@ final class LineNumberView: UIView {
         }
     }
 }
-
