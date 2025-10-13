@@ -12,7 +12,14 @@ for i in range(3):
     @State private var lastError: String? = nil
     @State private var autorunSavePath: String? = nil
 
-    private let executor: PythonExecutor = OfflinePyodideExecutor()
+    private let executor: PythonExecutor = {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("--smoke-remote") {
+            return RemotePythonExecutor()
+        } else {
+            return OfflinePyodideExecutor()
+        }
+    }()
 
     var body: some View {
         VStack(spacing: 0) {
