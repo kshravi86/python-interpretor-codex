@@ -9,6 +9,7 @@ for i in range(3):
     @State private var output: String = ""
     @State private var isRunning: Bool = false
     @State private var lastError: String? = nil
+    @State private var autorunSavePath: String? = nil
 
     private let executor: PythonExecutor = OfflinePyodideExecutor()
 
@@ -20,6 +21,7 @@ for i in range(3):
         }
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
+        .onAppear { applyAutorunFromArgumentsIfNeeded() }
     }
 
     private var editor: some View {
@@ -83,12 +85,44 @@ for i in range(3):
             }
             if combined.isEmpty { combined = "(no output)" }
             await MainActor.run { self.output = combined }
+            if let save = autorunSavePath {
+                writeAutorunOutput(combined)
+            }
         } catch {
             await MainActor.run {
                 self.lastError = "Run failed: \(error.localizedDescription)"
             }
+            if let _ = autorunSavePath {
+                writeAutorunOutput("ERROR: \(error.localizedDescription)")
+            }
         }
         await MainActor.run { self.isRunning = false }
+    }
+
+    private func applyAutorunFromArgumentsIfNeeded() {
+        let args = ProcessInfo.processInfo.arguments
+        if let i = args.firstIndex(of: "--autorun-b64"), i + 1 < args.count {
+            let b64 = args[i + 1]
+            if let data = Data(base64Encoded: b64), let snippet = String(data: data, encoding: .utf8) {
+                self.code = snippet
+            }
+            if let j = args.firstIndex(of: "--autorun-save"), j + 1 < args.count {
+                self.autorunSavePath = args[j + 1]
+            }
+            Task { await runCode() }
+        }
+    }
+
+    private func writeAutorunOutput(_ text: String) {
+        let fm = FileManager.default
+        guard let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let name = autorunSavePath?.isEmpty == false ? autorunSavePath! : "autorun.txt"
+        let url = docs.appendingPathComponent(name)
+        do {
+            try text.data(using: .utf8)?.write(to: url)
+        } catch {
+            // ignore write errors for smoke
+        }
     }
 }
 
