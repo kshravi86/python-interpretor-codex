@@ -39,37 +39,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          RUNTIMES_JSON=$(xcrun simctl list runtimes -j)
-          RUNTIME=$(python3 - <<'PY'
-import json,sys
-j=json.loads(sys.stdin.read())
-ios=[r for r in j["runtimes"] if r["identifier"].startswith("com.apple.CoreSimulator.SimRuntime.iOS-") and r.get("isAvailable",True)]
-ios.sort(key=lambda r: r.get("version") or r.get("productVersion","0"))
-print(ios[-1]["identifier"]) if ios else sys.exit(1)
-PY
-          )
-          DT_JSON=$(xcrun simctl list devicetypes -j)
-          DT=$(python3 - <<'PY'
-import json,sys
-j=json.loads(sys.stdin.read())
-want=["iPhone 15 Pro","iPhone 15","iPhone 14"]
-for name in want:
-  for dt in j["devicetypes"]:
-    if dt["name"].startswith(name):
-      print(dt["identifier"]); sys.exit(0)
-sys.exit(1)
-PY
-          )
+          RUNTIME=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; j=json.load(sys.stdin); ios=[r for r in j['runtimes'] if r['identifier'].startswith('com.apple.CoreSimulator.SimRuntime.iOS-') and r.get('isAvailable', True)]; ios.sort(key=lambda r: r.get('version') or r.get('productVersion','0')); print(ios[-1]['identifier']) if ios else sys.exit(1)")
+          DT=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; j=json.load(sys.stdin); want=['iPhone 15 Pro','iPhone 15','iPhone 14']; print(next((dt['identifier'] for dt in j['devicetypes'] for name in want if dt['name'].startswith(name)), ''), end='')")
           NAME="CI iPhone Smoke"
           # Find existing or create
-          DEV_JSON=$(xcrun simctl list devices "$RUNTIME" -j)
-          UDID=$(python3 - <<PY
-import json,sys,os
-j=json.loads(os.environ['DEV_JSON'])
-lst=j.get('devices',{}).get(os.environ['RUNTIME'],[])
-print(next((d['udid'] for d in lst if d['name']==os.environ['NAME']),''))
-PY
-          )
+          UDID=$(xcrun simctl list devices "$RUNTIME" -j | python3 -c "import sys,json; j=json.load(sys.stdin); lst=j.get('devices',{}).get('$RUNTIME',[]); print(next((d['udid'] for d in lst if d['name']=='CI iPhone Smoke'), ''), end='')")
           if [ -z "$UDID" ]; then
             UDID=$(xcrun simctl create "$NAME" "$DT" "$RUNTIME")
           fi
