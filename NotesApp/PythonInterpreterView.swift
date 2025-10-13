@@ -11,6 +11,9 @@ for i in range(3):
     @State private var isRunning: Bool = false
     @State private var lastError: String? = nil
     @State private var autorunSavePath: String? = nil
+    @State private var fontSize: CGFloat = 15
+    @State private var runDuration: Double? = nil
+    @State private var useDarkAppearance: Bool = false
 
     private let executor: PythonExecutor = {
         let args = ProcessInfo.processInfo.arguments
@@ -23,18 +26,22 @@ for i in range(3):
 
     var body: some View {
         VStack(spacing: 0) {
+            headerControls
             editor
             Divider()
             outputView
+            consoleControls
         }
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
-        .onAppear { applyAutorunFromArgumentsIfNeeded() }
+        .onAppear { loadPersisted(); applyAutorunFromArgumentsIfNeeded() }
+        .onChange(of: code) { _ in persist() }
+        .preferredColorScheme(useDarkAppearance ? .dark : nil)
     }
 
     private var editor: some View {
         TextEditor(text: $code)
-            .font(.system(.body, design: .monospaced))
+            .font(.system(size: fontSize, weight: .regular, design: .monospaced))
             .padding(.horizontal)
             .padding(.top)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -50,6 +57,11 @@ for i in range(3):
                         .font(.system(.footnote, design: .monospaced))
                         .padding(.bottom, 4)
                 }
+                if let dur = runDuration {
+                    Text(String(format: "Ran in %.2fs", dur))
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
                 if !output.isEmpty {
                     Text(output)
                         .font(.system(.footnote, design: .monospaced))
@@ -64,6 +76,57 @@ for i in range(3):
         }
         .background(Color(.secondarySystemBackground))
         .frame(maxWidth: .infinity, maxHeight: 220)
+    }
+
+    private var headerControls: some View {
+        HStack(spacing: 12) {
+            Menu("Examples") {
+                ForEach(SnippetsCatalog.all) { s in
+                    Button(s.title) { code = s.code }
+                }
+            }
+            .buttonStyle(.bordered)
+
+            HStack {
+                Image(systemName: "textformat.size")
+                Slider(value: $fontSize, in: 12...22)
+                    .frame(width: 140)
+            }
+            Toggle(isOn: $useDarkAppearance) { Image(systemName: "moon.fill") }
+                .toggleStyle(.switch)
+                .tint(.purple)
+                .padding(.leading, 6)
+
+            Spacer()
+
+            if isRunning { ProgressView().scaleEffect(0.9) }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(Color(.secondarySystemBackground))
+    }
+
+    private var consoleControls: some View {
+        HStack(spacing: 12) {
+            Button {
+                UIPasteboard.general.string = output
+            } label: {
+                Label("Copy Output", systemImage: "doc.on.doc")
+            }
+            .buttonStyle(.bordered)
+
+            Button(role: .destructive) {
+                output = ""; lastError = nil; runDuration = nil
+            } label: {
+                Label("Clear", systemImage: "trash")
+            }
+            .buttonStyle(.bordered)
+
+            Spacer()
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(Color(.secondarySystemBackground))
     }
 
     @ToolbarContentBuilder
@@ -82,6 +145,8 @@ for i in range(3):
         isRunning = true
         lastError = nil
         output = ""
+        runDuration = nil
+        let start = Date()
         do {
             let result = try await executor.execute(code: code)
             var combined = ""
@@ -97,9 +162,11 @@ for i in range(3):
             if let _ = autorunSavePath {
                 writeAutorunOutput(finalCombined)
             }
+            await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
         } catch {
             await MainActor.run {
                 self.lastError = "Run failed: \(error.localizedDescription)"
+                self.runDuration = Date().timeIntervalSince(start)
             }
             if let _ = autorunSavePath {
                 writeAutorunOutput("ERROR: \(error.localizedDescription)")
@@ -131,6 +198,15 @@ for i in range(3):
             try text.data(using: .utf8)?.write(to: url)
         } catch {
             // ignore write errors for smoke
+        }
+    }
+
+    private func persist() {
+        UserDefaults.standard.set(code, forKey: "editor.code")
+    }
+    private func loadPersisted() {
+        if let s = UserDefaults.standard.string(forKey: "editor.code"), !s.isEmpty {
+            code = s
         }
     }
 }
