@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct PythonInterpreterView: View {
     @State private var code: String = """
@@ -30,7 +31,7 @@ for i in range(3):
             .padding(.horizontal)
             .padding(.top)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color(UIColor.systemBackground))
+            .background(Color(.systemBackground))
     }
 
     private var outputView: some View {
@@ -54,7 +55,7 @@ for i in range(3):
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
         }
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(Color(.secondarySystemBackground))
         .frame(maxWidth: .infinity, maxHeight: 220)
     }
 
