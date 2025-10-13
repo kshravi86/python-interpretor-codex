@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import CryptoKit
 
 struct PythonInterpreterView: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -16,6 +17,9 @@ for i in range(3):
     @State private var runDuration: Double? = nil
     @State private var useDarkAppearance: Bool = false
     @State private var useDarkSyntaxTheme: Bool = false
+    @State private var breakpoints: Set<Int> = []
+    @State private var navigateToLine: Int? = nil
+    @State private var showingBreakpoints: Bool = false
 
     private let executor: PythonExecutor = OfflinePyodideExecutor()
 
@@ -29,13 +33,15 @@ for i in range(3):
         }
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
-        .onAppear { loadPersisted(); applyAutorunFromArgumentsIfNeeded() }
-        .onChange(of: code) { _ in persist() }
+        .onAppear { loadPersisted(); loadPersistedBreakpoints(); applyAutorunFromArgumentsIfNeeded() }
+        .onChange(of: code) { _ in persist(); loadPersistedBreakpoints() }
+        .onChange(of: breakpoints) { _ in persistBreakpoints() }
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
+        .sheet(isPresented: $showingBreakpoints) { breakpointsSheet }
     }
 
     private var editor: some View {
-        CodeEditorView(text: $code, fontSize: fontSize, isDark: useDarkAppearance, theme: useDarkSyntaxTheme ? SyntaxHighlighter.Theme.defaultDark() : SyntaxHighlighter.Theme.defaultLight())
+        CodeEditorView(text: $code, breakpoints: $breakpoints, navigateToLine: $navigateToLine, fontSize: fontSize, isDark: useDarkAppearance, theme: useDarkSyntaxTheme ? SyntaxHighlighter.Theme.defaultDark() : SyntaxHighlighter.Theme.defaultLight())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemBackground))
     }
@@ -89,6 +95,12 @@ for i in range(3):
                 Button("Dark Theme") { useDarkAppearance = true; useDarkSyntaxTheme = true }
             } label: {
                 Label("Theme", systemImage: useDarkSyntaxTheme ? "moon.fill" : "sun.max.fill")
+            }
+            .buttonStyle(.bordered)
+            Button {
+                showingBreakpoints = true
+            } label: {
+                Label("Breakpoints", systemImage: "bookmark.circle")
             }
             .buttonStyle(.bordered)
 
@@ -202,6 +214,55 @@ for i in range(3):
     private func loadPersisted() {
         if let s = UserDefaults.standard.string(forKey: "editor.code"), !s.isEmpty {
             code = s
+        }
+    }
+
+    private var breakpointsSheet: some View {
+        NavigationView {
+            List {
+                if breakpoints.isEmpty {
+                    Text("No breakpoints").foregroundStyle(.secondary)
+                }
+                ForEach(Array(breakpoints).sorted(), id: \.self) { line in
+                    HStack {
+                        Text("Line \(line)")
+                        Spacer()
+                        Button("Go") { navigateToLine = line }
+                        Button(role: .destructive) { breakpoints.remove(line) } label: { Text("Remove") }
+                    }
+                }
+            }
+            .navigationTitle("Breakpoints")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Clear All") { breakpoints.removeAll() }
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { showingBreakpoints = false }
+                }
+            }
+        }
+    }
+
+    private func codeKey() -> String {
+        let data = Data(code.utf8)
+        let digest = SHA256.hash(data: data)
+        return digest.compactMap { String(format: "%02x", $0) }.joined()
+    }
+
+    private func persistBreakpoints() {
+        let key = "breakpoints." + codeKey()
+        let arr = Array(breakpoints)
+        UserDefaults.standard.set(arr, forKey: key)
+    }
+
+    private func loadPersistedBreakpoints() {
+        let key = "breakpoints." + codeKey()
+        if let arr = UserDefaults.standard.array(forKey: key) as? [Int] {
+            let lines = max(1, code.split(separator: "\n", omittingEmptySubsequences: false).count)
+            breakpoints = Set(arr.filter { $0 >= 1 && $0 <= lines })
+        } else {
+            breakpoints.removeAll()
         }
     }
 }

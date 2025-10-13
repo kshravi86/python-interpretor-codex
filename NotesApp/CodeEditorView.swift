@@ -3,6 +3,8 @@ import UIKit
 
 struct CodeEditorView: UIViewRepresentable {
     @Binding var text: String
+    @Binding var breakpoints: Set<Int>
+    @Binding var navigateToLine: Int?
     var fontSize: CGFloat
     var isDark: Bool
     var theme: SyntaxHighlighter.Theme
@@ -11,8 +13,12 @@ struct CodeEditorView: UIViewRepresentable {
         let v = CodeEditorContainer()
         v.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         v.setText(text)
+        v.setBreakpoints(breakpoints)
         v.onTextChanged = { newText in
             if newText != text { self.text = newText }
+        }
+        v.onBreakpointsChanged = { newBP in
+            if newBP != breakpoints { self.breakpoints = newBP }
         }
         return v
     }
@@ -20,6 +26,11 @@ struct CodeEditorView: UIViewRepresentable {
     func updateUIView(_ uiView: CodeEditorContainer, context: Context) {
         uiView.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         if uiView.text != text { uiView.setText(text) }
+        uiView.setBreakpoints(breakpoints)
+        if let line = navigateToLine {
+            uiView.goTo(line: line)
+            DispatchQueue.main.async { self.navigateToLine = nil }
+        }
     }
 }
 
@@ -30,8 +41,11 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private var font: UIFont = .monospacedSystemFont(ofSize: 15, weight: .regular)
     private var dark = false
     private var theme: SyntaxHighlighter.Theme = .defaultLight()
+    private var breakpoints: Set<Int> = []
+    private var currentLine: Int = 1
 
     var onTextChanged: ((String) -> Void)?
+    var onBreakpointsChanged: ((Set<Int>) -> Void)?
 
     var text: String { textView.text ?? "" }
 
@@ -52,6 +66,11 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
 
         // Sync scrolling
         textView.addObserver(self, forKeyPath: #keyPath(UITextView.contentOffset), options: [.new, .initial], context: nil)
+
+        // Tap to toggle breakpoints
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleGutterTap(_:)))
+        gutter.addGestureRecognizer(tap)
+        gutter.isUserInteractionEnabled = true
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -68,6 +87,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         gutter.textColor = isDark ? UIColor(white: 0.8, alpha: 1) : UIColor.systemGray
         gutter.lineHeight = font.lineHeight
         gutter.textView = textView
+        updateCurrentLine()
         applyHighlighting()
         setNeedsLayout()
     }
@@ -84,12 +104,27 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     func setText(_ t: String) {
         if textView.text == t { return }
         textView.text = t
+        updateCurrentLine()
         applyHighlighting()
+        gutter.setNeedsDisplay()
+    }
+
+    func setBreakpoints(_ bp: Set<Int>) {
+        if bp == breakpoints { return }
+        breakpoints = bp
+        gutter.breakpoints = breakpoints
         gutter.setNeedsDisplay()
     }
 
     func textViewDidChange(_ textView: UITextView) {
         onTextChanged?(textView.text)
+        updateCurrentLine()
+        applyHighlighting()
+        gutter.setNeedsDisplay()
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        updateCurrentLine()
         applyHighlighting()
         gutter.setNeedsDisplay()
     }
@@ -103,6 +138,73 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
 
     private func applyHighlighting() {
         highlighter.highlight(textView: textView, theme: theme, font: font)
+        // Add current-line background highlight
+        guard let text = textView.text else { return }
+        let ns = text as NSString
+        let length = ns.length
+        let caret = min(textView.selectedRange.location, length)
+        let start = ns.range(of: "\n", options: .backwards, range: NSRange(location: 0, length: caret)).location
+        let lineStart = (start == NSNotFound) ? 0 : (start + 1)
+        let nextRangeStart = (caret < length) ? caret : (length - 1)
+        let endSearchRange = NSRange(location: max(0, nextRangeStart), length: length - max(0, nextRangeStart))
+        let next = ns.range(of: "\n", options: [], range: endSearchRange).location
+        let lineEnd = (next == NSNotFound) ? length : next
+        if lineEnd >= lineStart && lineStart <= length {
+            let bgRange = NSRange(location: lineStart, length: lineEnd - lineStart)
+            let bg = (dark ? UIColor.systemBlue.withAlphaComponent(0.18) : UIColor.systemBlue.withAlphaComponent(0.12))
+            let mut = NSMutableAttributedString(attributedString: textView.attributedText)
+            mut.addAttribute(.backgroundColor, value: bg, range: bgRange)
+            let sel = textView.selectedRange
+            textView.attributedText = mut
+            textView.selectedRange = sel
+        }
+        gutter.currentLine = currentLine
+        gutter.breakpoints = breakpoints
+    }
+
+    private func updateCurrentLine() {
+        guard let text = textView.text else { currentLine = 1; return }
+        let caret = min(textView.selectedRange.location, (text as NSString).length)
+        if caret <= 0 { currentLine = 1; return }
+        let prefix = (text as NSString).substring(to: caret)
+        currentLine = prefix.reduce(0) { $0 + ($1 == "\n" ? 1 : 0) } + 1
+    }
+
+    @objc private func handleGutterTap(_ gr: UITapGestureRecognizer) {
+        let point = gr.location(in: gutter)
+        let insetTop = textView.textContainerInset.top
+        let line = max(1, Int(floor((point.y + contentOffsetY() + insetTop) / max(1, gutter.lineHeight))) + 1)
+        toggleBreakpoint(line)
+    }
+
+    private func contentOffsetY() -> CGFloat { textView.contentOffset.y }
+
+    private func toggleBreakpoint(_ line: Int) {
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+        gutter.breakpoints = breakpoints
+        gutter.setNeedsDisplay()
+        onBreakpointsChanged?(breakpoints)
+    }
+
+    func goTo(line: Int) {
+        guard let text = textView.text, line > 0 else { return }
+        let ns = text as NSString
+        let total = ns.length
+        var targetIndex = 0
+        var current = 1
+        if line == 1 { targetIndex = 0 }
+        else {
+            ns.enumerateSubstrings(in: NSRange(location: 0, length: total), options: [.byComposedCharacterSequences]) { _, substrRange, _, stop in
+                if ns.substring(with: substrRange) == "\n" { current += 1; if current == line { targetIndex = substrRange.location + substrRange.length; stop.pointee = true } }
+            }
+        }
+        targetIndex = min(targetIndex, total)
+        let range = NSRange(location: targetIndex, length: 0)
+        textView.selectedRange = range
+        textView.scrollRangeToVisible(range)
+        updateCurrentLine()
+        applyHighlighting()
+        gutter.setNeedsDisplay()
     }
 }
 
@@ -111,6 +213,8 @@ final class LineNumberView: UIView {
     var textColor: UIColor = .systemGray
     var lineHeight: CGFloat = 16
     var contentOffset: CGPoint = .zero
+    var currentLine: Int = 1
+    var breakpoints: Set<Int> = []
 
     override func draw(_ rect: CGRect) {
         guard let tv = textView else { return }
@@ -140,6 +244,19 @@ final class LineNumberView: UIView {
         let end = min(lines, firstVisible + visibleCount)
         for i in start...max(start, end) {
             let y = insetTop - contentOffset.y + CGFloat(i - 1) * lineHeight
+            // Current-line highlight band in gutter
+            if i == currentLine {
+                let hl = UIBezierPath(roundedRect: CGRect(x: rect.minX + 2, y: y + 2, width: rect.width - 6, height: lineHeight - 4), cornerRadius: 4)
+                (UIColor.systemBlue.withAlphaComponent(0.12)).setFill()
+                hl.fill()
+            }
+            // Breakpoint dot
+            if breakpoints.contains(i) {
+                let dotRect = CGRect(x: rect.minX + 8, y: y + (lineHeight - 10) / 2, width: 10, height: 10)
+                let dot = UIBezierPath(ovalIn: dotRect)
+                UIColor.systemRed.setFill()
+                dot.fill()
+            }
             let s = "\(i)" as NSString
             let size = s.size(withAttributes: attrs)
             let r = CGRect(x: rect.maxX - 6 - size.width, y: y + (lineHeight - size.height) / 2, width: size.width, height: size.height)
