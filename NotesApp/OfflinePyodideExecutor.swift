@@ -46,16 +46,54 @@ final class OfflinePyodideExecutor: NSObject, PythonExecutor {
     private func loadIfNeeded() {
         guard !isLoaded else { return }
         isLoaded = true
-        let htmlURL = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Pyodide") ??
-                      Bundle.main.url(forResource: "index", withExtension: "html")
-        guard let htmlURL else {
-            print("Pyodide index.html not found in bundle (expected at Pyodide/index.html or root)")
-            return
-        }
-        // Allow reading the entire app bundle to ensure file:// access to sibling assets works on sim/device
-        let allow = Bundle.main.bundleURL
+        // Load a small inline host page and set baseURL to the bundle root so relative
+        // paths like "PyodideAssets/pyodide.js" resolve correctly regardless of where
+        // resources ended up in the app bundle.
+        let html = """
+        <!doctype html>
+        <html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>
+        <body>
+        <script>
+        (async function() {
+          const candidates = [new URL('PyodideAssets/', location.href), new URL('../PyodideAssets/', location.href)];
+          async function tryLoad(base) {
+            return new Promise((resolve, reject) => {
+              const s = document.createElement('script');
+              s.src = new URL('pyodide.js', base).toString();
+              s.onload = async () => { try { window.pyodide = await loadPyodide({indexURL: base.toString()}); resolve(); } catch(e){ reject(e); } };
+              s.onerror = () => reject(new Error('Failed to load ' + s.src));
+              document.body.appendChild(s);
+            });
+          }
+          let ok = false, lastErr = null;
+          for (const b of candidates) { try { await tryLoad(b); ok = true; break; } catch(e){ lastErr = e; } }
+          if (ok) {
+            window.__pydeckReady = true;
+            window.webkit?.messageHandlers?.pyDeck?.postMessage({type:'ready'});
+          } else {
+            window.__pydeckError = String(lastErr);
+            window.webkit?.messageHandlers?.pyDeck?.postMessage({type:'error', message:String(lastErr)});
+          }
+          window.pydeckRun = async function(code, id) {
+            if (!window.pyodide) {
+              window.webkit?.messageHandlers?.pyDeck?.postMessage({ type: 'error', id, message: 'Pyodide not initialized' });
+              return;
+            }
+            let stdout = '', stderr = '';
+            const undoOut = window.pyodide.setStdout({ batched: s => { stdout += s; } });
+            const undoErr = window.pyodide.setStderr({ batched: s => { stderr += s; } });
+            let codeNum = 0;
+            try { await window.pyodide.runPythonAsync(code); } catch(e){ stderr += String(e) + '\n'; codeNum = 1; }
+            try { undoOut(); } catch(_){ }
+            try { undoErr(); } catch(_){ }
+            window.webkit?.messageHandlers?.pyDeck?.postMessage({ type: 'result', id, stdout, stderr, code: codeNum });
+          }
+        })();
+        </script>
+        </body></html>
+        """
         webView.navigationDelegate = self
-        webView.loadFileURL(htmlURL, allowingReadAccessTo: allow)
+        webView.loadHTMLString(html, baseURL: Bundle.main.bundleURL)
     }
 
     private func ensureReady(timeout: TimeInterval = 12.0) async throws {
