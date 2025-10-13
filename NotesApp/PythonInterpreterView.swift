@@ -17,9 +17,12 @@ for i in range(3):
     @State private var runDuration: Double? = nil
     @State private var useDarkAppearance: Bool = false
     @State private var useDarkSyntaxTheme: Bool = false
-    @State private var breakpoints: Set<Int> = []
+    @State private var breakpoints: [Int: String] = [:]
     @State private var navigateToLine: Int? = nil
     @State private var showingBreakpoints: Bool = false
+    @State private var editingBreakpointLine: Int? = nil
+    @State private var editingCondition: String = ""
+    @State private var showEditConditionSheet: Bool = false
 
     private let executor: PythonExecutor = OfflinePyodideExecutor()
 
@@ -38,10 +41,15 @@ for i in range(3):
         .onChange(of: breakpoints) { _ in persistBreakpoints() }
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
         .sheet(isPresented: $showingBreakpoints) { breakpointsSheet }
+        .sheet(isPresented: $showEditConditionSheet) { conditionEditorSheet }
     }
 
     private var editor: some View {
-        CodeEditorView(text: $code, breakpoints: $breakpoints, navigateToLine: $navigateToLine, fontSize: fontSize, isDark: useDarkAppearance, theme: useDarkSyntaxTheme ? SyntaxHighlighter.Theme.defaultDark() : SyntaxHighlighter.Theme.defaultLight())
+        CodeEditorView(text: $code, breakpoints: $breakpoints, navigateToLine: $navigateToLine, fontSize: fontSize, isDark: useDarkAppearance, theme: useDarkSyntaxTheme ? SyntaxHighlighter.Theme.defaultDark() : SyntaxHighlighter.Theme.defaultLight(), onEditCondition: { line in
+            editingBreakpointLine = line
+            editingCondition = breakpoints[line] ?? ""
+            showEditConditionSheet = true
+        })
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemBackground))
     }
@@ -223,12 +231,18 @@ for i in range(3):
                 if breakpoints.isEmpty {
                     Text("No breakpoints").foregroundStyle(.secondary)
                 }
-                ForEach(Array(breakpoints).sorted(), id: \.self) { line in
+                ForEach(Array(breakpoints.keys).sorted(), id: \.self) { line in
                     HStack {
-                        Text("Line \(line)")
+                        VStack(alignment: .leading) {
+                            Text("Line \(line)")
+                            if let cond = breakpoints[line], !cond.isEmpty {
+                                Text(cond).font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
                         Spacer()
                         Button("Go") { navigateToLine = line }
-                        Button(role: .destructive) { breakpoints.remove(line) } label: { Text("Remove") }
+                        Button("Edit") { editingBreakpointLine = line; editingCondition = breakpoints[line] ?? ""; showEditConditionSheet = true }
+                        Button(role: .destructive) { breakpoints.removeValue(forKey: line) } label: { Text("Remove") }
                     }
                 }
             }
@@ -244,6 +258,38 @@ for i in range(3):
         }
     }
 
+    private var conditionEditorSheet: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Condition (expr == value)")) {
+                    TextField("e.g., i == 3", text: $editingCondition)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                }
+            }
+            .navigationTitle("Edit Breakpoint")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { showEditConditionSheet = false }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        if let line = editingBreakpointLine {
+                            breakpoints[line] = editingCondition.trimmingCharacters(in: .whitespacesAndNewlines)
+                        }
+                        showEditConditionSheet = false
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Clear") {
+                        if let line = editingBreakpointLine { breakpoints[line] = "" }
+                        showEditConditionSheet = false
+                    }
+                }
+            }
+        }
+    }
+
     private func codeKey() -> String {
         let data = Data(code.utf8)
         let digest = SHA256.hash(data: data)
@@ -252,18 +298,19 @@ for i in range(3):
 
     private func persistBreakpoints() {
         let key = "breakpoints." + codeKey()
-        let arr = Array(breakpoints)
-        UserDefaults.standard.set(arr, forKey: key)
+        var dict: [String: String] = [:]
+        for (k,v) in breakpoints { dict[String(k)] = v }
+        UserDefaults.standard.set(dict, forKey: key)
     }
 
     private func loadPersistedBreakpoints() {
         let key = "breakpoints." + codeKey()
-        if let arr = UserDefaults.standard.array(forKey: key) as? [Int] {
+        if let dict = UserDefaults.standard.dictionary(forKey: key) as? [String: String] {
             let lines = max(1, code.split(separator: "\n", omittingEmptySubsequences: false).count)
-            breakpoints = Set(arr.filter { $0 >= 1 && $0 <= lines })
-        } else {
-            breakpoints.removeAll()
-        }
+            var bp: [Int: String] = [:]
+            for (k, v) in dict { if let i = Int(k), i >= 1 && i <= lines { bp[i] = v } }
+            breakpoints = bp
+        } else { breakpoints.removeAll() }
     }
 }
 

@@ -3,11 +3,12 @@ import UIKit
 
 struct CodeEditorView: UIViewRepresentable {
     @Binding var text: String
-    @Binding var breakpoints: Set<Int>
+    @Binding var breakpoints: [Int: String]
     @Binding var navigateToLine: Int?
     var fontSize: CGFloat
     var isDark: Bool
     var theme: SyntaxHighlighter.Theme
+    var onEditCondition: ((Int) -> Void)? = nil
 
     func makeUIView(context: Context) -> CodeEditorContainer {
         let v = CodeEditorContainer()
@@ -20,6 +21,7 @@ struct CodeEditorView: UIViewRepresentable {
         v.onBreakpointsChanged = { newBP in
             if newBP != breakpoints { self.breakpoints = newBP }
         }
+        v.onRequestEditCondition = onEditCondition
         return v
     }
 
@@ -31,6 +33,7 @@ struct CodeEditorView: UIViewRepresentable {
             uiView.goTo(line: line)
             DispatchQueue.main.async { self.navigateToLine = nil }
         }
+        uiView.onRequestEditCondition = onEditCondition
     }
 }
 
@@ -41,11 +44,12 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private var font: UIFont = .monospacedSystemFont(ofSize: 15, weight: .regular)
     private var dark = false
     private var theme: SyntaxHighlighter.Theme = .defaultLight()
-    private var breakpoints: Set<Int> = []
+    private var breakpoints: [Int: String] = [:]
     private var currentLine: Int = 1
 
     var onTextChanged: ((String) -> Void)?
-    var onBreakpointsChanged: ((Set<Int>) -> Void)?
+    var onBreakpointsChanged: (([Int: String]) -> Void)?
+    var onRequestEditCondition: ((Int) -> Void)?
 
     var text: String { textView.text ?? "" }
 
@@ -71,6 +75,8 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleGutterTap(_:)))
         gutter.addGestureRecognizer(tap)
         gutter.isUserInteractionEnabled = true
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleGutterLongPress(_:)))
+        gutter.addGestureRecognizer(longPress)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -109,7 +115,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         gutter.setNeedsDisplay()
     }
 
-    func setBreakpoints(_ bp: Set<Int>) {
+    func setBreakpoints(_ bp: [Int: String]) {
         if bp == breakpoints { return }
         breakpoints = bp
         gutter.breakpoints = breakpoints
@@ -186,6 +192,14 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         onBreakpointsChanged?(breakpoints)
     }
 
+    @objc private func handleGutterLongPress(_ gr: UILongPressGestureRecognizer) {
+        guard gr.state == .began else { return }
+        let point = gr.location(in: gutter)
+        let insetTop = textView.textContainerInset.top
+        let line = max(1, Int(floor((point.y + contentOffsetY() + insetTop) / max(1, gutter.lineHeight))) + 1)
+        onRequestEditCondition?(line)
+    }
+
     func goTo(line: Int) {
         guard let text = textView.text, line > 0 else { return }
         let ns = text as NSString
@@ -214,7 +228,7 @@ final class LineNumberView: UIView {
     var lineHeight: CGFloat = 16
     var contentOffset: CGPoint = .zero
     var currentLine: Int = 1
-    var breakpoints: Set<Int> = []
+    var breakpoints: [Int: String] = [:]
 
     override func draw(_ rect: CGRect) {
         guard let tv = textView else { return }
@@ -251,10 +265,11 @@ final class LineNumberView: UIView {
                 hl.fill()
             }
             // Breakpoint dot
-            if breakpoints.contains(i) {
+            if let cond = breakpoints[i] {
                 let dotRect = CGRect(x: rect.minX + 8, y: y + (lineHeight - 10) / 2, width: 10, height: 10)
                 let dot = UIBezierPath(ovalIn: dotRect)
-                UIColor.systemRed.setFill()
+                let color: UIColor = (cond.isEmpty ? UIColor.systemRed : UIColor.systemOrange)
+                color.setFill()
                 dot.fill()
             }
             let s = "\(i)" as NSString
