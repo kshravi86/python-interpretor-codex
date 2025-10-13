@@ -40,11 +40,8 @@ for i in range(3):
     }
 
     private var editor: some View {
-        TextEditor(text: $code)
-            .font(.system(size: fontSize, weight: .regular, design: .monospaced))
-            .padding(.horizontal)
-            .padding(.top)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        CodeEditorView(text: $code, fontSize: fontSize, isDark: useDarkAppearance)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemBackground))
     }
 
