@@ -85,10 +85,18 @@ jobs:
           xcrun simctl install "${{ steps.sim.outputs.udid }}" "$APP"
           BUNDLE=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
           SNIPPET=$(printf "print('Hello from Python!')\nfor i in range(3):\n    print(i)" | base64)
+          # Verify bundled assets inside .app
+          APP_BUNDLE=$(xcrun simctl get_app_container "${{ steps.sim.outputs.udid }}" "$BUNDLE" app)
+          echo "App bundle: $APP_BUNDLE"
+          ls -la "$APP_BUNDLE/Pyodide" || true
+          ls -la "$APP_BUNDLE/PyodideAssets" | head -n 20 || true
+          test -f "$APP_BUNDLE/Pyodide/index.html" || echo "::warning::Missing Pyodide/index.html in bundle"
+          test -f "$APP_BUNDLE/PyodideAssets/pyodide.js" || echo "::warning::Missing PyodideAssets/pyodide.js in bundle"
+
           # Launch and do not fail the build even if app exits nonzero
           xcrun simctl launch "${{ steps.sim.outputs.udid }}" "$BUNDLE" --args --disable-animations --autorun-b64 "$SNIPPET" --autorun-save smoke.txt || true
-          # Give the app time to run the snippet and write the file
-          sleep 6
+          # Give the app time to run the snippet and write the file (Pyodide can take a few seconds to init)
+          sleep 12
           mkdir -p "$RUNNER_TEMP/ui-smoke"
           xcrun simctl io "${{ steps.sim.outputs.udid }}" screenshot "$RUNNER_TEMP/ui-smoke/home.png" || true
           ls -la "$RUNNER_TEMP/ui-smoke"
