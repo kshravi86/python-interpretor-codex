@@ -80,8 +80,8 @@ jobs:
         run: |
           set -euo pipefail
           set -x
-          APP=$(ls "$DERIVED/Build/Products/Debug-iphonesimulator"/*.app | head -n1)
-          if [ -z "$APP" ]; then echo "::error::No .app found in $DERIVED"; exit 1; fi
+          APP=$(printf "%s\n" "$DERIVED/Build/Products/Debug-iphonesimulator"/*.app | head -n1)
+          if [ -z "$APP" ] || [ ! -d "$APP" ]; then echo "::error::No .app found in $DERIVED"; ls -la "$DERIVED/Build/Products/Debug-iphonesimulator"; exit 1; fi
           xcrun simctl install "${{ steps.sim.outputs.udid }}" "$APP"
           BUNDLE=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
           SNIPPET=$(printf "print('Hello from Python!')\nfor i in range(3):\n    print(i)" | base64)
