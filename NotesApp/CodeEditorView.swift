@@ -186,7 +186,11 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private func contentOffsetY() -> CGFloat { textView.contentOffset.y }
 
     private func toggleBreakpoint(_ line: Int) {
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+        if breakpoints[line] != nil {
+            breakpoints.removeValue(forKey: line)
+        } else {
+            breakpoints[line] = ""
+        }
         gutter.breakpoints = breakpoints
         gutter.setNeedsDisplay()
         onBreakpointsChanged?(breakpoints)

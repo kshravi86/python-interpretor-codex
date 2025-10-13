@@ -1,171 +1,271 @@
-Linting Swift files in current working directory
-Linting 'CodeEditorView.swift' (1/23)
-Linting 'CelebrationOverlay.swift' (2/23)
-Linting 'SettingsView.swift' (3/23)
-Linting 'PythonInterpreterView.swift' (4/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CelebrationOverlay.swift:40:31: error: Identifier Name Violation: Variable name 'i' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CelebrationOverlay.swift:68:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-Linting 'NotesAppApp.swift' (5/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SettingsView.swift:55:32: error: Identifier Name Violation: Variable name 'w' should be between 3 and 40 characters long (identifier_name)
-Linting 'NotificationManager.swift' (6/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SettingsView.swift:36:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 149 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:138:14: error: Block Based KVO Violation: Prefer the new block based KVO API with keypaths when using Swift 3.2 or later (block_based_kvo)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:138:106: error: Colon Spacing Violation: Colons should be next to the identifier when specifying a type and next to the key in dictionary literals (colon)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:14:13: error: Identifier Name Violation: Variable name 'v' should be between 3 and 40 characters long (identifier_name)
-Linting 'ErrorLogView.swift' (7/23)
-Linting 'ScreenshotMode.swift' (8/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:110:20: error: Identifier Name Violation: Variable name 't' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:118:27: error: Identifier Name Violation: Variable name 'bp' should be between 3 and 40 characters long (identifier_name)
-Linting 'PythonExecutor.swift' (9/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:149:13: error: Identifier Name Violation: Variable name 'ns' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:160:17: error: Identifier Name Violation: Variable name 'bg' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:179:42: error: Identifier Name Violation: Variable name 'gr' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:195:48: error: Identifier Name Violation: Variable name 'gr' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:205:13: error: Identifier Name Violation: Variable name 'ns' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:234:19: error: Identifier Name Violation: Variable name 'tv' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:259:13: error: Identifier Name Violation: Variable name 'i' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:260:17: error: Identifier Name Violation: Variable name 'y' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:263:21: error: Identifier Name Violation: Variable name 'hl' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:275:17: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:277:17: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-Linting 'CrashHandler.swift' (10/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:11:9: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-Linting 'NotesListView.swift' (11/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:72:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 123 characters (line_length)
-Linting 'NoteDetailView.swift' (12/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:138:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 151 characters (line_length)
-Linting 'HydrationHelpers.swift' (13/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:211:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 146 characters (line_length)
-Linting 'OfflinePyodideExecutor.swift' (14/23)
-Linting 'SyntaxHighlighter.swift' (15/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:212:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 176 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:263:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 150 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:277:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 136 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:209:40: error: Statement Position Violation: Else and catch should be on the same line, one space after the previous declaration (statement_position)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotificationManager.swift:36:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotificationManager.swift:13:119: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ScreenshotMode.swift:8:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift:11:36: error: Identifier Name Violation: Variable name 'e' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift:73:24: error: Identifier Name Violation: Variable name 'd' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift:9:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 158 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift:85:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:302:15: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:90:48: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:195:16: error: Identifier Name Violation: Variable name 'i' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:200:20: error: Identifier Name Violation: Variable name 'j' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:208:13: error: Identifier Name Violation: Variable name 'fm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:223:16: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:302:14: error: Identifier Name Violation: Variable name 'k' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:302:16: error: Identifier Name Violation: Variable name 'v' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:310:17: error: Identifier Name Violation: Variable name 'bp' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:311:18: error: Identifier Name Violation: Variable name 'k' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:311:21: error: Identifier Name Violation: Variable name 'v' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:311:41: error: Identifier Name Violation: Variable name 'i' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:14:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:15:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:17:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:21:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:23:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:48:1: error: Line Length Violation: Line should be 200 characters or less; currently it has 277 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:244:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 146 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:5:1: error: Type Body Length Violation: Struct body should span 250 lines or less excluding comments and whitespace: currently spans 287 lines (type_body_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:177:20: error: Unused Optional Binding Violation: Prefer `!= nil` over `let _ =` (unused_optional_binding)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:186:20: error: Unused Optional Binding Violation: Prefer `!= nil` over `let _ =` (unused_optional_binding)
-Linting 'TodayView.swift' (16/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift:41:24: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift:41:28: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift:29:13: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift:77:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 121 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift:87:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-Linting 'HistoryView.swift' (17/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:47:13: error: Function Body Length Violation: Function body should span 50 lines or less excluding comments and whitespace: currently spans 52 lines (function_body_length)
-Linting 'Theme.swift' (18/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:36:17: error: Identifier Name Violation: Variable name 'js' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:127:28: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:130:35: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:8:17: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:34:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 121 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:55:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 123 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:69:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 148 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:85:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 125 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:110:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 138 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:123:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 126 characters (line_length)
-Linting 'Snippets.swift' (19/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:126:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 130 characters (line_length)
-Linting 'ErrorLogger.swift' (20/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:165:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 134 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:14: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:22: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:28: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:33: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:41: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:46: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:53: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:60: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:66: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:35:75: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:17: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:24: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:29: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:38: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:45: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:53: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:64: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:73: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:36:80: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:17: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:23: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:32: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:43: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:51: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:58: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:66: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:73: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:79: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:84: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:37:90: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:59:83: error: Comma Spacing Violation: There should be no space before and one after any comma (comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:40:5: error: Cyclomatic Complexity Violation: Function should have complexity 10 or less; currently complexity is 12 (cyclomatic_complexity)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:49:13: error: Identifier Name Violation: Variable name 'ns' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:53:79: error: Identifier Name Violation: Variable name 'm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:54:24: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:60:82: error: Identifier Name Violation: Variable name 'm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:61:24: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:65:82: error: Identifier Name Violation: Variable name 'm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:66:24: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:72:77: error: Identifier Name Violation: Variable name 'm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:73:24: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:79:78: error: Identifier Name Violation: Variable name 'm' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:80:24: error: Identifier Name Violation: Variable name 'r' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:86:20: error: Identifier Name Violation: Variable name 's' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift:96:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-Linting 'AnimatedProgressBar.swift' (21/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Snippets.swift:37:5: error: Trailing Comma Violation: Collection literals should not have trailing commas (trailing_comma)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Snippets.swift:40:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-Linting 'Toast.swift' (22/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/AnimatedProgressBar.swift:25:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-Linting 'PersistenceController.swift' (23/23)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift:168:13: error: Identifier Name Violation: Variable name 'df' should be between 3 and 40 characters long (identifier_name)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift:10:24: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift:13:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 124 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift:16:1: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-Done linting! Found 137 violations, 137 serious in 23 files.
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogger.swift:37:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 125 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogger.swift:54:1: error: Line Length Violation: Line should be 120 characters or less; currently it has 160 characters (line_length)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogger.swift:58:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Toast.swift:6:9: error: Implicit Optional Initialization Violation: Optional should be implicitly initialized without nil (implicit_optional_initialization)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Toast.swift:68:1: error: Trailing Newline Violation: Files should have a single trailing newline (trailing_newline)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift:5:1: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift:28:1: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift:37:1: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift:39:1: error: Trailing Whitespace Violation: Lines should not have trailing whitespace (trailing_whitespace)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift:45:62: error: Unused Closure Parameter Violation: Unused parameter in a closure should be replaced with _ (unused_closure_parameter)
-Error: Process completed with exit code 2.
+Command line invocation:
+    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/xcodebuild archive -project NotesApp.xcodeproj -scheme NotesApp -configuration Release -destination generic/platform=iOS -archivePath /Users/runner/work/_temp/CodeSnake-Release.xcarchive CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION=202510131702
+Build settings from command line:
+    CODE_SIGN_IDENTITY = 
+    CODE_SIGNING_ALLOWED = NO
+    CODE_SIGNING_REQUIRED = NO
+    CURRENT_PROJECT_VERSION = 202510131702
+2025-10-13 17:02:30.027 xcodebuild[2676:13591] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+note: Using codesigning identity override: 
+ComputePackagePrebuildTargetDependencyGraph
+Prepare packages
+CreateBuildRequest
+SendProjectDescription
+CreateBuildOperation
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'NotesApp' in project 'NotesApp' (no dependencies)
+GatherProvisioningInputs
+CreateBuildDescription
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --dry-run --action generate --swift-version 5.9 --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -x c -c /dev/null
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview Content/Preview Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+Build description signature: 6023fe07870a99c24730721da0f16fee
+Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/XCBuildData/6023fe07870a99c24730721da0f16fee.xcbuilddata
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath
+ClangStatCache /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.0-23A339-3885c01c3e6b6a337905948deab2002ee897cee61435230feef45a4748fd4bcc.sdkstatcache
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -o /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.0-23A339-3885c01c3e6b6a337905948deab2002ee897cee61435230feef45a4748fd4bcc.sdkstatcache
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp-599a6b0c646486d9f1c4604e906ba57a-VFS-iphoneos/all-product-headers.yaml
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp-599a6b0c646486d9f1c4604e906ba57a-VFS-iphoneos/all-product-headers.yaml
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/SwiftExplicitPrecompiledModules
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/SwiftExplicitPrecompiledModules
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/ExplicitPrecompiledModules
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/ExplicitPrecompiledModules
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/EagerLinkingTBDs/Release-iphoneos
+[O    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/EagerLinkingTBDs/Release-iphoneos
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp_const_extract_protocols.json (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp_const_extract_protocols.json
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/empty-CodeSnake.plist (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/empty-CodeSnake.plist
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp-OutputFileMap.json (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp-OutputFileMap.json
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftConstValuesFileList (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftConstValuesFileList
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.LinkFileList (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.LinkFileList
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.hmap
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyStaticMetadataFileList (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyStaticMetadataFileList
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyMetadataFileList (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyMetadataFileList
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-project-headers.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-project-headers.hmap
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-own-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-own-target-headers.hmap
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-generated-files.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-generated-files.hmap
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-target-headers.hmap
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-non-framework-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-non-framework-target-headers.hmap
+SymLink /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos/CodeSnake.app ../../InstallationBuildProductsLocation/Applications/CodeSnake.app (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /bin/ln -sfh ../../InstallationBuildProductsLocation/Applications/CodeSnake.app /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos/CodeSnake.app
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/unthinned (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/unthinned
+GenerateAssetSymbols /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFiles
+/* com.apple.actool.notices */
+warning: Failed to read file attributes for "/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview Content/Preview Assets.xcassets"
+    Failure Reason: No such file or directory
+/* com.apple.actool.document.warnings */
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets:./AppIcon.appiconset/[][ipad][83.5x83.5][][][2x][][][][]: warning: AppIcon.appiconset/AppIcon_quizlist_ipad_83.5x83.5@2x.png is 166x166 but should be 167x167.
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets:./AppIcon.appiconset/[][ipad][83.5x83.5][][][2x][][][][]: warning: AppIcon.appiconset/AppIcon_quizlist_ipad_83.5x83.5@2x.png is 166x166 but should be 167x167.
+/* com.apple.actool.compilation-results */
+/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols.swift
+DataModelCompile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/ /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/
+NotesModel.xcdatamodel: note: Model NotesModel version checksum: 7rUPITvEDeHyyd95Fx0Q9zLs6ks50KfAuNnktpDWXdw=
+DataModelCodegen /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --action generate --swift-version 5.9 --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel
+CpResource /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/index.html /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Pyodide/index.html (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Pyodide/index.html /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
+CpResource /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/PyodideAssets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PyodideAssets (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PyodideAssets /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
+CompileAssetCatalogVariant thinned /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/Arc
+[ISwiftDriver NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-SwiftDriver -- /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CodeSnake -O -whole-module-optimization -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -target arm64-apple-ios17.0 -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-ipho
+SwiftDriver\ Compilation NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-Swift-Compilation -- /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CodeSnake -O -whole-module-optimization -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -target arm64-apple-ios17.0 -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Releas
+[OSwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftShims-729RK0AG4RLNXRNPZ5CEVPYCL.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_SwiftConcurrencyShims-ABAP3XK4FPZ0HOQN2OA37HGW1.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrcheck-CSG821Y62FW54DU5Q3NJ3BXXK.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_float-DSICRM00A0IHM2RV3M1PUDXJC.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdbool-BU6A90G0BL93UCVHPFOADHETH.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DeveloperToolsSupport-HCZMCF2IFW7XDM9N7A06STUF.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdarg-9Y4GU7MTA8DBNH1PACULN7G8Y.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrauth-DNC48MLQZWYGD5SJ5HWZM6P46.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_AvailabilityInternal-3ATYOQX7Y8FLM8A2YCZJ3XY20.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stddef-BCN5UZKFGITR7ZRCKPL0XV6NH.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation1-C4GMY5GJL27V67BC5GLXL6RIS.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation2-6ADNO32KZEHEK53UWCW60DAFQ.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_limits-586IO2Q4GEPFTFV4IRQ5FNWRR.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdint-379KIWUSTSQGLC7FGPEAQ6AS7.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_tgmath-3ZF2NMDBDQQN37E1XMTYNAQ0Y.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/sys_types-5HXOG0DU2OYW3S1Q29RL7PL63.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdatomic-DGHOMB92ZJDMG52O1936F23SA.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_intrinsics-30WBM5K2R1MC2I220BS6KD47Z.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation3-JD4MMCU08CNDI8D8QFYVZDC3.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_inttypes-62UOWMKMLEV9XBHM5G186VZAH.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Darwin-U8PUF732SX13N33G09IAAQOS.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/simd-3O670MLI2MMW0ZLUGJAAWYUR2.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/MachO-CVHLH2GYTOEPOLMSLEVV61F1X.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ObjectiveC-8V2PWUULKPXWRBDXNE2BKE1BJ.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_object-AUJ0U64R0QIXXA4LPBV6Y91FB.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_workgroup-COJ7YOPUPZLAQNEZAX23Y4ZE4.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Dispatch-7KNT5O4HDUREECLDI0GL3OEQ6.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Spatial-2K78JFZ044PP6X7943F0JL00H.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/dnssd-B1IR7YDNBYN2TRVRRYGCUJ2R0.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreFoundation-2L4O5SIVVNW7M5P87T1XF5OYI.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/XPC-D51TOL6KMG2RGCWCH2BXI93P.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CFNetwork-DTTIM1ZKDYDUINM30JGIYEV8X.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreGraphics-9TSHA2JH95RH8D9QYN7DFV8QT.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os-EWI5QL6OJBTUQZKNMKOMU4GWF.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Security-9VFL9IB8YO33PBBJHPU1YBEVE.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreText-A9M3SPGAPV3SY7YHHIO5JWX8H.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ImageIO-AIXE908AL0IQ02V7C59YWKYOV.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Foundation-A95BH4TQXZVOJUCJN0DIP56BB.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Accessibility-72H5DGDZJSCOB9T48PC4RWGUR.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreTransferable-3IYPRRPKICF90NP07RDAUBV67.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/FileProvider-EWJIZAIZUERRXMTQ3TTYW7EPT.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Symbols-2FZB5AB69AFXFHU8B3M56Y7NB.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/LocalAuthentication-E6IU6GVDZIMCI01KDB51LPX59.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIUtilities-DTLAW841QZLFVKVXH2ED11ZC0.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OSLog-9PO079U4T1G1LP8S2YPUJWBZA.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UniformTypeIdentifiers-47LXFV6O1V36Q1912GEWOLFNA.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UserNotifications-1Y7EX84IYVX9YSZQANX8V93XQ.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DataDetection-65QR7EQGZM8NPFAZ5CC20MEJF.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreData-4R5CXE55DPVEZ08F2ZM56N0HE.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/IOSurface-9YMPTTCBKQ8SN5R8D0K704TC1.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Network-2LMF9QADW6GETITAM3CMO9841.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OpenGLES-F2KFK56NZQ65D0H35CC08GL13.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Metal-96BFSLK4OEZGZLY7WGCHZW1CS.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreVideo-4RQLPJW95GAI8M6EXQ0MYJLW7.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/QuartzCore-5MBENFANP60MA955OZ6721AZV.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreImage-CI97WNAUXMED66ZKD7WAAHR6U.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUICore-3STSSDJJHXV1GLC66UKOTQU87.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIKit-DB427KMNGOPCV878UTWFYYT01.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/WebKit-22HFM0UF51KYHDBIDNSOF9O0I.pcm
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUI-CVPINHMD2655GQUYRFVEN7P12.pcm
+SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ OfflinePyodideExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift,\ TodayView.swift,\ HistoryView.swift,\ SettingsView.swift,\ HydrationHelpers.swift,\ NotificationManager.swift,\ Theme.swift,\ Toast.swift,\ CelebrationOverlay.swift,\ ScreenshotMode.swift,\ ErrorLogger.swift,\ CrashHandler.swift,\ ErrorLogView.swift,\ HydrationEntry+CoreDataClass.swift,\ HydrationEntry+CoreDataProperties.swift,\ UserSettings+CoreDataClass.swift,\ UserSettings+CoreDataProperties.swift,\ NotesModel+CoreDataModel.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/No
+Failed frontend command:
+/Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighligh
+CompileSwift normal arm64 (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:40:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
+        .onChange(of: code) { _ in persist(); loadPersistedBreakpoints() }
+         ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:41:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
+        .onChange(of: breakpoints) { _ in persistBreakpoints() }
+         ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:37:21: warning: call to main actor-isolated instance method 'evaluateJavaScript(_:completionHandler:)' in a synchronous nonisolated context
+            webView.evaluateJavaScript(js) { _, error in
+                    ^
+WebKit.WKWebView.evaluateJavaScript:2:22: note: calls to instance method 'evaluateJavaScript(_:completionHandler:)' from outside of its actor context are implicitly asynchronous
+@MainActor open func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil)}
+                     ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:39:35: warning: capture of 'self' with non-Sendable type 'OfflinePyodideExecutor' in a '@Sendable' closure
+                    if let cont = self.continuations.removeValue(forKey: reqId) {
+                                  ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:4:13: note: class 'OfflinePyodideExecutor' does not conform to the 'Sendable' protocol
+final class OfflinePyodideExecutor: NSObject, PythonExecutor {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:126:30: warning: call to main actor-isolated instance method 'evaluateJavaScript(_:completionHandler:)' in a synchronous nonisolated context
+                self.webView.evaluateJavaScript("(window.__pydeckReady===true)?'ready':(window.__pydeckError||'')") { result, _ in
+                             ^
+WebKit.WKWebView.evaluateJavaScript:2:22: note: calls to instance method 'evaluateJavaScript(_:completionHandler:)' from outside of its actor context are implicitly asynchronous
+@MainActor open func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil)}
+                     ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:128:25: warning: capture of 'self' with non-Sendable type 'OfflinePyodideExecutor' in a '@Sendable' closure
+                        self.isReady = true
+                        ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:4:13: note: class 'OfflinePyodideExecutor' does not conform to the 'Sendable' protocol
+final class OfflinePyodideExecutor: NSObject, PythonExecutor {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:33: error: missing argument label 'where:' in call
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+                                ^
+                                where: 
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:33: error: cannot convert value of type 'Int' to expected argument type '(Dictionary<Int, String>.Element) throws -> Bool' (aka '((key: Int, value: String)) throws -> Bool')
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+                                ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:60: error: missing argument label 'at:' in call
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+                                                           ^
+                                                           at: 
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:60: error: cannot convert value of type 'Int' to expected argument type 'Dictionary<Int, String>.Index'
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+                                                           ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:87: error: value of type '[Int : String]' has no member 'insert'
+        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
+                                                                          ~~~~~~~~~~~ ^~~~~~
+** ARCHIVE FAILED **
+The following build commands failed:
+	SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ OfflinePyodideExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift,\ TodayView.swift,\ HistoryView.swift,\ SettingsView.swift,\ HydrationHelpers.swift,\ NotificationManager.swift,\ Theme.swift,\ Toast.swift,\ CelebrationOverlay.swift,\ ScreenshotMode.swift,\ ErrorLogger.swift,\ CrashHandler.swift,\ ErrorLogView.swift,\ HydrationEntry+CoreDataClass.swift,\ HydrationEntry+CoreDataProperties.swift,\ UserSettings+CoreDataClass.swift,\ UserSettings+CoreDataProperties.swift,\ NotesModel+CoreDataModel.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/N
+	CompileSwift normal arm64 (in target 'NotesApp' from project 'NotesApp')
+	Archiving project NotesApp with scheme NotesApp
+(3 failures)
+Error: Process completed with exit code 65.
 0s
 0s
 0s
 0s
-0s
-0s
-0s
+1s
+1s
 
