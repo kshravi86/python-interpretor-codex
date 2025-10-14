@@ -1,5 +1,14 @@
 // Minimal C bridge for embedding CPython on iOS.
 #include "PythonBridge.h"
+// Include CPython headers in the C translation unit only, to avoid Swift bridging header
+// triggering Clang module builds for Python framework headers.
+#if __has_include(<Python/Python.h>)
+#  include <Python/Python.h>
+#elif __has_include(<Python.h>)
+#  include <Python.h>
+#else
+#  error "Python headers not found; set HEADER_SEARCH_PATHS or FRAMEWORK_SEARCH_PATHS"
+#endif
 #include <stdlib.h>
 #include <string.h>
 
