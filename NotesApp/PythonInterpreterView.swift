@@ -23,6 +23,7 @@ for i in range(3):
     @State private var editingBreakpointLine: Int? = nil
     @State private var editingCondition: String = ""
     @State private var showEditConditionSheet: Bool = false
+    @State private var showingLogs: Bool = false
 
     private let executor: PythonExecutor = CPythonExecutor()
 
@@ -42,6 +43,7 @@ for i in range(3):
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
         .sheet(isPresented: $showingBreakpoints) { breakpointsSheet }
         .sheet(isPresented: $showEditConditionSheet) { conditionEditorSheet }
+        .sheet(isPresented: $showingLogs) { LogsView() }
     }
 
     private var editor: some View {
@@ -111,6 +113,13 @@ for i in range(3):
                 Label("Breakpoints", systemImage: "bookmark.circle")
             }
             .buttonStyle(.bordered)
+            
+            Button {
+                showingLogs = true
+            } label: {
+                Label("Logs", systemImage: "doc.text.magnifyingglass")
+            }
+            .buttonStyle(.bordered)
 
             Spacer()
 
@@ -157,6 +166,7 @@ for i in range(3):
     }
 
     private func runCode() async {
+        AppLogger.log("runCode() started - code length: \(code.count) chars")
         isRunning = true
         lastError = nil
         output = ""
@@ -164,6 +174,7 @@ for i in range(3):
         let start = Date()
         do {
             let result = try await executor.execute(code: code)
+            AppLogger.log("Execution completed - exit code: \(result.exitCode ?? -1), stdout: \(result.stdout.count)B, stderr: \(result.stderr.count)B")
             var combined = ""
             if let status = result.exitCode { combined += "[exit \(status)]\n" }
             if !result.stdout.isEmpty { combined += result.stdout }
@@ -179,6 +190,7 @@ for i in range(3):
             }
             await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
         } catch {
+            AppLogger.log("Execution failed with error: \(error.localizedDescription)")
             await MainActor.run {
                 self.lastError = "Run failed: \(error.localizedDescription)"
                 self.runDuration = Date().timeIntervalSince(start)
@@ -188,6 +200,7 @@ for i in range(3):
             }
         }
         await MainActor.run { self.isRunning = false }
+        AppLogger.log("runCode() completed in \(Date().timeIntervalSince(start))s")
     }
 
     private func applyAutorunFromArgumentsIfNeeded() {

@@ -37,19 +37,31 @@ final class CPythonExecutor: PythonExecutor {
     }
 
     private func ensureInitialized() throws {
-        if Self.didInit { return }
-        guard let resURL = Bundle.main.resourceURL else { throw NotConfigured() }
+        if Self.didInit { 
+            AppLogger.log("CPythonExecutor already initialized, skipping")
+            return 
+        }
+        guard let resURL = Bundle.main.resourceURL else { 
+            AppLogger.log("CPythonExecutor.init FAIL: Bundle.main.resourceURL is nil")
+            throw NotConfigured() 
+        }
         AppLogger.log("CPythonExecutor.init begin res=\(resURL.path)")
+        
+        // Check if python-stdlib.zip exists
+        let stdlibPath = resURL.appendingPathComponent("python-stdlib.zip")
+        let stdlibExists = FileManager.default.fileExists(atPath: stdlibPath.path)
+        AppLogger.log("python-stdlib.zip exists: \(stdlibExists) at \(stdlibPath.path)")
+        
         var buf = Array<CChar>(repeating: 0, count: 256)
         let rc: Int32 = resURL.path.withCString { path in
             pybridge_initialize(path, &buf, buf.count)
         }
         if rc != 0 {
             let msg = String(cString: buf)
-            AppLogger.log("CPythonExecutor.init fail rc=\(rc) msg=\(msg)")
+            AppLogger.log("CPythonExecutor.init FAIL rc=\(rc) msg=\(msg)")
             throw NSError(domain: "CPythonExecutor", code: Int(rc), userInfo: [NSLocalizedDescriptionKey: msg])
         }
-        AppLogger.log("CPythonExecutor.init ok")
+        AppLogger.log("CPythonExecutor.init SUCCESS")
         Self.didInit = true
     }
 }
