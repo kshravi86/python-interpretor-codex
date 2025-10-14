@@ -38,6 +38,7 @@
         BB2222222222222222222201 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222202 /* CodeEditorView.swift */; };
         BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222204 /* SyntaxHighlighter.swift */; };
         BB2222222222222222222205 /* Snippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222206 /* Snippets.swift */; };
+        EE7777777777777777777701 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7777777777777777777702 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
         BB2222222222222222222202 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
         BB2222222222222222222204 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
         BB2222222222222222222206 /* Snippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippets.swift; sourceTree = "<group>"; };
+        EE7777777777777777777702 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +245,7 @@
                 FCF000010000000000000007 /* ErrorLogger.swift in Sources */,
                 FCF000010000000000000009 /* CrashHandler.swift in Sources */,
                 FCF00001000000000000000B /* ErrorLogView.swift in Sources */,
-            );
+            ,\n\t\t\t\t\tEE7777777777777777777701 /* Logger.swift in Sources */);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
