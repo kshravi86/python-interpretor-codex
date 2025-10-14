@@ -1,271 +1,392 @@
-Command line invocation:
-    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/xcodebuild archive -project NotesApp.xcodeproj -scheme NotesApp -configuration Release -destination generic/platform=iOS -archivePath /Users/runner/work/_temp/CodeSnake-Release.xcarchive CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION=202510131702
-Build settings from command line:
-    CODE_SIGN_IDENTITY = 
-    CODE_SIGNING_ALLOWED = NO
-    CODE_SIGNING_REQUIRED = NO
-    CURRENT_PROJECT_VERSION = 202510131702
-2025-10-13 17:02:30.027 xcodebuild[2676:13591] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
-note: Using codesigning identity override: 
-ComputePackagePrebuildTargetDependencyGraph
-Prepare packages
-CreateBuildRequest
-SendProjectDescription
-CreateBuildOperation
-ComputeTargetDependencyGraph
-note: Building targets in dependency order
-note: Target dependency graph (1 target)
-    Target 'NotesApp' in project 'NotesApp' (no dependencies)
-GatherProvisioningInputs
-CreateBuildDescription
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --dry-run --action generate --swift-version 5.9 --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -x c -c /dev/null
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview Content/Preview Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool --version --output-format xml1
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
-ExecuteExternalTool /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
-Build description signature: 6023fe07870a99c24730721da0f16fee
-Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/XCBuildData/6023fe07870a99c24730721da0f16fee.xcbuilddata
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath
-ClangStatCache /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.0-23A339-3885c01c3e6b6a337905948deab2002ee897cee61435230feef45a4748fd4bcc.sdkstatcache
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -o /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.0-23A339-3885c01c3e6b6a337905948deab2002ee897cee61435230feef45a4748fd4bcc.sdkstatcache
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp-599a6b0c646486d9f1c4604e906ba57a-VFS-iphoneos/all-product-headers.yaml
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp-599a6b0c646486d9f1c4604e906ba57a-VFS-iphoneos/all-product-headers.yaml
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/SwiftExplicitPrecompiledModules
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/SwiftExplicitPrecompiledModules
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/ExplicitPrecompiledModules
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/ExplicitPrecompiledModules
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/EagerLinkingTBDs/Release-iphoneos
-[O    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/EagerLinkingTBDs/Release-iphoneos
-CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
-    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp_const_extract_protocols.json (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp_const_extract_protocols.json
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/empty-CodeSnake.plist (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/empty-CodeSnake.plist
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp-OutputFileMap.json (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/NotesApp-OutputFileMap.json
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftConstValuesFileList (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftConstValuesFileList
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.LinkFileList (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.LinkFileList
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.hmap
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyStaticMetadataFileList (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyStaticMetadataFileList
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyMetadataFileList (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake.DependencyMetadataFileList
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-project-headers.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-project-headers.hmap
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-own-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-own-target-headers.hmap
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-generated-files.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-generated-files.hmap
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-target-headers.hmap
-WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-non-framework-target-headers.hmap (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    write-file /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/CodeSnake-all-non-framework-target-headers.hmap
-SymLink /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos/CodeSnake.app ../../InstallationBuildProductsLocation/Applications/CodeSnake.app (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /bin/ln -sfh ../../InstallationBuildProductsLocation/Applications/CodeSnake.app /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-iphoneos/CodeSnake.app
-MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
-MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned
-MkDir /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/unthinned (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/unthinned
-GenerateAssetSymbols /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFiles
-/* com.apple.actool.notices */
-warning: Failed to read file attributes for "/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview Content/Preview Assets.xcassets"
-    Failure Reason: No such file or directory
-/* com.apple.actool.document.warnings */
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets:./AppIcon.appiconset/[][ipad][83.5x83.5][][][2x][][][][]: warning: AppIcon.appiconset/AppIcon_quizlist_ipad_83.5x83.5@2x.png is 166x166 but should be 167x167.
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets:./AppIcon.appiconset/[][ipad][83.5x83.5][][][2x][][][][]: warning: AppIcon.appiconset/AppIcon_quizlist_ipad_83.5x83.5@2x.png is 166x166 but should be 167x167.
-/* com.apple.actool.compilation-results */
-/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols-Index.plist
-/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols.h
-/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/GeneratedAssetSymbols.swift
-DataModelCompile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/ /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/
-NotesModel.xcdatamodel: note: Model NotesModel version checksum: 7rUPITvEDeHyyd95Fx0Q9zLs6ks50KfAuNnktpDWXdw=
-DataModelCodegen /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/momc --action generate --swift-version 5.9 --sdkroot /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk --iphoneos-deployment-target 17.0 --module CodeSnake /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesModel.xcdatamodeld /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel
-CpResource /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/index.html /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Pyodide/index.html (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Pyodide/index.html /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
-CpResource /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app/PyodideAssets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PyodideAssets (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PyodideAssets /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app
-CompileAssetCatalogVariant thinned /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/InstallationBuildProductsLocation/Applications/CodeSnake.app /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    /Applications/Xcode_26.0.1.app/Contents/Developer/usr/bin/actool /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/Arc
-[ISwiftDriver NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    builtin-SwiftDriver -- /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CodeSnake -O -whole-module-optimization -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -target arm64-apple-ios17.0 -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Release-ipho
-SwiftDriver\ Compilation NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    builtin-Swift-Compilation -- /Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CodeSnake -O -whole-module-optimization -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/IntermediateBuildFilesPath/NotesApp.build/Release-iphoneos/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.0.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -target arm64-apple-ios17.0 -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/NotesApp-faggfbitewvqdvgwjnolceekecvb/Build/Intermediates.noindex/ArchiveIntermediates/NotesApp/BuildProductsPath/Releas
-[OSwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftShims-729RK0AG4RLNXRNPZ5CEVPYCL.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_SwiftConcurrencyShims-ABAP3XK4FPZ0HOQN2OA37HGW1.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrcheck-CSG821Y62FW54DU5Q3NJ3BXXK.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_float-DSICRM00A0IHM2RV3M1PUDXJC.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdbool-BU6A90G0BL93UCVHPFOADHETH.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DeveloperToolsSupport-HCZMCF2IFW7XDM9N7A06STUF.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdarg-9Y4GU7MTA8DBNH1PACULN7G8Y.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrauth-DNC48MLQZWYGD5SJ5HWZM6P46.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_AvailabilityInternal-3ATYOQX7Y8FLM8A2YCZJ3XY20.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stddef-BCN5UZKFGITR7ZRCKPL0XV6NH.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation1-C4GMY5GJL27V67BC5GLXL6RIS.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation2-6ADNO32KZEHEK53UWCW60DAFQ.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_limits-586IO2Q4GEPFTFV4IRQ5FNWRR.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdint-379KIWUSTSQGLC7FGPEAQ6AS7.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_tgmath-3ZF2NMDBDQQN37E1XMTYNAQ0Y.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/sys_types-5HXOG0DU2OYW3S1Q29RL7PL63.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdatomic-DGHOMB92ZJDMG52O1936F23SA.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_intrinsics-30WBM5K2R1MC2I220BS6KD47Z.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation3-JD4MMCU08CNDI8D8QFYVZDC3.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_inttypes-62UOWMKMLEV9XBHM5G186VZAH.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Darwin-U8PUF732SX13N33G09IAAQOS.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/simd-3O670MLI2MMW0ZLUGJAAWYUR2.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/MachO-CVHLH2GYTOEPOLMSLEVV61F1X.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ObjectiveC-8V2PWUULKPXWRBDXNE2BKE1BJ.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_object-AUJ0U64R0QIXXA4LPBV6Y91FB.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_workgroup-COJ7YOPUPZLAQNEZAX23Y4ZE4.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Dispatch-7KNT5O4HDUREECLDI0GL3OEQ6.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Spatial-2K78JFZ044PP6X7943F0JL00H.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/dnssd-B1IR7YDNBYN2TRVRRYGCUJ2R0.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreFoundation-2L4O5SIVVNW7M5P87T1XF5OYI.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/XPC-D51TOL6KMG2RGCWCH2BXI93P.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CFNetwork-DTTIM1ZKDYDUINM30JGIYEV8X.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreGraphics-9TSHA2JH95RH8D9QYN7DFV8QT.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os-EWI5QL6OJBTUQZKNMKOMU4GWF.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Security-9VFL9IB8YO33PBBJHPU1YBEVE.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreText-A9M3SPGAPV3SY7YHHIO5JWX8H.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ImageIO-AIXE908AL0IQ02V7C59YWKYOV.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Foundation-A95BH4TQXZVOJUCJN0DIP56BB.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Accessibility-72H5DGDZJSCOB9T48PC4RWGUR.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreTransferable-3IYPRRPKICF90NP07RDAUBV67.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/FileProvider-EWJIZAIZUERRXMTQ3TTYW7EPT.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Symbols-2FZB5AB69AFXFHU8B3M56Y7NB.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/LocalAuthentication-E6IU6GVDZIMCI01KDB51LPX59.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIUtilities-DTLAW841QZLFVKVXH2ED11ZC0.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OSLog-9PO079U4T1G1LP8S2YPUJWBZA.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UniformTypeIdentifiers-47LXFV6O1V36Q1912GEWOLFNA.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UserNotifications-1Y7EX84IYVX9YSZQANX8V93XQ.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DataDetection-65QR7EQGZM8NPFAZ5CC20MEJF.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreData-4R5CXE55DPVEZ08F2ZM56N0HE.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/IOSurface-9YMPTTCBKQ8SN5R8D0K704TC1.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Network-2LMF9QADW6GETITAM3CMO9841.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OpenGLES-F2KFK56NZQ65D0H35CC08GL13.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Metal-96BFSLK4OEZGZLY7WGCHZW1CS.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreVideo-4RQLPJW95GAI8M6EXQ0MYJLW7.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/QuartzCore-5MBENFANP60MA955OZ6721AZV.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreImage-CI97WNAUXMED66ZKD7WAAHR6U.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUICore-3STSSDJJHXV1GLC66UKOTQU87.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIKit-DB427KMNGOPCV878UTWFYYT01.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/WebKit-22HFM0UF51KYHDBIDNSOF9O0I.pcm
-SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUI-CVPINHMD2655GQUYRFVEN7P12.pcm
-SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ OfflinePyodideExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift,\ TodayView.swift,\ HistoryView.swift,\ SettingsView.swift,\ HydrationHelpers.swift,\ NotificationManager.swift,\ Theme.swift,\ Toast.swift,\ CelebrationOverlay.swift,\ ScreenshotMode.swift,\ ErrorLogger.swift,\ CrashHandler.swift,\ ErrorLogView.swift,\ HydrationEntry+CoreDataClass.swift,\ HydrationEntry+CoreDataProperties.swift,\ UserSettings+CoreDataClass.swift,\ UserSettings+CoreDataProperties.swift,\ NotesModel+CoreDataModel.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/No
-Failed frontend command:
-/Applications/Xcode_26.0.1.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighligh
-CompileSwift normal arm64 (in target 'NotesApp' from project 'NotesApp')
-    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
-    
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:40:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
-        .onChange(of: code) { _ in persist(); loadPersistedBreakpoints() }
-         ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:41:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
-        .onChange(of: breakpoints) { _ in persistBreakpoints() }
-         ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:37:21: warning: call to main actor-isolated instance method 'evaluateJavaScript(_:completionHandler:)' in a synchronous nonisolated context
-            webView.evaluateJavaScript(js) { _, error in
-                    ^
-WebKit.WKWebView.evaluateJavaScript:2:22: note: calls to instance method 'evaluateJavaScript(_:completionHandler:)' from outside of its actor context are implicitly asynchronous
-@MainActor open func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil)}
-                     ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:39:35: warning: capture of 'self' with non-Sendable type 'OfflinePyodideExecutor' in a '@Sendable' closure
-                    if let cont = self.continuations.removeValue(forKey: reqId) {
-                                  ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:4:13: note: class 'OfflinePyodideExecutor' does not conform to the 'Sendable' protocol
-final class OfflinePyodideExecutor: NSObject, PythonExecutor {
-            ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:126:30: warning: call to main actor-isolated instance method 'evaluateJavaScript(_:completionHandler:)' in a synchronous nonisolated context
-                self.webView.evaluateJavaScript("(window.__pydeckReady===true)?'ready':(window.__pydeckError||'')") { result, _ in
-                             ^
-WebKit.WKWebView.evaluateJavaScript:2:22: note: calls to instance method 'evaluateJavaScript(_:completionHandler:)' from outside of its actor context are implicitly asynchronous
-@MainActor open func evaluateJavaScript(_ javaScriptString: String, completionHandler: (@MainActor @Sendable (Any?, (any Error)?) -> Void)? = nil)}
-                     ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:128:25: warning: capture of 'self' with non-Sendable type 'OfflinePyodideExecutor' in a '@Sendable' closure
-                        self.isReady = true
-                        ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/OfflinePyodideExecutor.swift:4:13: note: class 'OfflinePyodideExecutor' does not conform to the 'Sendable' protocol
-final class OfflinePyodideExecutor: NSObject, PythonExecutor {
-            ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:33: error: missing argument label 'where:' in call
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
-                                ^
-                                where: 
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:33: error: cannot convert value of type 'Int' to expected argument type '(Dictionary<Int, String>.Element) throws -> Bool' (aka '((key: Int, value: String)) throws -> Bool')
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
-                                ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:60: error: missing argument label 'at:' in call
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
-                                                           ^
-                                                           at: 
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:60: error: cannot convert value of type 'Int' to expected argument type 'Dictionary<Int, String>.Index'
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
-                                                           ^
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift:189:87: error: value of type '[Int : String]' has no member 'insert'
-        if breakpoints.contains(line) { breakpoints.remove(line) } else { breakpoints.insert(line) }
-                                                                          ~~~~~~~~~~~ ^~~~~~
-** ARCHIVE FAILED **
-The following build commands failed:
-	SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ OfflinePyodideExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift,\ TodayView.swift,\ HistoryView.swift,\ SettingsView.swift,\ HydrationHelpers.swift,\ NotificationManager.swift,\ Theme.swift,\ Toast.swift,\ CelebrationOverlay.swift,\ ScreenshotMode.swift,\ ErrorLogger.swift,\ CrashHandler.swift,\ ErrorLogView.swift,\ HydrationEntry+CoreDataClass.swift,\ HydrationEntry+CoreDataProperties.swift,\ UserSettings+CoreDataClass.swift,\ UserSettings+CoreDataProperties.swift,\ NotesModel+CoreDataModel.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/N
-	CompileSwift normal arm64 (in target 'NotesApp' from project 'NotesApp')
-	Archiving project NotesApp with scheme NotesApp
-(3 failures)
-Error: Process completed with exit code 65.
-0s
-0s
-0s
-0s
-1s
-1s
+ YES; opaque = NO; gestureRecognizers = <NSArray: 0xd685dbd00>; layer = <UIWindowLayer: 0xd67c70450>>; responder: <SBHLibraryCategoryPodIconView: 0xd6a512300; frame: {{12, 12}, {60, 60}}; icon: <SBApplicationIcon: 0xd6bcf3700; nodeID: com.venki18.codesnake; bundleID: com.venki18.codesnake>; location: SBIconLocationAppLibraryCategoryPodRecents; allowsLabelArea: NO; isLabelHidden: YES; isLabelAccessoryHidden: YES>; location in window: {258.33332824707031, 191.33332824707031}; previous location in window: {258.33332824707031, 191.33332824707031}; location in view: {40.333328247070312, 32.333328247070312}; previous location in view: {40.333328247070312, 32.333328247070312}
+    <UITouch: 0xd6b5f8380> type: Direct; phase: Began; is pointer: NO; tap count: 1; force: 0.000; window: <SBHomeScreenWindow: 0xd6774ec00; HomeScreen-0xd6774ec00-5; baseClass = UIWindow; frame = (0 0; 390 844); clipsToBounds = YES; opaque = NO; gestureRecognizers = <NSArray: 0xd685dbd00>; layer = <UIWindowLayer: 0xd67c70450>>; responder: <SBHLibraryCategoryPodIconView: 0xd6a512300; frame: {{12, 12}, {60, 60}}; icon: <SBApplicationIcon: 0xd6bcf3700; nodeID: com.venki18.codesnake; bundleID: com.venki18.codesnake>; location: SBIconLocationAppLibraryCategoryPodRecents; allowsLabelArea: NO; isLabelHidden: YES; isLabelAccessoryHidden: YES; isTouchDownInIcon: YES>; location in window: {258.33332824707031, 191.33332824707031}; previous location in window: {258.33332824707031, 191.33332824707031}; location in view: {40.333328247070312, 32.333328247070312}; previous location in view: {40.333328247070312, 32.333328247070312}
+
+    "sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9" = 1;
+        SBLayoutRolePrimary = <SBDeviceApplicationSceneEntity: 0xd69b36240; ID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; layoutRole: primary>;
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Generating initialization context on main thread for: com.venki18.codesnake
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: Asked to bootstrap a new process with identity: app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: Creating process (sync=true) with identity: app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: Created <FBWorkspace: 0xd6b5521c0; <FBApplicationProcess: 0xd6b542a00; app<com.venki18.codesnake>:<invalid>>>
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: Bootstrapping app<com.venki18.codesnake> with intent foreground-interactive
+Oct 14 10:35:52 iPhone SpringBoard(shared_cache_page_prewarming)[24188] <Notice>: Prewarming for launch of com.venki18.codesnake
+
+rgeting app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)> from originator [osservice<com.apple.SpringBoard>:24188] with description <RBSAssertionDescriptor| "FBApplicationProcess" ID:33-24188-207733 target:app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)> attributes:[
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-24188-207733 (target:app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>) will be created as active
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Creating and launching job for: app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: _mutateContextIfNeeded called for com.venki18.codesnake
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: -[RBPersonaManager personaForIdentity:context:personaUID:personaUniqueString:] required 0.006080 ms (wallclock); resolved to {1000, 46A5E3DA-2109-4F54-9E2C-BCFC834A6E46}
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: 'app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>' Skipping container path lookup because containerization was prevented (<RBSLaunchContext: 0xbb036d540>)
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: 'app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>' Constructed job descripti
+
+	"_ResourceCoalition" => <string: 0xbb00685a0> { length = 64, contents = "app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>" }
+	"CFBundleIdentifier" => <string: 0xbb0aaf3c0> { length = 21, contents = "com.venki18.codesnake" }
+				"EAI" => <string: 0xbb006be40> { length = 21, contents = "com.venki18.codesnake" }
+	"Label" => <string: 0xbb0aac5a0> { length = 55, contents = "UIKitApplication:com.venki18.codesnake[adb7][rb-legacy]" }
+
+5:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] Memory Limits: active 2098 inactive 2098
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] This process will be managed.
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Now tracking process: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Using default underlying assertion for app: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] from originator [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] with description <RBSAssertionDescriptor| "RB Underlying Assertion" ID:33-33-207734 target:38048 attributes:[
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-33-207734 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) will be created as active
+Oct 14 10:35:52 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Bootstrap success!
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] Set jetsam priority to 100 [0] flag[1]
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+[OOct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] Resuming task.
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] Set darwin role to: UserInteractiveFocal
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BC
+
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] Set Carplay mode to: 0
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] visiblity is yes
+Oct 14 10:35:52 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Setting process task state to: Running
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Setting process visibility to: Foreground
+Oct 14 10:35:52 iPhone powerd[47] <Notice>: Process runningboardd.33 Created SystemIsActive "app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>33-24188-207733:FBApplicationProcess" age:00:00:00  id:51539649649 [System: PrevIdle SysAct]
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Registering event dispatcher after bootstrap
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Initial launch assertion state: ForegroundFocal.
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] reported to RB as running
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: Adding: <FBApplicationProcess: 0xd6b542a00; app<com.venki18.codesnake>:38048(v1A930)>
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Successfully acquired underlying assertion for [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: <SBFullScreenSwitcherLiveContentOverlayCoordinator: 0xd6a058a10> Adding SwitcherScene overlay for: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>, animated: NO
+Oct 14 10:35:52 iPhone dasd(RunningBoardServices)[85] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+ver for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(UserNotificationsServer)[24188] <Notice>: [com.venki18.codesnake] Foreground app will not request ephemeral notifications isAppClip: NO wantsEphemeral notifications: NO
+Oct 14 10:35:52 iPhone SpringBoard(UserNotificationsCore)[24188] <Notice>: [com.venki18.codesnake] com.venki18.codesnake application state changed to <RBSProcessState| task:running-active debug:none endowmentNamespace:[
+        sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+        com.venki18.codesnake
+Oct 14 10:35:52 iPhone SpringBoard(UserNotificationsCore)[24188] <Notice>: [com.venki18.codesnake] Ignore becoming foreground for application without push registration
+Oct 14 10:35:52 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+
+Oct 14 10:35:52 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: modifying scene setting userInterfaceStyle to Light displayIdentity: Main forSceneManagers: Main <SBDeviceApplicationSceneHandle: 0xd6be52840; sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; scenePointer: 0x0>
+Oct 14 10:35:52 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+<SBSceneReadySwitcherModifierEvent: 0xd662f3020; type: SceneReady; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main> {
+        sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 = <SBDisplayItemLayoutAttributes: 0xd698863e0; contentOrientation: "portrait (1)"; lastInteractionTime: 29050; sizingPolicy: maximized; size: unspecified; center: unspecified; occlusionState: unknown; userConfiguredSizeBeforeOverlapping: unspecified; unoccludedPeekingCenter: unspecified>;
+    continuousExposeIdentifier = com.venki18.codesnake;
+        primary = <SBDisplayItem: 0xd6c3f8ed0; type: App; bundleIdentifier: com.venki18.codesnake; uniqueIdentifier: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9>;
+Oct 14 10:35:52 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+
+for com.venki18.codesnake
+Oct 14 10:35:52 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Initialized with connection: 0xd6c43e2b0.
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Registered new scene: <FBUIApplicationWorkspaceScene: 0xd67733e40; (FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> (fromRemnant = 0)
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9][1] Scene activated.
+Oct 14 10:35:52 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Workspace interruption policy did change: reconnect
+Oct 14 10:35:52 iPhone SpringBoard(BaseBoard)[24188] <Notice>: <BSCompoundAssertion:0xd6828c140> (SBApplicationAppProtectionAssistant: 0xd67772500 - com.venki18.codesnake) acquire for reason:NULL scene acq:0xd68fae200 count:1
+Oct 14 10:35:52 iPhone cameracaptured(CMCapture)[68] <Notice>: <<<< FigCaptureDisplayLayoutMonitor >>>> -[FigCaptureDisplayLayoutMonitor _parseFBSDisplayLayout:]: <FigCaptureDisplayLayoutMonitor: 0x8321a8480 Main Display> <FBSDisplayLayout: 0x836d1ae40; displayIdentity: Main> {    bounds = {{0, 0}, {390, 844}};    interfaceOrientation = "portrait (1)";    backlightLevel = 100;    backlightState = 2;    elements = {        <SBSDisplayLayoutElement: 0x835863090; sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; bundleID: com.venki18.codesnake; frame: {{0, 0}, {390, 844}}; level: 1; role: primary>;    }    timestamp = 14 October 2025 at 10:35:52\M-b\M^@\M-/AM IST;}
+Oct 14 10:35:52 iPhone SpringBoard(AppProtection)[24188] <Notice>: scene will become FG visible for <APApplication: com.venki18.codesnake>
+Oct 14 10:35:52 iPhone cameracaptured(CMCapture)[68] <Notice>: <<<< FigCaptureDisplayLayoutMonitor >>>> -[FigCaptureDisplayLayoutMonitor _updateObserversWithLayout:]: <FigCaptureDisplayLayoutMonitor: 0x8321a8480 Main Display> <FigCaptureDisplayLayout: 0x836d1a440 10-14-2025 10:35:52, Main Display, foreground:[com.venki18.codesnake]>
+[IOct 14 10:35:52 iPhone SpringBoard(AppProtection)[24188] <Notice>: auth result for <APApplication: com.venki18.codesnake>: true (null)
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: [coordinator] didAddExternalForegroundApplicationSceneHandle pid:38048 scene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 now:<recentPIDs: [38048]; recentSceneIdentityTokensByPID: {38048: [com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9]}>
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] from originator [
+
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-24188-207735 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) will be created as inactive as originator process has not exited
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: [com.apple.springboard] didAddExternalForegroundApplicationSceneHandle pid:38048 scene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 now:<recentPIDs: [38048]; recentSceneIdentityTokensByPID: {38048: [com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9]}>
+Oct 14 10:35:52 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:35:52 iPhone SpringBoard(UIKitCore)[24188] <Notice>: Now tracking: <FBScene: 0xd689ac600; FBSceneManager:sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9>
+Oct 14 10:35:52 iPhone SpringBoard(UIKitCore)[24188] <Notice>: [sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Setting deactivation reasons to: 'systemAnimation' for reason: scene settings update - settings are eligible for deactivation reasons.
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] scene content state changed: preparing
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Scene lifecycle state did change: Foreground
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Scene assertion state did change: ForegroundFocal.
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Launch assertion supersedes update of workspace assertion to ForegroundFocal.
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Workspace assertion state did change: ForegroundFocal (acquireAssertion = NO).
+Oct 14 10:35:52 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+<SBTransitionSwitcherModifierEvent: 0xd6b408c00; type: MainTransition; transitionID: 42B9FE91-5023-4250-A5FA-F572C52E4638; phase: Prepare; animated: YES; fromAppLayout: 0x0; toAppLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; fromEnvironmentMode: home-screen; toEnvironmentMode: application; fromSpaceConfiguration: undefined; toSpaceConfiguration: full; pendingTermination: {(
+)}; activating: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; morphingPIPLayoutRole: undefined>
+
+	    <SBIconOverlayVisibilitySwitcherEventResponse: 0xd6699d700; visible: YES; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>>;
+	    <SBIconViewVisibilitySwitcherEventResponse: 0xd6bbadcc0; visible: NO; animationSettings: 0x0; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>>;
+Oct 14 10:35:52 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone locationd(RunningBoardServices)[79] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+[OOct 14 10:35:52 iPhone locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"invoking applicationStateChange handler", "StateChangeData":"{\134n    BKSApplicationStateAppIsFrontmost = 1;\134n    BKSApplicationStateExtensionKey = 0;\134n    SBApplicationStateDisplayIDKey = \134"com.venki18.codesnake\134";\134n    SBApplicationStateKey = 8;\134n    SBApplicationStateProcessIDKey = 38048;\134n    SBMostElevatedStateForProcessID = 8;\134n}"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"RBS #AppMonitor process monitor update handler invoked", "pid":38048, "bundleID":"com.venki18.codesnake", "state":"RunningScheduled"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"Not Posting Application State Change Notification via legacy path", "notification":"ForegroundRunning", "pid":38048, "bundleId":"com.venki18.codesnake"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"RBS #AppMonitor Post Application State Change Notification", "notification":"ForegroundRunning", "pid":38048, "bundleId":"com.venki18.codesnake"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#Warning #ClientResolution the passed keyPath is not registered. Resolving to #nullCKP", "InputCKP":"icom.venki18.codesnake:
+
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#CLIUA AppMonitor notification", "notification":"ForegroundRunning", "pid":38048, "bundleId":"com.venki18.codesnake", "ClientKey":"icom.venki18.codesnake:"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#CLIUA Marking change", "clientKey":"icom.venki18.codesnake:", "reason":"Process state from RunningBoard", "AssertionLevel":"kCLClientInUseLevelDirectUserEngagement", "coming":1}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#CLIUA updating AssertionRecord", "ClientKey":"icom.venki18.codesnake:", "AssertionLevel":"kCLClientInUseLevelNotInUse"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#CLIUA AssertionRecord updated", "ClientKey":"icom.venki18.codesnake:", "AssertionLevel":"kCLClientInUseLevelDirectUserEngagement"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#CLIUA in-use level changed for client", "ClientKey":"icom.venki18.codesnake:"}
+Oct 14 10:35:52 iPhone locationd[79] <Notice>: {"msg":"#Warning #ClientResolution the passed keyPath is not registered. Resolving to #nullCKP", "InputCKP":"icom.venki18.codesnake:"}
+Oct 14 10:35:52 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone wifid(RunningBoardServices)[52] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:35:52 iPhone backboardd(RunningBoardServices)[71] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+    keyboardFocusTarget: <com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 pid:38048>;
+
+ppservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 pid:38048>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: rules: (keyboardFocus) defer (<com.apple.frontboard.systemappservices/FBSceneManager:com.apple.springboard pid:24188>) -> <com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 pid:38048>
+[I    keyboardFocusTarget: <com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 pid:38048>;
+Oct 14 10:35:52 iPhone SpringBoard(KeyboardArbiter)[24188] <Notice>: set currentFocus PID:38048 sceneIdentity:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+Oct 14 10:35:52 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+    [24188-37C]; <keyboardFocus; \M-b\M^@\M-&board.systemappservices/FBSceneManager:com.apple.springboard> -> <token: \M-b\M^@\M-&3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; pid: 38048>; reason: SpringBoard<com.apple.springboard>: enforcing outbound,
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Setting client for [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] as ready
+
+    bundleID = "com.venki18.codesnake";
+    <token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; pid: 38048>
+Oct 14 10:35:52 iPhone backboardd(BackBoardHIDEventFoundation)[71] <Notice>: Adding client connection: <BKHIDClientConnection: 0xb029ea180; IOHIDEventSystemConnectionRef: 0xb01044200; vpid: 38048(v1A930); taskPort: 0x7034B; bundleID: com.venki18.codesnake> for client: IOHIDEventSystemConnection uuid:D4E95481-94A3-41D4-858F-5DE1BC29C9AD pid:38048 process:CodeSnake type:Passive entitlements:0x0 caller:BackBoardServices: <redacted> + 280 attributes:{
+    bundleID = "com.venki18.codesnake";
+    <token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; pid: 38048>
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] from originator [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] with description <RBSAssertionDescriptor| "Shared Background Assertion 0 for com.venki18.codesnake" ID:33-38048-207736 target:38048 attributes:[
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-38048-207736 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) will be created as inactive as start-time-defining assertions exist
+<SBTransitionSwitcherModifierEvent: 0xd6b80c780; type: MainTransition; transitionID: 42B9FE91-5023-4250-A5FA-F572C52E4638; phase: Animate; animated: YES; fromAppLayout: 0x0; toAppLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; fromEnvironmentMode: home-screen; toEnvironmentMode: application; fromSpaceConfiguration: undefined; toSpaceConfiguration: full; pendingTermination: {(
+)}; activating: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; morphing
+
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Fetching initialization context for: com.venki18.codesnake
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Returning cached initialization context for com.venki18.codesnake
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Returning cached initialization context for com.venki18.codesnake
+Oct 14 10:35:52 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Identity resolved as app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Connection established.
+
+e SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] created proxy of <BSXPCServiceConnectionProxy<FBSWorkspaceServiceServerInterface>: 0xd6b9a0a80>
+[OOct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Connection to remote process established!
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Sending scene action [Logical Activate][0xe26f] to process 0xd6b542a00 (watchdog: 19.96s)
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Sending scene create.
+
+Oct 14 10:35:52 iPhone gamepolicyd[721] <Notice>: Identified game com.venki18.codesnake GM:false DPS:false SEM:false MMA:true
+Oct 14 10:35:52 iPhone wifid(WiFiPolicy)[52] <Notice>: -[WiFiUserInteractionMonitor setApplicationRunningState:foregroundState:andNetworkingState:forBundleId:]: com.venki18.codesnake entered foreground
+Oct 14 10:35:52 iPhone wifid(WiFiPolicy)[52] <Notice>: WifiDeviceManagerCatsWhitelistedApp: CATS en0:  deviceManager:0xc08800000 FgApp:com.venki18.codesnake stateChange:1 whitelisted=1
+Oct 14 10:35:52 iPhone wifid(WiFiPolicy)[52] <Notice>: WiFiDeviceManagerCatsSetLowLatencyApp: CATSUpdate en0: fgApp:com.venki18.codesnake b=0x0 rc=0
+
+CatsSetForegroundApp: CATSUpdate en0: fgApp:com.venki18.codesnake hs=0 t=1 wl=1 rc=1
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Application process state changed for com.venki18.codesnake: <SBApplicationProcessState: 0xd6a242720; pid: 38048; taskState: Running; visibility: Foreground>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Returning cached initialization context for com.venki18.codesnake
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: rules: (scene setting) ADDED keyboardFocus environment to scene: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Application process state changed for com.venki18.codesnake: <SBApplicationProcessState: 0xd6a243cc0; pid: 38048; taskState: Running; visibility: Foreground>
+
+rkspaceDelegate[0xd66cb19c0-com.apple.SpringBoard.SceneWorkspace.PrototypeTools] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66b25f60-com.apple.SpringBoard.SceneWorkspace.DruidUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb07a0-com.apple.SpringBoard.SceneWorkspace.FullKeyboardAccessUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb16c0-com.apple.SpringBoard.SceneWorkspace.PerfPowerHUD] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66b26340-com.apple.SpringBoard.SceneWorkspace.InputUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb10c0-com.apple.SpringBoard.SceneWorkspace.AssistiveTouchUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66b26160-com.apple.SpringBoard.SceneWorkspace.OverlayUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb0840-com.apple.SpringBoard.SceneWorkspace.VoiceControlUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb13c0-com.apple.SpringBoard.SceneWorkspace.EyedropperUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb1840-com.apple.SpringBoard.SceneWorkspace.InternalPerfPowerHUD] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb1540-com.apple.SpringBoard.SceneWorkspace.Moments] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoardFoundation)[24188] <Notice>: SceneWorkspaceDelegate[0xd66cb1240-com.apple.SpringBoard.SceneWorkspace.AccessibilityUIServerUI] client did connect with handshake: <FBSceneClientHandshake:0xd6a241b20; [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] remnants=0>
+
+Oct 14 10:35:52 iPhone SpringBoard(MediaRemote)[24188] <Notice>: MRNowPlayingAudioFormatController foreground bundle id changed: com.venki18.codesnake
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Layout ID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 Bundle ID: com.venki18.codesnake Role: 1
+
+Oct 14 10:35:52 iPhone bluetoothd(CoreUtils)[99] <Notice>: SystemUI unknown identifier: 'sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9' / 'com.venki18.codesnake'
+
+Oct 14 10:35:52 iPhone symptomsd(SymptomEvaluator)[147] <Notice>: com.venki18.codesnake: Foreground: true
+Oct 14 10:35:52 iPhone symptomsd(SymptomEvaluator)[147] <Notice>: Failed to find process for com.venki18.codesnake
+
+Oct 14 10:35:52 iPhone CodeSnake(BacklightServices)[38048] <Notice>: 0x103f3ca20 setDelegate:<0x103f3cab0 _UIBacklightEnvironment> hasDelegate:YES for environment:sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: Scene target of keyboard event deferring environment did change: 1; scene: UIWindowScene: 0x103317d20; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: Scene became target of keyboard event deferring environment: UIWindowScene: 0x103317d20; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: Window did become application key: UIWindow: 0x1033240e0; contextId: 0x13C25F5F; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+Oct 14 10:35:52 iPhone backboardd(BackBoardHIDEventFoundation)[71] <Notice>: new deferring rules for pid:38048: [[38048-1]; <keyboardFocus; builtin; \M-b\M^@\M-&3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> -> <token: 0x13C25F5F; pid: 38048>; reason: \M-b\M^@\M-&gin event deferring in keyboardFocus for window: 0x1033240e0]
+    <token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; pid: 38048>,
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: sceneOfRecord: sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9  persistentID: 075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+    <token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; pid: 38048>,
+Oct 14 10:35:52 iPhone CodeSnake(BackBoardServices)[38048] <Notice>: policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x103f38be0; token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; status: ancestor> was:target
+
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Scene <FBScene: 0xd689ac600; FBSceneManager:sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> is setting idleTimerDisabled to: NO
+Oct 14 10:35:52 iPhone SpringBoard(SpringBoard)[24188] <Notice>: SBIdleTimerGlobalCoordinator - updateIdleTimerForReason:"IdleTimerDisableChangedForMainDisplaySceneManager - client:com.venki18.codesnake"]
+Oct 14 10:35:52 iPhone backboardd[71] <Notice>: new scene host settings: contextID:13C25F5F <sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> unspecified -> foreground
+
+Oct 14 10:35:52 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+Oct 14 10:35:52 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+e locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [0xd67733e40:(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Scene action [Logical Activate][0xe26f] completed with success: 1
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] scene content state changed: ready
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048](UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9) from originator [osservice<com.apple.SpringBoard>:24188] with description <RBSAssertionDescriptor| "injecting inherited from "UIScene:com.apple.frontboard.systemappservices/FBSceneManager:com.apple.springboard" to 38048<UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9>" ID:33-24188-207737 target:38048<UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> attributes:[
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-24188-207737 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048](UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9)) will be created as active
+
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Setting parent scene: (FBSceneManager):com.apple.springboard
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] propagating 4 settings from (FBSceneManager):com.apple.springboard
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 name:com.apple.frontboard.visibility origID:33-24188-207737 payload 9480205396251155801>
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Invalidating assertion 33-38048-207736 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) from originator [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+Oct 14 10:35:52 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Removing parent scene.
+Oct 14 10:35:52 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Invalidating assertion 33-24188-207737 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048](UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9)) from originator [osservice<com.apple.SpringBoard>:24188]
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Setting parent scene: (FBSceneManager):com.apple.springboard
+Oct 14 10:35:52 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [(FBSceneManager):sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] propagating 4 settings from (FBSceneManager):com.apple.springboard
+Oct 14 10:35:52 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+ing assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048](UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9) from originator [osservice<com.apple.SpringBoard>:24188] with description <RBSAssertionDescriptor| "injecting inherited from "UIScene:com.apple.frontboard.systemappservices/FBSceneManager:com.apple.springboard" to 38048<UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9>" ID:33-24188-207738 target:38048<UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> attributes:[
+Oct 14 10:35:52 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-24188-207738 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048](UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9)) will be created as active
+<SBSceneReadySwitcherModifierEvent: 0xd69cce5e0; type: SceneReady; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main> {
+        sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 = <SBDisplayItemLayoutAttributes: 0xd698863e0; contentOrientation: "portrait (1)"; lastInteractionTime: 29050; sizingPolicy: maximized; size: unspecified; center: unspecified; occlusionState: unknown; userConfiguredSizeBeforeOverlapping: unspecified; unoccludedPeekingCenter: unspecified>;
+    continuousExposeIdentifier = com.venki18.codesnake;
+        primary = <SBDisplayItem: 0xd6c3f8ed0; type: App; bundleIdentifier: com.venki18.codesnake; uniqueIdentifier: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9>;
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: sceneOfRecord: sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9  persistentID: 075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+Oct 14 10:35:52 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 name:com.apple.frontboard.visibility origID:33-24188-207738 payload 9480205396251155801>
+
+chdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+Oct 14 10:35:52 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: Scene became target of keyboard event deferring environment: UIWindowScene: 0x103317d20; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+Oct 14 10:35:52 iPhone SpringBoard(KeyboardArbiter)[24188] <Notice>: RX com.venki18.codesnake(38048) startArbitration
+Oct 14 10:35:52 iPhone SpringBoard(KeyboardArbiter)[24188] <Notice>: set focusRequestedHandle:<com.venki18.codesnake focus:<contextID:331505503 sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9> run:Y hosting:() level:0 active:N wantedState:Disabled #suppr:0 iavHeight:0 onScreen:N>
+Oct 14 10:35:52 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Was notified gax client did load: com.venki18.codesnake. pid:38048 send right name: 8f6bb
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: The GAXClientLoaded flag was already set. Something is out of sync. AXApp<0xafc2619c0>: PID:38048 BundleID:com.venki18.codesnake Primary:1 FullScrModal:0. GAX Client loaded: 1
+Oct 14 10:35:52 iPhone backboardd(AccessibilityUtilities)[71] <Notice>: client could not connect to new service: AXIPCClient:<0xb01eb4c00> Service:com.apple.accessibility.gax.client ID:GAXApp-com.venki18.codesnake connected:0 Domain:IPC Code:0 Reason:The operation couldn\M-b\M^@\M^Yt be completed. Could not find server for service: com.apple.accessibility.gax.client. bootstrap error: Unknown service name
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: sceneOfRecord: sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9  persistentID: 075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Layout ID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 Bundle ID: com.venki18.codesnake Role: 1
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: sceneOfRecord: sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9  persistentID: 075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+    "<SBSDisplayLayoutElement: 0xaff72dd50; sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; bundleID: com.venki18.codesnake; frame: {{0, 0}, {390, 844}}; level: 1; role: primary>"
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 name:com.apple.frontboard.visibility origID:33-24188-207737 payload 9480205396251155801>
+
+Oct 14 10:35:52 iPhone SpringBoard(UIKitCore)[24188] <Notice>: [sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9] Setting deactivation reasons to: '(none)' for reason: updateAllScenesForBand - Assertion removed.
+Oct 14 10:35:52 iPhone CodeSnake(UIKitCore)[38048] <Notice>: sceneOfRecord: sceneID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9  persistentID: 075137C6-F9C4-4C0F-9607-D1ED8B6D39F9
+
+Oct 14 10:35:52 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Hit the server for a process handle 1ec4b335000094a0 that resolved to: [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]
+[IOct 14 10:35:52 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, unknown-NotVisible
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Was notified that client did become active. ID:com.venki18.codesnake PID:38048
+    "com.venki18.codesnake"
+). Effective app is com.venki18.codesnake.
+Oct 14 10:35:52 iPhone backboardd(AccessibilityUtilities)[71] <Notice>: client could not connect to new service: AXIPCClient:<0xb01eb4c00> Service:com.apple.accessibility.gax.client ID:GAXApp-com.venki18.codesnake connected:0 Domain:IPC Code:0 Reason:The operation couldn\M-b\M^@\M^Yt be completed. Could not find server for service: com.apple.accessibility.gax.client. bootstrap error: Unknown service name
+Oct 14 10:35:52 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Layout ID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 Bundle ID: com.venki18.codesnake Role: 1
+
+<SBTransitionSwitcherModifierEvent: 0xd6ac0fd80; type: MainTransition; transitionID: 42B9FE91-5023-4250-A5FA-F572C52E4638; phase: Complete; animated: YES; fromAppLayout: 0x0; toAppLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; fromEnvironmentMode: home-screen; toEnvironmentMode: application; fromSpaceConfiguration: undefined; toSpaceConfiguration: full; pendingTermination: {(
+)}; activating: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>; morphingPIPLayoutRole: undefined>
+		    <SBIconOverlayVisibilitySwitcherEventResponse: 0xd6bca9840; visible: NO; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>>;
+		    <SBIconViewVisibilitySwitcherEventResponse: 0xd6b72ab20; visible: YES; animationSettings: 0x0; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>>;
+		    <SBMatchMoveToIconViewSwitcherEventResponse: 0xd689a77e0; active: NO; appLayout: <SBAppLayout: 0xd6bffb600; primary: com.venki18.codesnake:D1ED8B6D39F9; environment: main>>;
+
+Oct 14 10:35:53 iPhone SpringBoard(SpringBoard)[24188] <Notice>: Front display did change: <SBApplication: 0xd689aea00; com.venki18.codesnake>
+
+Oct 14 10:35:53 iPhone cameracaptured(CMCapture)[68] <Notice>: <<<< FigCaptureDisplayLayoutMonitor >>>> -[FigCaptureDisplayLayoutMonitor _parseFBSDisplayLayout:]: <FigCaptureDisplayLayoutMonitor: 0x8321a8480 Main Display> <FBSDisplayLayout: 0x836d1a540; displayIdentity: Main> {    bounds = {{0, 0}, {390, 844}};    interfaceOrientation = "portrait (1)";    backlightLevel = 100;    backlightState = 2;    elements = {        <SBSDisplayLayoutElement: 0x835860380; sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; bundleID: com.venki18.codesnake; frame: {{0, 0}, {390, 844}}; level: 1; role: primary>;    }    timestamp = 14 October 2025 at 10:35:53\M-b\M^@\M-/AM IST;}
+Oct 14 10:35:53 iPhone cameracaptured(CMCapture)[68] <Notice>: <<<< FigCaptureDisplayLayoutMonitor >>>> -[FigCaptureDisplayLayoutMonitor _updateObserversWithLayout:]: <FigCaptureDisplayLayoutMonitor: 0x8321a8480 Main Display> <FigCaptureDisplayLayout: 0x836d1a440 10-14-2025 10:35:53, Main Display, foreground:[com.venki18.codesnake]>
+Oct 14 10:35:53 iPhone backboardd(GAXBackboardServer)[71] <Notice>: Layout ID: sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9 Bundle ID: com.venki18.codesnake Role: 1
+Oct 14 10:35:53 iPhone bluetoothd(CoreUtils)[99] <Notice>: SystemUI unknown identifier: 'sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9' / 'com.venki18.codesnake'
+
+Oct 14 10:35:53 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Now acquiring workspace assertion with state: ForegroundFocal.
+Oct 14 10:35:53 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] from originator [osservice<com.apple.SpringBoard>:24188] with description <RBSAssertionDescriptor| "FBWorkspace (Foregr
+
+Oct 14 10:35:53 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-24188-207740 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) will be created as active
+Oct 14 10:35:53 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+Oct 14 10:35:53 iPhone SpringBoard(FrontBoard)[24188] <Notice>: [app<com.venki18.codesnake>:38048] Dropping launch assertion.
+Oct 14 10:35:53 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone runningboardd(RunningBoard)[33] <Notice>: Invalidating assertion 33-24188-207733 (target:app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>) from originator [osservice<com.apple.SpringBoard>:24188]
+Oct 14 10:35:53 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, unknown-NotVisible
+Oct 14 10:35:53 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+Oct 14 10:35:53 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:35:53 iPhone locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone powerd[47] <Notice>: Process runningboardd.33 Released SystemIsActive "app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>33-24188-207733:FBApplicationProcess" age:00:00:01  id:51539649649 [System: PrevIdle SysAct]
+Oct 14 10:35:53 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+
+eived state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, unknown-NotVisible
+Oct 14 10:35:53 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+Oct 14 10:35:53 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:35:53 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:35:53 iPhone wifid(WiFiPolicy)[52] <Notice>: __WiFiLQAMgrLogStats(ihnbv:Moving): InfraUptime:9746.8secs Channel: 7 Bandwidth: 20Mhz Rssi: -46 {-49 -43} Cca: 10 (S:0 O:10 I:0) Snr: 35 BcnPer: 0.0% (43, 50.1%) TxFrameCnt: 7 TxPer: 0.0% TxReTrans: 0 TxRetryRatio: 0.0% RxFrameCnt: 4 RxRetryFrames: 0 RxRetryRatio: 0.0% TxRate: 72222 RxRate: 86667 FBRate: 21667 TxFwFrms: 10 TxFwFail: 0 Noise: -95 {-96 -95 1} time: 30.4secs fgApp: com.venki18.codesnake V: T
+
+    "<SBSDisplayLayoutElement: 0xaff72ebc0; sceneID:com.venki18.codesnake-075137C6-F9C4-4C0F-9607-D1ED8B6D39F9; bundleID: com.venki18.codesnake; frame: {{0, 0}, {390, 844}}; level: 1; role: primary>"
+
+Oct 14 10:35:58 iPhone wifid(WiFiPolicy)[52] <Notice>: __WiFiLQAMgrLogStats(ihnbv:Moving): InfraUptime:9751.8secs Channel: 7 Bandwidth: 20Mhz Rssi: -45 {0 0} Cca: 5 (S:0 O:5 I:0) Snr: 0 BcnPer: 0.0% (0, 50.1%) TxFrameCnt: 0 TxPer: 0.0% TxReTrans: 0 TxRetryRatio: 0.0% RxFrameCnt: 0 RxRetryFrames: 0 RxRetryRatio: 0.0% TxRate: 0 RxRate: 0 FBRate: 0 TxFwFrms: 0 TxFwFail: 0 Noise: 0 {0 0 0} time: 35.4secs fgApp: com.venki18.codesnake V: F
+
+Oct 14 10:35:58 iPhone wifid(WiFiPolicy)[52] <Notice>: __WiFiLQAMgrLogStats(ihnbv:Moving): InfraUptime:9751.8secs Channel: 7 Bandwidth: 20Mhz Rssi: -45 {-45 0} Cca: 5 (S:0 O:5 I:0) Snr: 35 BcnPer: 0.0% (33, 50.1%) TxFrameCnt: 1 TxPer: 0.0% TxReTrans: 0 TxRetryRatio: 0.0% RxFrameCnt: 1 RxRetryFrames: 0 RxRetryRatio: 0.0% TxRate: 72222 RxRate: 86667 FBRate: 21667 TxFwFrms: 2 TxFwFail: 0 Noise: -95 {-96 -95 1} time: 35.4secs fgApp: com.venki18.codesnake V: T
+
+Oct 14 10:36:01 iPhone runningboardd(RunningBoard)[33] <Notice>: Acquiring assertion targeting [app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048] from originator [osservice<com.apple.dasd>:85] with description <RBSAssertionDescriptor| "DAS: Application is docked." ID:33-85-207741 target:38048 attributes:[
+Oct 14 10:36:01 iPhone runningboardd(RunningBoard)[33] <Notice>: Assertion 33-85-207741 (target:[app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>:38048]) will be created as active
+
+Oct 14 10:36:01 iPhone runningboardd(RunningBoard)[33] <Notice>: Calculated state for app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>: running-active (role: UserInteractiveFocal) (endowments: <private>)
+Oct 14 10:36:01 iPhone CommCenter(RunningBoardServices)[102] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone SpringBoard(RunningBoardServices)[24188] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone UserEventAgent(RunningBoardServices)[26975] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone WirelessRadioManagerd(RunningBoardServices)[49] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone watchdogd(RunningBoardServices)[61] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:36:01 iPhone dasd(RunningBoardServices)[85] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone CodeSnake(RunningBoardServices)[38048] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, unknown-NotVisible
+Oct 14 10:36:01 iPhone audiomxd(RunningBoardServices)[109] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone gamepolicyd(RunningBoardServices)[721] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-NotVisible
+Oct 14 10:36:01 iPhone useractivityd(RunningBoardServices)[259] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone PerfPowerServices(RunningBoardServices)[35062] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone symptomsd(RunningBoardServices)[147] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone locationd(RunningBoardServices)[79] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone backboardd(RunningBoardServices)[71] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone IDSCredentialsAgent(RunningBoardServices)[3046] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone callservicesd(RunningBoardServices)[165] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+Oct 14 10:36:01 iPhone wifid(RunningBoardServices)[52] <Notice>: Received state update for 38048 (app<com.venki18.codesnake(46A5E3DA-2109-4F54-9E2C-BCFC834A6E46)>, running-active-Visible
+
+Oct 14 10:36:03 iPhone wifid(WiFiPolicy)[52] <Notice>: __WiFiLQAMgrLogStats(ihnbv:Moving): InfraUptime:9756.8secs Channel: 7 Bandwidth: 20Mhz Rssi: -46 {-46 0} Cca: 5 (S:0 O:5 I:0) Snr: 30 BcnPer: 0.0% (57, 50.1%) TxFrameCnt: 0 TxPer: 0.0% TxReTrans: 0 TxRetryRatio: 0.0% RxFrameCnt: 0 RxRetryFrames: 0 RxRetryRatio: 0.0% TxRate: 72222 RxRate: 86667 FBRate: 21667 TxFwFrms: 0 TxFwFail: 0 Noise: -95 {-96 -95 1} time: 0.2secs fgApp: com.venki18.codesnake V: T
 

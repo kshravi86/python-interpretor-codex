@@ -36,7 +36,7 @@ for i in range(3):
         }
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
-        .onAppear { loadPersisted(); loadPersistedBreakpoints(); applyAutorunFromArgumentsIfNeeded() }
+        .onAppear { AppLogger.log("InterpreterView appear"); loadPersisted(); loadPersistedBreakpoints(); applyAutorunFromArgumentsIfNeeded() }
         .onChange(of: code) { _ in persist(); loadPersistedBreakpoints() }
         .onChange(of: breakpoints) { _ in persistBreakpoints() }
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
