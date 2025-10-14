@@ -60,8 +60,20 @@ jobs:
         else
           echo "::warning title=CPython::No *.xcframework found in support package"
         fi
+        echo "Searching for stdlib files..."
+        find . -maxdepth 6 -type f -name "*.zip" | head -20 || true
         STDLIB=$(find . -maxdepth 6 -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)
-        if [ -n "$STDLIB" ]; then cp "$STDLIB" python-stdlib.zip; fi
+        if [ -n "$STDLIB" ]; then 
+          echo "Found stdlib file: $STDLIB"
+          cp "$STDLIB" python-stdlib.zip
+          echo "Copied stdlib to python-stdlib.zip"
+          ls -la python-stdlib.zip
+        else
+          echo "::warning title=CPython::No stdlib zip file found in downloaded package"
+          echo "Available files:"
+          find . -type f -name "*.zip" | head -10 || true
+          find . -type f -name "*python*" | head -10 || true
+        fi
         HDR=$(find . -maxdepth 6 -type f -name Python.h | head -n1 || true)
         LIBA=$(find Python.xcframework/ios-arm64 -type f -name "libpython*.a" 2>/dev/null | head -n1 || true)
         FW_DIR=""; if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi
@@ -197,9 +209,17 @@ jobs:
       run: |
         APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
         if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
+        echo "App bundle directory: $APP_DIR"
+        echo "Checking for python-stdlib.zip..."
+        ls -la ThirdParty/Python/ || true
         if [ -f ThirdParty/Python/python-stdlib.zip ]; then
           cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/"
-          echo "Injected python-stdlib.zip into app bundle"
+          echo "✅ Injected python-stdlib.zip into app bundle"
+          ls -la "$APP_DIR/python-stdlib.zip"
+        else
+          echo "❌ python-stdlib.zip not found in ThirdParty/Python/"
+          echo "Available files in ThirdParty/Python/:"
+          find ThirdParty/Python/ -type f -name "*.zip" || true
         fi
         if [ -d ThirdParty/Python/Python.xcframework ]; then
           FW_SRC=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
