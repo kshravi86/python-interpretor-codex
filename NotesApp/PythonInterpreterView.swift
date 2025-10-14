@@ -157,7 +157,12 @@ for i in range(3):
     private var runToolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                Task { await runCode() }
+                AppLogger.log("RUN button tapped - about to call runCode()")
+                Task { 
+                    AppLogger.log("Task started for runCode()")
+                    await runCode() 
+                    AppLogger.log("runCode() task completed")
+                }
             } label: {
                 if isRunning { ProgressView() } else { Text("Run") }
             }
@@ -167,13 +172,17 @@ for i in range(3):
 
     private func runCode() async {
         AppLogger.log("runCode() started - code length: \(code.count) chars")
+        CrashLogger.log("runCode() started - code length: \(code.count)")
         isRunning = true
         lastError = nil
         output = ""
         runDuration = nil
         let start = Date()
         do {
+            CrashLogger.log("About to call executor.execute()")
+            AppLogger.log("About to call executor.execute()")
             let result = try await executor.execute(code: code)
+            CrashLogger.log("executor.execute() returned successfully")
             AppLogger.log("Execution completed - exit code: \(result.exitCode ?? -1), stdout: \(result.stdout.count)B, stderr: \(result.stderr.count)B")
             var combined = ""
             if let status = result.exitCode { combined += "[exit \(status)]\n" }
@@ -190,6 +199,7 @@ for i in range(3):
             }
             await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
         } catch {
+            CrashLogger.log("executor.execute() threw error: \(error)")
             AppLogger.log("Execution failed with error: \(error.localizedDescription)")
             let errorMessage: String
             if error.localizedDescription.contains("not configured") || error.localizedDescription.contains("not available") {
