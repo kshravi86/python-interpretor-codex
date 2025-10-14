@@ -50,11 +50,17 @@ jobs:
         echo "Downloading: $SUPPORT_URL"
         curl -L "$SUPPORT_URL" -o python-ios-support.tar.gz
         tar -xzf python-ios-support.tar.gz
+        echo "Extracted contents:"; find . -maxdepth 3 -mindepth 1 -print
         # Locate xcframework and stdlib zip inside extracted tree
-        XCF=$(find . -maxdepth 3 -type d -name "*.xcframework" | head -n1 || true)
+        XCF=$(find . -maxdepth 6 -type d -name "*.xcframework" | head -n1 || true)
         if [ -n "$XCF" ]; then
-          rm -rf Python.xcframework || true
-          mv "$XCF" Python.xcframework
+          # If it's already named and located at ./Python.xcframework, keep it; otherwise, normalize
+          if [ "$(basename "$XCF")" = "Python.xcframework" ] && [ "$(cd "$(dirname "$XCF")" && pwd)" = "$(pwd)" ]; then
+            echo "Python.xcframework already in place"
+          else
+            rm -rf Python.xcframework || true
+            mv "$XCF" Python.xcframework
+          fi
         else
           echo "::warning title=CPython::No *.xcframework found in support package"
         fi
