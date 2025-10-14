@@ -114,6 +114,7 @@
                 AA1111111111111111111114 /* PythonExecutor.swift */,
                 AA1111111111111111111112 /* PythonInterpreterView.swift */,
                 CC3333333333333333333302 /* CPythonExecutor.swift */,
+                EE7777777777777777777702 /* Logger.swift */,
                 DD6666666666666666666601 /* PythonBridge.h */,
                 DD6666666666666666666602 /* PythonBridge.c */,
                 DD6666666666666666666603 /* Bridging-Header.h */,
