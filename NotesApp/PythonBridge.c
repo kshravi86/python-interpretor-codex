@@ -72,14 +72,6 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
 
 #if HAS_CPYTHON
 static char* dup_pystring(PyObject* s) {
-#else
-static char* dup_pystring(const void* s) {
-    (void)s;
-    return NULL;
-}
-#endif
-#if HAS_CPYTHON
-
     if (!s) return NULL;
     const char* u = PyUnicode_AsUTF8(s);
     if (!u) return NULL;
@@ -90,6 +82,12 @@ static char* dup_pystring(const void* s) {
     out[n] = '\0';
     return out;
 }
+#else
+static char* dup_pystring(const void* s) {
+    (void)s;
+    return NULL;
+}
+#endif
 
 int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* exit_code) {
 #if HAS_CPYTHON
