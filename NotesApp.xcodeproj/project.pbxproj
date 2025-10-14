@@ -245,7 +245,8 @@
                 FCF000010000000000000007 /* ErrorLogger.swift in Sources */,
                 FCF000010000000000000009 /* CrashHandler.swift in Sources */,
                 FCF00001000000000000000B /* ErrorLogView.swift in Sources */,
-            ,\n\t\t\t\t\tEE7777777777777777777701 /* Logger.swift in Sources */);
+                EE7777777777777777777701 /* Logger.swift in Sources */,
+            );
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
