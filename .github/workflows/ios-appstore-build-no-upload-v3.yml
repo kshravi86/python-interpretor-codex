@@ -153,6 +153,7 @@ jobs:
       run: |
         build_with_flags() {
           echo "xcodebuild flags: $*"
+          # capture full output to a log for debugging
           xcodebuild archive \
             -project NotesApp.xcodeproj \
             -scheme NotesApp \
@@ -161,7 +162,8 @@ jobs:
             -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
             CURRENT_PROJECT_VERSION=$NEW_BUILD \
-            "$@"
+            "$@" 2>&1 | tee "$RUNNER_TEMP/build.log"
+          return ${PIPESTATUS[0]}
         }
 
         # Prefer static linking first if a static lib exists (avoids framework module complexities)
@@ -193,17 +195,25 @@ jobs:
           echo "Using XCFramework linking (-framework Python) with device include headers"
 
           set +e
-          build_with_flags "${DYN_FLAGS[@]}"
-          RC=$?
+          build_with_flags "${DYN_FLAGS[@]}"; RC=$?
           set -e
           if [ $RC -ne 0 ]; then
             echo "::error title=CPython::Dynamic link failed and no static lib available"
+            echo "--- Last 300 lines of build log ---"
+            tail -n 300 "$RUNNER_TEMP/build.log" || true
             exit $RC
           fi
         else
           echo "::error title=CPython::No xcframework or static lib found in support package"
           exit 1
         fi
+
+    - name: Upload build log on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: ${{ runner.temp }}/build.log
 
     - name: Inject CPython artifacts into app bundle (if present)
       run: |
