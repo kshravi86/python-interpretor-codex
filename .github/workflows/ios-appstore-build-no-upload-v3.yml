@@ -7,6 +7,10 @@ on:
         description: "Environment name for environment-scoped secrets"
         required: false
         default: "prod"
+      export_method:
+        description: "Export method: app-store-connect | ad-hoc | development"
+        required: false
+        default: "app-store-connect"
 
 jobs:
   release:
@@ -257,13 +261,14 @@ jobs:
       run: |
         TEAM_ID="${IOS_TEAM_ID}"
         if [ -z "$TEAM_ID" ]; then TEAM_ID=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true); fi
+        METHOD="${{ inputs.export_method }}"; if [ -z "$METHOD" ]; then METHOD="${{ vars.EXPORT_METHOD }}"; fi; if [ -z "$METHOD" ]; then METHOD="app-store-connect"; fi
         cat > $RUNNER_TEMP/export-options.plist <<EOF
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
         <plist version="1.0">
         <dict>
             <key>method</key>
-            <string>app-store-connect</string>
+            <string>${METHOD}</string>
             <key>signingStyle</key>
             <string>manual</string>
             <key>teamID</key>
