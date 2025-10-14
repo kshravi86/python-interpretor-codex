@@ -1,6 +1,5 @@
 // Minimal C bridge for embedding CPython on iOS.
 #include "PythonBridge.h"
-#include <Python.h>
 #include <stdlib.h>
 #include <string.h>
 

@@ -3,6 +3,15 @@
 
 #include <stddef.h>
 
+// Try to include CPython headers either from framework or direct include path
+#if __has_include(<Python/Python.h>)
+#  include <Python/Python.h>
+#elif __has_include(<Python.h>)
+#  include <Python.h>
+#else
+#  error "Python headers not found; ensure HEADER_SEARCH_PATHS or FRAMEWORK_SEARCH_PATHS are set for Python"
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -22,4 +31,3 @@ void pybridge_free(void* p);
 #ifdef __cplusplus
 }
 #endif
-

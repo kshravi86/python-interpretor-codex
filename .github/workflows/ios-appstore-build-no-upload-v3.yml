@@ -76,7 +76,7 @@ jobs:
         LIBA=$(find . -maxdepth 6 -type f -name "libpython*.a" | grep -E "(ios|iphoneos|arm64)" | head -n1 || true)
         if [ -n "$LIBA" ]; then echo "Found static lib: $LIBA"; fi
         # Write helper vars for later steps
-        # Determine framework search dir (device slice preferred)
+        # Determine framework search dir (device slice preferred) and include dir
         FW_DIR=""
         if [ -d Python.xcframework ]; then
           if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi
@@ -85,11 +85,14 @@ jobs:
             if [ -n "$CAND" ]; then FW_DIR="$(cd "$(dirname "$CAND")" && pwd)"; fi
           fi
         fi
+        INC_DIR=""
+        if [ -d Python.xcframework/ios-arm64/include ]; then INC_DIR="$(pwd)/Python.xcframework/ios-arm64/include"; fi
         {
           echo "PY_HDR=$HDR";
           echo "PY_LIBA=$LIBA";
           echo "PY_XCF=$XCF";
           echo "PY_FW_DIR=$FW_DIR";
+          echo "PY_INC_DIR=$INC_DIR";
         } >> $GITHUB_ENV
     - name: Prepare App Icons from master (no placeholders)
       run: |
@@ -144,41 +147,67 @@ jobs:
 
     - name: Build and Archive (Release - unsigned)
       run: |
-        # If CPython artifacts are present, pass search paths and link flags (use array to preserve spaces)
-        EXTRA_FLAGS=()
-        if [ -d ThirdParty/Python ]; then
-          if [ -d ThirdParty/Python/Python.xcframework ]; then
-            EXTRA_FLAGS+=("HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/**")
-            if [ -n "${PY_FW_DIR:-}" ]; then
-              EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PY_FW_DIR")
-            else
-              EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
-            fi
-            EXTRA_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
-            EXTRA_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
-            echo "Using XCFramework linking (-framework Python)"
+        build_with_flags() {
+          echo "xcodebuild flags: $*"
+          xcodebuild archive \
+            -project NotesApp.xcodeproj \
+            -scheme NotesApp \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            CURRENT_PROJECT_VERSION=$NEW_BUILD \
+            "$@"
+        }
+
+        if [ -d ThirdParty/Python/Python.xcframework ]; then
+          # Dynamic framework path (device slice)
+          DYN_FLAGS=()
+          if [ -n "${PY_FW_DIR:-}" ] && [ -d "${PY_FW_DIR}/Python.framework/Headers" ]; then
+            DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_FW_DIR}/Python.framework/Headers")
+            DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PY_FW_DIR")
           else
-            # Fallback to static lib if present
-            if [ -n "${PY_LIBA:-}" ]; then
-              LIBDIR=$(dirname "$PY_LIBA")
-              EXTRA_FLAGS+=("HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/**")
-              EXTRA_FLAGS+=("LIBRARY_SEARCH_PATHS=$LIBDIR")
-              EXTRA_FLAGS+=("OTHER_LDFLAGS=$PY_LIBA")
-              echo "Using static library: $PY_LIBA"
-            else
-              echo "::warning title=CPython::No xcframework or static lib found; build may fail"
-            fi
+            DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python}")
+            DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
+          fi
+          DYN_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
+          DYN_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
+          DYN_FLAGS+=("ONLY_ACTIVE_ARCH=YES")
+          echo "Using XCFramework linking (-framework Python)"
+
+          set +e
+          build_with_flags "${DYN_FLAGS[@]}"
+          RC=$?
+          set -e
+          if [ $RC -ne 0 ] && [ -n "${PY_LIBA:-}" ]; then
+            echo "Dynamic link failed (rc=$RC). Falling back to static lib: $PY_LIBA"
+            ST_FLAGS=(
+              "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python}"
+              "LIBRARY_SEARCH_PATHS=${PY_LIB_DIR:-$PWD/ThirdParty/Python}"
+              "OTHER_LDFLAGS=$PY_LIBA"
+              "ONLY_ACTIVE_ARCH=YES"
+            )
+            build_with_flags "${ST_FLAGS[@]}"
+          elif [ $RC -ne 0 ]; then
+            echo "::error title=CPython::Dynamic link failed and no static lib available"
+            exit $RC
+          fi
+        else
+          # Static library path
+          if [ -n "${PY_LIBA:-}" ]; then
+            echo "Using static library only: $PY_LIBA"
+            ST_FLAGS=(
+              "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python}"
+              "LIBRARY_SEARCH_PATHS=${PY_LIB_DIR:-$PWD/ThirdParty/Python}"
+              "OTHER_LDFLAGS=$PY_LIBA"
+              "ONLY_ACTIVE_ARCH=YES"
+            )
+            build_with_flags "${ST_FLAGS[@]}"
+          else
+            echo "::error title=CPython::No xcframework or static lib found in support package"
+            exit 1
           fi
         fi
-        xcodebuild archive \
-          -project NotesApp.xcodeproj \
-          -scheme NotesApp \
-          -configuration Release \
-          -destination 'generic/platform=iOS' \
-          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          CURRENT_PROJECT_VERSION=$NEW_BUILD \
-          "${EXTRA_FLAGS[@]}"
 
     - name: Inject CPython artifacts into app bundle (if present)
       run: |
