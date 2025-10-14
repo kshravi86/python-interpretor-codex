@@ -1,0 +1,27 @@
+﻿2025-10-14T03:30:05.5094280Z ##[group]Run PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+2025-10-14T03:30:05.5094980Z [36;1mPP_PATH=$RUNNER_TEMP/build_pp.mobileprovision[0m
+2025-10-14T03:30:05.5095420Z [36;1mecho -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH[0m
+2025-10-14T03:30:05.5096020Z [36;1mmkdir -p ~/Library/MobileDevice/Provisioning\ Profiles[0m
+2025-10-14T03:30:05.5096460Z [36;1mcp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles[0m
+2025-10-14T03:30:05.5096840Z [36;1mecho "PP_PATH=$PP_PATH" >> $GITHUB_ENV[0m
+2025-10-14T03:30:05.5097210Z [36;1msecurity cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist[0m
+2025-10-14T03:30:05.5097650Z [36;1mPP_UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' $RUNNER_TEMP/profile.plist)[0m
+2025-10-14T03:30:05.5098160Z [36;1mPP_NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' $RUNNER_TEMP/profile.plist)[0m
+2025-10-14T03:30:05.5098600Z [36;1mecho "Using Provisioning Profile: $PP_NAME ($PP_UUID)"[0m
+2025-10-14T03:30:05.5098920Z [36;1mecho "PP_UUID=$PP_UUID" >> $GITHUB_ENV[0m
+2025-10-14T03:30:05.5099350Z [36;1mecho "PP_NAME=$PP_NAME" >> $GITHUB_ENV[0m
+2025-10-14T03:30:05.5174900Z shell: /bin/bash -e {0}
+2025-10-14T03:30:05.5175590Z env:
+2025-10-14T03:30:05.5225950Z   BUILD_CERTIFICATE_BASE64: ***
+2025-10-14T03:30:05.5226460Z   P12_PASSWORD: ***
+2025-10-14T03:30:05.5227300Z   KEYCHAIN_PASSWORD: ***
+2025-10-14T03:30:05.6423440Z   BUILD_PROVISION_PROFILE_BASE64: ***
+2025-10-14T03:30:05.6423870Z   IOS_TEAM_ID: ***
+2025-10-14T03:30:05.6424080Z   MD_APPLE_SDK_ROOT: /Applications/Xcode_26.0.1.app
+2025-10-14T03:30:05.6424420Z   PY_HDR: ./Python.xcframework/ios-arm64_x86_64-simulator/include/python3.14/Python.h
+2025-10-14T03:30:05.6424720Z   PY_LIBA: 
+2025-10-14T03:30:05.6424940Z   PY_XCF: ./Python.xcframework
+2025-10-14T03:30:05.6425380Z   PY_FW_DIR: /Users/runner/work/python-interpretor-codex/python-interpretor-codex/ThirdParty/Python/Python.xcframework/ios-arm64
+2025-10-14T03:30:05.6425820Z   NEW_BUILD: 202510140330
+2025-10-14T03:30:05.6425990Z ##[endgroup]
+2025-10-14T03:30:06.0356690Z Using Provisioning Profile: code snake mobilr provision profile (a95175c5-59b9-4156-a2bb-0e06c28776d8)

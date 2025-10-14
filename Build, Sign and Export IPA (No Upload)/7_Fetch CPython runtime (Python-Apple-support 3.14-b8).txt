@@ -1,0 +1,109 @@
+﻿2025-10-14T03:30:00.4596800Z ##[group]Run set -euo pipefail
+2025-10-14T03:30:00.4597110Z [36;1mset -euo pipefail[0m
+2025-10-14T03:30:00.4597550Z [36;1mSUPPORT_URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"[0m
+2025-10-14T03:30:00.4598000Z [36;1mmkdir -p ThirdParty/Python[0m
+2025-10-14T03:30:00.4598200Z [36;1mcd ThirdParty/Python[0m
+2025-10-14T03:30:00.4598380Z [36;1mecho "Downloading: $SUPPORT_URL"[0m
+2025-10-14T03:30:00.4598630Z [36;1mcurl -L "$SUPPORT_URL" -o python-ios-support.tar.gz[0m
+2025-10-14T03:30:00.4598900Z [36;1mtar -xzf python-ios-support.tar.gz[0m
+2025-10-14T03:30:00.4599190Z [36;1mecho "Extracted contents:"; find . -maxdepth 3 -mindepth 1 -print[0m
+2025-10-14T03:30:00.4599550Z [36;1m# Locate xcframework and stdlib zip inside extracted tree[0m
+2025-10-14T03:30:00.4599900Z [36;1mXCF=$(find . -maxdepth 6 -type d -name "*.xcframework" | head -n1 || true)[0m
+2025-10-14T03:30:00.4600190Z [36;1mif [ -n "$XCF" ]; then[0m
+2025-10-14T03:30:00.4600570Z [36;1m  # If it's already named and located at ./Python.xcframework, keep it; otherwise, normalize[0m
+2025-10-14T03:30:00.4601010Z [36;1m  if [ "$(basename "$XCF")" = "Python.xcframework" ] && [ "$(cd "$(dirname "$XCF")" && pwd)" = "$(pwd)" ]; then[0m
+2025-10-14T03:30:00.4601390Z [36;1m    echo "Python.xcframework already in place"[0m
+2025-10-14T03:30:00.4601630Z [36;1m  else[0m
+2025-10-14T03:30:00.4601790Z [36;1m    rm -rf Python.xcframework || true[0m
+2025-10-14T03:30:00.4602010Z [36;1m    mv "$XCF" Python.xcframework[0m
+2025-10-14T03:30:00.4602790Z [36;1m  fi[0m
+2025-10-14T03:30:00.4603250Z [36;1melse[0m
+2025-10-14T03:30:00.4603890Z [36;1m  echo "::warning title=CPython::No *.xcframework found in support package"[0m
+2025-10-14T03:30:00.4604640Z [36;1mfi[0m
+2025-10-14T03:30:00.4605200Z [36;1mSTDLIB=$(find . -maxdepth 6 -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)[0m
+2025-10-14T03:30:00.4605600Z [36;1mif [ -n "$STDLIB" ]; then[0m
+2025-10-14T03:30:00.4605810Z [36;1m  cp "$STDLIB" python-stdlib.zip[0m
+2025-10-14T03:30:00.4606000Z [36;1melse[0m
+2025-10-14T03:30:00.4606240Z [36;1m  echo "::warning title=CPython::No stdlib zip found in support package"[0m
+2025-10-14T03:30:00.4606510Z [36;1mfi[0m
+2025-10-14T03:30:00.4606720Z [36;1m# Locate headers and static library (fallback if no xcframework)[0m
+2025-10-14T03:30:00.4607080Z [36;1mHDR=$(find . -maxdepth 6 -type f -name Python.h | head -n1 || true)[0m
+2025-10-14T03:30:00.4607390Z [36;1mif [ -n "$HDR" ]; then echo "Found Python.h: $HDR"; fi[0m
+2025-10-14T03:30:00.4607800Z [36;1mLIBA=$(find . -maxdepth 6 -type f -name "libpython*.a" | grep -E "(ios|iphoneos|arm64)" | head -n1 || true)[0m
+2025-10-14T03:30:00.4608180Z [36;1mif [ -n "$LIBA" ]; then echo "Found static lib: $LIBA"; fi[0m
+2025-10-14T03:30:00.4608450Z [36;1m# Write helper vars for later steps[0m
+2025-10-14T03:30:00.4608710Z [36;1m# Determine framework search dir (device slice preferred)[0m
+2025-10-14T03:30:00.4608970Z [36;1mFW_DIR=""[0m
+2025-10-14T03:30:00.4609140Z [36;1mif [ -d Python.xcframework ]; then[0m
+2025-10-14T03:30:00.4609470Z [36;1m  if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi[0m
+2025-10-14T03:30:00.4609830Z [36;1m  if [ -z "$FW_DIR" ]; then[0m
+2025-10-14T03:30:00.4610140Z [36;1m    CAND=$(find Python.xcframework -maxdepth 3 -type d -name "*.framework" | head -n1 || true)[0m
+2025-10-14T03:30:00.4610570Z [36;1m    if [ -n "$CAND" ]; then FW_DIR="$(cd "$(dirname "$CAND")" && pwd)"; fi[0m
+2025-10-14T03:30:00.4610810Z [36;1m  fi[0m
+2025-10-14T03:30:00.4610930Z [36;1mfi[0m
+2025-10-14T03:30:00.4611050Z [36;1m{[0m
+2025-10-14T03:30:00.4611180Z [36;1m  echo "PY_HDR=$HDR";[0m
+2025-10-14T03:30:00.4611360Z [36;1m  echo "PY_LIBA=$LIBA";[0m
+2025-10-14T03:30:00.4611530Z [36;1m  echo "PY_XCF=$XCF";[0m
+2025-10-14T03:30:00.4612190Z [36;1m  echo "PY_FW_DIR=$FW_DIR";[0m
+2025-10-14T03:30:00.4615530Z [36;1m} >> $GITHUB_ENV[0m
+2025-10-14T03:30:00.4693600Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2025-10-14T03:30:00.4693870Z env:
+2025-10-14T03:30:00.4710400Z   BUILD_CERTIFICATE_BASE64: ***
+2025-10-14T03:30:00.4710600Z   P12_PASSWORD: ***
+2025-10-14T03:30:00.4710840Z   KEYCHAIN_PASSWORD: ***
+2025-10-14T03:30:00.5729430Z   BUILD_PROVISION_PROFILE_BASE64: ***
+2025-10-14T03:30:00.5729950Z   IOS_TEAM_ID: ***
+2025-10-14T03:30:00.5730160Z   MD_APPLE_SDK_ROOT: /Applications/Xcode_26.0.1.app
+2025-10-14T03:30:00.5730420Z ##[endgroup]
+2025-10-14T03:30:00.6380860Z Downloading: https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz
+2025-10-14T03:30:00.6569840Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-10-14T03:30:00.6571430Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-10-14T03:30:00.6571970Z 
+2025-10-14T03:30:00.8457100Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-10-14T03:30:00.8461430Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-10-14T03:30:01.4465140Z 
+2025-10-14T03:30:01.5560920Z  73 43.5M   73 32.2M    0     0  41.3M      0  0:00:01 --:--:--  0:00:01 41.3M
+2025-10-14T03:30:01.5561410Z 100 43.5M  100 43.5M    0     0  48.4M      0 --:--:-- --:--:-- --:--:-- 94.5M
+2025-10-14T03:30:03.3221600Z Extracted contents:
+2025-10-14T03:30:03.3330330Z ./python-ios-support.tar.gz
+2025-10-14T03:30:03.3362240Z ./testbed
+2025-10-14T03:30:03.3362810Z ./testbed/TestbedTests
+2025-10-14T03:30:03.3363330Z ./testbed/TestbedTests/TestbedTests.m
+2025-10-14T03:30:03.3363900Z ./testbed/Python.xcframework
+2025-10-14T03:30:03.3364550Z ./testbed/iOSTestbed.xcodeproj
+2025-10-14T03:30:03.3365100Z ./testbed/iOSTestbed.xcodeproj/project.pbxproj
+2025-10-14T03:30:03.3365770Z ./testbed/iOSTestbed.xcodeproj/xcshareddata
+2025-10-14T03:30:03.3366340Z ./testbed/Testbed.lldbinit
+2025-10-14T03:30:03.3366950Z ./testbed/iOSTestbed
+2025-10-14T03:30:03.3367500Z ./testbed/iOSTestbed/iOSTestbed-Info.plist
+2025-10-14T03:30:03.3368150Z ./testbed/iOSTestbed/AppDelegate.h
+2025-10-14T03:30:03.3368670Z ./testbed/iOSTestbed/app
+2025-10-14T03:30:03.3369330Z ./testbed/iOSTestbed/Assets.xcassets
+2025-10-14T03:30:03.3369880Z ./testbed/iOSTestbed/Base.lproj
+2025-10-14T03:30:03.3370400Z ./testbed/iOSTestbed/app_packages
+2025-10-14T03:30:03.3370950Z ./testbed/iOSTestbed/main.m
+2025-10-14T03:30:03.3371460Z ./testbed/iOSTestbed/AppDelegate.m
+2025-10-14T03:30:03.3372000Z ./testbed/__main__.py
+2025-10-14T03:30:03.3372460Z ./testbed/iOSTestbed.xctestplan
+2025-10-14T03:30:03.3372940Z ./Python.xcframework
+2025-10-14T03:30:03.3373460Z ./Python.xcframework/ios-arm64_x86_64-simulator
+2025-10-14T03:30:03.3374230Z ./Python.xcframework/ios-arm64_x86_64-simulator/platform-config
+2025-10-14T03:30:03.3375260Z ./Python.xcframework/ios-arm64_x86_64-simulator/bin
+2025-10-14T03:30:03.3376110Z ./Python.xcframework/ios-arm64_x86_64-simulator/include
+2025-10-14T03:30:03.3377070Z ./Python.xcframework/ios-arm64_x86_64-simulator/Python.framework
+2025-10-14T03:30:03.3377980Z ./Python.xcframework/ios-arm64_x86_64-simulator/lib
+2025-10-14T03:30:03.3378630Z ./Python.xcframework/ios-arm64
+2025-10-14T03:30:03.3379200Z ./Python.xcframework/ios-arm64/platform-config
+2025-10-14T03:30:03.3379830Z ./Python.xcframework/ios-arm64/bin
+2025-10-14T03:30:03.3380420Z ./Python.xcframework/ios-arm64/include
+2025-10-14T03:30:03.3381080Z ./Python.xcframework/ios-arm64/Python.framework
+2025-10-14T03:30:03.3381840Z ./Python.xcframework/ios-arm64/lib
+2025-10-14T03:30:03.3382400Z ./Python.xcframework/build
+2025-10-14T03:30:03.3382960Z ./Python.xcframework/build/utils.sh
+2025-10-14T03:30:03.3383630Z ./Python.xcframework/build/iOS-dylib-Info-template.plist
+2025-10-14T03:30:03.3384500Z ./Python.xcframework/Info.plist
+2025-10-14T03:30:03.3385030Z ./VERSIONS
+2025-10-14T03:30:03.3761410Z Python.xcframework already in place
+2025-10-14T03:30:03.3928230Z ##[warning]No stdlib zip found in support package
+2025-10-14T03:30:03.4131980Z Found Python.h: ./Python.xcframework/ios-arm64_x86_64-simulator/include/python3.14/Python.h

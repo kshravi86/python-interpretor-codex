@@ -1,0 +1,31 @@
+﻿2025-10-14T03:29:42.5019660Z Current runner version: '2.328.0'
+2025-10-14T03:29:42.5039000Z ##[group]Runner Image Provisioner
+2025-10-14T03:29:42.5039660Z Hosted Compute Agent
+2025-10-14T03:29:42.5040010Z Version: 20251003.420
+2025-10-14T03:29:42.5040400Z Commit: 2377dc5bf0f6cca5c863dfc4fa0dabc70e08de87
+2025-10-14T03:29:42.5040850Z Build Date: 2025-10-03T16:01:39Z
+2025-10-14T03:29:42.5041230Z ##[endgroup]
+2025-10-14T03:29:42.5041560Z ##[group]Operating System
+2025-10-14T03:29:42.5041920Z macOS
+2025-10-14T03:29:42.5042240Z 15.6.1
+2025-10-14T03:29:42.5042560Z 24G90
+2025-10-14T03:29:42.5042870Z ##[endgroup]
+2025-10-14T03:29:42.5043220Z ##[group]Runner Image
+2025-10-14T03:29:42.5043590Z Image: macos-15-arm64
+2025-10-14T03:29:42.5043950Z Version: 20250928.2397
+2025-10-14T03:29:42.5044690Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20250928.2397/images/macos/macos-15-arm64-Readme.md
+2025-10-14T03:29:42.5046760Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20250928.2397
+2025-10-14T03:29:42.5047670Z ##[endgroup]
+2025-10-14T03:29:42.5048490Z ##[group]GITHUB_TOKEN Permissions
+2025-10-14T03:29:42.5050140Z Contents: read
+2025-10-14T03:29:42.5050520Z Metadata: read
+2025-10-14T03:29:42.5051660Z Packages: read
+2025-10-14T03:29:42.5052320Z ##[endgroup]
+2025-10-14T03:29:42.5054080Z Secret source: Actions
+2025-10-14T03:29:42.5054540Z Prepare workflow directory
+2025-10-14T03:29:42.5554620Z Prepare all required actions
+2025-10-14T03:29:42.5584010Z Getting action download info
+2025-10-14T03:29:43.0886920Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-10-14T03:29:43.3336170Z Download action repository 'maxim-lobanov/setup-xcode@v1' (SHA:60606e260d2fc5762a71e64e74b2174e8ea3c8bd)
+2025-10-14T03:29:43.9477450Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2025-10-14T03:29:44.1553690Z Complete job name: Build, Sign and Export IPA (No Upload)
