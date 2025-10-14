@@ -75,6 +75,29 @@ final class CPythonExecutor: PythonExecutor {
         let stdlibExists = FileManager.default.fileExists(atPath: stdlibPath.path)
         AppLogger.log("python-stdlib.zip exists: \(stdlibExists) at \(stdlibPath.path)")
         
+        // If stdlib is missing, throw a more descriptive error instead of crashing
+        if !stdlibExists {
+            AppLogger.log("CRITICAL: python-stdlib.zip missing - CPython cannot initialize")
+            
+            // List available files in the bundle for debugging
+            do {
+                let files = try FileManager.default.contentsOfDirectory(atPath: resURL.path)
+                AppLogger.log("Available files in app bundle: \(files.joined(separator: ", "))")
+                
+                // Look for any Python-related files
+                let pythonFiles = files.filter { $0.lowercased().contains("python") || $0.lowercased().contains("stdlib") }
+                if !pythonFiles.isEmpty {
+                    AppLogger.log("Python-related files found: \(pythonFiles.joined(separator: ", "))")
+                }
+            } catch {
+                AppLogger.log("Failed to list bundle contents: \(error)")
+            }
+            
+            throw NSError(domain: "CPythonExecutor", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "Python runtime not available. Missing python-stdlib.zip in app bundle."
+            ])
+        }
+        
         var buf = Array<CChar>(repeating: 0, count: 256)
         let rc: Int32 = resURL.path.withCString { path in
             pybridge_initialize(path, &buf, buf.count)
