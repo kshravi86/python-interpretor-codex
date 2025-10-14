@@ -39,71 +39,27 @@ jobs:
     - name: Lint Swift code (non-blocking)
       run: swiftlint --reporter github-actions-logging || true
 
-    - name: Fetch CPython runtime (Python-Apple-support 3.14-b8)
+    - name: Verify Python runtime files
       shell: bash
       run: |
-        set -euo pipefail
-        SUPPORT_URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"
-        mkdir -p ThirdParty/Python
-        cd ThirdParty/Python
-        echo "Downloading: $SUPPORT_URL"
-        curl -L "$SUPPORT_URL" -o python-ios-support.tar.gz
-        tar -xzf python-ios-support.tar.gz
-        XCF=$(find . -maxdepth 6 -type d -name "*.xcframework" | head -n1 || true)
-        if [ -n "$XCF" ]; then
-          if [ "$(basename "$XCF")" = "Python.xcframework" ] && [ "$(cd "$(dirname "$XCF")" && pwd)" = "$(pwd)" ]; then
-            echo "Python.xcframework already in place"
-          else
-            rm -rf Python.xcframework || true
-            mv "$XCF" Python.xcframework
-          fi
+        echo "Checking bundled Python runtime files..."
+        if [ -f "ThirdParty/Python/python-stdlib.zip" ]; then
+          echo "✅ python-stdlib.zip found"
+          ls -la "ThirdParty/Python/python-stdlib.zip"
         else
-          echo "::warning title=CPython::No *.xcframework found in support package"
+          echo "❌ python-stdlib.zip missing"
+          exit 1
         fi
-        echo "Searching for stdlib files..."
-        echo "All zip files in package:"
-        find . -maxdepth 6 -type f -name "*.zip" | head -20 || true
-        echo "All python-related files:"
-        find . -maxdepth 6 -type f -name "*python*" | head -20 || true
         
-        # Try multiple stdlib detection patterns
-        STDLIB=$(find . -maxdepth 6 -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" -o -name "python*.zip" -o -name "lib.zip" \) | head -n1 || true)
-        
-        if [ -n "$STDLIB" ]; then 
-          echo "✅ Found stdlib file: $STDLIB"
-          cp "$STDLIB" python-stdlib.zip
-          echo "✅ Copied stdlib to python-stdlib.zip"
-          ls -la python-stdlib.zip
+        if [ -d "ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework" ]; then
+          echo "✅ Python.framework found"
+          ls -la "ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework/"
         else
-          echo "❌ No stdlib zip file found with standard patterns"
-          echo "Trying alternative approach - looking for any large zip file..."
-          
-          # Find the largest zip file (likely to be stdlib)
-          LARGEST_ZIP=$(find . -maxdepth 6 -type f -name "*.zip" -exec ls -la {} \; | sort -k5 -nr | head -1 | awk '{print $NF}' || true)
-          
-          if [ -n "$LARGEST_ZIP" ] && [ -f "$LARGEST_ZIP" ]; then
-            echo "Found largest zip file: $LARGEST_ZIP"
-            ls -la "$LARGEST_ZIP"
-            echo "Using as python-stdlib.zip"
-            cp "$LARGEST_ZIP" python-stdlib.zip
-            ls -la python-stdlib.zip
-          else
-            echo "::error title=CPython::No suitable stdlib zip file found in package"
-            echo "Package contents:"
-            find . -type f | head -20 || true
-            exit 1
-          fi
+          echo "❌ Python.framework missing"
+          exit 1
         fi
-        HDR=$(find . -maxdepth 6 -type f -name Python.h | head -n1 || true)
-        LIBA=$(find Python.xcframework/ios-arm64 -type f -name "libpython*.a" 2>/dev/null | head -n1 || true)
-        FW_DIR=""; if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi
-        INC_DIR=""; if [ -d Python.xcframework/ios-arm64/include ]; then INC_DIR="$(pwd)/Python.xcframework/ios-arm64/include"; fi
-        {
-          echo "PY_HDR=$HDR";
-          echo "PY_LIBA=$LIBA";
-          echo "PY_FW_DIR=$FW_DIR";
-          echo "PY_INC_DIR=$INC_DIR";
-        } >> $GITHUB_ENV
+        
+        echo "Python runtime verification complete - both stdlib and framework are bundled!"
 
     - name: Prepare App Icons from master (no placeholders)
       run: |
@@ -159,64 +115,18 @@ jobs:
 
     - name: Build and Archive (Release - unsigned)
       run: |
-        build_with_flags() {
-          echo "xcodebuild flags: $*"
-          xcodebuild archive \
-            -project NotesApp.xcodeproj \
-            -scheme NotesApp \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-            CURRENT_PROJECT_VERSION=$NEW_BUILD \
-            "$@" 2>&1 | tee "$RUNNER_TEMP/build.log"
-          return ${PIPESTATUS[0]}
-        }
-
-        # Prefer static library if present, otherwise link framework
-        if [ -n "${PY_LIBA:-}" ]; then
-          echo "Using static library: $PY_LIBA"
-          ST_FLAGS=(
-            "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}"
-            "LIBRARY_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/lib}"
-            "OTHER_LDFLAGS=$PY_LIBA"
-            "ONLY_ACTIVE_ARCH=YES"
-            "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
-            "CLANG_ENABLE_MODULES=NO"
-            "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
-          )
-          build_with_flags "${ST_FLAGS[@]}"
-        elif [ -n "${PY_FW_DIR:-}" ]; then
-          echo "Using XCFramework linking (-framework Python)"
-          DYN_FLAGS=(
-            "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}"
-            "FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR}"
-            "OTHER_LDFLAGS=-Xlinker -framework -Xlinker Python"
-            "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
-            "CLANG_ENABLE_MODULES=NO"
-            "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
-            "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks"
-            "ONLY_ACTIVE_ARCH=YES"
-          )
-          set +e
-          build_with_flags "${DYN_FLAGS[@]}"; RC=$?
-          set -e
-          if [ $RC -ne 0 ]; then
-            echo "::error title=CPython::Dynamic link failed"
-            tail -n 300 "$RUNNER_TEMP/build.log" || true
-            exit $RC
-          fi
-        else
-          echo "::warning title=CPython::No runtime detected; building without explicit Python linkage"
-          xcodebuild archive \
-            -project NotesApp.xcodeproj \
-            -scheme NotesApp \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-            CURRENT_PROJECT_VERSION=$NEW_BUILD 2>&1 | tee "$RUNNER_TEMP/build.log"
-        fi
+        echo "Building with bundled Python runtime..."
+        echo "Python runtime files are included in Xcode project - no manual linking needed"
+        
+        xcodebuild archive \
+          -project NotesApp.xcodeproj \
+          -scheme NotesApp \
+          -configuration Release \
+          -destination 'generic/platform=iOS' \
+          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+          CURRENT_PROJECT_VERSION=$NEW_BUILD \
+          ONLY_ACTIVE_ARCH=YES 2>&1 | tee "$RUNNER_TEMP/build.log"
 
     - name: Upload build log on failure
       if: failure()
@@ -225,30 +135,35 @@ jobs:
         name: adhoc-build-log
         path: ${{ runner.temp }}/build.log
 
-    - name: Inject CPython artifacts into app bundle (if present)
+    - name: Verify app bundle contains Python runtime
       run: |
         APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
-        if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
+        if [ -z "$APP_DIR" ]; then echo "No app bundle found"; exit 1; fi
+        
         echo "App bundle directory: $APP_DIR"
-        echo "Checking for python-stdlib.zip..."
-        ls -la ThirdParty/Python/ || true
-        if [ -f ThirdParty/Python/python-stdlib.zip ]; then
-          cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/"
-          echo "✅ Injected python-stdlib.zip into app bundle"
+        echo "Checking for Python runtime files in app bundle..."
+        
+        if [ -f "$APP_DIR/python-stdlib.zip" ]; then
+          echo "✅ python-stdlib.zip found in app bundle"
           ls -la "$APP_DIR/python-stdlib.zip"
         else
-          echo "❌ python-stdlib.zip not found in ThirdParty/Python/"
-          echo "Available files in ThirdParty/Python/:"
-          find ThirdParty/Python/ -type f -name "*.zip" || true
+          echo "❌ python-stdlib.zip missing from app bundle"
+          echo "App bundle contents:"
+          ls -la "$APP_DIR/"
+          exit 1
         fi
-        if [ -d ThirdParty/Python/Python.xcframework ]; then
-          FW_SRC=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
-          if [ -n "$FW_SRC" ]; then
-            mkdir -p "$APP_DIR/Frameworks"
-            rsync -a "$FW_SRC/" "$APP_DIR/Frameworks/Python.framework/"
-            echo "Injected Python.framework into app bundle Frameworks"
-          fi
+        
+        if [ -d "$APP_DIR/Frameworks/Python.framework" ]; then
+          echo "✅ Python.framework found in app bundle"
+          ls -la "$APP_DIR/Frameworks/Python.framework/"
+        else
+          echo "❌ Python.framework missing from app bundle"
+          echo "Frameworks directory:"
+          ls -la "$APP_DIR/Frameworks/" || echo "No Frameworks directory"
+          exit 1
         fi
+        
+        echo "✅ Python runtime successfully included in app bundle!"
 
     - name: Export Signed IPA (Ad Hoc)
       run: |

@@ -39,6 +39,9 @@
         BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222204 /* SyntaxHighlighter.swift */; };
         BB2222222222222222222205 /* Snippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222206 /* Snippets.swift */; };
         EE7777777777777777777701 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7777777777777777777702 /* Logger.swift */; };
+        PY9999999999999999999901 /* python-stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = PY9999999999999999999902 /* python-stdlib.zip */; };
+        PY9999999999999999999903 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = PY9999999999999999999904 /* Python.framework */; };
+        PY9999999999999999999905 /* Python.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = PY9999999999999999999904 /* Python.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,8 @@
         BB2222222222222222222204 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
         BB2222222222222222222206 /* Snippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippets.swift; sourceTree = "<group>"; };
         EE7777777777777777777702 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+        PY9999999999999999999902 /* python-stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "../ThirdParty/Python/python-stdlib.zip"; sourceTree = "<group>"; };
+        PY9999999999999999999904 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "../ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				PY9999999999999999999903 /* Python.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +121,8 @@
                 AA1111111111111111111112 /* PythonInterpreterView.swift */,
                 CC3333333333333333333302 /* CPythonExecutor.swift */,
                 EE7777777777777777777702 /* Logger.swift */,
+                PY9999999999999999999902 /* python-stdlib.zip */,
+                PY9999999999999999999904 /* Python.framework */,
                 DD6666666666666666666601 /* PythonBridge.h */,
                 DD6666666666666666666602 /* PythonBridge.c */,
                 DD6666666666666666666603 /* Bridging-Header.h */,
@@ -162,6 +170,7 @@
 				7A8B9C1D2E3F4567890ABCFB /* Sources */,
 				7A8B9C1D2E3F4567890ABCF4 /* Frameworks */,
 				7A8B9C1D2E3F4567890ABCFC /* Resources */,
+				PY9999999999999999999906 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -212,10 +221,25 @@
             files = (
                 7A8B9C1D2E3F4567890ABCE4 /* Preview Assets.xcassets in Resources */,
                 7A8B9C1D2E3F4567890ABCE2 /* Assets.xcassets in Resources */,
+                PY9999999999999999999901 /* python-stdlib.zip in Resources */,
             );
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		PY9999999999999999999906 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				PY9999999999999999999905 /* Python.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
         7A8B9C1D2E3F4567890ABCFB /* Sources */ = {

@@ -1,137 +1,87 @@
+Conversation opened. 1 unread message.
+
+Skip to content
+Using Gmail with screen readers
+1 of 65,879
+(no subject)
+Inbox
 
 aakash ravi <kshravi86@gmail.com>
-8:53 PM (0 minutes ago)
+9:00 PM (0 minutes ago)
 to me
 
-[2025-10-14 20:41:28.454] App launch
-[2025-10-14 20:41:28.565] InterpreterView appear
-[2025-10-14 20:41:31.384] RUN button tapped - about to call runCode()
-[2025-10-14 20:41:31.387] Task started for runCode()
-[2025-10-14 20:41:31.387] === PythonInterpreterView.runCode() START ===
-[2025-10-14 20:41:31.387] Code to execute (length: 59 chars):
-[2025-10-14 20:41:31.388] Code content: 'print('Hello from Python!')
+[2025-10-14 20:59:41.608] App launch
+[2025-10-14 20:59:41.731] InterpreterView appear
+[2025-10-14 20:59:42.952] RUN button tapped - about to call runCode()
+[2025-10-14 20:59:42.952] Task started for runCode()
+[2025-10-14 20:59:42.953] === PythonInterpreterView.runCode() START ===
+[2025-10-14 20:59:42.953] Code to execute (length: 59 chars):
+[2025-10-14 20:59:42.953] Code content: 'print('Hello from Python!')
 for i in range(3):
 print(i)'
-[2025-10-14 20:41:31.388] Setting UI state: isRunning = true
-[2025-10-14 20:41:31.389] Execution started at: 2025-10-14 15:11:31 +0000
-[2025-10-14 20:41:31.390] About to call executor.execute() with CPythonExecutor
-[2025-10-14 20:41:31.390] Executor type: CPythonExecutor
-[2025-10-14 20:41:31.390] === CPythonExecutor.execute() START ===
-[2025-10-14 20:41:31.391] Code length: 59 characters
-[2025-10-14 20:41:31.391] Code preview (first 100 chars): print('Hello from Python!')
+[2025-10-14 20:59:42.955] Setting UI state: isRunning = true
+[2025-10-14 20:59:42.957] Execution started at: 2025-10-14 15:29:42 +0000
+[2025-10-14 20:59:42.957] About to call executor.execute() with CPythonExecutor
+[2025-10-14 20:59:42.957] Executor type: CPythonExecutor
+[2025-10-14 20:59:42.957] === CPythonExecutor.execute() START ===
+[2025-10-14 20:59:42.957] Code length: 59 characters
+[2025-10-14 20:59:42.958] Code preview (first 100 chars): print('Hello from Python!')
 for i in range(3):
 print(i)
-[2025-10-14 20:41:31.391] Code after trimming: 59 characters
-[2025-10-14 20:41:31.391] Ensuring CPython is initialized...
-[2025-10-14 20:41:31.391] === CPythonExecutor.ensureInitialized() START ===
-[2025-10-14 20:41:31.392] CPythonExecutor not yet initialized, proceeding with setup
-[2025-10-14 20:41:31.392] Checking Bundle.main.resourceURL...
-[2025-10-14 20:41:31.392] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app/
-[2025-10-14 20:41:31.392] Resource URL path: /private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app
-[2025-10-14 20:41:31.393] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app/
-[2025-10-14 20:41:31.393] Resource directory exists: true at /private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app
-[2025-10-14 20:41:31.394] Resource directory accessible: true, isDirectory: true
-[2025-10-14 20:41:31.394] === LISTING ALL FILES IN APP BUNDLE ===
-[2025-10-14 20:41:31.394] Total files in bundle: 10
-[2025-10-14 20:41:31.397] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
-[2025-10-14 20:41:31.398] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
-[2025-10-14 20:41:31.401] File 3: CodeSnake (exists: true, isDir: false, size: 338176 bytes)
-[2025-10-14 20:41:31.402] File 4: Frameworks (exists: true, isDir: true, size: 96 bytes)
-[2025-10-14 20:41:31.403] File 5: Info.plist (exists: true, isDir: false, size: 1513 bytes)
-[2025-10-14 20:41:31.404] File 6: PkgInfo (exists: true, isDir: false, size: 8 bytes)
-[2025-10-14 20:41:31.405] File 7: Assets.car (exists: true, isDir: false, size: 67784 bytes)
-[2025-10-14 20:41:31.406] File 8: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
-[2025-10-14 20:41:31.407] File 9: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
-[2025-10-14 20:41:31.408] File 10: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
-[2025-10-14 20:41:31.408] === PYTHON/STDLIB RELATED FILES ===
-[2025-10-14 20:41:31.408] Python-related: Frameworks
-[2025-10-14 20:41:31.409] === CHECKING FOR python-stdlib.zip ===
-[2025-10-14 20:41:31.409] Expected stdlib path: /private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:41:31.409] Expected stdlib URL: file:///private/var/containers/Bundle/Application/0FF926D4-A358-4BD6-9039-6942C08249C3/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:41:31.409] python-stdlib.zip exists: false
-[2025-10-14 20:41:31.409] CRITICAL: python-stdlib.zip MISSING from app bundle!
-[2025-10-14 20:41:31.410] Checking for alternative stdlib file names...
-[2025-10-14 20:41:31.410] Alternative stdlib.zip: exists=false
-[2025-10-14 20:41:31.410] Alternative python-stdlib: exists=false
-[2025-10-14 20:41:31.410] Alternative Python-stdlib.zip: exists=false
-[2025-10-14 20:41:31.411] Alternative lib.zip: exists=false
-[2025-10-14 20:41:31.411] Alternative python314.zip: exists=false
-[2025-10-14 20:41:31.411] Frameworks directory exists: true
-[2025-10-14 20:41:31.411] Frameworks found: Python.framework
-[2025-10-14 20:41:31.411] Python framework found: Python.framework
-[2025-10-14 20:41:31.412] Python framework contents: _CodeSignature, Headers, Info.plist, Python
-[2025-10-14 20:41:31.412] === END STDLIB SEARCH ===
-[2025-10-14 20:41:31.412] CPythonExecutor.execute: initialization FAILED - Error Domain=CPythonExecutor Code=-1 "Python runtime not available. Missing python-stdlib.zip in app bundle. Check logs for detailed file listing." UserInfo={NSLocalizedDescription=Python runtime not available. Missing python-stdlib.zip in app bundle. Check logs for detailed file listing.}
-[2025-10-14 20:41:31.413] Error type: NSError
-[2025-10-14 20:41:31.413] Error description: Python runtime not available. Missing python-stdlib.zip in app bundle. Check logs for detailed file listing.
-[2025-10-14 20:41:31.414] === EXECUTION RESULT RECEIVED ===
-[2025-10-14 20:41:31.415] Exit code: 1
-[2025-10-14 20:41:31.415] Stdout length: 0 bytes
-[2025-10-14 20:41:31.415] Stderr length: 146 bytes
-[2025-10-14 20:41:31.415] Stderr content: 'Python runtime initialization failed: Python runtime not available. Missing python-stdlib.zip in app bundle. Check logs for detailed file listing.'
-[2025-10-14 20:41:31.415] Combining output strings...
-[2025-10-14 20:41:31.415] Added exit code to output: 1
-[2025-10-14 20:41:31.415] Added stderr to combined output
-[2025-10-14 20:41:31.415] Final combined output length: 155 chars
-[2025-10-14 20:41:31.416] Final combined output: '[exit 1]
-Python runtime initialization failed: Python runtime not available. Missing python-stdlib.zip in app bundle. Check logs for detailed file listing.'
-[2025-10-14 20:41:31.427] Updating UI with execution result
-[2025-10-14 20:41:31.438] Setting execution duration: 0.03877699375152588s
-[2025-10-14 20:41:31.438] Execution completed successfully
-[2025-10-14 20:41:31.443] Setting UI state: isRunning = false
-[2025-10-14 20:41:31.443] === PythonInterpreterView.runCode() COMPLETE ===
-[2025-10-14 20:41:31.443] Total execution time: 0.054551005363464355s
-[2025-10-14 20:41:31.443] runCode() task completed
-[2025-10-14 20:52:39.762] App launch
-[2025-10-14 20:52:40.324] InterpreterView appear
-[2025-10-14 20:52:44.177] RUN button tapped - about to call runCode()
-[2025-10-14 20:52:44.180] Task started for runCode()
-[2025-10-14 20:52:44.180] === PythonInterpreterView.runCode() START ===
-[2025-10-14 20:52:44.181] Code to execute (length: 59 chars):
-[2025-10-14 20:52:44.181] Code content: 'print('Hello from Python!')
-for i in range(3):
-print(i)'
-[2025-10-14 20:52:44.181] Setting UI state: isRunning = true
-[2025-10-14 20:52:44.181] Execution started at: 2025-10-14 15:22:44 +0000
-[2025-10-14 20:52:44.182] About to call executor.execute() with CPythonExecutor
-[2025-10-14 20:52:44.182] Executor type: CPythonExecutor
-[2025-10-14 20:52:44.182] === CPythonExecutor.execute() START ===
-[2025-10-14 20:52:44.182] Code length: 59 characters
-[2025-10-14 20:52:44.182] Code preview (first 100 chars): print('Hello from Python!')
-for i in range(3):
-print(i)
-[2025-10-14 20:52:44.182] Code after trimming: 59 characters
-[2025-10-14 20:52:44.182] Ensuring CPython is initialized...
-[2025-10-14 20:52:44.183] === CPythonExecutor.ensureInitialized() START ===
-[2025-10-14 20:52:44.183] CPythonExecutor not yet initialized, proceeding with setup
-[2025-10-14 20:52:44.183] Checking Bundle.main.resourceURL...
-[2025-10-14 20:52:44.183] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app/
-[2025-10-14 20:52:44.183] Resource URL path: /private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app
-[2025-10-14 20:52:44.183] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app/
-[2025-10-14 20:52:44.183] Resource directory exists: true at /private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app
-[2025-10-14 20:52:44.184] Resource directory accessible: true, isDirectory: true
-[2025-10-14 20:52:44.184] === LISTING ALL FILES IN APP BUNDLE ===
-[2025-10-14 20:52:44.184] Total files in bundle: 10
-[2025-10-14 20:52:44.186] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
-[2025-10-14 20:52:44.187] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
-[2025-10-14 20:52:44.188] File 3: CodeSnake (exists: true, isDir: false, size: 354912 bytes)
-[2025-10-14 20:52:44.189] File 4: Frameworks (exists: true, isDir: true, size: 96 bytes)
-[2025-10-14 20:52:44.190] File 5: Info.plist (exists: true, isDir: false, size: 1513 bytes)
-[2025-10-14 20:52:44.191] File 6: PkgInfo (exists: true, isDir: false, size: 8 bytes)
-[2025-10-14 20:52:44.192] File 7: Assets.car (exists: true, isDir: false, size: 67784 bytes)
-[2025-10-14 20:52:44.193] File 8: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
-[2025-10-14 20:52:44.194] File 9: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
-[2025-10-14 20:52:44.195] File 10: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
-[2025-10-14 20:52:44.195] === PYTHON/STDLIB RELATED FILES ===
-[2025-10-14 20:52:44.195] Python-related: Frameworks
-[2025-10-14 20:52:44.195] === CHECKING FOR python-stdlib.zip ===
-[2025-10-14 20:52:44.195] Expected stdlib path: /private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:52:44.195] Expected stdlib URL: file:///private/var/containers/Bundle/Application/3DA2697B-CF30-463E-8044-AC9A907BA00F/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:52:44.196] python-stdlib.zip exists: false
-[2025-10-14 20:52:44.196] CRITICAL: python-stdlib.zip MISSING from app bundle!
-[2025-10-14 20:52:44.196] Checking for alternative stdlib file names...
-[2025-10-14 20:52:44.196] Alternative stdlib.zip: exists=false
-[2025-10-14 20:52:45.791] App launch
-[2025-10-14 20:52:45.908] InterpreterView appear
+[2025-10-14 20:59:42.958] Code after trimming: 59 characters
+[2025-10-14 20:59:42.958] Ensuring CPython is initialized...
+[2025-10-14 20:59:42.958] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-14 20:59:42.959] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-14 20:59:42.959] Checking Bundle.main.resourceURL...
+[2025-10-14 20:59:42.959] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/
+[2025-10-14 20:59:42.959] Resource URL path: /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app
+[2025-10-14 20:59:42.959] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/
+[2025-10-14 20:59:42.960] Resource directory exists: true at /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app
+[2025-10-14 20:59:42.960] Resource directory accessible: true, isDirectory: true
+[2025-10-14 20:59:42.960] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-14 20:59:42.961] Total files in bundle: 9
+[2025-10-14 20:59:42.964] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 5946 bytes)
+[2025-10-14 20:59:42.965] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-14 20:59:42.967] File 3: CodeSnake (exists: true, isDir: false, size: 672208 bytes)
+[2025-10-14 20:59:42.969] File 4: Info.plist (exists: true, isDir: false, size: 1463 bytes)
+[2025-10-14 20:59:42.970] File 5: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-14 20:59:42.971] File 6: Assets.car (exists: true, isDir: false, size: 114872 bytes)
+[2025-10-14 20:59:42.972] File 7: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-14 20:59:42.973] File 8: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-14 20:59:42.974] File 9: AppIcon60x60@2x.png (exists: true, isDir: false, size: 5244 bytes)
+[2025-10-14 20:59:42.975] NO Python/stdlib related files found in bundle!
+[2025-10-14 20:59:42.975] === CHECKING FOR python-stdlib.zip ===
+[2025-10-14 20:59:42.975] Expected stdlib path: /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/python-stdlib.zip
+[2025-10-14 20:59:42.975] Expected stdlib URL: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/python-stdlib.zip
+[2025-10-14 20:59:42.975] python-stdlib.zip exists: false
+[2025-10-14 20:59:42.975] CRITICAL: python-stdlib.zip MISSING from app bundle!
+[2025-10-14 20:59:42.975] Checking for alternative stdlib file names...
+[2025-10-14 20:59:42.976] Alternative stdlib.zip: exists=false
+[2025-10-14 20:59:42.976] Alternative python314.zip: exists=false
+[2025-10-14 20:59:42.976] Alternative lib.zip: exists=false
+[2025-10-14 20:59:42.976] Frameworks directory exists: false
+[2025-10-14 20:59:42.977] === END STDLIB SEARCH ===
+[2025-10-14 20:59:42.977] No Python framework found either - complete Python runtime missing
+[2025-10-14 20:59:42.977] CPythonExecutor.execute: initialization FAILED - Error Domain=CPythonExecutor Code=-1 "Python runtime not available. Missing both python-stdlib.zip and Python.framework." UserInfo={NSLocalizedDescription=Python runtime not available. Missing both python-stdlib.zip and Python.framework.}
+[2025-10-14 20:59:42.977] Error type: NSError
+[2025-10-14 20:59:42.977] Error description: Python runtime not available. Missing both python-stdlib.zip and Python.framework.
+[2025-10-14 20:59:42.977] === EXECUTION RESULT RECEIVED ===
+[2025-10-14 20:59:42.978] Exit code: 1
+[2025-10-14 20:59:42.978] Stdout length: 0 bytes
+[2025-10-14 20:59:42.978] Stderr length: 120 bytes
+[2025-10-14 20:59:42.978] Stderr content: 'Python runtime initialization failed: Python runtime not available. Missing both python-stdlib.zip and Python.framework.'
+[2025-10-14 20:59:42.978] Combining output strings...
+[2025-10-14 20:59:42.978] Added exit code to output: 1
+[2025-10-14 20:59:42.978] Added stderr to combined output
+[2025-10-14 20:59:42.978] Final combined output length: 129 chars
+[2025-10-14 20:59:42.978] Final combined output: '[exit 1]
+Python runtime initialization failed: Python runtime not available. Missing both python-stdlib.zip and Python.framework.'
+[2025-10-14 20:59:42.981] Updating UI with execution result
+[2025-10-14 20:59:42.999] Setting execution duration: 0.02512502670288086s
+[2025-10-14 20:59:42.999] Execution completed successfully
+[2025-10-14 20:59:43.005] Setting UI state: isRunning = false
+[2025-10-14 20:59:43.005] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-14 20:59:43.005] Total execution time: 0.04889202117919922s
+[2025-10-14 20:59:43.005] runCode() task completed
 
 
