@@ -134,17 +134,22 @@ jobs:
 
     - name: Build and Archive (Release - unsigned)
       run: |
-        # If CPython artifacts are present, pass search paths and link flags
-        EXTRA_FLAGS=""
+        # If CPython artifacts are present, pass search paths and link flags (use array to preserve spaces)
+        EXTRA_FLAGS=()
         if [ -d ThirdParty/Python ]; then
           if [ -d ThirdParty/Python/Python.xcframework ]; then
-            EXTRA_FLAGS="HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/** FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python OTHER_LDFLAGS='-framework Python' LD_RUNPATH_SEARCH_PATHS='@executable_path/Frameworks'"
+            EXTRA_FLAGS+=("HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/**")
+            EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
+            EXTRA_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
+            EXTRA_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
             echo "Using XCFramework linking (-framework Python)"
           else
             # Fallback to static lib if present
             if [ -n "${PY_LIBA:-}" ]; then
               LIBDIR=$(dirname "$PY_LIBA")
-              EXTRA_FLAGS="HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/** LIBRARY_SEARCH_PATHS=$LIBDIR OTHER_LDFLAGS='\"$PY_LIBA\"'"
+              EXTRA_FLAGS+=("HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/**")
+              EXTRA_FLAGS+=("LIBRARY_SEARCH_PATHS=$LIBDIR")
+              EXTRA_FLAGS+=("OTHER_LDFLAGS=$PY_LIBA")
               echo "Using static library: $PY_LIBA"
             else
               echo "::warning title=CPython::No xcframework or static lib found; build may fail"
@@ -159,7 +164,7 @@ jobs:
           -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
           CURRENT_PROJECT_VERSION=$NEW_BUILD \
-          $EXTRA_FLAGS
+          "${EXTRA_FLAGS[@]}"
 
     - name: Inject CPython artifacts into app bundle (if present)
       run: |
