@@ -1,13 +1,15 @@
 // Minimal C bridge for embedding CPython on iOS.
 #include "PythonBridge.h"
-// Include CPython headers in the C translation unit only, to avoid Swift bridging header
-// triggering Clang module builds for Python framework headers.
-#if __has_include(<Python/Python.h>)
-#  include <Python/Python.h>
-#elif __has_include(<Python.h>)
-#  include <Python.h>
+// Detect CPython headers; if unavailable, compile lightweight stubs so unsigned/simulator builds succeed.
+#if __has_include(<Python/Python.h>) || __has_include(<Python.h>)
+#  if __has_include(<Python/Python.h>)
+#    include <Python/Python.h>
+#  else
+#    include <Python.h>
+#  endif
+#  define HAS_CPYTHON 1
 #else
-#  error "Python headers not found; set HEADER_SEARCH_PATHS or FRAMEWORK_SEARCH_PATHS"
+#  define HAS_CPYTHON 0
 #endif
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +25,7 @@ static void set_error(char* buf, size_t len, const char* msg) {
 }
 
 int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_len) {
+#if HAS_CPYTHON
     if (g_initialized) return 0;
 
     // Best-effort: setenv used by Python to find stdlib zip on sys.path later.
@@ -61,6 +64,10 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
     }
     g_initialized = 1;
     return 0;
+#else
+    set_error(errbuf, errbuf_len, "CPython headers unavailable");
+    return -1;
+#endif
 }
 
 static char* dup_pystring(PyObject* s) {
@@ -76,6 +83,7 @@ static char* dup_pystring(PyObject* s) {
 }
 
 int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* exit_code) {
+#if HAS_CPYTHON
     if (!g_initialized) {
         char buf[128];
         int rc = pybridge_initialize(NULL, buf, sizeof(buf));
@@ -151,6 +159,18 @@ done:
 
     PyGILState_Release(g);
     return rc;
+#else
+    if (out_stdout) *out_stdout = NULL;
+    if (out_stderr) {
+        const char* msg = "CPython runtime not available";
+        size_t n = strlen(msg);
+        char* e = (char*)malloc(n + 2);
+        if (e) { memcpy(e, msg, n); e[n] = '\n'; e[n+1] = '\0'; }
+        *out_stderr = e;
+    }
+    if (exit_code) *exit_code = 1;
+    return -1;
+#endif
 }
 
 void pybridge_free(void* p) {
