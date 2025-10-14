@@ -163,20 +163,16 @@ jobs:
         if [ -d ThirdParty/Python/Python.xcframework ]; then
           # Dynamic framework path (device slice)
           DYN_FLAGS=()
-          if [ -n "${PY_FW_DIR:-}" ] && [ -d "${PY_FW_DIR}/Python.framework/Headers" ]; then
-            DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_FW_DIR}/Python.framework/Headers")
-            DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PY_FW_DIR")
-          else
-            DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python}")
-            DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
-          fi
+          # Prefer device include dir to avoid module.map usage in framework headers
+          DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}")
+          DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python}")
           DYN_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
           DYN_FLAGS+=("CLANG_TREAT_WARNINGS_AS_ERRORS=NO")
           DYN_FLAGS+=("CLANG_ENABLE_MODULES=NO")
           DYN_FLAGS+=("OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules")
           DYN_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
           DYN_FLAGS+=("ONLY_ACTIVE_ARCH=YES")
-          echo "Using XCFramework linking (-framework Python)"
+          echo "Using XCFramework linking (-framework Python) with device include headers"
 
           set +e
           build_with_flags "${DYN_FLAGS[@]}"
