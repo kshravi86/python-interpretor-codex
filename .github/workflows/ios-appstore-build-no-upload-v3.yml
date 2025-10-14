@@ -76,10 +76,20 @@ jobs:
         LIBA=$(find . -maxdepth 6 -type f -name "libpython*.a" | grep -E "(ios|iphoneos|arm64)" | head -n1 || true)
         if [ -n "$LIBA" ]; then echo "Found static lib: $LIBA"; fi
         # Write helper vars for later steps
+        # Determine framework search dir (device slice preferred)
+        FW_DIR=""
+        if [ -d Python.xcframework ]; then
+          if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi
+          if [ -z "$FW_DIR" ]; then
+            CAND=$(find Python.xcframework -maxdepth 3 -type d -name "*.framework" | head -n1 || true)
+            if [ -n "$CAND" ]; then FW_DIR="$(cd "$(dirname "$CAND")" && pwd)"; fi
+          fi
+        fi
         {
           echo "PY_HDR=$HDR";
           echo "PY_LIBA=$LIBA";
           echo "PY_XCF=$XCF";
+          echo "PY_FW_DIR=$FW_DIR";
         } >> $GITHUB_ENV
     - name: Prepare App Icons from master (no placeholders)
       run: |
@@ -139,7 +149,11 @@ jobs:
         if [ -d ThirdParty/Python ]; then
           if [ -d ThirdParty/Python/Python.xcframework ]; then
             EXTRA_FLAGS+=("HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/**")
-            EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
+            if [ -n "${PY_FW_DIR:-}" ]; then
+              EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PY_FW_DIR")
+            else
+              EXTRA_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
+            fi
             EXTRA_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
             EXTRA_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
             echo "Using XCFramework linking (-framework Python)"
