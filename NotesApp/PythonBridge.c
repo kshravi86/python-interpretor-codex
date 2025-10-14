@@ -70,7 +70,16 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
 #endif
 }
 
+#if HAS_CPYTHON
 static char* dup_pystring(PyObject* s) {
+#else
+static char* dup_pystring(const void* s) {
+    (void)s;
+    return NULL;
+}
+#endif
+#if HAS_CPYTHON
+
     if (!s) return NULL;
     const char* u = PyUnicode_AsUTF8(s);
     if (!u) return NULL;
