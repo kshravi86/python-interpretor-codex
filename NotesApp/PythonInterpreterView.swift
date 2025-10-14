@@ -39,7 +39,13 @@ for i in range(3):
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
         .onAppear { AppLogger.log("InterpreterView appear"); loadPersisted(); loadPersistedBreakpoints(); applyAutorunFromArgumentsIfNeeded() }
-        .onChange(of: code) { _ in persist(); loadPersistedBreakpoints() }
+        .onChange(of: code) { _ in 
+            AppLogger.log("Code changed from editor; persisting and refreshing breakpoints")
+            persist(); loadPersistedBreakpoints() 
+        }
+        .onChange(of: fontSize) { newValue in
+            AppLogger.log("Font size changed: \(newValue)")
+        }
         .onChange(of: breakpoints) { _ in persistBreakpoints() }
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
         .sheet(isPresented: $showingBreakpoints) { breakpointsSheet }
@@ -113,7 +119,10 @@ for i in range(3):
         HStack(spacing: 12) {
             Menu("Examples") {
                 ForEach(SnippetsCatalog.all) { s in
-                    Button(s.title) { code = s.code }
+                    Button(s.title) { 
+                        AppLogger.log("Example selected: \(s.title)")
+                        code = s.code 
+                    }
                 }
             }
             .buttonStyle(.bordered)
@@ -124,13 +133,20 @@ for i in range(3):
                     .frame(width: 140)
             }
             Menu {
-                Button("Light Theme") { useDarkAppearance = false; useDarkSyntaxTheme = false }
-                Button("Dark Theme") { useDarkAppearance = true; useDarkSyntaxTheme = true }
+                Button("Light Theme") { 
+                    AppLogger.log("Theme set to Light")
+                    useDarkAppearance = false; useDarkSyntaxTheme = false 
+                }
+                Button("Dark Theme") { 
+                    AppLogger.log("Theme set to Dark")
+                    useDarkAppearance = true; useDarkSyntaxTheme = true 
+                }
             } label: {
                 Label("Theme", systemImage: useDarkSyntaxTheme ? "moon.fill" : "sun.max.fill")
             }
             .buttonStyle(.bordered)
             Button {
+                AppLogger.log("Breakpoints sheet opened")
                 showingBreakpoints = true
             } label: {
                 Label("Breakpoints", systemImage: "bookmark.circle")
@@ -138,6 +154,7 @@ for i in range(3):
             .buttonStyle(.bordered)
             
             Button {
+                AppLogger.log("Logs sheet opened")
                 showingLogs = true
             } label: {
                 Label("Logs", systemImage: "doc.text.magnifyingglass")
@@ -156,6 +173,7 @@ for i in range(3):
     private var consoleControls: some View {
         HStack(spacing: 12) {
             Button {
+                AppLogger.log("Copy Output tapped, length=\(output.count)")
                 UIPasteboard.general.string = output
             } label: {
                 Label("Copy Output", systemImage: "doc.on.doc")
@@ -163,6 +181,7 @@ for i in range(3):
             .buttonStyle(.bordered)
 
             Button(role: .destructive) {
+                AppLogger.log("Clear console tapped")
                 output = ""; lastError = nil; runDuration = nil
             } label: {
                 Label("Clear", systemImage: "trash")
@@ -315,13 +334,17 @@ for i in range(3):
     private func applyAutorunFromArgumentsIfNeeded() {
         let args = ProcessInfo.processInfo.arguments
         if let i = args.firstIndex(of: "--autorun-b64"), i + 1 < args.count {
+            AppLogger.log("Autorun argument detected")
             let b64 = args[i + 1]
             if let data = Data(base64Encoded: b64), let snippet = String(data: data, encoding: .utf8) {
+                AppLogger.log("Decoded autorun snippet, length=\(snippet.count)")
                 self.code = snippet
             }
             if let j = args.firstIndex(of: "--autorun-save"), j + 1 < args.count {
                 self.autorunSavePath = args[j + 1]
+                AppLogger.log("Autorun save path set: \(self.autorunSavePath ?? "nil")")
             }
+            AppLogger.log("Scheduling autorun via Task")
             Task { await runCode() }
         }
     }
@@ -333,17 +356,22 @@ for i in range(3):
         let url = docs.appendingPathComponent(name)
         do {
             try text.data(using: .utf8)?.write(to: url)
+            AppLogger.log("Autorun output written to \(url.path)")
         } catch {
-            // ignore write errors for smoke
+            AppLogger.log("Failed writing autorun output: \(error.localizedDescription)")
         }
     }
 
     private func persist() {
+        AppLogger.log("Persisting editor code, length=\(code.count)")
         UserDefaults.standard.set(code, forKey: "editor.code")
     }
     private func loadPersisted() {
         if let s = UserDefaults.standard.string(forKey: "editor.code"), !s.isEmpty {
+            AppLogger.log("Loaded persisted editor code, length=\(s.count)")
             code = s
+        } else {
+            AppLogger.log("No persisted editor code found")
         }
     }
 
@@ -362,19 +390,34 @@ for i in range(3):
                             }
                         }
                         Spacer()
-                        Button("Go") { navigateToLine = line }
-                        Button("Edit") { editingBreakpointLine = line; editingCondition = breakpoints[line] ?? ""; showEditConditionSheet = true }
-                        Button(role: .destructive) { breakpoints.removeValue(forKey: line) } label: { Text("Remove") }
+                        Button("Go") { 
+                            AppLogger.log("Breakpoint Go tapped (line \(line))")
+                            navigateToLine = line 
+                        }
+                        Button("Edit") { 
+                            AppLogger.log("Breakpoint Edit tapped (line \(line))")
+                            editingBreakpointLine = line; editingCondition = breakpoints[line] ?? ""; showEditConditionSheet = true 
+                        }
+                        Button(role: .destructive) { 
+                            AppLogger.log("Breakpoint Remove tapped (line \(line))")
+                            breakpoints.removeValue(forKey: line) 
+                        } label: { Text("Remove") }
                     }
                 }
             }
             .navigationTitle("Breakpoints")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Clear All") { breakpoints.removeAll() }
+                    Button("Clear All") { 
+                        AppLogger.log("Clear All breakpoints tapped")
+                        breakpoints.removeAll() 
+                    }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { showingBreakpoints = false }
+                    Button("Done") { 
+                        AppLogger.log("Breakpoints sheet dismissed")
+                        showingBreakpoints = false 
+                    }
                 }
             }
         }
@@ -392,19 +435,27 @@ for i in range(3):
             .navigationTitle("Edit Breakpoint")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { showEditConditionSheet = false }
+                    Button("Cancel") { 
+                        AppLogger.log("Edit condition cancelled")
+                        showEditConditionSheet = false 
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         if let line = editingBreakpointLine {
-                            breakpoints[line] = editingCondition.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trimmed = editingCondition.trimmingCharacters(in: .whitespacesAndNewlines)
+                            AppLogger.log("Saving breakpoint condition at line \(line): '" + trimmed + "'")
+                            breakpoints[line] = trimmed
                         }
                         showEditConditionSheet = false
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Clear") {
-                        if let line = editingBreakpointLine { breakpoints[line] = "" }
+                        if let line = editingBreakpointLine { 
+                            AppLogger.log("Clearing breakpoint condition at line \(line)")
+                            breakpoints[line] = "" 
+                        }
                         showEditConditionSheet = false
                     }
                 }
@@ -431,6 +482,7 @@ for i in range(3):
             let lines = max(1, code.split(separator: "\n", omittingEmptySubsequences: false).count)
             var bp: [Int: String] = [:]
             for (k, v) in dict { if let i = Int(k), i >= 1 && i <= lines { bp[i] = v } }
+            AppLogger.log("Loaded persisted breakpoints: \(bp.count)")
             breakpoints = bp
         } else { breakpoints.removeAll() }
     }
@@ -438,6 +490,7 @@ for i in range(3):
     private func loadLogContent() {
         Task {
             let content = await readLogFile()
+            AppLogger.log("Loaded log content for sheet, characters=\(content.count)")
             await MainActor.run {
                 self.logContent = content
             }
@@ -449,17 +502,21 @@ for i in range(3):
             DispatchQueue.global(qos: .background).async {
                 do {
                     guard let url = self.logFileURL() else {
+                        AppLogger.log("Failed to resolve log file URL")
                         continuation.resume(returning: "Error: Could not access log file location")
                         return
                     }
                     
                     if FileManager.default.fileExists(atPath: url.path) {
+                        AppLogger.log("Reading log file at: \(url.path)")
                         let content = try String(contentsOf: url, encoding: .utf8)
                         continuation.resume(returning: content)
                     } else {
+                        AppLogger.log("Log file does not exist yet at: \(url.path)")
                         continuation.resume(returning: "Log file does not exist yet. Run some Python code to generate logs.")
                     }
                 } catch {
+                    AppLogger.log("Error reading log file: \(error.localizedDescription)")
                     continuation.resume(returning: "Error reading log file: \(error.localizedDescription)")
                 }
             }

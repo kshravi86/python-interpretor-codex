@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Foundation
 
 struct CodeEditorView: UIViewRepresentable {
     @Binding var text: String
@@ -12,13 +13,16 @@ struct CodeEditorView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> CodeEditorContainer {
         let v = CodeEditorContainer()
+        AppLogger.log("CodeEditor.makeUIView")
         v.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         v.setText(text)
         v.setBreakpoints(breakpoints)
         v.onTextChanged = { newText in
+            AppLogger.log("Editor text changed, length: \(newText.count)")
             if newText != text { self.text = newText }
         }
         v.onBreakpointsChanged = { newBP in
+            AppLogger.log("Breakpoints changed, count: \(newBP.count)")
             if newBP != breakpoints { self.breakpoints = newBP }
         }
         v.onRequestEditCondition = onEditCondition
@@ -26,10 +30,12 @@ struct CodeEditorView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: CodeEditorContainer, context: Context) {
+        AppLogger.log("CodeEditor.updateUIView (fontSize=\(fontSize), dark=\(isDark))")
         uiView.configure(fontSize: fontSize, isDark: isDark, theme: theme)
         if uiView.text != text { uiView.setText(text) }
         uiView.setBreakpoints(breakpoints)
         if let line = navigateToLine {
+            AppLogger.log("Navigate requested to line: \(line)")
             uiView.goTo(line: line)
             DispatchQueue.main.async { self.navigateToLine = nil }
         }
@@ -110,6 +116,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     func setText(_ t: String) {
         if textView.text == t { return }
         textView.text = t
+        AppLogger.log("setText called, new length: \((t as NSString).length)")
         updateCurrentLine()
         applyHighlighting()
         gutter.setNeedsDisplay()
@@ -118,11 +125,13 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     func setBreakpoints(_ bp: [Int: String]) {
         if bp == breakpoints { return }
         breakpoints = bp
+        AppLogger.log("setBreakpoints called, count: \(bp.count)")
         gutter.breakpoints = breakpoints
         gutter.setNeedsDisplay()
     }
 
     func textViewDidChange(_ textView: UITextView) {
+        AppLogger.log("textViewDidChange, length: \(textView.text.count)")
         onTextChanged?(textView.text)
         updateCurrentLine()
         applyHighlighting()
@@ -130,7 +139,9 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
+        AppLogger.log("selection changed, currentLine before update: \(currentLine)")
         updateCurrentLine()
+        AppLogger.log("selection changed, currentLine after update: \(currentLine)")
         applyHighlighting()
         gutter.setNeedsDisplay()
     }
@@ -188,8 +199,10 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private func toggleBreakpoint(_ line: Int) {
         if breakpoints[line] != nil {
             breakpoints.removeValue(forKey: line)
+            AppLogger.log("Breakpoint removed at line \(line)")
         } else {
             breakpoints[line] = ""
+            AppLogger.log("Breakpoint added at line \(line)")
         }
         gutter.breakpoints = breakpoints
         gutter.setNeedsDisplay()
@@ -206,6 +219,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
 
     func goTo(line: Int) {
         guard let text = textView.text, line > 0 else { return }
+        AppLogger.log("goTo(line:) called with line=\(line)")
         let ns = text as NSString
         let total = ns.length
         var targetIndex = 0

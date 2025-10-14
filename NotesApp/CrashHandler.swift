@@ -10,8 +10,10 @@ final class CrashHandler {
     func install() {
         guard !installed else { return }
         installed = true
+        AppLogger.log("CrashHandler installed")
 
         NSSetUncaughtExceptionHandler { exception in
+            AppLogger.log("Uncaught NSException captured: \(exception.name.rawValue)")
             ErrorLogger.shared.log(exception: exception)
         }
         // Avoid installing POSIX signal handlers that may perform unsafe work

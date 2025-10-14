@@ -27,6 +27,7 @@ final class ErrorLogger {
     }
 
     func append(_ entry: ErrorLogEntry) {
+        AppLogger.log("ErrorLogger.append: kind=\(entry.kind.rawValue), title='\(entry.title)'")
         var arr = logs()
         arr.append(entry)
         if arr.count > maxEntries { arr.removeFirst(arr.count - maxEntries) }
@@ -34,11 +35,13 @@ final class ErrorLogger {
     }
 
     func log(error: Error, context: String? = nil) {
+        AppLogger.log("ErrorLogger.log(error:), context='\(context ?? "nil")'")
         let entry = ErrorLogEntry(id: UUID(), date: Date(), kind: .error, title: String(describing: error), details: context)
         append(entry)
     }
 
     func log(message: String) {
+        AppLogger.log("ErrorLogger.log(message:) - \(message)")
         let entry = ErrorLogEntry(id: UUID(), date: Date(), kind: .message, title: message, details: nil)
         append(entry)
     }
@@ -55,4 +58,3 @@ final class ErrorLogger {
         append(entry)
     }
 }
-
