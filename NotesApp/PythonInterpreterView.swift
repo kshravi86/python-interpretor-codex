@@ -24,6 +24,7 @@ for i in range(3):
     @State private var editingCondition: String = ""
     @State private var showEditConditionSheet: Bool = false
     @State private var showingLogs: Bool = false
+    @State private var logContent: String = ""
 
     private let executor: PythonExecutor = CPythonExecutor()
 
@@ -43,7 +44,29 @@ for i in range(3):
         .preferredColorScheme(useDarkAppearance ? .dark : nil)
         .sheet(isPresented: $showingBreakpoints) { breakpointsSheet }
         .sheet(isPresented: $showEditConditionSheet) { conditionEditorSheet }
-        .sheet(isPresented: $showingLogs) { LogsView() }
+        .sheet(isPresented: $showingLogs) { 
+            NavigationView {
+                VStack {
+                    ScrollView {
+                        Text(logContent)
+                            .font(.system(.caption, design: .monospaced))
+                            .textSelection(.enabled)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .background(Color(.systemBackground))
+                }
+                .navigationTitle("App Logs")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") { showingLogs = false }
+                    }
+                }
+                .onAppear {
+                    loadLogContent()
+                }
+            }
+        }
     }
 
     private var editor: some View {
@@ -172,17 +195,14 @@ for i in range(3):
 
     private func runCode() async {
         AppLogger.log("runCode() started - code length: \(code.count) chars")
-        CrashLogger.log("runCode() started - code length: \(code.count)")
         isRunning = true
         lastError = nil
         output = ""
         runDuration = nil
         let start = Date()
         do {
-            CrashLogger.log("About to call executor.execute()")
             AppLogger.log("About to call executor.execute()")
             let result = try await executor.execute(code: code)
-            CrashLogger.log("executor.execute() returned successfully")
             AppLogger.log("Execution completed - exit code: \(result.exitCode ?? -1), stdout: \(result.stdout.count)B, stderr: \(result.stderr.count)B")
             var combined = ""
             if let status = result.exitCode { combined += "[exit \(status)]\n" }
@@ -199,7 +219,6 @@ for i in range(3):
             }
             await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
         } catch {
-            CrashLogger.log("executor.execute() threw error: \(error)")
             AppLogger.log("Execution failed with error: \(error.localizedDescription)")
             let errorMessage: String
             if error.localizedDescription.contains("not configured") || error.localizedDescription.contains("not available") {
@@ -340,6 +359,47 @@ for i in range(3):
             for (k, v) in dict { if let i = Int(k), i >= 1 && i <= lines { bp[i] = v } }
             breakpoints = bp
         } else { breakpoints.removeAll() }
+    }
+    
+    private func loadLogContent() {
+        Task {
+            let content = await readLogFile()
+            await MainActor.run {
+                self.logContent = content
+            }
+        }
+    }
+    
+    private func readLogFile() async -> String {
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .background).async {
+                do {
+                    guard let url = self.logFileURL() else {
+                        continuation.resume(returning: "Error: Could not access log file location")
+                        return
+                    }
+                    
+                    if FileManager.default.fileExists(atPath: url.path) {
+                        let content = try String(contentsOf: url, encoding: .utf8)
+                        continuation.resume(returning: content)
+                    } else {
+                        continuation.resume(returning: "Log file does not exist yet. Run some Python code to generate logs.")
+                    }
+                } catch {
+                    continuation.resume(returning: "Error reading log file: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func logFileURL() -> URL? {
+        do {
+            let url = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent("log.txt")
+            return url
+        } catch {
+            return nil
+        }
     }
 }
 

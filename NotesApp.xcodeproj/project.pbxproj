@@ -39,8 +39,6 @@
         BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222204 /* SyntaxHighlighter.swift */; };
         BB2222222222222222222205 /* Snippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222206 /* Snippets.swift */; };
         EE7777777777777777777701 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7777777777777777777702 /* Logger.swift */; };
-        LL8888888888888888888801 /* LogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = LL8888888888888888888802 /* LogsView.swift */; };
-        CR9999999999999999999901 /* CrashLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CR9999999999999999999902 /* CrashLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +78,6 @@
         BB2222222222222222222204 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
         BB2222222222222222222206 /* Snippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippets.swift; sourceTree = "<group>"; };
         EE7777777777777777777702 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-        LL8888888888888888888802 /* LogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsView.swift; sourceTree = "<group>"; };
-        CR9999999999999999999902 /* CrashLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +115,6 @@
                 AA1111111111111111111112 /* PythonInterpreterView.swift */,
                 CC3333333333333333333302 /* CPythonExecutor.swift */,
                 EE7777777777777777777702 /* Logger.swift */,
-                LL8888888888888888888802 /* LogsView.swift */,
-                CR9999999999999999999902 /* CrashLogger.swift */,
                 DD6666666666666666666601 /* PythonBridge.h */,
                 DD6666666666666666666602 /* PythonBridge.c */,
                 DD6666666666666666666603 /* Bridging-Header.h */,
@@ -253,8 +247,6 @@
                 FCF000010000000000000009 /* CrashHandler.swift in Sources */,
                 FCF00001000000000000000B /* ErrorLogView.swift in Sources */,
                 EE7777777777777777777701 /* Logger.swift in Sources */,
-                LL8888888888888888888801 /* LogsView.swift in Sources */,
-                CR9999999999999999999901 /* CrashLogger.swift in Sources */,
             );
 			runOnlyForDeploymentPostprocessing = 0;
 		};
