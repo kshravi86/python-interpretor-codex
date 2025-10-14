@@ -39,22 +39,42 @@ jobs:
     - name: Lint Swift code (non-blocking)
       run: swiftlint --reporter github-actions-logging || true
 
-    - name: Fetch Pyodide runtime assets
+    # CPython embedding: optionally fetch Python.xcframework and stdlib zip
+    - name: Fetch CPython runtime (Python-Apple-support 3.14-b8)
+      shell: bash
       run: |
         set -euo pipefail
-        DEST="NotesApp/PyodideAssets"
-        mkdir -p "$DEST"
-        if [ -f "$DEST/pyodide.js" ]; then echo "Pyodide assets already present"; exit 0; fi
-        VER="${PYODIDE_VERSION:-0.24.1}"
-        URL="https://github.com/pyodide/pyodide/releases/download/${VER}/pyodide-${VER}.tar.bz2"
-        TMP=$(mktemp -d)
-        echo "Downloading Pyodide ${VER}…"; curl -L "$URL" -o "$TMP/pyodide.tar.bz2"
-        tar -xjf "$TMP/pyodide.tar.bz2" -C "$TMP"
-        rsync -a "$TMP/pyodide/" "$DEST/"
-        ls -la "$DEST" | head -n 10 || true
-      env:
-        PYODIDE_VERSION: ${{ vars.PYODIDE_VERSION }}
-
+        SUPPORT_URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"
+        mkdir -p ThirdParty/Python
+        cd ThirdParty/Python
+        echo "Downloading: $SUPPORT_URL"
+        curl -L "$SUPPORT_URL" -o python-ios-support.tar.gz
+        tar -xzf python-ios-support.tar.gz
+        # Locate xcframework and stdlib zip inside extracted tree
+        XCF=$(find . -maxdepth 3 -type d -name "*.xcframework" | head -n1 || true)
+        if [ -n "$XCF" ]; then
+          rm -rf Python.xcframework || true
+          mv "$XCF" Python.xcframework
+        else
+          echo "::warning title=CPython::No *.xcframework found in support package"
+        fi
+        STDLIB=$(find . -maxdepth 6 -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)
+        if [ -n "$STDLIB" ]; then
+          cp "$STDLIB" python-stdlib.zip
+        else
+          echo "::warning title=CPython::No stdlib zip found in support package"
+        fi
+        # Locate headers and static library (fallback if no xcframework)
+        HDR=$(find . -maxdepth 6 -type f -name Python.h | head -n1 || true)
+        if [ -n "$HDR" ]; then echo "Found Python.h: $HDR"; fi
+        LIBA=$(find . -maxdepth 6 -type f -name "libpython*.a" | grep -E "(ios|iphoneos|arm64)" | head -n1 || true)
+        if [ -n "$LIBA" ]; then echo "Found static lib: $LIBA"; fi
+        # Write helper vars for later steps
+        {
+          echo "PY_HDR=$HDR";
+          echo "PY_LIBA=$LIBA";
+          echo "PY_XCF=$XCF";
+        } >> $GITHUB_ENV
     - name: Prepare App Icons from master (no placeholders)
       run: |
         if [ ! -f branding/app_icon_1024.png ] && [ -z "$APP_ICON_MASTER" ]; then
@@ -108,6 +128,23 @@ jobs:
 
     - name: Build and Archive (Release - unsigned)
       run: |
+        # If CPython artifacts are present, pass search paths and link flags
+        EXTRA_FLAGS=""
+        if [ -d ThirdParty/Python ]; then
+          if [ -d ThirdParty/Python/Python.xcframework ]; then
+            EXTRA_FLAGS="HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/** FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python OTHER_LDFLAGS='-framework Python' LD_RUNPATH_SEARCH_PATHS='@executable_path/Frameworks'"
+            echo "Using XCFramework linking (-framework Python)"
+          else
+            # Fallback to static lib if present
+            if [ -n "${PY_LIBA:-}" ]; then
+              LIBDIR=$(dirname "$PY_LIBA")
+              EXTRA_FLAGS="HEADER_SEARCH_PATHS=$PWD/ThirdParty/Python/** LIBRARY_SEARCH_PATHS=$LIBDIR OTHER_LDFLAGS='\"$PY_LIBA\"'"
+              echo "Using static library: $PY_LIBA"
+            else
+              echo "::warning title=CPython::No xcframework or static lib found; build may fail"
+            fi
+          fi
+        fi
         xcodebuild archive \
           -project NotesApp.xcodeproj \
           -scheme NotesApp \
@@ -115,7 +152,33 @@ jobs:
           -destination 'generic/platform=iOS' \
           -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          CURRENT_PROJECT_VERSION=$NEW_BUILD
+          CURRENT_PROJECT_VERSION=$NEW_BUILD \
+          $EXTRA_FLAGS
+
+    - name: Inject CPython artifacts into app bundle (if present)
+      run: |
+        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
+        if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
+        # Copy stdlib zip
+        if [ -f ThirdParty/Python/python-stdlib.zip ]; then
+          cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/"
+          echo "Injected python-stdlib.zip into app bundle"
+        fi
+        # Copy Python.framework from xcframework slice (device) if it exists
+        if [ -d ThirdParty/Python/Python.xcframework ]; then
+          FW_SRC=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
+          if [ -z "$FW_SRC" ]; then
+            # fallback: any Python.framework inside xcframework
+            FW_SRC=$(ls -d ThirdParty/Python/Python.xcframework/*/Python.framework 2>/dev/null | head -n1 || true)
+          fi
+          if [ -n "$FW_SRC" ]; then
+            mkdir -p "$APP_DIR/Frameworks"
+            rsync -a "$FW_SRC/" "$APP_DIR/Frameworks/Python.framework/"
+            echo "Injected Python.framework into app bundle Frameworks"
+          else
+            echo "No Python.framework found to inject"
+          fi
+        fi
 
     - name: Extract App Metadata (version/build/bundle)
       run: |
@@ -182,3 +245,4 @@ jobs:
       if: always()
       run: |
         security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
+

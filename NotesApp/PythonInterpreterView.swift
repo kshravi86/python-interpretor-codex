@@ -24,7 +24,7 @@ for i in range(3):
     @State private var editingCondition: String = ""
     @State private var showEditConditionSheet: Bool = false
 
-    private let executor: PythonExecutor = OfflinePyodideExecutor()
+    private let executor: PythonExecutor = CPythonExecutor()
 
     var body: some View {
         VStack(spacing: 0) {
