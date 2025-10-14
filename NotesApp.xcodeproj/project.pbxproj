@@ -31,7 +31,6 @@
         FCF000010000000000000009 /* CrashHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF00001000000000000000A /* CrashHandler.swift */; };
         FCF00001000000000000000B /* ErrorLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF00001000000000000000C /* ErrorLogView.swift */; };
         FCF00001000000000000000D /* AnimatedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF00001000000000000000E /* AnimatedProgressBar.swift */; };
-        FCF00001000000000000000D /* AnimatedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF00001000000000000000E /* AnimatedProgressBar.swift */; };
         AA1111111111111111111111 /* PythonInterpreterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111111111111111111112 /* PythonInterpreterView.swift */; };
         AA1111111111111111111113 /* PythonExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1111111111111111111114 /* PythonExecutor.swift */; };
         CC3333333333333333333301 /* CPythonExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3333333333333333333302 /* CPythonExecutor.swift */; };
@@ -401,7 +400,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-\t\t\t\tSWIFT_OBJC_BRIDGING_HEADER = NotesApp/Bridging-Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = NotesApp/Bridging-Header.h;
 			};
 			name = Debug;
 		};
@@ -437,7 +436,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-\t\t\t\tSWIFT_OBJC_BRIDGING_HEADER = NotesApp/Bridging-Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = NotesApp/Bridging-Header.h;
 			};
 			name = Release;
 		};
