@@ -171,6 +171,9 @@ jobs:
             DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=$PWD/ThirdParty/Python")
           fi
           DYN_FLAGS+=("OTHER_LDFLAGS=-framework\\ Python")
+          DYN_FLAGS+=("CLANG_TREAT_WARNINGS_AS_ERRORS=NO")
+          DYN_FLAGS+=("CLANG_ENABLE_MODULES=NO")
+          DYN_FLAGS+=("OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules")
           DYN_FLAGS+=("LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks")
           DYN_FLAGS+=("ONLY_ACTIVE_ARCH=YES")
           echo "Using XCFramework linking (-framework Python)"
@@ -186,6 +189,9 @@ jobs:
               "LIBRARY_SEARCH_PATHS=${PY_LIB_DIR:-$PWD/ThirdParty/Python}"
               "OTHER_LDFLAGS=$PY_LIBA"
               "ONLY_ACTIVE_ARCH=YES"
+              "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
+              "CLANG_ENABLE_MODULES=NO"
+              "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
             )
             build_with_flags "${ST_FLAGS[@]}"
           elif [ $RC -ne 0 ]; then
@@ -201,6 +207,9 @@ jobs:
               "LIBRARY_SEARCH_PATHS=${PY_LIB_DIR:-$PWD/ThirdParty/Python}"
               "OTHER_LDFLAGS=$PY_LIBA"
               "ONLY_ACTIVE_ARCH=YES"
+              "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
+              "CLANG_ENABLE_MODULES=NO"
+              "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
             )
             build_with_flags "${ST_FLAGS[@]}"
           else
