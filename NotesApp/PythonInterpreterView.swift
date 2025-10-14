@@ -194,48 +194,122 @@ for i in range(3):
     }
 
     private func runCode() async {
-        AppLogger.log("runCode() started - code length: \(code.count) chars")
-        isRunning = true
-        lastError = nil
-        output = ""
-        runDuration = nil
+        AppLogger.log("=== PythonInterpreterView.runCode() START ===")
+        AppLogger.log("Code to execute (length: \(code.count) chars):")
+        AppLogger.log("Code content: '\(code)'")
+        
+        await MainActor.run {
+            AppLogger.log("Setting UI state: isRunning = true")
+            self.isRunning = true
+            self.lastError = nil
+            self.output = ""
+            self.runDuration = nil
+        }
+        
         let start = Date()
+        AppLogger.log("Execution started at: \(start)")
+        
         do {
-            AppLogger.log("About to call executor.execute()")
+            AppLogger.log("About to call executor.execute() with CPythonExecutor")
+            AppLogger.log("Executor type: \(type(of: executor))")
+            
             let result = try await executor.execute(code: code)
-            AppLogger.log("Execution completed - exit code: \(result.exitCode ?? -1), stdout: \(result.stdout.count)B, stderr: \(result.stderr.count)B")
+            
+            AppLogger.log("=== EXECUTION RESULT RECEIVED ===")
+            AppLogger.log("Exit code: \(result.exitCode ?? -999)")
+            AppLogger.log("Stdout length: \(result.stdout.count) bytes")
+            AppLogger.log("Stderr length: \(result.stderr.count) bytes")
+            
+            if !result.stdout.isEmpty {
+                AppLogger.log("Stdout content: '\(result.stdout)'")
+            }
+            if !result.stderr.isEmpty {
+                AppLogger.log("Stderr content: '\(result.stderr)'")
+            }
+            
+            // Combine output
+            AppLogger.log("Combining output strings...")
             var combined = ""
-            if let status = result.exitCode { combined += "[exit \(status)]\n" }
-            if !result.stdout.isEmpty { combined += result.stdout }
+            if let status = result.exitCode { 
+                combined += "[exit \(status)]\n" 
+                AppLogger.log("Added exit code to output: \(status)")
+            }
+            if !result.stdout.isEmpty { 
+                combined += result.stdout 
+                AppLogger.log("Added stdout to combined output")
+            }
             if !result.stderr.isEmpty {
                 if !combined.isEmpty { combined += (combined.hasSuffix("\n") ? "" : "\n") }
                 combined += result.stderr
+                AppLogger.log("Added stderr to combined output")
             }
-            if combined.isEmpty { combined = "(no output)" }
+            if combined.isEmpty { 
+                combined = "(no output)" 
+                AppLogger.log("No output generated, using placeholder text")
+            }
+            
             let finalCombined = combined
-            await MainActor.run { self.output = finalCombined }
-            if let _ = autorunSavePath {
+            AppLogger.log("Final combined output length: \(finalCombined.count) chars")
+            AppLogger.log("Final combined output: '\(finalCombined)'")
+            
+            await MainActor.run { 
+                AppLogger.log("Updating UI with execution result")
+                self.output = finalCombined 
+            }
+            
+            if let autorunPath = autorunSavePath {
+                AppLogger.log("Writing autorun output to: \(autorunPath)")
                 writeAutorunOutput(finalCombined)
             }
-            await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
+            
+            let duration = Date().timeIntervalSince(start)
+            await MainActor.run { 
+                AppLogger.log("Setting execution duration: \(duration)s")
+                self.runDuration = duration 
+            }
+            
+            AppLogger.log("Execution completed successfully")
+            
         } catch {
-            AppLogger.log("Execution failed with error: \(error.localizedDescription)")
+            AppLogger.log("=== EXECUTION FAILED WITH ERROR ===")
+            AppLogger.log("Error type: \(type(of: error))")
+            AppLogger.log("Error description: '\(error.localizedDescription)'")
+            AppLogger.log("Error domain: \((error as NSError).domain)")
+            AppLogger.log("Error code: \((error as NSError).code)")
+            AppLogger.log("Error userInfo: \((error as NSError).userInfo)")
+            
             let errorMessage: String
             if error.localizedDescription.contains("not configured") || error.localizedDescription.contains("not available") {
                 errorMessage = "Python runtime not configured. This build may not include Python support."
+                AppLogger.log("Using runtime not configured error message")
             } else {
                 errorMessage = "Run failed: \(error.localizedDescription)"
+                AppLogger.log("Using generic error message")
             }
+            
+            AppLogger.log("Final error message: '\(errorMessage)'")
+            
+            let duration = Date().timeIntervalSince(start)
             await MainActor.run {
+                AppLogger.log("Setting error state in UI")
                 self.lastError = errorMessage
-                self.runDuration = Date().timeIntervalSince(start)
+                self.runDuration = duration
             }
-            if let _ = autorunSavePath {
+            
+            if let autorunPath = autorunSavePath {
+                AppLogger.log("Writing autorun error to: \(autorunPath)")
                 writeAutorunOutput("ERROR: \(error.localizedDescription)")
             }
         }
-        await MainActor.run { self.isRunning = false }
-        AppLogger.log("runCode() completed in \(Date().timeIntervalSince(start))s")
+        
+        await MainActor.run { 
+            AppLogger.log("Setting UI state: isRunning = false")
+            self.isRunning = false 
+        }
+        
+        let totalDuration = Date().timeIntervalSince(start)
+        AppLogger.log("=== PythonInterpreterView.runCode() COMPLETE ===")
+        AppLogger.log("Total execution time: \(totalDuration)s")
     }
 
     private func applyAutorunFromArgumentsIfNeeded() {
