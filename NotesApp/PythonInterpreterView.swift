@@ -191,8 +191,14 @@ for i in range(3):
             await MainActor.run { self.runDuration = Date().timeIntervalSince(start) }
         } catch {
             AppLogger.log("Execution failed with error: \(error.localizedDescription)")
+            let errorMessage: String
+            if error.localizedDescription.contains("not configured") || error.localizedDescription.contains("not available") {
+                errorMessage = "Python runtime not configured. This build may not include Python support."
+            } else {
+                errorMessage = "Run failed: \(error.localizedDescription)"
+            }
             await MainActor.run {
-                self.lastError = "Run failed: \(error.localizedDescription)"
+                self.lastError = errorMessage
                 self.runDuration = Date().timeIntervalSince(start)
             }
             if let _ = autorunSavePath {

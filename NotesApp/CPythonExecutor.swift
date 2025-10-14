@@ -11,26 +11,49 @@ final class CPythonExecutor: PythonExecutor {
 
     func execute(code: String) async throws -> ExecutionResult {
         AppLogger.log("CPythonExecutor.execute begin len=\(code.count)")
-        try ensureInitialized()
+        
+        // Safety check: ensure we don't crash on empty/invalid code
+        guard !code.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            AppLogger.log("CPythonExecutor.execute: empty code provided")
+            return ExecutionResult(stdout: "", stderr: "Error: No code provided", exitCode: 1)
+        }
+        
+        do {
+            try ensureInitialized()
+        } catch {
+            AppLogger.log("CPythonExecutor.execute: initialization failed - \(error)")
+            return ExecutionResult(stdout: "", stderr: "Python runtime initialization failed: \(error.localizedDescription)", exitCode: 1)
+        }
+        
         return try await withCheckedThrowingContinuation { (cont: CheckedContinuation<ExecutionResult, Error>) in
             DispatchQueue.global(qos: .userInitiated).async {
                 var outPtr: UnsafeMutablePointer<CChar>? = nil
                 var errPtr: UnsafeMutablePointer<CChar>? = nil
                 var status: Int32 = 0
+                
+                AppLogger.log("CPythonExecutor.execute: calling pybridge_run")
                 let rc = code.withCString { cstr in
                     pybridge_run(cstr, &outPtr, &errPtr, &status)
                 }
+                AppLogger.log("CPythonExecutor.execute: pybridge_run returned rc=\(rc)")
+                
                 let stdoutStr = outPtr.flatMap { String(cString: $0) } ?? ""
                 let stderrStr = errPtr.flatMap { String(cString: $0) } ?? ""
+                
+                AppLogger.log("CPythonExecutor.execute: stdout=\(stdoutStr.count)B stderr=\(stderrStr.count)B")
+                
+                // Clean up memory
                 if let p = outPtr { pybridge_free(p) }
                 if let p = errPtr { pybridge_free(p) }
+                
                 if rc == 0 {
-                    AppLogger.log("CPythonExecutor.execute ok status=\(status) stdout=\(stdoutStr.count)B stderr=\(stderrStr.count)B")
+                    AppLogger.log("CPythonExecutor.execute SUCCESS status=\(status)")
                     cont.resume(returning: ExecutionResult(stdout: stdoutStr, stderr: stderrStr, exitCode: Int(status)))
                 } else {
-                    let err = NSError(domain: "CPythonExecutor", code: Int(rc), userInfo: [NSLocalizedDescriptionKey: stderrStr.isEmpty ? "Execution failed (rc=\(rc))" : stderrStr])
-                    AppLogger.log("CPythonExecutor.execute fail rc=\(rc) stderr=\(stderrStr)")
-                    cont.resume(throwing: err)
+                    AppLogger.log("CPythonExecutor.execute FAILED rc=\(rc)")
+                    // Don't throw error, return error result instead to prevent crashes
+                    let errorMsg = stderrStr.isEmpty ? "Python execution failed (code: \(rc))" : stderrStr
+                    cont.resume(returning: ExecutionResult(stdout: stdoutStr, stderr: errorMsg, exitCode: Int(rc)))
                 }
             }
         }
