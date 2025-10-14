@@ -1,0 +1,262 @@
+name: iOS Ad Hoc Build (No Upload)
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment name for environment-scoped secrets"
+        required: false
+        default: "prod"
+
+jobs:
+  adhoc:
+    name: Build, Sign and Export IPA (Ad Hoc)
+    runs-on: macos-latest
+    environment:
+      name: ${{ inputs.environment }}
+    env:
+      BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+      P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      ADHOC_PROVISION_PROFILE_BASE64: ${{ secrets.ADHOC_PROVISION_PROFILE_BASE64 }}
+      IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Show Xcode version
+      run: xcodebuild -version
+
+    - name: Install SwiftLint
+      run: brew install swiftlint
+
+    - name: Lint Swift code (non-blocking)
+      run: swiftlint --reporter github-actions-logging || true
+
+    - name: Fetch CPython runtime (Python-Apple-support 3.14-b8)
+      shell: bash
+      run: |
+        set -euo pipefail
+        SUPPORT_URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"
+        mkdir -p ThirdParty/Python
+        cd ThirdParty/Python
+        echo "Downloading: $SUPPORT_URL"
+        curl -L "$SUPPORT_URL" -o python-ios-support.tar.gz
+        tar -xzf python-ios-support.tar.gz
+        XCF=$(find . -maxdepth 6 -type d -name "*.xcframework" | head -n1 || true)
+        if [ -n "$XCF" ]; then
+          if [ "$(basename "$XCF")" = "Python.xcframework" ] && [ "$(cd "$(dirname "$XCF")" && pwd)" = "$(pwd)" ]; then
+            echo "Python.xcframework already in place"
+          else
+            rm -rf Python.xcframework || true
+            mv "$XCF" Python.xcframework
+          fi
+        else
+          echo "::warning title=CPython::No *.xcframework found in support package"
+        fi
+        STDLIB=$(find . -maxdepth 6 -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)
+        if [ -n "$STDLIB" ]; then cp "$STDLIB" python-stdlib.zip; fi
+        HDR=$(find . -maxdepth 6 -type f -name Python.h | head -n1 || true)
+        LIBA=$(find Python.xcframework/ios-arm64 -type f -name "libpython*.a" 2>/dev/null | head -n1 || true)
+        FW_DIR=""; if [ -d Python.xcframework/ios-arm64 ]; then FW_DIR="$(pwd)/Python.xcframework/ios-arm64"; fi
+        INC_DIR=""; if [ -d Python.xcframework/ios-arm64/include ]; then INC_DIR="$(pwd)/Python.xcframework/ios-arm64/include"; fi
+        {
+          echo "PY_HDR=$HDR";
+          echo "PY_LIBA=$LIBA";
+          echo "PY_FW_DIR=$FW_DIR";
+          echo "PY_INC_DIR=$INC_DIR";
+        } >> $GITHUB_ENV
+
+    - name: Prepare App Icons from master (no placeholders)
+      run: |
+        if [ ! -f branding/app_icon_1024.png ] && [ -z "$APP_ICON_MASTER" ]; then
+          echo "No master icon provided; generating a default branded icon";
+          python3 scripts/make_master_icon.py || true;
+        fi
+        APP_ICON_MASTER=${APP_ICON_MASTER:-branding/app_icon_1024.png}
+        if [ -f "$APP_ICON_MASTER" ]; then
+          python3 scripts/prepare_app_icons_from_master.py || true
+        fi
+
+    - name: Compute unique build number
+      run: |
+        NEW_BUILD=$(date +%Y%m%d%H%M)
+        echo "NEW_BUILD=$NEW_BUILD" >> $GITHUB_ENV
+        echo "::notice title=Build Number::CFBundleVersion will be $NEW_BUILD"
+
+    - name: Preflight - Check required secrets presence
+      run: |
+        check() { if [ -z "$1" ]; then echo "::error title=Missing secret::${2} not set"; exit 1; else echo "${2}: present"; fi }
+        echo "Environment: ${{ inputs.environment }}"
+        check "${BUILD_CERTIFICATE_BASE64}" "BUILD_CERTIFICATE_BASE64"
+        check "${P12_PASSWORD}" "P12_PASSWORD"
+        check "${KEYCHAIN_PASSWORD}" "KEYCHAIN_PASSWORD"
+        check "${ADHOC_PROVISION_PROFILE_BASE64}" "ADHOC_PROVISION_PROFILE_BASE64"
+
+    - name: Install Apple Certificate
+      run: |
+        CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+        KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+        echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+        security list-keychain -d user -s $KEYCHAIN_PATH
+
+    - name: Install Provisioning Profile (Ad Hoc)
+      run: |
+        PP_PATH=$RUNNER_TEMP/adhoc_pp.mobileprovision
+        echo -n "$ADHOC_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+        echo "PP_PATH=$PP_PATH" >> $GITHUB_ENV
+        security cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist
+        PP_UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' $RUNNER_TEMP/profile.plist)
+        PP_NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' $RUNNER_TEMP/profile.plist)
+        echo "Using Provisioning Profile: $PP_NAME ($PP_UUID)"
+        echo "PP_UUID=$PP_UUID" >> $GITHUB_ENV
+        BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' $RUNNER_TEMP/profile.plist | sed 's/^.*\.//')
+        echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
+
+    - name: Build and Archive (Release - unsigned)
+      run: |
+        build_with_flags() {
+          echo "xcodebuild flags: $*"
+          xcodebuild archive \
+            -project NotesApp.xcodeproj \
+            -scheme NotesApp \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            CURRENT_PROJECT_VERSION=$NEW_BUILD \
+            "$@" 2>&1 | tee "$RUNNER_TEMP/build.log"
+          return ${PIPESTATUS[0]}
+        }
+
+        # Prefer static library if present, otherwise link framework
+        if [ -n "${PY_LIBA:-}" ]; then
+          echo "Using static library: $PY_LIBA"
+          ST_FLAGS=(
+            "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}"
+            "LIBRARY_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/lib}"
+            "OTHER_LDFLAGS=$PY_LIBA"
+            "ONLY_ACTIVE_ARCH=YES"
+            "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
+            "CLANG_ENABLE_MODULES=NO"
+            "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
+          )
+          build_with_flags "${ST_FLAGS[@]}"
+        elif [ -n "${PY_FW_DIR:-}" ]; then
+          echo "Using XCFramework linking (-framework Python)"
+          DYN_FLAGS=(
+            "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}"
+            "FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR}"
+            "OTHER_LDFLAGS=-Xlinker -framework -Xlinker Python"
+            "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
+            "CLANG_ENABLE_MODULES=NO"
+            "OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules"
+            "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks"
+            "ONLY_ACTIVE_ARCH=YES"
+          )
+          set +e
+          build_with_flags "${DYN_FLAGS[@]}"; RC=$?
+          set -e
+          if [ $RC -ne 0 ]; then
+            echo "::error title=CPython::Dynamic link failed"
+            tail -n 300 "$RUNNER_TEMP/build.log" || true
+            exit $RC
+          fi
+        else
+          echo "::warning title=CPython::No runtime detected; building without explicit Python linkage"
+          xcodebuild archive \
+            -project NotesApp.xcodeproj \
+            -scheme NotesApp \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            CURRENT_PROJECT_VERSION=$NEW_BUILD 2>&1 | tee "$RUNNER_TEMP/build.log"
+        fi
+
+    - name: Upload build log on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: adhoc-build-log
+        path: ${{ runner.temp }}/build.log
+
+    - name: Inject CPython artifacts into app bundle (if present)
+      run: |
+        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
+        if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
+        if [ -f ThirdParty/Python/python-stdlib.zip ]; then
+          cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/"
+          echo "Injected python-stdlib.zip into app bundle"
+        fi
+        if [ -d ThirdParty/Python/Python.xcframework ]; then
+          FW_SRC=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
+          if [ -n "$FW_SRC" ]; then
+            mkdir -p "$APP_DIR/Frameworks"
+            rsync -a "$FW_SRC/" "$APP_DIR/Frameworks/Python.framework/"
+            echo "Injected Python.framework into app bundle Frameworks"
+          fi
+        fi
+
+    - name: Export Signed IPA (Ad Hoc)
+      run: |
+        TEAM_ID="${IOS_TEAM_ID}"
+        if [ -z "$TEAM_ID" ]; then TEAM_ID=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true); fi
+        cat > $RUNNER_TEMP/export-options.plist <<EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>method</key>
+            <string>ad-hoc</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>teamID</key>
+            <string>${TEAM_ID}</string>
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
+            <key>provisioningProfiles</key>
+            <dict>
+                <key>${BUNDLE_ID}</key>
+                <string>${PP_UUID}</string>
+            </dict>
+            <key>stripSwiftSymbols</key>
+            <true/>
+            <key>compileBitcode</key>
+            <false/>
+        </dict>
+        </plist>
+        EOF
+        xcodebuild -exportArchive \
+          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+          -exportPath ${{ runner.temp }}/export-adhoc \
+          -exportOptionsPlist $RUNNER_TEMP/export-options.plist
+        IPA_PATH=$(ls ${{ runner.temp }}/export-adhoc/*.ipa | head -n 1)
+        if [ -z "$IPA_PATH" ]; then echo "::error title=Export failed::No IPA produced"; exit 1; fi
+        echo "IPA_PATH=$IPA_PATH" >> $GITHUB_ENV
+        echo "::notice title=Export Complete (Ad Hoc)::IPA=$(basename "$IPA_PATH")"
+
+    - name: Upload Ad Hoc IPA as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: CodeSnake-AdHoc-IPA
+        path: ${{ runner.temp }}/export-adhoc/*.ipa
+        retention-days: 30
+
+    - name: Clean up keychain
+      if: always()
+      run: |
+        security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
+
