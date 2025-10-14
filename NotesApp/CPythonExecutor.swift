@@ -222,22 +222,27 @@ final class CPythonExecutor: PythonExecutor {
         } else {
             AppLogger.log("CRITICAL: python-stdlib.zip MISSING from app bundle!")
             
-            // Check for alternative stdlib file names
-            let alternativeNames = ["stdlib.zip", "python-stdlib", "Python-stdlib.zip", "lib.zip", "python314.zip"]
+            // Check for alternative stdlib file names (with crash protection)
+            let alternativeNames = ["stdlib.zip", "python314.zip", "lib.zip"]
             AppLogger.log("Checking for alternative stdlib file names...")
             
             for altName in alternativeNames {
-                let altPath = resURL.appendingPathComponent(altName)
-                let altExists = FileManager.default.fileExists(atPath: altPath.path)
-                AppLogger.log("Alternative \(altName): exists=\(altExists)")
-                if altExists {
-                    do {
-                        let attrs = try FileManager.default.attributesOfItem(atPath: altPath.path)
-                        let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
-                        AppLogger.log("Alternative \(altName) size: \(size) bytes")
-                    } catch {
-                        AppLogger.log("Failed to get size for \(altName): \(error)")
+                do {
+                    let altPath = resURL.appendingPathComponent(altName)
+                    let altExists = FileManager.default.fileExists(atPath: altPath.path)
+                    AppLogger.log("Alternative \(altName): exists=\(altExists)")
+                    
+                    if altExists {
+                        do {
+                            let attrs = try FileManager.default.attributesOfItem(atPath: altPath.path)
+                            let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
+                            AppLogger.log("Alternative \(altName) size: \(size) bytes")
+                        } catch {
+                            AppLogger.log("Failed to get size for \(altName): \(error.localizedDescription)")
+                        }
                     }
+                } catch {
+                    AppLogger.log("Error checking alternative file \(altName): \(error.localizedDescription)")
                 }
             }
             
@@ -260,69 +265,64 @@ final class CPythonExecutor: PythonExecutor {
                             let fwFiles = try? FileManager.default.contentsOfDirectory(atPath: fwPath.path)
                             AppLogger.log("Python framework contents: \(fwFiles?.joined(separator: ", ") ?? "error reading")")
                             
-                            // Deep search for Python stdlib files inside the framework
+                            // Deep search for Python stdlib files inside the framework (with crash protection)
                             if let files = fwFiles {
                                 AppLogger.log("=== DEEP FRAMEWORK INSPECTION ===")
+                                AppLogger.log("Framework files to inspect: \(files.count)")
                                 
-                                for file in files {
-                                    let filePath = fwPath.appendingPathComponent(file)
-                                    var isDir: ObjCBool = false
-                                    let exists = FileManager.default.fileExists(atPath: filePath.path, isDirectory: &isDir)
+                                for (index, file) in files.enumerated() {
+                                    AppLogger.log("Inspecting file \(index + 1)/\(files.count): \(file)")
                                     
-                                    if exists {
-                                        if isDir.boolValue {
-                                            AppLogger.log("Framework subdirectory: \(file)")
-                                            
-                                            // Look for common Python stdlib locations
-                                            let commonStdlibPaths = ["lib", "python3.14", "site-packages", "stdlib"]
-                                            for stdlibPath in commonStdlibPaths {
-                                                let stdlibFullPath = filePath.appendingPathComponent(stdlibPath)
-                                                if FileManager.default.fileExists(atPath: stdlibFullPath.path) {
-                                                    AppLogger.log("Found potential stdlib at: \(file)/\(stdlibPath)")
-                                                    let stdlibContents = try? FileManager.default.contentsOfDirectory(atPath: stdlibFullPath.path)
-                                                    AppLogger.log("Stdlib contents: \(stdlibContents?.prefix(10).joined(separator: ", ") ?? "error reading")")
-                                                }
-                                            }
-                                            
-                                            // List contents of any directory
-                                            let subFiles = try? FileManager.default.contentsOfDirectory(atPath: filePath.path)
-                                            AppLogger.log("Contents of \(file): \(subFiles?.prefix(10).joined(separator: ", ") ?? "error reading")")
-                                        } else {
-                                            // Check for zip files or Python-related files
-                                            let fileExt = (file as NSString).pathExtension.lowercased()
-                                            if fileExt == "zip" || file.lowercased().contains("python") || file.lowercased().contains("stdlib") {
+                                    do {
+                                        let filePath = fwPath.appendingPathComponent(file)
+                                        var isDir: ObjCBool = false
+                                        let exists = FileManager.default.fileExists(atPath: filePath.path, isDirectory: &isDir)
+                                        
+                                        if exists {
+                                            if isDir.boolValue {
+                                                AppLogger.log("Framework subdirectory: \(file)")
+                                                
+                                                // Safely list directory contents
                                                 do {
-                                                    let attrs = try FileManager.default.attributesOfItem(atPath: filePath.path)
-                                                    let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
-                                                    AppLogger.log("Framework file: \(file) (size: \(size) bytes)")
+                                                    let subFiles = try FileManager.default.contentsOfDirectory(atPath: filePath.path)
+                                                    AppLogger.log("Contents of \(file): \(subFiles.prefix(5).joined(separator: ", "))")
+                                                    
+                                                    // Look for common Python stdlib locations (limited to avoid crashes)
+                                                    let commonStdlibPaths = ["lib", "python3.14"]
+                                                    for stdlibPath in commonStdlibPaths {
+                                                        let stdlibFullPath = filePath.appendingPathComponent(stdlibPath)
+                                                        if FileManager.default.fileExists(atPath: stdlibFullPath.path) {
+                                                            AppLogger.log("Found potential stdlib at: \(file)/\(stdlibPath)")
+                                                        }
+                                                    }
                                                 } catch {
-                                                    AppLogger.log("Framework file: \(file) (size: unknown)")
+                                                    AppLogger.log("Error reading directory \(file): \(error.localizedDescription)")
+                                                }
+                                            } else {
+                                                // Check for zip files or Python-related files
+                                                let fileExt = (file as NSString).pathExtension.lowercased()
+                                                if fileExt == "zip" || file.lowercased().contains("python") {
+                                                    do {
+                                                        let attrs = try FileManager.default.attributesOfItem(atPath: filePath.path)
+                                                        let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
+                                                        AppLogger.log("Framework file: \(file) (size: \(size) bytes)")
+                                                    } catch {
+                                                        AppLogger.log("Framework file: \(file) (size: unknown - \(error.localizedDescription))")
+                                                    }
                                                 }
                                             }
+                                        } else {
+                                            AppLogger.log("Framework file \(file) does not exist or is not accessible")
                                         }
+                                    } catch {
+                                        AppLogger.log("Error inspecting framework file \(file): \(error.localizedDescription)")
                                     }
                                 }
                                 
-                                // Check for specific stdlib files that might be named differently
-                                let potentialStdlibFiles = [
-                                    "python314.zip", "python3.14.zip", "stdlib.zip", 
-                                    "python-stdlib.zip", "lib.zip", "site-packages.zip"
-                                ]
-                                
-                                for stdlibFile in potentialStdlibFiles {
-                                    let stdlibPath = fwPath.appendingPathComponent(stdlibFile)
-                                    if FileManager.default.fileExists(atPath: stdlibPath.path) {
-                                        do {
-                                            let attrs = try FileManager.default.attributesOfItem(atPath: stdlibPath.path)
-                                            let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
-                                            AppLogger.log("FOUND potential stdlib in framework: \(stdlibFile) (size: \(size) bytes)")
-                                        } catch {
-                                            AppLogger.log("FOUND potential stdlib in framework: \(stdlibFile) (size: unknown)")
-                                        }
-                                    }
-                                }
-                                
+                                AppLogger.log("Framework inspection completed")
                                 AppLogger.log("=== END FRAMEWORK INSPECTION ===")
+                            } else {
+                                AppLogger.log("No framework files to inspect")
                             }
                         }
                     }
