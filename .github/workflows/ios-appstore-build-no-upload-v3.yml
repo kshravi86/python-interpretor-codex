@@ -221,7 +221,9 @@ jobs:
 
     - name: Inject CPython artifacts into app bundle (if present)
       run: |
-        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
+        ARCHIVE_DIR='${{ runner.temp }}/CodeSnake-Release.xcarchive'
+        if [ ! -d "$ARCHIVE_DIR" ]; then echo "No archive dir found: $ARCHIVE_DIR"; exit 0; fi
+        APP_DIR=$(find "$ARCHIVE_DIR" -type d -name "*.app" -maxdepth 4 | head -n 1 || true)
         if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
         # Copy stdlib zip
         if [ -f ThirdParty/Python/python-stdlib.zip ]; then
@@ -246,7 +248,8 @@ jobs:
 
     - name: Extract App Metadata (version/build/bundle)
       run: |
-        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1)
+        ARCHIVE_DIR='${{ runner.temp }}/CodeSnake-Release.xcarchive'
+        APP_DIR=$(find "$ARCHIVE_DIR" -type d -name "*.app" -maxdepth 4 | head -n 1)
         PLIST="$APP_DIR/Info.plist"
         if [ ! -f "$PLIST" ]; then echo "::error title=Info.plist not found::$PLIST"; exit 1; fi
         APP_VERSION=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$PLIST")

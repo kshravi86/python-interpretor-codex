@@ -118,15 +118,23 @@ jobs:
         echo "Building with bundled Python runtime..."
         echo "Python runtime files are included in Xcode project - no manual linking needed"
         
+        # Build device archive (iphoneos) into a deterministic temp path
         xcodebuild archive \
           -project NotesApp.xcodeproj \
           -scheme NotesApp \
           -configuration Release \
-          -destination 'generic/platform=iOS' \
+          -sdk iphoneos \
           -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          CURRENT_PROJECT_VERSION=$NEW_BUILD \
-          ONLY_ACTIVE_ARCH=YES 2>&1 | tee "$RUNNER_TEMP/build.log"
+          CURRENT_PROJECT_VERSION=$NEW_BUILD 2>&1 | tee "$RUNNER_TEMP/build.log"
+
+        echo "Listing archive directory for diagnostics:"
+        if [ -d "${RUNNER_TEMP}/CodeSnake-Release.xcarchive" ]; then
+          find "${RUNNER_TEMP}/CodeSnake-Release.xcarchive" -maxdepth 4 -print
+        else
+          echo "::error title=Archive Missing::Expected archive not found at ${RUNNER_TEMP}/CodeSnake-Release.xcarchive"
+          exit 1
+        fi
 
     - name: Upload build log on failure
       if: failure()
@@ -137,8 +145,18 @@ jobs:
 
     - name: Verify app bundle contains Python runtime
       run: |
-        APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1 || true)
-        if [ -z "$APP_DIR" ]; then echo "No app bundle found"; exit 1; fi
+        ARCHIVE_DIR='${{ runner.temp }}/CodeSnake-Release.xcarchive'
+        if [ ! -d "$ARCHIVE_DIR" ]; then
+          echo "::error title=Archive Missing::Archive directory not found: $ARCHIVE_DIR"
+          ls -la "${{ runner.temp }}" || true
+          exit 1
+        fi
+        APP_DIR=$(find "$ARCHIVE_DIR" -type d -name "*.app" -maxdepth 4 | head -n 1 || true)
+        if [ -z "$APP_DIR" ]; then
+          echo "::error title=No app bundle found::Archive exists but contains no .app"
+          echo "Archive contents:"; find "$ARCHIVE_DIR" -maxdepth 4 -print
+          exit 1
+        fi
         
         echo "App bundle directory: $APP_DIR"
         echo "Checking for Python runtime files in app bundle..."
@@ -214,4 +232,3 @@ jobs:
       if: always()
       run: |
         security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
-
