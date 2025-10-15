@@ -126,6 +126,7 @@ jobs:
           -sdk iphoneos \
           -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+          FRAMEWORK_SEARCH_PATHS="$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator $(inherited)" \
           CURRENT_PROJECT_VERSION=$NEW_BUILD 2>&1 | tee "$RUNNER_TEMP/build.log"
 
         echo "Listing archive directory for diagnostics:"
