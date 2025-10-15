@@ -14,6 +14,8 @@ Products/
 *.ipa
 *.xcarchive
 *.zip
+# Keep the embedded Python stdlib zip in version control
+!ThirdParty/Python/python-stdlib.zip
 
 # Credentials and provisioning
 *.p12
