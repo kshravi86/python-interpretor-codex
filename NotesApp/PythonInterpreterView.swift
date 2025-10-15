@@ -28,7 +28,17 @@ for i in range(3):
     @State private var envReport: EnvironmentReport? = nil
     @State private var showEnvDetails: Bool = false
 
-    private let executor: PythonExecutor = CPythonExecutor()
+    private let executor: PythonExecutor = PythonInterpreterView.makeExecutor()
+
+    private static func makeExecutor() -> PythonExecutor {
+        if EnvironmentProbe.isCPythonAvailable() {
+            AppLogger.log("Runtime check: using CPythonExecutor")
+            return CPythonExecutor()
+        } else {
+            AppLogger.log("Runtime check: falling back to OfflinePyodideExecutor")
+            return OfflinePyodideExecutor()
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {

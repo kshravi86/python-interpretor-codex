@@ -38,6 +38,7 @@
         BB2222222222222222222201 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222202 /* CodeEditorView.swift */; };
         BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222204 /* SyntaxHighlighter.swift */; };
         BB2222222222222222222205 /* Snippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2222222222222222222206 /* Snippets.swift */; };
+        F79C3DC9E8C74049984A6B99 /* EnvironmentProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A48AB970D8649D08883602E /* EnvironmentProbe.swift */; };
         EE7777777777777777777701 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7777777777777777777702 /* Logger.swift */; };
         PY9999999999999999999901 /* python-stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = PY9999999999999999999902 /* python-stdlib.zip */; };
         PY9999999999999999999903 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = PY9999999999999999999904 /* Python.framework */; };
@@ -74,6 +75,7 @@
         AA1111111111111111111112 /* PythonInterpreterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonInterpreterView.swift; sourceTree = "<group>"; };
         AA1111111111111111111114 /* PythonExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonExecutor.swift; sourceTree = "<group>"; };
         CC3333333333333333333302 /* CPythonExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPythonExecutor.swift; sourceTree = "<group>"; };
+        0A48AB970D8649D08883602E /* EnvironmentProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentProbe.swift; sourceTree = "<group>"; };
         DD6666666666666666666601 /* PythonBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonBridge.h; sourceTree = "<group>"; };
         DD6666666666666666666602 /* PythonBridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PythonBridge.c; sourceTree = "<group>"; };
         DD6666666666666666666603 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging-Header.h; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
                 AA1111111111111111111114 /* PythonExecutor.swift */,
                 AA1111111111111111111112 /* PythonInterpreterView.swift */,
                 CC3333333333333333333302 /* CPythonExecutor.swift */,
+                0A48AB970D8649D08883602E /* EnvironmentProbe.swift */,
                 EE7777777777777777777702 /* Logger.swift */,
                 PY9999999999999999999902 /* python-stdlib.zip */,
                 PY9999999999999999999904 /* Python.framework */,
@@ -254,6 +257,7 @@
                 AA1111111111111111111113 /* PythonExecutor.swift in Sources */,
                 AA1111111111111111111111 /* PythonInterpreterView.swift in Sources */,
                 CC3333333333333333333301 /* CPythonExecutor.swift in Sources */,
+                F79C3DC9E8C74049984A6B99 /* EnvironmentProbe.swift in Sources */,
                 DD6666666666666666666604 /* PythonBridge.c in Sources */,
                 BB2222222222222222222201 /* CodeEditorView.swift in Sources */,
                 BB2222222222222222222203 /* SyntaxHighlighter.swift in Sources */,
