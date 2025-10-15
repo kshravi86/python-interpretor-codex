@@ -25,12 +25,15 @@ for i in range(3):
     @State private var showEditConditionSheet: Bool = false
     @State private var showingLogs: Bool = false
     @State private var logContent: String = ""
+    @State private var envReport: EnvironmentReport? = nil
+    @State private var showEnvDetails: Bool = false
 
     private let executor: PythonExecutor = CPythonExecutor()
 
     var body: some View {
         VStack(spacing: 0) {
             headerControls
+            envSummary
             editor
             Divider()
             outputView
@@ -38,7 +41,18 @@ for i in range(3):
         }
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
-        .onAppear { AppLogger.log("InterpreterView appear"); loadPersisted(); loadPersistedBreakpoints(); applyAutorunFromArgumentsIfNeeded() }
+        .onAppear { 
+            AppLogger.log("InterpreterView appear"); 
+            loadPersisted(); 
+            loadPersistedBreakpoints(); 
+            applyAutorunFromArgumentsIfNeeded();
+            // Collect environment report early so user sees what's available
+            DispatchQueue.global(qos: .utility).async {
+                let rep = EnvironmentProbe.collect()
+                AppLogger.log("Environment probe complete: items=\(rep.items.count)")
+                DispatchQueue.main.async { self.envReport = rep }
+            }
+        }
         .onChange(of: code) { _ in 
             AppLogger.log("Code changed from editor; persisting and refreshing breakpoints")
             persist(); loadPersistedBreakpoints() 
@@ -346,6 +360,55 @@ for i in range(3):
             }
             AppLogger.log("Scheduling autorun via Task")
             Task { await runCode() }
+        }
+    }
+
+    private var envSummary: some View {
+        Group {
+            if let rep = envReport {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text("Environment")
+                            .font(.headline)
+                        Spacer()
+                        Button(showEnvDetails ? "Hide" : "Details") { showEnvDetails.toggle() }
+                            .font(.footnote)
+                    }
+                    if showEnvDetails {
+                        ForEach(rep.items) { item in
+                            HStack(spacing: 8) {
+                                Image(systemName: item.present ? "checkmark.circle.fill" : "xmark.octagon.fill")
+                                    .foregroundStyle(item.present ? .green : .red)
+                                Text(item.title).font(.subheadline)
+                                Spacer()
+                                Text(item.detail)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.trailing)
+                            }
+                        }
+                        if rep.notes.isEmpty == false {
+                            ForEach(rep.notes, id: \.self) { note in
+                                HStack(spacing: 8) {
+                                    Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.yellow)
+                                    Text(note).font(.caption)
+                                }
+                            }
+                        }
+                    } else {
+                        // Compact one-line summary
+                        let ok = rep.items.filter { $0.present }.count
+                        let total = rep.items.count
+                        Text("Ready: \(ok)/\(total) checks passed")
+                            .font(.footnote)
+                            .foregroundStyle(ok == total ? .green : .orange)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color(.secondarySystemBackground))
+            }
         }
     }
 

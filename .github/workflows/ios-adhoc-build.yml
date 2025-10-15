@@ -61,6 +61,28 @@ jobs:
         
         echo "Python runtime verification complete - both stdlib and framework are bundled!"
 
+    - name: Fetch CPython runtime (fallback for static linking)
+      shell: bash
+      run: |
+        set -euo pipefail
+        mkdir -p ThirdParty/Python
+        # If a static lib is already present, skip download
+        if find ThirdParty/Python -type f -name 'libpython*.a' | head -n1 >/dev/null; then
+          echo "Static lib already present; skipping download"
+          exit 0
+        fi
+        # Download support package to get static lib as a robust fallback
+        URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"
+        echo "Downloading CPython support from: $URL"
+        curl -L "$URL" -o ThirdParty/Python/python-ios-support.tar.gz
+        tar -xzf ThirdParty/Python/python-ios-support.tar.gz -C ThirdParty/Python
+        echo "Extracted contents:"; find ThirdParty/Python -maxdepth 3 -mindepth 1 -print || true
+        # Normalize stdlib zip name if found
+        STDLIB=$(find ThirdParty/Python -maxdepth 6 -type f \( -name '*stdlib*.zip' -o -name 'python-stdlib.zip' -o -name 'stdlib.zip' \) | head -n1 || true)
+        if [ -n "${STDLIB}" ] && [ ! -f ThirdParty/Python/python-stdlib.zip ]; then
+          cp "$STDLIB" ThirdParty/Python/python-stdlib.zip || true
+        fi
+
     - name: Prepare App Icons from master (no placeholders)
       run: |
         if [ ! -f branding/app_icon_1024.png ] && [ -z "$APP_ICON_MASTER" ]; then
@@ -117,17 +139,46 @@ jobs:
       run: |
         echo "Building with bundled Python runtime..."
         echo "Python runtime files are included in Xcode project - no manual linking needed"
-        
-        # Build device archive (iphoneos) into a deterministic temp path
-        xcodebuild archive \
-          -project NotesApp.xcodeproj \
-          -scheme NotesApp \
-          -configuration Release \
-          -sdk iphoneos \
-          -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          FRAMEWORK_SEARCH_PATHS="$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator $(inherited)" \
-          CURRENT_PROJECT_VERSION=$NEW_BUILD 2>&1 | tee "$RUNNER_TEMP/build.log"
+
+        build_with_flags() {
+          xcodebuild archive \
+            -project NotesApp.xcodeproj \
+            -scheme NotesApp \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            CURRENT_PROJECT_VERSION=$NEW_BUILD \
+            "$@" 2>&1 | tee "$RUNNER_TEMP/build.log"
+          return ${PIPESTATUS[0]}
+        }
+
+        # Try static linking first if a libpython*.a is present
+        PY_LIBA=$(find ThirdParty/Python -type f -name 'libpython*.a' | head -n1 || true)
+        if [ -n "$PY_LIBA" ]; then
+          echo "Attempting static link with $PY_LIBA"
+          INC_DIR=$(dirname "$(dirname "$PY_LIBA")")/include
+          ST_FLAGS=(
+            "HEADER_SEARCH_PATHS=${INC_DIR} $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64/include $(inherited)"
+            "OTHER_LDFLAGS=$PY_LIBA"
+            "CLANG_ENABLE_MODULES=NO"
+            "OTHER_CFLAGS=-fno-modules -Wno-quoted-include-in-framework-header"
+          )
+          set +e; build_with_flags "${ST_FLAGS[@]}"; RC=$?; set -e
+          if [ $RC -ne 0 ]; then
+            echo "::warning title=Static link failed::Falling back to dynamic framework"
+          else
+            echo "Static link succeeded"
+            exit 0
+          fi
+        fi
+
+        # Fallback: dynamic framework linking with explicit search paths
+        DYN_FLAGS=(
+          "FRAMEWORK_SEARCH_PATHS=$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator $(inherited)"
+          "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks $(inherited)"
+        )
+        build_with_flags "${DYN_FLAGS[@]}"
 
         echo "Listing archive directory for diagnostics:"
         if [ -d "${RUNNER_TEMP}/CodeSnake-Release.xcarchive" ]; then
@@ -171,15 +222,25 @@ jobs:
           ls -la "$APP_DIR/"
           exit 1
         fi
-        
-        if [ -d "$APP_DIR/Frameworks/Python.framework" ]; then
-          echo "✅ Python.framework found in app bundle"
-          ls -la "$APP_DIR/Frameworks/Python.framework/"
+        # If we dynamically linked, ensure framework is embedded; otherwise (static), it isn't required
+        if otool -l "$APP_DIR/CodeSnake" | grep -q "name @rpath/Python.framework/Python"; then
+          if [ -d "$APP_DIR/Frameworks/Python.framework" ]; then
+            echo "✅ Python.framework found in app bundle"
+            ls -la "$APP_DIR/Frameworks/Python.framework/"
+          else
+            echo "❌ Python.framework missing; attempting to inject from repo"
+            SRC_FW=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
+            if [ -n "$SRC_FW" ]; then
+              mkdir -p "$APP_DIR/Frameworks"
+              rsync -a "$SRC_FW/" "$APP_DIR/Frameworks/Python.framework/"
+              echo "✅ Injected Python.framework"
+            else
+              echo "::error title=Embed failed::Could not locate source Python.framework to inject"
+              exit 1
+            fi
+          fi
         else
-          echo "❌ Python.framework missing from app bundle"
-          echo "Frameworks directory:"
-          ls -la "$APP_DIR/Frameworks/" || echo "No Frameworks directory"
-          exit 1
+          echo "Static linking detected; no dynamic framework required"
         fi
         
         echo "✅ Python runtime successfully included in app bundle!"
