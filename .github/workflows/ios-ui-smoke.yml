@@ -94,7 +94,7 @@ jobs:
           test -f "$APP_BUNDLE/PyodideAssets/pyodide.js" || echo "::warning::Missing PyodideAssets/pyodide.js in bundle"
 
           # Launch and do not fail the build even if app exits nonzero
-          xcrun simctl launch "${{ steps.sim.outputs.udid }}" "$BUNDLE" --args --disable-animations --smoke-remote --autorun-b64 "$SNIPPET" --autorun-save smoke.txt || true
+          xcrun simctl launch "${{ steps.sim.outputs.udid }}" "$BUNDLE" --args --disable-animations --autorun-b64 "$SNIPPET" --autorun-save smoke.txt || true
           # Give the app time to run the snippet and write the file (Pyodide init can be slow on CI)
           sleep 20
           mkdir -p "$RUNNER_TEMP/ui-smoke"
