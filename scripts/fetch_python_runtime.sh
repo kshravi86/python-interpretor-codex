@@ -30,19 +30,16 @@ export GH_TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
 WORKDIR="$RUNNER_TEMP/python-support"
 mkdir -p "$WORKDIR"
 
-if [ "$TAG" = "latest" ]; then
-  GH_FLAGS=(--latest)
-else
-  GH_FLAGS=(--tag "$TAG")
-fi
+GH_TAG="$TAG"
+if [ "$TAG" = "latest" ]; then GH_TAG="latest"; fi
 
 echo "Downloading assets into: $WORKDIR"
 
 # Try direct xcframework zip and stdlib zip first
 set +e
 if [ $HAS_GH -eq 1 ]; then
-  gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*Python*.xcframework*.zip" -D "$WORKDIR"; GH_RC_XCF=$?
-  gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*stdlib*.zip" -D "$WORKDIR"; GH_RC_STDLIB=$?
+  gh release download "$GH_TAG" -R "$REPO" -p "*Python*.xcframework*.zip" -D "$WORKDIR"; GH_RC_XCF=$?
+  gh release download "$GH_TAG" -R "$REPO" -p "*stdlib*.zip" -D "$WORKDIR"; GH_RC_STDLIB=$?
 else
   GH_RC_XCF=1; GH_RC_STDLIB=1
 fi
@@ -56,10 +53,11 @@ if [ -z "$ZIP_XCF" ]; then
   echo "No xcframework zip found via release assets; falling back to support tarball"
   set +e
   GH_RC_TARBALL=1
+  # Try gh first; if it fails, fall back to API
   if [ $HAS_GH -eq 1 ]; then
-    gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "Python-*-iOS-support*.tar.*" -D "$WORKDIR"; GH_RC_TARBALL=$?
-  else
-    # Use GitHub API to locate iOS support tarball URL
+    gh release download "$GH_TAG" -R "$REPO" -p "Python-*-iOS-support*.tar.*" -D "$WORKDIR"; GH_RC_TARBALL=$?
+  fi
+  if [ ${GH_RC_TARBALL:-1} -ne 0 ]; then
     API_URL="https://api.github.com/repos/${REPO}/releases";
     if [ "${TAG}" != "latest" ]; then API_URL="https://api.github.com/repos/${REPO}/releases/tags/${TAG}"; fi
     PY_ASSET_URL=$(python3 - "$API_URL" <<'PY'
