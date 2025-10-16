@@ -325,9 +325,20 @@ jobs:
         TMP=$(mktemp -d)
         unzip -q "$IPA" -d "$TMP"
         APPDIR=$(ls -d "$TMP"/Payload/*.app)
-        security cms -D -i "$APPDIR/embedded.mobileprovision" \
-          | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin \
-          | grep -Fx "${IOS_TEAM_ID}.${BUNDLE_ID}"
+        if [ -f "$APPDIR/embedded.mobileprovision" ]; then
+          security cms -D -i "$APPDIR/embedded.mobileprovision" \
+            | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin \
+            | grep -Fx "${IOS_TEAM_ID}.${BUNDLE_ID}"
+        else
+          # Fallback: read entitlements from the signed app
+          /usr/bin/codesign -d --entitlements :- "$APPDIR" > "$TMP/ents.plist" 2>/dev/null || true
+          if [ -s "$TMP/ents.plist" ]; then
+            AID=$(/usr/libexec/PlistBuddy -c 'Print :application-identifier' "$TMP/ents.plist" 2>/dev/null || true)
+            [ "$AID" = "${IOS_TEAM_ID}.${BUNDLE_ID}" ] || { echo "Entitlements mismatch: $AID"; exit 1; }
+          else
+            echo "No embedded.mobileprovision and no entitlements found"; exit 1
+          fi
+        fi
 
     - name: Upload Ad Hoc IPA as Artifact
       uses: actions/upload-artifact@v4
