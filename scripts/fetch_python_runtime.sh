@@ -20,10 +20,9 @@ TARGET_STDLIB="${PY_TARGET_STDLIB:-Resources/python-stdlib.zip}"
 
 echo "Using repo: $REPO, tag: $TAG"
 
-if ! command -v gh >/dev/null 2>&1; then
-  echo "::error title=GitHub CLI missing::The gh CLI is required on the runner"
-  exit 1
-fi
+# gh is optional; if missing, we'll fall back to GitHub API via curl+python
+HAS_GH=0
+if command -v gh >/dev/null 2>&1; then HAS_GH=1; fi
 
 # Ensure gh uses the workflow token for higher rate limits
 export GH_TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
@@ -41,10 +40,12 @@ echo "Downloading assets into: $WORKDIR"
 
 # Try direct xcframework zip and stdlib zip first
 set +e
-gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*Python*.xcframework*.zip" -D "$WORKDIR"
-GH_RC_XCF=$?
-gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*stdlib*.zip" -D "$WORKDIR"
-GH_RC_STDLIB=$?
+if [ $HAS_GH -eq 1 ]; then
+  gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*Python*.xcframework*.zip" -D "$WORKDIR"; GH_RC_XCF=$?
+  gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "*stdlib*.zip" -D "$WORKDIR"; GH_RC_STDLIB=$?
+else
+  GH_RC_XCF=1; GH_RC_STDLIB=1
+fi
 set -e
 
 ZIP_XCF=$(ls "$WORKDIR"/*xcframework*.zip 2>/dev/null | head -n1 || true)
@@ -54,8 +55,34 @@ ZIP_STDLIB=$(ls "$WORKDIR"/*stdlib*.zip 2>/dev/null | head -n1 || true)
 if [ -z "$ZIP_XCF" ]; then
   echo "No xcframework zip found via release assets; falling back to support tarball"
   set +e
-  gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "Python-*-iOS-support*.tar.*" -D "$WORKDIR"
-  GH_RC_TARBALL=$?
+  GH_RC_TARBALL=1
+  if [ $HAS_GH -eq 1 ]; then
+    gh release download "${GH_FLAGS[@]}" -R "$REPO" -p "Python-*-iOS-support*.tar.*" -D "$WORKDIR"; GH_RC_TARBALL=$?
+  else
+    # Use GitHub API to locate iOS support tarball URL
+    API_URL="https://api.github.com/repos/${REPO}/releases";
+    if [ "${TAG}" != "latest" ]; then API_URL="https://api.github.com/repos/${REPO}/releases/tags/${TAG}"; fi
+    PY_ASSET_URL=$(python3 - "$API_URL" <<'PY'
+import json,sys,urllib.request
+u=sys.argv[1]
+with urllib.request.urlopen(u) as r:
+    data=json.load(r)
+assets=data['assets'] if isinstance(data,dict) else data[0]['assets']
+for a in assets:
+    n=a.get('name','')
+    if 'iOS-support' in n and (n.endswith('.tar.gz') or n.endswith('.tar.xz') or n.endswith('.tar.zst')):
+        print(a['browser_download_url']); break
+PY
+)
+    if [ -n "$PY_ASSET_URL" ]; then
+      echo "Downloading (API) $PY_ASSET_URL"
+      curl -L "$PY_ASSET_URL" -o "$WORKDIR/python-ios-support.tar"
+      # Try gzip/xz transparently
+      (file "$WORKDIR/python-ios-support.tar" | grep -qi gzip && mv "$WORKDIR/python-ios-support.tar" "$WORKDIR/python-ios-support.tar.gz") || true
+      (file "$WORKDIR/python-ios-support.tar" | grep -qi xz && mv "$WORKDIR/python-ios-support.tar" "$WORKDIR/python-ios-support.tar.xz") || true
+      GH_RC_TARBALL=0
+    fi
+  fi
   set -e
   if [ ${GH_RC_TARBALL:-1} -ne 0 ]; then
     echo "::error title=Python assets not found::Could not find xcframework zip or support tarball in release"
