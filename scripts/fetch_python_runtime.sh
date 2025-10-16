@@ -112,14 +112,20 @@ if [ -z "$ZIP_STDLIB" ]; then
   ZIP_STDLIB=$(find "$WORKDIR" -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)
 fi
 
-# If still not found, try to build python-stdlib.zip from a discovered lib/pythonX.Y tree in the support tarball
+# If still not found, try to build python-stdlib.zip from a discovered stdlib directory in the support tarball
 if [ -z "$ZIP_STDLIB" ]; then
-  PYVERDIR=$(find "$WORKDIR" -type d -regex ".*/lib/python[0-9]+\.[0-9]+$" | head -n1 || true)
+  # Prefer a directory that actually contains site.py
+  SITEPY=$(find "$WORKDIR" -type f -name "site.py" | head -n1 || true)
+  if [ -n "$SITEPY" ]; then
+    PYVERDIR=$(dirname "$SITEPY")
+  else
+    # Fallback: detect .../lib/pythonX.Y directories
+    PYVERDIR=$(find "$WORKDIR" -type d -regex ".*/lib/python[0-9]+\.[0-9]+$" | head -n1 || true)
+  fi
   if [ -n "$PYVERDIR" ]; then
-    LIBDIR=$(dirname "$PYVERDIR")
-    echo "Building stdlib zip from: $LIBDIR"
+    echo "Building stdlib zip from: $PYVERDIR"
     mkdir -p "$(dirname "$TARGET_STDLIB")"
-    (cd "$LIBDIR" && zip -qry "$OLDPWD/$TARGET_STDLIB" .)
+    (cd "$PYVERDIR" && zip -qry "$OLDPWD/$TARGET_STDLIB" .)
     ZIP_STDLIB="$TARGET_STDLIB"
   fi
 fi
