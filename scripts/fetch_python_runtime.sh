@@ -112,8 +112,20 @@ if [ -z "$ZIP_STDLIB" ]; then
   ZIP_STDLIB=$(find "$WORKDIR" -type f \( -name "*stdlib*.zip" -o -name "python-stdlib.zip" -o -name "stdlib.zip" \) | head -n1 || true)
 fi
 
+# If still not found, try to build python-stdlib.zip from a discovered lib/pythonX.Y tree in the support tarball
 if [ -z "$ZIP_STDLIB" ]; then
-  echo "::error title=Stdlib zip not found::No stdlib zip found in release assets"
+  PYVERDIR=$(find "$WORKDIR" -type d -regex ".*/lib/python[0-9]+\.[0-9]+$" | head -n1 || true)
+  if [ -n "$PYVERDIR" ]; then
+    LIBDIR=$(dirname "$PYVERDIR")
+    echo "Building stdlib zip from: $LIBDIR"
+    mkdir -p "$(dirname "$TARGET_STDLIB")"
+    (cd "$LIBDIR" && zip -qry "$OLDPWD/$TARGET_STDLIB" .)
+    ZIP_STDLIB="$TARGET_STDLIB"
+  fi
+fi
+
+if [ -z "$ZIP_STDLIB" ] || [ ! -f "$ZIP_STDLIB" ]; then
+  echo "::error title=Stdlib zip not found::No stdlib zip found or built from support package"
   exit 1
 fi
 
