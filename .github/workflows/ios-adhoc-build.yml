@@ -39,6 +39,23 @@ jobs:
     - name: Lint Swift code (non-blocking)
       run: swiftlint --reporter github-actions-logging || true
 
+    - name: Fetch Python runtime (xcframework + stdlib)
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PY_SUPPORT_REPO: beeware/Python-Apple-support
+        PY_SUPPORT_TAG: latest
+        PY_TARGET_XCF_DIR: ios/Frameworks/Python.xcframework
+        PY_TARGET_STDLIB: Resources/python-stdlib.zip
+      run: bash scripts/fetch_python_runtime.sh
+
+    - name: Verify runtime files exist pre-archive
+      shell: bash
+      run: |
+        set -e
+        ls -lah ios/Frameworks/Python.xcframework || { echo "::error::Missing ios/Frameworks/Python.xcframework"; exit 1; }
+        ls -lah Resources/python-stdlib.zip || { echo "::error::Missing Resources/python-stdlib.zip"; exit 1; }
+
     - name: Verify Python runtime files
       shell: bash
       run: |
@@ -60,6 +77,21 @@ jobs:
         fi
         
         echo "Python runtime verification complete - both stdlib and framework are bundled!"
+
+    - name: Enforce version alignment
+      shell: bash
+      env:
+        EXPECTED_PY_PREFIX: "3.14"
+        PY_SUPPORT_TAG: ${{ env.PY_SUPPORT_TAG || '3.14-b8' }}
+      run: |
+        set -e
+        case "$PY_SUPPORT_TAG" in
+          ${EXPECTED_PY_PREFIX}*) ;; \
+          *) echo "Tag $PY_SUPPORT_TAG does not match ${EXPECTED_PY_PREFIX}*"; exit 1;; \
+        esac
+        unzip -p Resources/python-stdlib.zip PYTHON_VERSION.txt > ver.txt || { echo "PYTHON_VERSION.txt missing"; exit 1; }
+        VER=$(cut -d. -f1-2 ver.txt)
+        [ "$VER" = "$EXPECTED_PY_PREFIX" ] || { echo "stdlib $VER != $EXPECTED_PY_PREFIX"; exit 1; }
 
     - name: Fetch CPython runtime (fallback for static linking)
       shell: bash
@@ -161,6 +193,7 @@ jobs:
           ST_FLAGS=(
             "HEADER_SEARCH_PATHS=${INC_DIR} $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64/include $(inherited)"
             "OTHER_LDFLAGS=$PY_LIBA"
+            "GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\""
             "CLANG_ENABLE_MODULES=NO"
             "OTHER_CFLAGS=-fno-modules -Wno-quoted-include-in-framework-header"
           )
@@ -176,6 +209,7 @@ jobs:
         # Fallback: dynamic framework linking with explicit search paths
         DYN_FLAGS=(
           "FRAMEWORK_SEARCH_PATHS=$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator $(inherited)"
+          "GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\""
           "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks $(inherited)"
         )
         build_with_flags "${DYN_FLAGS[@]}"
@@ -265,7 +299,7 @@ jobs:
             <key>provisioningProfiles</key>
             <dict>
                 <key>${BUNDLE_ID}</key>
-                <string>${PP_UUID}</string>
+                <string>${PP_NAME}</string>
             </dict>
             <key>stripSwiftSymbols</key>
             <true/>
@@ -283,12 +317,43 @@ jobs:
         echo "IPA_PATH=$IPA_PATH" >> $GITHUB_ENV
         echo "::notice title=Export Complete (Ad Hoc)::IPA=$(basename "$IPA_PATH")"
 
+    - name: Verify embedded provisioning in IPA
+      shell: bash
+      run: |
+        set -e
+        IPA=$(ls ${{ runner.temp }}/export-adhoc/*.ipa | head -n 1)
+        TMP=$(mktemp -d)
+        unzip -q "$IPA" -d "$TMP"
+        APPDIR=$(ls -d "$TMP"/Payload/*.app)
+        security cms -D -i "$APPDIR/embedded.mobileprovision" \
+          | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin \
+          | grep -Fx "${IOS_TEAM_ID}.${BUNDLE_ID}"
+
     - name: Upload Ad Hoc IPA as Artifact
       uses: actions/upload-artifact@v4
       with:
         name: CodeSnake-AdHoc-IPA
         path: ${{ runner.temp }}/export-adhoc/*.ipa
         retention-days: 30
+
+    - name: Sanity-check IPA payload post-export
+      if: always()
+      shell: bash
+      run: |
+        set -e
+        IPA=$(ls ${{ runner.temp }}/export-adhoc/*.ipa | head -n 1)
+        if [ -z "$IPA" ]; then echo "No IPA to inspect"; exit 0; fi
+        TMP=$(mktemp -d)
+        unzip -q "$IPA" -d "$TMP"
+        APPDIR=$(ls -d "$TMP"/Payload/*.app)
+        # must have stdlib zip
+        test -f "$APPDIR/python-stdlib.zip"
+        # must have Python framework in Frameworks/
+        ls "$APPDIR/Frameworks" | grep -i "Python"
+        # must include selftest.py
+        test -f "$APPDIR/selftest.py"
+        # verify final app is signed
+        /usr/bin/codesign -dvv "$APPDIR" | grep -E 'Identifier|Authority'
 
     - name: Clean up keychain
       if: always()

@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 import CryptoKit
 
 struct PythonInterpreterView: View {
@@ -27,8 +28,28 @@ for i in range(3):
     @State private var logContent: String = ""
     @State private var envReport: EnvironmentReport? = nil
     @State private var showEnvDetails: Bool = false
+    @State private var showExporter: Bool = false
+    @State private var showImporter: Bool = false
 
     private let executor: PythonExecutor = CPythonExecutor()
+
+    struct PyScriptDocument: FileDocument {
+        static var readableContentTypes: [UTType] { [UTType(filenameExtension: "py") ?? .plainText] }
+        static var writableContentTypes: [UTType] { [UTType(filenameExtension: "py") ?? .plainText] }
+        var text: String
+        init(text: String = "") { self.text = text }
+        init(configuration: ReadConfiguration) throws {
+            if let data = configuration.file.regularFileContents, let s = String(data: data, encoding: .utf8) {
+                self.text = s
+            } else {
+                throw NSError(domain: "PyScriptDocument", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid file encoding"])
+            }
+        }
+        func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+            let data = text.data(using: .utf8) ?? Data()
+            return .init(regularFileWithContents: data)
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -39,8 +60,28 @@ for i in range(3):
             outputView
             consoleControls
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
+        // File export/import for .py scripts in Files.app (Documents)
+        .fileExporter(isPresented: $showExporter, document: PyScriptDocument(text: code), contentType: UTType(filenameExtension: "py") ?? .plainText, defaultFilename: "script.py") { result in
+            switch result {
+            case .success(let url): AppLogger.log("Saved script to: \(url.path)")
+            case .failure(let err): AppLogger.log("Failed to save script: \(err.localizedDescription)")
+            }
+        }
+        .fileImporter(isPresented: $showImporter, allowedContentTypes: [UTType(filenameExtension: "py") ?? .plainText], allowsMultipleSelection: false) { result in
+            do {
+                guard let url = try result.get().first else { return }
+                let data = try Data(contentsOf: url)
+                if let s = String(data: data, encoding: .utf8) {
+                    AppLogger.log("Loaded script from: \(url.path), chars=\(s.count)")
+                    self.code = s
+                }
+            } catch {
+                AppLogger.log("Failed to open script: \(error.localizedDescription)")
+            }
+        }
         .onAppear { 
             AppLogger.log("InterpreterView appear"); 
             loadPersisted(); 
@@ -96,7 +137,61 @@ for i in range(3):
             showEditConditionSheet = true
         })
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(minHeight: max(220, UIScreen.main.bounds.height * 0.35))
+            .layoutPriority(1)
             .background(Color(.systemBackground))
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
+            )
+    }
+
+    private var envSummary: some View {
+        Group {
+            if let rep = envReport {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text("Environment")
+                            .font(.headline)
+                        Spacer()
+                        Button(showEnvDetails ? "Hide" : "Details") { showEnvDetails.toggle() }
+                            .font(.footnote)
+                    }
+                    if showEnvDetails {
+                        ForEach(rep.items) { item in
+                            HStack(spacing: 8) {
+                                Image(systemName: item.present ? "checkmark.circle.fill" : "xmark.octagon.fill")
+                                    .foregroundStyle(item.present ? .green : .red)
+                                Text(item.title).font(.subheadline)
+                                Spacer()
+                                Text(item.detail)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.trailing)
+                            }
+                        }
+                        if rep.notes.isEmpty == false {
+                            ForEach(rep.notes, id: \.self) { note in
+                                HStack(spacing: 8) {
+                                    Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.yellow)
+                                    Text(note).font(.caption)
+                                }
+                            }
+                        }
+                    } else {
+                        let ok = rep.items.filter { $0.present }.count
+                        let total = rep.items.count
+                        Text("Ready: \(ok)/\(total) checks passed")
+                            .font(.footnote)
+                            .foregroundStyle(ok == total ? .green : .orange)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color(.secondarySystemBackground))
+            }
+        }
     }
 
     private var outputView: some View {
@@ -126,7 +221,15 @@ for i in range(3):
             .padding()
         }
         .background(Color(.secondarySystemBackground))
-        .frame(maxWidth: .infinity, maxHeight: 220)
+        .frame(maxWidth: .infinity, maxHeight: outputPanelHeight())
+    }
+
+    private func outputPanelHeight() -> CGFloat {
+        // Keep output compact until there is content, an error, or an active run
+        if output.isEmpty && lastError == nil && !isRunning {
+            return 80
+        }
+        return 220
     }
 
     private var headerControls: some View {
@@ -223,6 +326,22 @@ for i in range(3):
                 if isRunning { ProgressView() } else { Text("Run") }
             }
             .disabled(isRunning || code.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                AppLogger.log("Save button tapped (fileExporter)")
+                showExporter = true
+            } label: {
+                Image(systemName: "square.and.arrow.down")
+            }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                AppLogger.log("Open button tapped (fileImporter)")
+                showImporter = true
+            } label: {
+                Image(systemName: "folder")
+            }
         }
     }
 
@@ -522,6 +641,17 @@ for i in range(3):
                         showEditConditionSheet = false
                     }
                 }
+            }
+        }
+    }
+
+    private var fileMenuButtons: some View {
+        HStack(spacing: 12) {
+            Button(action: { showImporter = true }) {
+                Label("Open", systemImage: "folder")
+            }
+            Button(action: { showExporter = true }) {
+                Label("Save", systemImage: "square.and.arrow.down")
             }
         }
     }

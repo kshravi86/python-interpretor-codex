@@ -18,6 +18,9 @@ struct CodeSnakeApp: App {
             let logURL = docs.appendingPathComponent("log.txt")
             AppLogger.log("Log file: \(logURL.path)")
         }
+
+        // Run a tiny self-test to validate Python runtime wired correctly
+        runSelfTest()
     }
     var body: some Scene {
         WindowGroup {
@@ -26,4 +29,32 @@ struct CodeSnakeApp: App {
             }
         }
     }
+}
+
+@MainActor
+private func runSelfTest() {
+    guard let res = Bundle.main.resourceURL else {
+        AppLogger.log("SelfTest: no resourceURL")
+        return
+    }
+    var errbuf = Array<CChar>(repeating: 0, count: 256)
+    let rcInit = res.path.withCString { cstr in
+        pybridge_initialize(cstr, &errbuf, errbuf.count)
+    }
+    if rcInit != 0 {
+        AppLogger.log("SelfTest: init failed rc=\(rcInit) msg=\(String(cString: errbuf))")
+        return
+    }
+    let selftestPath = res.appendingPathComponent("selftest.py").path
+    var outPtr: UnsafeMutablePointer<CChar>? = nil
+    var errPtr: UnsafeMutablePointer<CChar>? = nil
+    var status: Int32 = 0
+    let rcRun: Int32 = selftestPath.withCString { cpath in
+        pybridge_run_file(cpath, &outPtr, &errPtr, &status)
+    }
+    let out = outPtr.map { String(cString: $0) } ?? ""
+    let err = errPtr.map { String(cString: $0) } ?? ""
+    if let p = outPtr { pybridge_free(p) }
+    if let p = errPtr { pybridge_free(p) }
+    AppLogger.log("SelfTest rc=\(rcRun) status=\(status) out='\(out.trimmingCharacters(in: .whitespacesAndNewlines))' err='\(err.trimmingCharacters(in: .whitespacesAndNewlines))'")
 }

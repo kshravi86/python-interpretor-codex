@@ -1,0 +1,362 @@
+awesome — let’s extend your “one-step-at-a-time” build script for **CI**. This will make GitHub Actions produce a signed **.ipa** for your offline iOS Python interpreter (embedded CPython). I’ll give you *ordered steps to tell an LLM exactly what to do*, plus a drop-in workflow.
+
+---
+
+## CI Step 1 — Prepare required secrets (you do this once)
+
+Tell it to list the secrets you must create in your repo (Settings → Secrets → Actions):
+
+* `APPLE_CERT_P12_BASE64` — base64 of your **Apple Distribution** `.p12` certificate
+* `P12_PASSWORD` — password for that `.p12`
+* `PROVISIONING_PROFILE_BASE64` — base64 of your **.mobileprovision** (App Store or Ad-Hoc)
+* `TEAM_ID` — e.g., `ABCDE12345`
+* `BUNDLE_ID` — e.g., `com.example.pythonrunner`
+* `SIGNING_IDENTITY` — full cert name, e.g., `Apple Distribution: Your Company (ABCDE12345)`
+
+Optional (only if you want auto-upload to TestFlight with Fastlane later):
+
+* `APP_STORE_CONNECT_API_KEY_JSON` — contents of App Store Connect API key JSON
+
+**Why:** CI can’t pop up Keychain dialogs; we must import signing assets non-interactively. Apple forbids downloading executable code at runtime, but CI-time signing is fine. ([Apple Developer][1])
+
+---
+
+## CI Step 2 — Decide where CPython runtime comes from
+
+Tell it there are two options (pick one and stick to it):
+
+* **A. Vendored**: Commit `ios/Frameworks/Python.xcframework/` and `Resources/python-stdlib.zip` in the repo (big but simple).
+* **B. Download at build**: Fetch a **prebuilt Python.xcframework** (and stdlib) from **Python-Apple-support** releases during the workflow, then place them into the paths your Xcode project already references. The repo explicitly provides downloadable prebuilt frameworks for iOS. ([GitHub][2])
+
+> I’ll include steps for **B** below (recommended to keep the repo light).
+
+---
+
+## CI Step 3 — Add a tiny script to install certs & profiles
+
+Tell it to create `ci/install-codesign.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Inputs (from GitHub Secrets)
+: "${APPLE_CERT_P12_BASE64:?}"
+: "${P12_PASSWORD:?}"
+: "${PROVISIONING_PROFILE_BASE64:?}"
+: "${SIGNING_IDENTITY:?}"
+
+# Create an isolated keychain for CI
+KEYCHAIN=build.keychain
+security create-keychain -p "" "$KEYCHAIN"
+security set-keychain-settings -lut 21600 "$KEYCHAIN"
+security default-keychain -s "$KEYCHAIN"
+security unlock-keychain -p "" "$KEYCHAIN"
+
+# Import the .p12
+echo "$APPLE_CERT_P12_BASE64" | base64 --decode > cert.p12
+security import cert.p12 -k "$KEYCHAIN" -P "$P12_PASSWORD" -T /usr/bin/codesign
+rm -f cert.p12
+
+# Make the key available to codesign/xcodebuild
+security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
+
+# Install provisioning profile (named by its UUID)
+mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > profile.mobileprovision
+UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin \
+  <<< "$(security cms -D -i profile.mobileprovision 2>/dev/null)")
+mv profile.mobileprovision "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
+
+echo "Codesign setup complete (profile UUID: $UUID)"
+```
+
+*Why Fastlane isn’t required:* this manual method is CI-friendly and avoids extra tooling; using Fastlane **match** later is optional. (Fastlane docs on match for reference.) ([docs.fastlane.tools][3])
+
+---
+
+## CI Step 4 — Add a script to fetch CPython (if you chose Option B)
+
+Tell it to create `ci/fetch-python-runtime.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+# Choose a tag from Python-Apple-support releases that matches your app's Python
+PY_APPLE_SUPPORT_TAG="${PY_APPLE_SUPPORT_TAG:-3.12-b?}"  # override in workflow if needed
+
+RUNTIME_DIR="ios/Frameworks"
+RES_DIR="PythonRunnerApp/Resources"   # adjust if your target path differs
+mkdir -p "$RUNTIME_DIR" "$RES_DIR"
+
+# Download prebuilt support package (contains Python.xcframework, stdlib packaged)
+# We'll grab the latest iOS artifact for the selected tag.
+BASE_URL="https://api.github.com/repos/beeware/Python-Apple-support/releases/tags/${PY_APPLE_SUPPORT_TAG}"
+ASSET_URL=$(curl -sL "$BASE_URL" | grep -Eo '"browser_download_url": *"[^"]+iOS[^"]+\.tar\.gz"' | head -n1 | cut -d'"' -f4)
+
+if [[ -z "$ASSET_URL" ]]; then
+  echo "Could not find iOS support asset for tag $PY_APPLE_SUPPORT_TAG"
+  exit 1
+fi
+
+echo "Downloading: $ASSET_URL"
+curl -L "$ASSET_URL" -o python-ios-support.tgz
+tar -xzf python-ios-support.tgz
+
+# Find and place Python.xcframework
+FOUND_XCFRAMEWORK=$(find . -type d -name "Python.xcframework" | head -n1)
+if [[ -z "$FOUND_XCFRAMEWORK" ]]; then
+  echo "Python.xcframework not found in package"
+  exit 1
+fi
+rm -rf "$RUNTIME_DIR/Python.xcframework"
+mv "$FOUND_XCFRAMEWORK" "$RUNTIME_DIR/"
+
+# Standard library: some support packages include it prepackaged; otherwise zip Lib/
+if [[ -d Lib ]]; then
+  echo "Zipping stdlib from Lib/..."
+  (cd Lib && /usr/bin/zip -qry ../python-stdlib.zip .)
+  mv python-stdlib.zip "$RES_DIR/"
+elif [[ -f python-stdlib.zip ]]; then
+  mv python-stdlib.zip "$RES_DIR/"
+else
+  echo "WARNING: stdlib not found in package; ensure Resources/python-stdlib.zip exists in repo"
+fi
+
+echo "Python runtime staged."
+```
+
+**Reference:** The support project states you can download prebuilt frameworks from releases, and it packages the standard library for iOS builds. ([GitHub][2])
+
+---
+
+## CI Step 5 — Add export options plists
+
+Tell it to add both (pick one in the workflow):
+
+`ci/ExportOptions-appstore.plist`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>method</key><string>app-store</string>
+  <key>signingStyle</key><string>manual</string>
+  <key>uploadSymbols</key><true/>
+  <key>stripSwiftSymbols</key><true/>
+  <key>compileBitcode</key><false/>
+  <key>teamID</key><string>$(TEAM_ID)</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>$(BUNDLE_ID)</key><string>AppStore Profile</string>
+  </dict>
+</dict></plist>
+```
+
+`ci/ExportOptions-adhoc.plist`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>method</key><string>ad-hoc</string>
+  <key>signingStyle</key><string>manual</string>
+  <key>stripSwiftSymbols</key><true/>
+  <key>compileBitcode</key><false/>
+  <key>teamID</key><string>$(TEAM_ID)</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>$(BUNDLE_ID)</key><string>AdHoc Profile</string>
+  </dict>
+</dict></plist>
+```
+
+*(The `method` and other keys control how `xcodebuild -exportArchive` signs/exports; choose **app-store** or **ad-hoc**.)* ([Gist][4])
+
+---
+
+## CI Step 6 — Add the GitHub Actions workflow
+
+Tell it to create `.github/workflows/ios_build.yml`:
+
+```yaml
+name: iOS • Build IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      export_method:
+        description: "Export method (app-store or ad-hoc)"
+        required: true
+        default: app-store
+      py_support_tag:
+        description: "Python-Apple-support release tag (e.g., 3.12-b8)"
+        required: false
+        default: 3.12-b8
+  push:
+    tags:
+      - "release-*"
+
+env:
+  TEAM_ID: ${{ secrets.TEAM_ID }}
+  BUNDLE_ID: ${{ secrets.BUNDLE_ID }}
+  SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.0"
+
+      - name: Install Codesign Assets
+        env:
+          APPLE_CERT_P12_BASE64: ${{ secrets.APPLE_CERT_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
+        run: |
+          chmod +x ci/install-codesign.sh
+          ./ci/install-codesign.sh
+
+      - name: Fetch Python runtime (Python-Apple-support)
+        env:
+          PY_APPLE_SUPPORT_TAG: ${{ github.event.inputs.py_support_tag }}
+        run: |
+          chmod +x ci/fetch-python-runtime.sh
+          ./ci/fetch-python-runtime.sh
+        # If you vendored the runtime, remove this step.
+
+      - name: Verify stdlib + framework exist
+        run: |
+          ls -lah ios/Frameworks/Python.xcframework
+          ls -lah PythonRunnerApp/Resources/python-stdlib.zip
+
+      - name: Resolve SwiftPM
+        run: xcodebuild -resolvePackageDependencies -project PythonRunnerApp.xcodeproj
+
+      - name: Build & Archive (Release)
+        run: |
+          xcodebuild \
+            -scheme PythonRunnerApp \
+            -configuration Release \
+            -archivePath $PWD/build/PythonRunnerApp.xcarchive \
+            -destination "generic/platform=iOS" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=$TEAM_ID \
+            PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID \
+            CODE_SIGN_IDENTITY="${SIGNING_IDENTITY}" \
+            clean archive
+
+      - name: Export IPA
+        env:
+          EXPORT_METHOD: ${{ github.event.inputs.export_method }}
+        run: |
+          if [[ "$EXPORT_METHOD" == "ad-hoc" ]]; then
+            EXPORT_PLIST="ci/ExportOptions-adhoc.plist"
+          else
+            EXPORT_PLIST="ci/ExportOptions-appstore.plist"
+          fi
+          /usr/libexec/PlistBuddy -c "Set :teamID $TEAM_ID" "$EXPORT_PLIST"
+          /usr/libexec/PlistBuddy -c "Delete :provisioningProfiles:$BUNDLE_ID" "$EXPORT_PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$BUNDLE_ID string '${EXPORT_METHOD == 'ad-hoc' && 'AdHoc Profile' || 'AppStore Profile'}'" "$EXPORT_PLIST" || true
+
+          xcodebuild -exportArchive \
+            -archivePath $PWD/build/PythonRunnerApp.xcarchive \
+            -exportOptionsPlist "$EXPORT_PLIST" \
+            -exportPath $PWD/build/export
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PythonRunnerApp-${{ github.run_number }}.ipa
+          path: build/export/*.ipa
+
+      - name: Cleanup keychain
+        if: always()
+        run: |
+          security delete-keychain build.keychain || true
+```
+
+This uses **manual signing** and `xcodebuild archive + export` to generate the IPA. The App Store “no downloading code post-review” rule still applies to your app; we’re only building/signing in CI. ([Apple Developer][1])
+
+---
+
+## CI Step 7 — (Optional) Auto-upload to TestFlight
+
+If you want auto-upload after building, tell it to add a second job or step using **Fastlane pilot**:
+
+1. Add `fastlane/Fastfile` with lane:
+
+```ruby
+default_platform(:ios)
+platform :ios do
+  lane :upload_testflight do
+    api_key_path = ENV["APP_STORE_CONNECT_API_KEY_JSON"]
+    pilot(
+      ipa: "build/export/PythonRunnerApp.ipa",
+      api_key_path: api_key_path
+    )
+  end
+end
+```
+
+2. Add a workflow step after “Export IPA”:
+
+```yaml
+      - name: Upload to TestFlight (fastlane)
+        if: ${{ github.event.inputs.export_method == 'app-store' && secrets.APP_STORE_CONNECT_API_KEY_JSON != '' }}
+        env:
+          APP_STORE_CONNECT_API_KEY_JSON: ${{ secrets.APP_STORE_CONNECT_API_KEY_JSON }}
+        run: |
+          gem install fastlane --no-document
+          echo "$APP_STORE_CONNECT_API_KEY_JSON" > ./api_key.json
+          fastlane upload_testflight
+```
+
+Fastlane’s `upload_to_testflight`/`pilot` is the recommended path for CI uploads. ([docs.fastlane.tools][5])
+(If you prefer centralizing certs in Git instead of the manual install script, switch to **fastlane match**.) ([docs.fastlane.tools][3])
+
+---
+
+## CI Step 8 — Add a preflight that prevents “missing stdlib” regressions
+
+Tell it to add a tiny Swift unit test (`Tests/RuntimeTests.swift`) that runs at app start (or in a separate CLI test target) to assert `python-stdlib.zip` is found in `Bundle.main.resourceURL`. That exact check avoids the “`python-stdlib.zip exists: false`” class of runtime failures you saw earlier.
+
+---
+
+## CI Step 9 — Trigger a test build
+
+Tell it to push a tag `release-0.1.0` or run **Actions → “iOS • Build IPA” → Run workflow** (choose `app-store` or `ad-hoc`). The workflow will:
+
+* Import certificates/profiles
+* Download **Python.xcframework** + stdlib from Python-Apple-support (Option B) ([GitHub][2])
+* Archive & export a signed **.ipa**
+* Attach it as an artifact (and optionally upload to TestFlight)
+
+---
+
+### Notes / references
+
+* **App Store rule about executable code** (your interpreter is allowed as long as code isn’t *downloaded* at runtime). ([Apple Developer][1])
+* **Python-Apple-support** provides prebuilt iOS frameworks and packages the stdlib for iOS distributions. ([GitHub][2])
+* **Fastlane match** centralizes code signing in CI/CD. ([docs.fastlane.tools][3])
+* **Fastlane TestFlight upload** (pilot). ([docs.fastlane.tools][5])
+
+---
+
+if you want, I can also generate **the exact repo tree** with these CI files added to your existing project (so you can just paste it).
+
+[1]: https://developer.apple.com/app-store/review/guidelines/?utm_source=chatgpt.com "App Review Guidelines"
+[2]: https://github.com/beeware/Python-Apple-support "GitHub - beeware/Python-Apple-support: A meta-package for building a version of Python that can be embedded into a macOS, iOS, tvOS or watchOS project."
+[3]: https://docs.fastlane.tools/actions/match/?utm_source=chatgpt.com "match - fastlane docs"
+[4]: https://gist.github.com/DanBodnar/020e7a10bc286dc3e5946e7ccc20dd7b?utm_source=chatgpt.com "xcodebuild -exportOptionsPlist available keys"
+[5]: https://docs.fastlane.tools/actions/upload_to_testflight/?utm_source=chatgpt.com "upload_to_testflight - fastlane docs"
+

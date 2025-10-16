@@ -1,4 +1,4 @@
-name: iOS App Store Build v3 (No Upload)
+﻿name: iOS App Store Build v3 (No Upload)
 
 on:
   workflow_dispatch:
@@ -43,10 +43,51 @@ jobs:
     - name: Lint Swift code (non-blocking)
       run: swiftlint --reporter github-actions-logging || true
 
-    # CPython embedding: optionally fetch Python.xcframework and stdlib zip
+    # Download prebuilt Python.xcframework and stdlib into project paths,
+    # and mirror to ThirdParty/Python for downstream steps.
+    - name: Fetch Python runtime (xcframework + stdlib)
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PY_SUPPORT_REPO: beeware/Python-Apple-support
+        PY_SUPPORT_TAG: latest
+        PY_TARGET_XCF_DIR: ios/Frameworks/Python.xcframework
+        PY_TARGET_STDLIB: Resources/python-stdlib.zip
+      run: bash scripts/fetch_python_runtime.sh
+
+    - name: Verify runtime files exist pre-archive
+      shell: bash
+      run: |
+        set -e
+        ls -lah ios/Frameworks/Python.xcframework || { echo "::error::Missing ios/Frameworks/Python.xcframework"; exit 1; }
+        ls -lah Resources/python-stdlib.zip || { echo "::error::Missing Resources/python-stdlib.zip"; exit 1; }
+
+    - name: Enforce version alignment
+      shell: bash
+      env:
+        EXPECTED_PY_PREFIX: "3.14"
+        PY_SUPPORT_TAG: ${{ env.PY_SUPPORT_TAG || '3.14-b8' }}
+      run: |
+        set -e
+        # 1) Ensure the Apple-support tag matches expected major.minor
+        case "$PY_SUPPORT_TAG" in
+          ${EXPECTED_PY_PREFIX}*) ;; \
+          *) echo "Tag $PY_SUPPORT_TAG does not match ${EXPECTED_PY_PREFIX}*"; exit 1;; \
+        esac
+        # 2) Ensure stdlib zip advertises the same major.minor
+        unzip -p Resources/python-stdlib.zip PYTHON_VERSION.txt > ver.txt || { echo "PYTHON_VERSION.txt missing"; exit 1; }
+        VER=$(cut -d. -f1-2 ver.txt)
+        [ "$VER" = "$EXPECTED_PY_PREFIX" ] || { echo "stdlib $VER != $EXPECTED_PY_PREFIX"; exit 1; }
+
+    # CPython embedding: fallback fetch via support tarball (only if not present)
     - name: Fetch CPython runtime (Python-Apple-support 3.14-b8)
       shell: bash
       run: |
+        # Skip if artifacts already present
+        if [ -d ThirdParty/Python/Python.xcframework ] && [ -f ThirdParty/Python/python-stdlib.zip ]; then
+          echo "Python runtime already prepared; skipping fallback download"
+          exit 0
+        fi
         set -euo pipefail
         SUPPORT_URL="https://github.com/beeware/Python-Apple-support/releases/download/3.14-b8/Python-3.14-iOS-support.b8.tar.gz"
         mkdir -p ThirdParty/Python
@@ -177,6 +218,7 @@ jobs:
             "HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}"
             "LIBRARY_SEARCH_PATHS=${PY_LIB_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/lib}"
             "OTHER_LDFLAGS=$PY_LIBA"
+            "GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\""
             "ONLY_ACTIVE_ARCH=YES"
             "CLANG_TREAT_WARNINGS_AS_ERRORS=NO"
             "CLANG_ENABLE_MODULES=NO"
@@ -191,6 +233,7 @@ jobs:
           DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python}")
           # Pass framework flags via linker to satisfy swift/clang drivers consistently
           DYN_FLAGS+=("OTHER_LDFLAGS=-Xlinker -framework -Xlinker Python")
+          DYN_FLAGS+=("GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\"")
           DYN_FLAGS+=("CLANG_TREAT_WARNINGS_AS_ERRORS=NO")
           DYN_FLAGS+=("CLANG_ENABLE_MODULES=NO")
           DYN_FLAGS+=("OTHER_CFLAGS=-Wno-quoted-include-in-framework-header -fno-modules")
@@ -281,7 +324,7 @@ jobs:
             <key>provisioningProfiles</key>
             <dict>
                 <key>${BUNDLE_ID}</key>
-                <string>${PP_UUID}</string>
+                <string>${PP_NAME}</string>
             </dict>
             <key>stripSwiftSymbols</key>
             <true/>
@@ -308,6 +351,41 @@ jobs:
         name: CodeSnake-Release-IPA
         path: ${{ runner.temp }}/export-release/*.ipa
         retention-days: 30
+
+    - name: Verify embedded provisioning in IPA
+      if: success()
+      shell: bash
+      run: |
+        set -e
+        IPA=$(ls ${{ runner.temp }}/export-release/*.ipa | head -n 1)
+        TMP=$(mktemp -d)
+        unzip -q "$IPA" -d "$TMP"
+        APPDIR=$(ls -d "$TMP"/Payload/*.app)
+        # TEAM_ID from secret or derived earlier; BUNDLE_ID already extracted
+        TEAM_ID_VAR="${IOS_TEAM_ID}"
+        if [ -z "$TEAM_ID_VAR" ]; then TEAM_ID_VAR=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true); fi
+        security cms -D -i "$APPDIR/embedded.mobileprovision" \
+          | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin \
+          | grep -Fx "${TEAM_ID_VAR}.${BUNDLE_ID}"
+
+    - name: Sanity-check IPA payload post-export
+      if: success()
+      shell: bash
+      run: |
+        set -e
+        IPA=$(ls ${{ runner.temp }}/export-release/*.ipa | head -n 1)
+        if [ -z "$IPA" ]; then echo "No IPA to inspect"; exit 0; fi
+        TMP=$(mktemp -d)
+        unzip -q "$IPA" -d "$TMP"
+        APPDIR=$(ls -d "$TMP"/Payload/*.app)
+        # must have stdlib zip
+        test -f "$APPDIR/python-stdlib.zip"
+        # must have Python framework in Frameworks/
+        ls "$APPDIR/Frameworks" | grep -i "Python"
+        # must include selftest.py
+        test -f "$APPDIR/selftest.py"
+        # verify final app is signed
+        /usr/bin/codesign -dvv "$APPDIR" | grep -E 'Identifier|Authority'
 
     - name: Clean up keychain
       if: always()
