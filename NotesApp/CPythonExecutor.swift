@@ -14,24 +14,7 @@ final class CPythonExecutor: PythonExecutor {
     static let stdoutNotification = Notification.Name("PythonStdoutDidEmit")
     static let stderrNotification = Notification.Name("PythonStderrDidEmit")
 
-    // C-callback shims that forward Python stdout/stderr chunks to NotificationCenter on main queue
-    @_cdecl("swift_py_stdout_cb")
-    public static func swift_py_stdout_cb(_ cstr: UnsafePointer<CChar>?, _ user: UnsafeMutableRawPointer?) {
-        guard let cstr = cstr else { return }
-        let s = String(cString: cstr)
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: CPythonExecutor.stdoutNotification, object: s)
-        }
-    }
-
-    @_cdecl("swift_py_stderr_cb")
-    public static func swift_py_stderr_cb(_ cstr: UnsafePointer<CChar>?, _ user: UnsafeMutableRawPointer?) {
-        guard let cstr = cstr else { return }
-        let s = String(cString: cstr)
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: CPythonExecutor.stderrNotification, object: s)
-        }
-    }
+    // C-callback shims are defined at global scope below
 
     func execute(code: String) async throws -> ExecutionResult {
         AppLogger.log("=== CPythonExecutor.execute() START ===")
@@ -429,8 +412,8 @@ final class CPythonExecutor: PythonExecutor {
         // Install streaming output callbacks once
         if !Self.didInstallCallbacks {
             typealias PyOutCB = @convention(c) (UnsafePointer<CChar>?, UnsafeMutableRawPointer?) -> Void
-            let out: PyOutCB = CPythonExecutor.swift_py_stdout_cb
-            let err: PyOutCB = CPythonExecutor.swift_py_stderr_cb
+            let out: PyOutCB = swift_py_stdout_cb
+            let err: PyOutCB = swift_py_stderr_cb
             pybridge_set_output_handlers(out, err, nil)
             Self.didInstallCallbacks = true
             AppLogger.log("Installed CPython stdout/stderr streaming callbacks")
@@ -441,5 +424,24 @@ final class CPythonExecutor: PythonExecutor {
     // Request stop of currently-running Python code (raises KeyboardInterrupt soon)
     func requestStop() {
         _ = pybridge_request_stop()
+    }
+}
+
+// Global C-callable shims that forward stdout/stderr chunks via NotificationCenter
+@_cdecl("swift_py_stdout_cb")
+public func swift_py_stdout_cb(_ cstr: UnsafePointer<CChar>?, _ user: UnsafeMutableRawPointer?) {
+    guard let cstr = cstr else { return }
+    let s = String(cString: cstr)
+    DispatchQueue.main.async {
+        NotificationCenter.default.post(name: CPythonExecutor.stdoutNotification, object: s)
+    }
+}
+
+@_cdecl("swift_py_stderr_cb")
+public func swift_py_stderr_cb(_ cstr: UnsafePointer<CChar>?, _ user: UnsafeMutableRawPointer?) {
+    guard let cstr = cstr else { return }
+    let s = String(cString: cstr)
+    DispatchQueue.main.async {
+        NotificationCenter.default.post(name: CPythonExecutor.stderrNotification, object: s)
     }
 }
