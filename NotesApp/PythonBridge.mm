@@ -236,6 +236,7 @@ int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* ex
     PyGILState_STATE g = PyGILState_Ensure();
 
     PyObject *sys = NULL, *old_out = NULL, *old_err = NULL, *w_out = NULL, *w_err = NULL;
+    PyObject* builtins = NULL; PyObject* globals = NULL; PyObject* locals = NULL;
     int rc = 0;
 
     sys = PyImport_ImportModule("sys");
@@ -250,9 +251,9 @@ int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* ex
     if (PyObject_SetAttrString(sys, "stderr", w_err) != 0) { rc = -13; goto done; }
 
     // Execute code
-    PyObject* builtins = PyEval_GetBuiltins();
-    PyObject* globals = PyDict_New();
-    PyObject* locals = globals; // simple REPL-like scope
+    builtins = PyEval_GetBuiltins();
+    globals = PyDict_New();
+    locals = globals; // simple REPL-like scope
     if (builtins && globals) PyDict_SetItemString(globals, "__builtins__", builtins);
     {
         PyObject* res = PyRun_StringFlags(code, Py_file_input, globals, locals, NULL);
