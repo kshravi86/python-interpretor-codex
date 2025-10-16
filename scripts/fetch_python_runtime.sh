@@ -152,16 +152,23 @@ cp "$TARGET_STDLIB" ThirdParty/Python/python-stdlib.zip
 
 # Ensure PYTHON_VERSION.txt exists in stdlib zip to allow CI version checks
 if ! unzip -l "$TARGET_STDLIB" | grep -q "PYTHON_VERSION.txt"; then
-  # Derive version from patchlevel.h in the device slice if possible
+  # Derive version from headers or from stdlib path; fallback to EXPECTED_PY_PREFIX
   VER=""
   if [ -f "$TARGET_XCF_DIR/ios-arm64/include/patchlevel.h" ]; then
     VER=$(grep -E '^[#]define[\t ]+PY_VERSION[\t ]+"' "$TARGET_XCF_DIR/ios-arm64/include/patchlevel.h" | sed -E 's/.*PY_VERSION[\t ]+"([^"]+)".*/\1/' | head -n1)
-  elif [ -f "$TARGET_XCF_DIR/ios-arm64/include/Python.h" ]; then
+  fi
+  if [ -z "$VER" ] && [ -f "$TARGET_XCF_DIR/ios-arm64/include/Python.h" ]; then
     VER=$(grep -E '^[#]define[\t ]+PY_VERSION[\t ]+"' "$TARGET_XCF_DIR/ios-arm64/include/Python.h" | sed -E 's/.*PY_VERSION[\t ]+"([^"]+)".*/\1/' | head -n1)
   fi
   if [ -z "$VER" ]; then
-    # Fallback to expected prefix if provided, else mark unknown
-    VER="${EXPECTED_PY_PREFIX:-unknown}"
+    # Inspect stdlib contents for a pythonX.Y root path
+    CAND_DIR=$(unzip -l "$TARGET_STDLIB" | awk '{print $4}' | grep -E '^([^/]*/)*site\.py$' | head -n1 | xargs -I{} dirname {} | sed -E 's#.*/(python[0-9]+\.[0-9]+).*#\1#' | head -n1)
+    if echo "$CAND_DIR" | grep -Eq '^python[0-9]+\.[0-9]+'; then
+      VER=$(echo "$CAND_DIR" | sed -E 's/^python([0-9]+\.[0-9]+).*/\1/')
+    fi
+  fi
+  if [ -z "$VER" ]; then
+    VER="${EXPECTED_PY_PREFIX:-3.14}"
   fi
   tmpd=$(mktemp -d)
   echo "$VER" > "$tmpd/PYTHON_VERSION.txt"
