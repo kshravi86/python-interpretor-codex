@@ -191,7 +191,7 @@ jobs:
           echo "Attempting static link with $PY_LIBA"
           INC_DIR=$(dirname "$(dirname "$PY_LIBA")")/include
           ST_FLAGS=(
-            "HEADER_SEARCH_PATHS=${INC_DIR} $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64/include $(inherited)"
+            "HEADER_SEARCH_PATHS=${INC_DIR} $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64/include"
             "OTHER_LDFLAGS=$PY_LIBA"
             "GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\""
             "CLANG_ENABLE_MODULES=NO"
@@ -208,9 +208,9 @@ jobs:
 
         # Fallback: dynamic framework linking with explicit search paths
         DYN_FLAGS=(
-          "FRAMEWORK_SEARCH_PATHS=$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator $(inherited)"
+          "FRAMEWORK_SEARCH_PATHS=$(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64 $(pwd)/ThirdParty/Python/Python.xcframework/ios-arm64_x86_64-simulator"
           "GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\""
-          "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks $(inherited)"
+          "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks"
         )
         build_with_flags "${DYN_FLAGS[@]}"
 
