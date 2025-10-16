@@ -139,7 +139,10 @@ echo "Placing artifacts into project paths"
 mkdir -p "$(dirname "$TARGET_XCF_DIR")" "$(dirname "$TARGET_STDLIB")"
 rm -rf "$TARGET_XCF_DIR"
 rsync -a "$FOUND_XCF/" "$TARGET_XCF_DIR/"
-cp "$ZIP_STDLIB" "$TARGET_STDLIB"
+# Only copy stdlib if source and destination differ
+if [ "$(cd "$(dirname "$ZIP_STDLIB")" && pwd)/$(basename "$ZIP_STDLIB")" != "$(cd "$(dirname "$TARGET_STDLIB")" && pwd)/$(basename "$TARGET_STDLIB")" ]; then
+  cp -f "$ZIP_STDLIB" "$TARGET_STDLIB"
+fi
 
 echo "Mirroring into ThirdParty/Python for existing workflows"
 mkdir -p ThirdParty/Python
