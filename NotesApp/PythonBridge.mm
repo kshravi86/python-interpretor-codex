@@ -235,20 +235,23 @@ int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* ex
 
     PyGILState_STATE g = PyGILState_Ensure();
 
-    PyObject *sys = NULL, *old_out = NULL, *old_err = NULL, *w_out = NULL, *w_err = NULL;
+    // Use io.StringIO to capture stdout/stderr to minimize risk of crashes from custom writers
+    PyObject *sys = NULL, *io = NULL, *old_out = NULL, *old_err = NULL, *new_out = NULL, *new_err = NULL;
     PyObject* builtins = NULL; PyObject* globals = NULL; PyObject* locals = NULL;
     int rc = 0;
 
     sys = PyImport_ImportModule("sys");
     if (!sys) { rc = -10; goto done; }
 
+    io = PyImport_ImportModule("io");
+    if (!io) { rc = -10; goto done; }
     old_out = PyObject_GetAttrString(sys, "stdout");
     old_err = PyObject_GetAttrString(sys, "stderr");
-    w_out = new_writer(0);
-    w_err = new_writer(1);
-    if (!w_out || !w_err) { rc = -11; goto done; }
-    if (PyObject_SetAttrString(sys, "stdout", w_out) != 0) { rc = -12; goto done; }
-    if (PyObject_SetAttrString(sys, "stderr", w_err) != 0) { rc = -13; goto done; }
+    new_out = PyObject_CallMethod(io, "StringIO", NULL);
+    new_err = PyObject_CallMethod(io, "StringIO", NULL);
+    if (!new_out || !new_err) { rc = -11; goto done; }
+    if (PyObject_SetAttrString(sys, "stdout", new_out) != 0) { rc = -12; goto done; }
+    if (PyObject_SetAttrString(sys, "stderr", new_err) != 0) { rc = -13; goto done; }
 
     // Execute code
     builtins = PyEval_GetBuiltins();
@@ -267,18 +270,28 @@ int pybridge_run(const char* code, char** out_stdout, char** out_stderr, int* ex
         }
     }
 
-    // Collect accumulated outputs
-    if (out_stdout && !g_accum_out.empty()) {
-        size_t n = g_accum_out.size();
-        char* s = (char*)malloc(n + 1);
-        if (s) { memcpy(s, g_accum_out.data(), n); s[n] = '\0'; }
-        *out_stdout = s;
+    // Collect outputs from StringIO
+    if (out_stdout && new_out) {
+        PyObject* s = PyObject_CallMethod(new_out, "getvalue", NULL);
+        const char* u = s ? PyUnicode_AsUTF8(s) : NULL;
+        if (u) {
+            size_t n = strlen(u);
+            char* dup = (char*)malloc(n + 1);
+            if (dup) { memcpy(dup, u, n); dup[n] = '\0'; }
+            *out_stdout = dup;
+        }
+        Py_XDECREF(s);
     }
-    if (out_stderr && !g_accum_err.empty()) {
-        size_t n = g_accum_err.size();
-        char* s = (char*)malloc(n + 1);
-        if (s) { memcpy(s, g_accum_err.data(), n); s[n] = '\0'; }
-        *out_stderr = s;
+    if (out_stderr && new_err) {
+        PyObject* s = PyObject_CallMethod(new_err, "getvalue", NULL);
+        const char* u = s ? PyUnicode_AsUTF8(s) : NULL;
+        if (u) {
+            size_t n = strlen(u);
+            char* dup = (char*)malloc(n + 1);
+            if (dup) { memcpy(dup, u, n); dup[n] = '\0'; }
+            *out_stderr = dup;
+        }
+        Py_XDECREF(s);
     }
 
 done:
@@ -286,9 +299,10 @@ done:
     if (sys && old_err) PyObject_SetAttrString(sys, "stderr", old_err);
     Py_XDECREF(old_out);
     Py_XDECREF(old_err);
-    Py_XDECREF(w_out);
-    Py_XDECREF(w_err);
+    Py_XDECREF(new_out);
+    Py_XDECREF(new_err);
     Py_XDECREF(sys);
+    Py_XDECREF(io);
     Py_XDECREF(globals);
 
     PyGILState_Release(g);
