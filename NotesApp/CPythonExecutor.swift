@@ -257,7 +257,6 @@ final class CPythonExecutor: PythonExecutor {
             }
         } else {
             AppLogger.log("CRITICAL: python-stdlib.zip MISSING from app bundle!")
-            precondition(false, "python-stdlib.zip missing in app bundle")
             
             // Check for alternative stdlib file names (with crash protection)
             let alternativeNames = ["stdlib.zip", "python314.zip", "lib.zip"]

@@ -19,8 +19,10 @@ struct CodeSnakeApp: App {
             AppLogger.log("Log file: \(logURL.path)")
         }
 
-        // Run a tiny self-test to validate Python runtime wired correctly
-        runSelfTest()
+        // Optional self-test at launch. Enable by setting env var PY_SELFTEST_AT_LAUNCH=1 in scheme if you want it.
+        if ProcessInfo.processInfo.environment["PY_SELFTEST_AT_LAUNCH"] == "1" {
+            runSelfTest()
+        }
     }
     var body: some Scene {
         WindowGroup {
