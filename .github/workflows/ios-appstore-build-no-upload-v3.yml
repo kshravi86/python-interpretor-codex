@@ -50,7 +50,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PY_SUPPORT_REPO: beeware/Python-Apple-support
-        PY_SUPPORT_TAG: latest
+        PY_SUPPORT_TAG: 3.14-b8
         PY_TARGET_XCF_DIR: ios/Frameworks/Python.xcframework
         PY_TARGET_STDLIB: Resources/python-stdlib.zip
       run: bash scripts/fetch_python_runtime.sh
