@@ -83,12 +83,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "APP_PATH=$APP_PATH"; ls -la "$APP_PATH" || true
           APP_PLIST="$APP_PATH/Info.plist"
           if [ ! -f "$APP_PLIST" ]; then
             echo "::error::Info.plist not found at $APP_PLIST"; ls -la "$APP_PATH"; exit 1;
           fi
-          # Determine bundle identifier robustly
-          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PLIST" 2>/dev/null || plutil -extract CFBundleIdentifier raw -o - "$APP_PLIST" 2>/dev/null || defaults read "$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || mdls -name kMDItemCFBundleIdentifier -raw "$APP_PATH" 2>/dev/null || echo '')
+          # Determine bundle identifier from build settings, fallback to Info.plist
+          BUNDLE_ID=$(xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -showBuildSettings -json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); ss=[e.get(\"buildSettings\",{}).get(\"PRODUCT_BUNDLE_IDENTIFIER\") for e in d]; ss=[s for s in ss if s]; print(ss[0] if ss else \"\")")
+          if [ -z "$BUNDLE_ID" ]; then
+            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PLIST" 2>/dev/null || plutil -extract CFBundleIdentifier raw -o - "$APP_PLIST" 2>/dev/null || defaults read "$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || mdls -name kMDItemCFBundleIdentifier -raw "$APP_PATH" 2>/dev/null || echo ')
+          fi
           if [ -z "$BUNDLE_ID" ]; then
             echo "::group::Info.plist contents"; plutil -p "$APP_PLIST" || true; echo "::endgroup::";
             echo "::error::CFBundleIdentifier not found in Info.plist"; exit 1;
@@ -144,6 +148,7 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
 
 
 
