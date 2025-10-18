@@ -12,6 +12,9 @@ jobs:
   sim-smoke:
     name: Build, Launch on Simulator, Capture Logs
     runs-on: macos-14
+    defaults:
+      run:
+        shell: bash
     env:
       DEVICE_NAME: ${{ inputs.device }}
     steps:
@@ -24,7 +27,6 @@ jobs:
           xcode-version: latest-stable
 
       - name: Fetch Python runtime (xcframework + stdlib)
-        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PY_SUPPORT_REPO: beeware/Python-Apple-support
@@ -34,7 +36,6 @@ jobs:
         run: bash scripts/fetch_python_runtime.sh
 
       - name: Build for Simulator
-        shell: bash
         run: |
           set -euo pipefail
           set -x
@@ -55,7 +56,6 @@ jobs:
           echo "Detected APP_PATH=$APP"
 
       - name: Dump app bundle
-        shell: bash
         run: |
           set -euo pipefail
           set -x
@@ -76,7 +76,6 @@ jobs:
           fi
           echo "Detected APP_PATH=$APP"
       - name: Collect sim inventories
-        shell: bash
         run: |
           set -euo pipefail
           set -x
@@ -84,12 +83,10 @@ jobs:
           xcrun simctl list -j runtimes > "$RUNNER_TEMP/runtimes.json" || true
           xcrun simctl list -j devicetypes > "$RUNNER_TEMP/devicetypes.json" || true
       - name: Shutdown all simulators (non-fatal)
-        shell: bash
         run: |
           xcrun simctl shutdown all || true
 
       - name: Boot simulator
-        shell: bash
         run: |
           set -euo pipefail
           set -x
@@ -106,7 +103,6 @@ jobs:
           if [ -z "${ok:-}" ]; then xcrun simctl list devices; exit 1; fi
 
       - name: Inject simulator Python.framework
-        shell: bash
         run: |
           set -euo pipefail
           SIM_FW="$GITHUB_WORKSPACE/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework"
@@ -123,7 +119,6 @@ jobs:
           lipo -info "$APP_PATH/Frameworks/Python.framework/Python" || true
           otool -L "$APP_PATH/Frameworks/Python.framework/Python" || true
       - name: Install and launch with autorun
-        shell: bash
         run: |
           set -x
           echo "SIM_UDID=$SIM_UDID"; xcrun simctl list devices | sed -n "1,120p"; echo "APP_PATH=$APP_PATH"; ls -la "$APP_PATH" || true
@@ -134,7 +129,7 @@ jobs:
           # Determine bundle identifier from build settings, fallback to Info.plist
           BUNDLE_ID=$(xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -showBuildSettings -json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); ss=[e.get(\"buildSettings\",{}).get(\"PRODUCT_BUNDLE_IDENTIFIER\") for e in d]; ss=[s for s in ss if s]; print(ss[0] if ss else \"\")")
           if [ -z "$BUNDLE_ID" ]; then
-            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PLIST" 2>/dev/null || plutil -extract CFBundleIdentifier raw -o - "$APP_PLIST" 2>/dev/null || defaults read "$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || mdls -name kMDItemCFBundleIdentifier -raw "$APP_PATH" 2>/dev/null || echo ''
+            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PLIST" 2>/dev/null || plutil -extract CFBundleIdentifier raw -o - "$APP_PLIST" 2>/dev/null || defaults read "$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || mdls -name kMDItemCFBundleIdentifier -raw "$APP_PATH" 2>/dev/null || echo '')
           fi
           if [ -z "$BUNDLE_ID" ]; then
             echo "::group::Info.plist contents"; plutil -p "$APP_PLIST" || true; echo "::endgroup::";
@@ -161,7 +156,6 @@ jobs:
 
       - name: Collect autorun output and logs
         if: always()
-        shell: bash
         run: |
           set -euo pipefail
           set -x
