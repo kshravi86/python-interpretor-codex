@@ -2,6 +2,23 @@ import Foundation
 
 import UIKit
 
+enum PythonRuntimeError: LocalizedError {
+    case stdlibMissing(String)
+    case frameworkMissing(String)
+    case initializationFailed(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .stdlibMissing(let message):
+            return "Python Standard Library Missing: \(message)"
+        case .frameworkMissing(let message):
+            return "Python Framework Missing: \(message)"
+        case .initializationFailed(let message):
+            return "Python Initialization Failed: \(message)"
+        }
+    }
+}
+
 final class CPythonExecutor: PythonExecutor {
     struct NotConfigured: LocalizedError {
         var errorDescription: String? { "CPython runtime not configured in this build." }
@@ -262,6 +279,7 @@ final class CPythonExecutor: PythonExecutor {
             let alternativeNames = ["stdlib.zip", "python314.zip", "lib.zip"]
             AppLogger.log("Checking for alternative stdlib file names...")
             
+            var foundAlternative = false
             for altName in alternativeNames {
                 do {
                     let altPath = resURL.appendingPathComponent(altName)
@@ -269,10 +287,12 @@ final class CPythonExecutor: PythonExecutor {
                     AppLogger.log("Alternative \(altName): exists=\(altExists)")
                     
                     if altExists {
+                        foundAlternative = true
                         do {
                             let attrs = try FileManager.default.attributesOfItem(atPath: altPath.path)
                             let size = (attrs[.size] as? NSNumber)?.int64Value ?? 0
                             AppLogger.log("Alternative \(altName) size: \(size) bytes")
+                            AppLogger.log("Found alternative stdlib file: \(altName) - will try to use it")
                         } catch {
                             AppLogger.log("Failed to get size for \(altName): \(error.localizedDescription)")
                         }
@@ -280,6 +300,12 @@ final class CPythonExecutor: PythonExecutor {
                 } catch {
                     AppLogger.log("Error checking alternative file \(altName): \(error.localizedDescription)")
                 }
+            }
+            
+            // If no stdlib found at all, throw a clear error
+            if !foundAlternative {
+                AppLogger.log("FATAL: No Python standard library found in app bundle")
+                throw PythonRuntimeError.stdlibMissing("Python standard library (python-stdlib.zip) is missing from the app bundle. This indicates a build configuration issue.")
             }
             
             // Check Frameworks directory
@@ -375,9 +401,7 @@ final class CPythonExecutor: PythonExecutor {
                 // Don't throw error immediately - try to proceed with just the framework
             } else {
                 AppLogger.log("No Python framework found either - complete Python runtime missing")
-                throw NSError(domain: "CPythonExecutor", code: -1, userInfo: [
-                    NSLocalizedDescriptionKey: "Python runtime not available. Missing both python-stdlib.zip and Python.framework."
-                ])
+                throw PythonRuntimeError.frameworkMissing("Python runtime not available. Missing both python-stdlib.zip and Python.framework. This typically indicates the GitHub Actions build failed to properly bundle the Python runtime files.")
             }
         }
         
@@ -400,9 +424,21 @@ final class CPythonExecutor: PythonExecutor {
             AppLogger.log("Error message: '\(msg)'")
             AppLogger.log("Error buffer length: \(msg.count)")
             
-            throw NSError(domain: "CPythonExecutor", code: Int(rc), userInfo: [
-                NSLocalizedDescriptionKey: "CPython initialization failed (code \(rc)): \(msg)"
-            ])
+            let errorDetails = """
+            Python initialization failed with code \(rc).
+            Error: \(msg)
+            
+            This usually indicates:
+            1. Python runtime files are missing from the app bundle
+            2. Python framework is corrupted or incomplete
+            3. App was built with incorrect configuration
+            
+            Check the app bundle contains:
+            - python-stdlib.zip (in main bundle)
+            - Python.framework (in Frameworks/ directory)
+            """
+            
+            throw PythonRuntimeError.initializationFailed(errorDetails)
         }
         
         AppLogger.log("CPythonExecutor initialization SUCCESS!")

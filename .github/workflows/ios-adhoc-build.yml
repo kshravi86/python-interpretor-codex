@@ -229,7 +229,7 @@ jobs:
         name: adhoc-build-log
         path: ${{ runner.temp }}/build.log
 
-    - name: Verify app bundle contains Python runtime
+    - name: Verify and fix app bundle Python runtime
       run: |
         ARCHIVE_DIR='${{ runner.temp }}/CodeSnake-Release.xcarchive'
         if [ ! -d "$ARCHIVE_DIR" ]; then
@@ -247,34 +247,66 @@ jobs:
         echo "App bundle directory: $APP_DIR"
         echo "Checking for Python runtime files in app bundle..."
         
-        if [ -f "$APP_DIR/python-stdlib.zip" ]; then
+        # Force copy python-stdlib.zip if missing
+        if [ ! -f "$APP_DIR/python-stdlib.zip" ]; then
+          echo "❌ python-stdlib.zip missing from app bundle - fixing..."
+          if [ -f "Resources/python-stdlib.zip" ]; then
+            cp "Resources/python-stdlib.zip" "$APP_DIR/"
+            echo "✅ Copied python-stdlib.zip from Resources/"
+          elif [ -f "ThirdParty/Python/python-stdlib.zip" ]; then
+            cp "ThirdParty/Python/python-stdlib.zip" "$APP_DIR/"
+            echo "✅ Copied python-stdlib.zip from ThirdParty/Python/"
+          else
+            echo "::error title=No stdlib found::Cannot locate python-stdlib.zip in Resources/ or ThirdParty/Python/"
+            exit 1
+          fi
+        else
           echo "✅ python-stdlib.zip found in app bundle"
           ls -la "$APP_DIR/python-stdlib.zip"
-        else
-          echo "❌ python-stdlib.zip missing from app bundle"
-          echo "App bundle contents:"
-          ls -la "$APP_DIR/"
-          exit 1
         fi
-        # If we dynamically linked, ensure framework is embedded; otherwise (static), it isn't required
+        
+        # Force copy site-packages and app_packages if missing
+        if [ ! -d "$APP_DIR/site-packages" ] && [ -d "site-packages" ]; then
+          cp -r "site-packages" "$APP_DIR/"
+          echo "✅ Copied site-packages to app bundle"
+        fi
+        
+        if [ ! -d "$APP_DIR/app_packages" ] && [ -d "app_packages" ]; then
+          cp -r "app_packages" "$APP_DIR/"
+          echo "✅ Copied app_packages to app bundle"
+        fi
+        
+        # Force copy selftest.py if missing
+        if [ ! -f "$APP_DIR/selftest.py" ] && [ -f "selftest.py" ]; then
+          cp "selftest.py" "$APP_DIR/"
+          echo "✅ Copied selftest.py to app bundle"
+        fi
+        
+        # Handle Python framework for dynamic linking
         if otool -l "$APP_DIR/CodeSnake" | grep -q "name @rpath/Python.framework/Python"; then
-          if [ -d "$APP_DIR/Frameworks/Python.framework" ]; then
-            echo "✅ Python.framework found in app bundle"
-            ls -la "$APP_DIR/Frameworks/Python.framework/"
-          else
-            echo "❌ Python.framework missing; attempting to inject from repo"
+          if [ ! -d "$APP_DIR/Frameworks/Python.framework" ]; then
+            echo "❌ Python.framework missing for dynamic linking - fixing..."
             SRC_FW=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
             if [ -n "$SRC_FW" ]; then
               mkdir -p "$APP_DIR/Frameworks"
-              rsync -a "$SRC_FW/" "$APP_DIR/Frameworks/Python.framework/"
-              echo "✅ Injected Python.framework"
+              cp -r "$SRC_FW" "$APP_DIR/Frameworks/"
+              echo "✅ Copied Python.framework to app bundle"
             else
-              echo "::error title=Embed failed::Could not locate source Python.framework to inject"
+              echo "::error title=Framework missing::Could not locate source Python.framework"
               exit 1
             fi
+          else
+            echo "✅ Python.framework found in app bundle"
           fi
         else
           echo "Static linking detected; no dynamic framework required"
+        fi
+        
+        echo "Final app bundle contents:"
+        ls -la "$APP_DIR/"
+        if [ -d "$APP_DIR/Frameworks" ]; then
+          echo "Frameworks directory:"
+          ls -la "$APP_DIR/Frameworks/"
         fi
         
         echo "✅ Python runtime successfully included in app bundle!"
