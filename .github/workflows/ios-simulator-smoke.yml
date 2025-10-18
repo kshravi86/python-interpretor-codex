@@ -55,13 +55,43 @@ jobs:
       - name: Boot simulator
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
           DEV_NAME="${DEVICE_NAME:-iPhone 15}"
-          RUNTIME=$(xcrun simctl list runtimes | awk -F '[() ]+' '/iOS/ {v=$4} END{print v}')
-          UDID=$(xcrun simctl list devices available | awk -v d="$DEV_NAME" -F '[()]' '$0 ~ d && $0 ~ /Booted|Shutdown/ {print $(NF-1); exit}')
-          if [ -z "$UDID" ]; then
-            UDID=$(xcrun simctl create "CI-$DEV_NAME" "com.apple.CoreSimulator.SimDeviceType.$(echo "$DEV_NAME" | tr ' ' '-')" "com.apple.CoreSimulator.SimRuntime.iOS-$RUNTIME")
-          fi
+          UDID=$(python3 - <<'PY'
+import json, subprocess, os
+want = os.environ.get('DEVICE_NAME','iPhone 15')
+def sh(*args):
+    return subprocess.check_output(list(args))
+devices = json.loads(sh('xcrun','simctl','list','devices','available','-j'))
+cand = []
+for rt, devs in devices.get('devices',{}).items():
+    for d in devs:
+        if d.get('isAvailable') and (d['name']==want or d['name'].startswith(want) or (want.startswith('iPhone') and 'iPhone' in d['name'])):
+            cand.append((rt, d['udid'], d['name'], d['state']))
+udid = None
+for rt, u, name, state in cand:
+    if state == 'Shutdown':
+        udid = u; break
+if not udid and cand:
+    udid = cand[0][1]
+if not udid:
+    # Find device type id
+    dts = json.loads(sh('xcrun','simctl','list','devicetypes','-j')).get('devicetypes',[])
+    type_id = None
+    for t in dts:
+        if t['name']==want or t['name'].startswith(want):
+            type_id = t['identifier']; break
+    if not type_id:
+        type_id = 'com.apple.CoreSimulator.SimDeviceType.iPhone-15'
+    # Latest available iOS runtime
+    rts = json.loads(sh('xcrun','simctl','list','runtimes','-j')).get('runtimes',[])
+    ios = [r for r in rts if r.get('isAvailable') and r.get('identifier','').startswith('com.apple.CoreSimulator.SimRuntime.iOS')]
+    ios.sort(key=lambda r: r.get('version',''), reverse=True)
+    runtime_id = ios[0]['identifier']
+    udid = sh('xcrun','simctl','create', 'CI-'+want, type_id, runtime_id).decode().strip()
+print(udid)
+PY
+)
           echo "SIM_UDID=$UDID" >> $GITHUB_ENV
           xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b
