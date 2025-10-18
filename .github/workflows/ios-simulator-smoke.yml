@@ -76,7 +76,7 @@ jobs:
           fi
           echo "SIM_UDID=$UDID" >> $GITHUB_ENV
           xcrun simctl boot "$UDID" || true
-          for i in 1 2 3 4 5; do xcrun simctl bootstatus "$UDID" -b && ok=1 && break || sleep 6; done
+          for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do xcrun simctl bootstatus "$UDID" -b && ok=1 && break || sleep 6; done
           if [ -z "${ok:-}" ]; then xcrun simctl list devices; exit 1; fi
 
       - name: Install and launch with autorun
@@ -129,3 +129,4 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
