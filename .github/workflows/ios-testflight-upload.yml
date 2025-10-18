@@ -88,6 +88,9 @@ jobs:
 
     - name: Build and Archive (Release - unsigned)
       run: |
+        # Ensure the linker can find Python.framework from the downloaded xcframework
+        WS="$GITHUB_WORKSPACE"
+        PY_FW_SEARCH="$WS/ios/Frameworks/Python.xcframework/ios-arm64"
         xcodebuild archive \
           -project NotesApp.xcodeproj \
           -scheme NotesApp \
@@ -95,7 +98,9 @@ jobs:
           -destination 'generic/platform=iOS' \
           -archivePath ${{ runner.temp }}/CodeSnake-Release.xcarchive \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          CURRENT_PROJECT_VERSION=$NEW_BUILD
+          CURRENT_PROJECT_VERSION=$NEW_BUILD \
+          "FRAMEWORK_SEARCH_PATHS=$PY_FW_SEARCH" \
+          "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks"
 
     - name: Extract App Metadata (version/build/bundle)
       run: |
@@ -179,4 +184,3 @@ jobs:
       if: always()
       run: |
         security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
-
