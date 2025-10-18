@@ -119,10 +119,12 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         setenv("PY_BRIDGE_RESOURCE_DIR", resource_dir, 1);
         setenv("PYTHONHOME", resource_dir, 1);
         // Also set via API for maximum compatibility
+        // NOTE: Do not free this pointer after initialization; some CPython versions
+        // may retain the pointer. Since this is a one-time init per process,
+        // leaking this allocation is acceptable and avoids use-after-free crashes.
         wchar_t *wHome = Py_DecodeLocale(resource_dir, NULL);
         if (wHome) {
             Py_SetPythonHome(wHome);
-            // Will be freed after initialization below
         }
     }
 
@@ -171,11 +173,7 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         "        sys.path.insert(0, p)\n";
     int rc = PyRun_SimpleString(py);
     PyGILState_Release(g);
-    // Free the wide home string if we created one
-    if (resource_dir && *resource_dir) {
-        wchar_t *wHome = Py_DecodeLocale(resource_dir, NULL);
-        if (wHome) PyMem_RawFree(wHome);
-    }
+    // Do not free the Py_SetPythonHome buffer; see note above.
     if (rc != 0) {
         set_error(errbuf, errbuf_len, "Failed to set sys.path for stdlib/site-packages");
         return -2;
