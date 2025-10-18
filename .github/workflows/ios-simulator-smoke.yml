@@ -85,19 +85,21 @@ jobs:
           set -euo pipefail
           BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
-          xcrun simctl install "$SIM_UDID" "$APP_PATH"
-          B64=$(python3 -c "import base64; s='print(\"PY SMOKE:\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
-          # Start a short log stream in background
+          # Start log stream early
           xcrun simctl spawn "$SIM_UDID" log stream --level debug --style syslog > "$RUNNER_TEMP/simlog.txt" 2>&1 &
           LOG_PID=$!
-          # Launch app with autorun
+          # Install app with logs
           set +e
-          xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt
-          EXIT=$?
+          xcrun simctl install "$SIM_UDID" "$APP_PATH" > "$RUNNER_TEMP/install.log" 2>&1
+          INST_EXIT=$?
+          # Launch app with autorun and capture stdout/stderr
+          B64=$(python3 -c "import base64; s='print(\\\"PY SMOKE: \\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
+          xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt > "$RUNNER_TEMP/launch.out" 2> "$RUNNER_TEMP/launch.err"
+          LAUNCH_EXIT=$?
           set -e
-          echo "LAUNCH_EXIT=$EXIT" >> $GITHUB_ENV
-          # Give the app a moment to write autorun output
-          sleep 3
+          echo "LAUNCH_EXIT=$LAUNCH_EXIT" >> $GITHUB_ENV
+          # Allow a few seconds for autorun file write
+          sleep 4
           kill $LOG_PID || true
 
       - name: Collect autorun output and logs
@@ -108,11 +110,11 @@ jobs:
           ART=$RUNNER_TEMP/sim-artifacts
           mkdir -p "$ART"
           echo "Launch exit: ${LAUNCH_EXIT:-?}" | tee "$ART/summary.txt"
+          # Copy logs
           if [ -f "$RUNNER_TEMP/simlog.txt" ]; then cp "$RUNNER_TEMP/simlog.txt" "$ART/simlog.txt"; fi
-          # Save inventories for debugging
-          for f in devices.json runtimes.json devicetypes.json; do
-            [ -f "$RUNNER_TEMP/$f" ] && cp "$RUNNER_TEMP/$f" "$ART/$f" || true
-          done
+          if [ -f "$RUNNER_TEMP/install.log" ]; then cp "$RUNNER_TEMP/install.log" "$ART/install.log"; fi
+          if [ -f "$RUNNER_TEMP/launch.out" ]; then cp "$RUNNER_TEMP/launch.out" "$ART/launch.out"; fi
+          if [ -f "$RUNNER_TEMP/launch.err" ]; then cp "$RUNNER_TEMP/launch.err" "$ART/launch.err"; fi
           # Copy autorun output from app container
           if [ -n "${BUNDLE_ID:-}" ]; then
             CONTAINER=$(xcrun simctl get_app_container "$SIM_UDID" "$BUNDLE_ID" data || true)
@@ -120,6 +122,10 @@ jobs:
               cp "$CONTAINER/Documents/autorun.txt" "$ART/autorun.txt"
             fi
           fi
+          # Save inventories for debugging
+          for f in devices.json runtimes.json devicetypes.json; do
+            [ -f "$RUNNER_TEMP/$f" ] && cp "$RUNNER_TEMP/$f" "$ART/$f" || true
+          done
           ls -la "$ART" || true
 
       - name: Upload simulator artifacts
@@ -129,4 +135,6 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
+
 
