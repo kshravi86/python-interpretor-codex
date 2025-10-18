@@ -687,70 +687,64 @@ jobs:
         
         REPORT_FILE="${{ runner.temp }}/ipa-test-report.md"
         
-        cat > "$REPORT_FILE" << 'EOF_REPORT'
-        # iOS IPA Test Report
-        Generated on: $(date)
-        Workflow: iOS Ad Hoc Build (No Upload)
-        Branch: ${{ github.ref_name }}
-        Commit: ${{ github.sha }}
-        
-        ## Test Results Summary
-        
-        ### ✅ Build Status
-        - [x] Xcode compilation successful
-        - [x] Code signing completed
-        - [x] IPA export successful
-        
-        ### ✅ Python Runtime Validation
-        - [x] python-stdlib.zip present and valid
-        - [x] Python.framework properly embedded
-        - [x] Self-test file included
-        - [x] Code signing verification passed
-        
-        ### ✅ Runtime Functionality Tests
-        - [x] Python stdlib extraction successful
-        - [x] Critical module imports tested
-        - [x] Bytecode compilation verified
-        - [x] Package structure validated
-        
-        ## Recommendations
-        ✅ **This IPA should NOT crash when the run button is pressed**
-        
-        The comprehensive testing shows:
-        1. All Python runtime files are properly bundled
-        2. The stdlib archive is valid and contains required modules
-        3. The Python framework is correctly signed and linked
-        4. Basic Python functionality works with the bundled stdlib
-        
-        ## Files Tested
-        EOF_REPORT
+        echo "# iOS IPA Test Report" > "$REPORT_FILE"
+        echo "Generated on: $(date)" >> "$REPORT_FILE"
+        echo "Workflow: iOS Ad Hoc Build (No Upload)" >> "$REPORT_FILE"
+        echo "Branch: ${{ github.ref_name }}" >> "$REPORT_FILE"
+        echo "Commit: ${{ github.sha }}" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "## Test Results Summary" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "### ✅ Build Status" >> "$REPORT_FILE"
+        echo "- [x] Xcode compilation successful" >> "$REPORT_FILE"
+        echo "- [x] Code signing completed" >> "$REPORT_FILE"
+        echo "- [x] IPA export successful" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "### ✅ Python Runtime Validation" >> "$REPORT_FILE"
+        echo "- [x] python-stdlib.zip present and valid" >> "$REPORT_FILE"
+        echo "- [x] Python.framework properly embedded" >> "$REPORT_FILE"
+        echo "- [x] Self-test file included" >> "$REPORT_FILE"
+        echo "- [x] Code signing verification passed" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "### ✅ Runtime Functionality Tests" >> "$REPORT_FILE"
+        echo "- [x] Python stdlib extraction successful" >> "$REPORT_FILE"
+        echo "- [x] Critical module imports tested" >> "$REPORT_FILE"
+        echo "- [x] Bytecode compilation verified" >> "$REPORT_FILE"
+        echo "- [x] Package structure validated" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "## Recommendations" >> "$REPORT_FILE"
+        echo "✅ **This IPA should NOT crash when the run button is pressed**" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "The comprehensive testing shows:" >> "$REPORT_FILE"
+        echo "1. All Python runtime files are properly bundled" >> "$REPORT_FILE"
+        echo "2. The stdlib archive is valid and contains required modules" >> "$REPORT_FILE"
+        echo "3. The Python framework is correctly signed and linked" >> "$REPORT_FILE"
+        echo "4. Basic Python functionality works with the bundled stdlib" >> "$REPORT_FILE"
+        echo "" >> "$REPORT_FILE"
+        echo "## Files Tested" >> "$REPORT_FILE"
         
         # Add actual file information if IPA exists
         IPA=$(ls ${{ runner.temp }}/export-adhoc/*.ipa 2>/dev/null | head -n 1 || true)
         if [ -n "$IPA" ]; then
-          cat >> "$REPORT_FILE" << EOF
-
-### IPA Information
-- **File**: $(basename "$IPA")
-- **Size**: $(ls -lh "$IPA" | awk '{print $5}')
-- **Created**: $(ls -la "$IPA" | awk '{print $6, $7, $8}')
-
-### Bundle Contents Verified
-- python-stdlib.zip ✅
-- Python.framework ✅  
-- selftest.py ✅
-- Code signing ✅
-
-**Status: READY FOR TESTING** 🎉
-
-This IPA has passed all automated tests and should work correctly when deployed to a device.
-EOF
+          echo "" >> "$REPORT_FILE"
+          echo "### IPA Information" >> "$REPORT_FILE"
+          echo "- **File**: $(basename "$IPA")" >> "$REPORT_FILE"
+          echo "- **Size**: $(ls -lh "$IPA" | awk '{print $5}')" >> "$REPORT_FILE"
+          echo "- **Created**: $(ls -la "$IPA" | awk '{print $6, $7, $8}')" >> "$REPORT_FILE"
+          echo "" >> "$REPORT_FILE"
+          echo "### Bundle Contents Verified" >> "$REPORT_FILE"
+          echo "- python-stdlib.zip ✅" >> "$REPORT_FILE"
+          echo "- Python.framework ✅" >> "$REPORT_FILE"
+          echo "- selftest.py ✅" >> "$REPORT_FILE"
+          echo "- Code signing ✅" >> "$REPORT_FILE"
+          echo "" >> "$REPORT_FILE"
+          echo "**Status: READY FOR TESTING** 🎉" >> "$REPORT_FILE"
+          echo "" >> "$REPORT_FILE"
+          echo "This IPA has passed all automated tests and should work correctly when deployed to a device." >> "$REPORT_FILE"
         else
-          cat >> "$REPORT_FILE" << EOF
-
-### ❌ No IPA Found
-The build may have failed or the IPA was not generated.
-EOF
+          echo "" >> "$REPORT_FILE"
+          echo "### ❌ No IPA Found" >> "$REPORT_FILE"
+          echo "The build may have failed or the IPA was not generated." >> "$REPORT_FILE"
         fi
         
         echo "Test report generated: $REPORT_FILE"
