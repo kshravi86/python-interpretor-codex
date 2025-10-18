@@ -34,7 +34,6 @@ def main():
             "deviceLogs": True,
             "networkLogs": True,
             "appiumLogs": True,
-            "consoleLogs": "verbose",
         },
     }
 
