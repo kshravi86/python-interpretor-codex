@@ -1,4 +1,4 @@
-﻿name: iOS Ad Hoc Build (No Upload)
+name: iOS Ad Hoc Build (No Upload)
 
 on:
   workflow_dispatch:
