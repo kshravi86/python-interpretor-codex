@@ -407,43 +407,151 @@ final class CPythonExecutor: PythonExecutor {
         
         // Initialize CPython
         AppLogger.log("=== INITIALIZING CPYTHON ===")
-        AppLogger.log("Calling pybridge_initialize with path: \(resURL.path)")
         
-        var buf = Array<CChar>(repeating: 0, count: 256)
-        let rc: Int32 = resURL.path.withCString { path in
-            AppLogger.log("Path passed to pybridge_initialize (C string): \(String(cString: path))")
-            return pybridge_initialize(path, &buf, buf.count)
+        // Try multiple potential Python home locations for robustness
+        let potentialPythonHomes = [
+            resURL.path,  // Main bundle path
+            Bundle.main.bundlePath,  // Bundle path
+            Bundle.main.resourcePath ?? resURL.path,  // Resource path
+        ]
+        
+        AppLogger.log("Attempting Python initialization with potential homes:")
+        for (index, home) in potentialPythonHomes.enumerated() {
+            AppLogger.log("  \(index + 1). \(home)")
         }
         
-        AppLogger.log("pybridge_initialize returned: \(rc)")
+        var initSuccess = false
+        var lastError = ""
+        var successfulPath = ""
         
-        if rc != 0 {
-            let msg = String(cString: buf)
-            AppLogger.log("CPythonExecutor.init FAILED")
-            AppLogger.log("Return code: \(rc)")
-            AppLogger.log("Error message: '\(msg)'")
-            AppLogger.log("Error buffer length: \(msg.count)")
+        for pythonHome in potentialPythonHomes {
+            AppLogger.log("Trying Python home: \(pythonHome)")
+            
+            var buf = Array<CChar>(repeating: 0, count: 256)
+            let rc: Int32 = pythonHome.withCString { path in
+                AppLogger.log("Path passed to pybridge_initialize (C string): \(String(cString: path))")
+                return pybridge_initialize(path, &buf, buf.count)
+            }
+            
+            AppLogger.log("pybridge_initialize returned: \(rc)")
+            
+            if rc == 0 {
+                AppLogger.log("✅ Python initialization SUCCESS with path: \(pythonHome)")
+                initSuccess = true
+                successfulPath = pythonHome
+                break
+            } else {
+                let msg = String(cString: buf)
+                AppLogger.log("❌ Python initialization FAILED with path: \(pythonHome)")
+                AppLogger.log("Return code: \(rc), Error: '\(msg)'")
+                lastError = msg
+                
+                // Reset any partial initialization before trying next path
+                // Note: We can't safely call Py_Finalize() here as it might not be initialized
+            }
+        }
+        
+        if !initSuccess {
+            AppLogger.log("=== ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===")
+            AppLogger.log("Last error: \(lastError)")
+            
+            // Add extensive debugging for device failures
+            AppLogger.log("=== DEVICE DEBUGGING INFO ===")
+            AppLogger.log("Bundle path: \(Bundle.main.bundlePath)")
+            AppLogger.log("Documents path: \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "unknown")")
+            
+            // Check if Python.framework exists and is accessible
+            let frameworkPath = resURL.appendingPathComponent("Frameworks/Python.framework")
+            let frameworkExists = FileManager.default.fileExists(atPath: frameworkPath.path)
+            AppLogger.log("Python.framework exists at expected path: \(frameworkExists)")
+            AppLogger.log("Framework path: \(frameworkPath.path)")
+            
+            if frameworkExists {
+                do {
+                    let frameworkContents = try FileManager.default.contentsOfDirectory(atPath: frameworkPath.path)
+                    AppLogger.log("Framework contents: \(frameworkContents)")
+                } catch {
+                    AppLogger.log("Failed to read framework contents: \(error)")
+                }
+            }
+            
+            // Check current working directory and environment
+            AppLogger.log("Current working directory: \(FileManager.default.currentDirectoryPath)")
+            AppLogger.log("PYTHONHOME env: \(ProcessInfo.processInfo.environment["PYTHONHOME"] ?? "not set")")
+            AppLogger.log("PY_BRIDGE_RESOURCE_DIR env: \(ProcessInfo.processInfo.environment["PY_BRIDGE_RESOURCE_DIR"] ?? "not set")")
             
             let errorDetails = """
-            Python initialization failed with code \(rc).
-            Error: \(msg)
+            All Python initialization attempts failed.
+            Last error: \(lastError)
             
-            This usually indicates:
-            1. Python runtime files are missing from the app bundle
-            2. Python framework is corrupted or incomplete
-            3. App was built with incorrect configuration
+            DEVICE CRASH DEBUG:
+            This crash indicates Python's C library initialization failed.
+            Common causes on device:
+            1. Python.framework not properly embedded or signed
+            2. PYTHONHOME pointing to wrong location  
+            3. Missing or corrupted python-stdlib.zip
+            4. Framework architecture mismatch (arm64 vs simulator)
+            5. Code signing issues preventing framework loading
             
-            Check the app bundle contains:
-            - python-stdlib.zip (in main bundle)
-            - Python.framework (in Frameworks/ directory)
+            Check device logs for additional crash details.
+            Attempted paths: \(potentialPythonHomes.joined(separator: ", "))
             """
             
             throw PythonRuntimeError.initializationFailed(errorDetails)
+        } else {
+            AppLogger.log("✅ Python initialization SUCCESS with path: \(successfulPath)")
         }
         
         AppLogger.log("CPythonExecutor initialization SUCCESS!")
-        AppLogger.log("Setting didInit = true")
-        Self.didInit = true
+        
+        // Run a basic self-test to ensure Python actually works before declaring success
+        AppLogger.log("=== RUNNING POST-INIT SELF-TEST ===")
+        do {
+            let testResult = try await withCheckedThrowingContinuation { (cont: CheckedContinuation<ExecutionResult, Error>) in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let testCode = "print('Python self-test: 2+2 =', 2+2)"
+                    AppLogger.log("Running self-test code: \(testCode)")
+                    
+                    // Use the pybridge_run function directly for the test
+                    var stdout_ptr: UnsafeMutablePointer<CChar>? = nil
+                    var stderr_ptr: UnsafeMutablePointer<CChar>? = nil
+                    var exit_code: Int32 = 0
+                    
+                    let result = pybridge_run(testCode, &stdout_ptr, &stderr_ptr, &exit_code)
+                    
+                    let stdout = stdout_ptr != nil ? String(cString: stdout_ptr!) : ""
+                    let stderr = stderr_ptr != nil ? String(cString: stderr_ptr!) : ""
+                    
+                    // Free the allocated strings
+                    if let ptr = stdout_ptr { free(ptr) }
+                    if let ptr = stderr_ptr { free(ptr) }
+                    
+                    AppLogger.log("Self-test result: \(result)")
+                    AppLogger.log("Self-test stdout: '\(stdout)'")
+                    AppLogger.log("Self-test stderr: '\(stderr)'")
+                    AppLogger.log("Self-test exit_code: \(exit_code)")
+                    
+                    let execResult = ExecutionResult(stdout: stdout, stderr: stderr, exitCode: Int(exit_code))
+                    cont.resume(returning: execResult)
+                }
+            }
+            
+            if testResult.exitCode == 0 && testResult.stdout.contains("Python self-test: 2+2 = 4") {
+                AppLogger.log("✅ Python self-test PASSED - Python runtime is working correctly")
+                AppLogger.log("Setting didInit = true")
+                Self.didInit = true
+            } else {
+                AppLogger.log("❌ Python self-test FAILED")
+                AppLogger.log("Exit code: \(testResult.exitCode)")
+                AppLogger.log("Stdout: '\(testResult.stdout)'")
+                AppLogger.log("Stderr: '\(testResult.stderr)'")
+                throw PythonRuntimeError.initializationFailed("Python initialized but basic execution test failed. Exit code: \(testResult.exitCode), Stderr: \(testResult.stderr)")
+            }
+            
+        } catch {
+            AppLogger.log("❌ Python self-test FAILED with exception: \(error)")
+            throw PythonRuntimeError.initializationFailed("Python initialization appeared successful but self-test failed: \(error.localizedDescription)")
+        }
         // Install streaming output callbacks once
         if !Self.didInstallCallbacks {
             typealias PyOutCB = @convention(c) (UnsafePointer<CChar>?, UnsafeMutableRawPointer?) -> Void
