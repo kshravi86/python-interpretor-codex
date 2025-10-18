@@ -79,11 +79,20 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do xcrun simctl bootstatus "$UDID" -b && ok=1 && break || sleep 6; done
           if [ -z "${ok:-}" ]; then xcrun simctl list devices; exit 1; fi
 
-      - name: Install and launch with autorun
+            - name: Install and launch with autorun
         shell: bash
         run: |
           set -euo pipefail
-          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")
+          APP_PLIST="$APP_PATH/Info.plist"
+          if [ ! -f "$APP_PLIST" ]; then
+            echo "::error::Info.plist not found at $APP_PLIST"; ls -la "$APP_PATH"; exit 1;
+          fi
+          # Determine bundle identifier robustly
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PLIST" 2>/dev/null || plutil -extract CFBundleIdentifier raw -o - "$APP_PLIST" 2>/dev/null || defaults read "$APP_PATH/Info" CFBundleIdentifier 2>/dev/null || mdls -name kMDItemCFBundleIdentifier -raw "$APP_PATH" 2>/dev/null || echo '')
+          if [ -z "$BUNDLE_ID" ]; then
+            echo "::group::Info.plist contents"; plutil -p "$APP_PLIST" || true; echo "::endgroup::";
+            echo "::error::CFBundleIdentifier not found in Info.plist"; exit 1;
+          fi
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
           # Start log stream early
           xcrun simctl spawn "$SIM_UDID" log stream --level debug --style syslog > "$RUNNER_TEMP/simlog.txt" 2>&1 &
@@ -93,16 +102,14 @@ jobs:
           xcrun simctl install "$SIM_UDID" "$APP_PATH" > "$RUNNER_TEMP/install.log" 2>&1
           INST_EXIT=$?
           # Launch app with autorun and capture stdout/stderr
-          B64=$(python3 -c "import base64; s='print(\\\"PY SMOKE: \\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
+          B64=$(python3 -c "import base64; s='print(\"PY SMOKE:\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
           xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt > "$RUNNER_TEMP/launch.out" 2> "$RUNNER_TEMP/launch.err"
           LAUNCH_EXIT=$?
           set -e
           echo "LAUNCH_EXIT=$LAUNCH_EXIT" >> $GITHUB_ENV
           # Allow a few seconds for autorun file write
           sleep 4
-          kill $LOG_PID || true
-
-      - name: Collect autorun output and logs
+          kill $LOG_PID || true- name: Collect autorun output and logs
         if: always()
         shell: bash
         run: |
@@ -135,6 +142,7 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
 
 
 
