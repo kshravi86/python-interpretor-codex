@@ -168,9 +168,9 @@ jobs:
           if [ -f "$RUNNER_TEMP/launch.out" ]; then cp "$RUNNER_TEMP/launch.out" "$ART/launch.out"; fi
           if [ -f "$RUNNER_TEMP/launch.err" ]; then cp "$RUNNER_TEMP/launch.err" "$ART/launch.err"; fi
           # Copy bundle dumps
-          if [ -f "$RUNNER_TEMP/sim-artifacts/products-list.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/products-list.txt" "$ART/products-list.txt"; fi
-          if [ -f "$RUNNER_TEMP/sim-artifacts/app-tree.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/app-tree.txt" "$ART/app-tree.txt"; fi
-          if [ -f "$RUNNER_TEMP/sim-artifacts/info-plist.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/info-plist.txt" "$ART/info-plist.txt"; fi
+          if [ -f "$RUNNER_TEMP/sim-artifacts/products-list.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/products-list.txt" "$ART/products-list.txt" || true; fi
+          if [ -f "$RUNNER_TEMP/sim-artifacts/app-tree.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/app-tree.txt" "$ART/app-tree.txt" || true; fi
+          if [ -f "$RUNNER_TEMP/sim-artifacts/info-plist.txt" ]; then cp "$RUNNER_TEMP/sim-artifacts/info-plist.txt" "$ART/info-plist.txt" || true; fi
           # Copy autorun output from app container
           if [ -n "${BUNDLE_ID:-}" ]; then
             CONTAINER=$(xcrun simctl get_app_container "$SIM_UDID" "$BUNDLE_ID" data || true)
