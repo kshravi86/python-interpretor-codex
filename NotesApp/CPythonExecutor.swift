@@ -1,4 +1,4 @@
-import Foundation
+﻿import Foundation
 
 import UIKit
 
@@ -50,7 +50,7 @@ final class CPythonExecutor: PythonExecutor {
         // Initialize CPython if needed
         AppLogger.log("Ensuring CPython is initialized...")
         do {
-            try ensureInitialized()
+            try await ensureInitialized()
             AppLogger.log("CPython initialization check complete")
         } catch {
             AppLogger.log("CPythonExecutor.execute: initialization FAILED - \(error)")
@@ -144,7 +144,7 @@ final class CPythonExecutor: PythonExecutor {
         }
     }
 
-    private func ensureInitialized() throws {
+    private func ensureInitialized() async throws {
         AppLogger.log("=== CPythonExecutor.ensureInitialized() START ===")
         
         if Self.didInit { 
@@ -436,13 +436,13 @@ final class CPythonExecutor: PythonExecutor {
             AppLogger.log("pybridge_initialize returned: \(rc)")
             
             if rc == 0 {
-                AppLogger.log("✅ Python initialization SUCCESS with path: \(pythonHome)")
+                AppLogger.log("âœ… Python initialization SUCCESS with path: \(pythonHome)")
                 initSuccess = true
                 successfulPath = pythonHome
                 break
             } else {
                 let msg = String(cString: buf)
-                AppLogger.log("❌ Python initialization FAILED with path: \(pythonHome)")
+                AppLogger.log("âŒ Python initialization FAILED with path: \(pythonHome)")
                 AppLogger.log("Return code: \(rc), Error: '\(msg)'")
                 lastError = msg
                 
@@ -499,7 +499,7 @@ final class CPythonExecutor: PythonExecutor {
             
             throw PythonRuntimeError.initializationFailed(errorDetails)
         } else {
-            AppLogger.log("✅ Python initialization SUCCESS with path: \(successfulPath)")
+            AppLogger.log("âœ… Python initialization SUCCESS with path: \(successfulPath)")
         }
         
         AppLogger.log("CPythonExecutor initialization SUCCESS!")
@@ -537,11 +537,11 @@ final class CPythonExecutor: PythonExecutor {
             }
             
             if testResult.exitCode == 0 && testResult.stdout.contains("Python self-test: 2+2 = 4") {
-                AppLogger.log("✅ Python self-test PASSED - Python runtime is working correctly")
+                AppLogger.log("âœ… Python self-test PASSED - Python runtime is working correctly")
                 AppLogger.log("Setting didInit = true")
                 Self.didInit = true
             } else {
-                AppLogger.log("❌ Python self-test FAILED")
+                AppLogger.log("âŒ Python self-test FAILED")
                 AppLogger.log("Exit code: \(testResult.exitCode)")
                 AppLogger.log("Stdout: '\(testResult.stdout)'")
                 AppLogger.log("Stderr: '\(testResult.stderr)'")
@@ -549,7 +549,7 @@ final class CPythonExecutor: PythonExecutor {
             }
             
         } catch {
-            AppLogger.log("❌ Python self-test FAILED with exception: \(error)")
+            AppLogger.log("âŒ Python self-test FAILED with exception: \(error)")
             throw PythonRuntimeError.initializationFailed("Python initialization appeared successful but self-test failed: \(error.localizedDescription)")
         }
         // Install streaming output callbacks once
