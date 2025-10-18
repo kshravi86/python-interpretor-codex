@@ -37,6 +37,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           DERIVED=$RUNNER_TEMP/DerivedData
           xcodebuild \
             -project NotesApp.xcodeproj \
@@ -57,6 +58,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           OUTDIR="$RUNNER_TEMP/sim-artifacts"
           mkdir -p "$OUTDIR"
           PROD_DIR="$RUNNER_TEMP/DerivedData/Build/Products/Release-iphonesimulator"
@@ -77,6 +79,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           xcrun simctl list -j devices > "$RUNNER_TEMP/devices.json" || true
           xcrun simctl list -j runtimes > "$RUNNER_TEMP/runtimes.json" || true
           xcrun simctl list -j devicetypes > "$RUNNER_TEMP/devicetypes.json" || true
@@ -89,6 +92,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           # Prefer Booted iPhone; else Shutdown iPhone; else any iOS device; else create
           UDID=$(xcrun simctl list devices available -j | python3 -c "import sys,json; d=json.load(sys.stdin)['devices']; cand=[(e['udid'],e.get('state',''),e.get('name',''),rt) for rt,arr in d.items() for e in arr if e.get('isAvailable') and ('iOS' in rt)]; boot=[u for u,s,n,rt in cand if s=='Booted' and 'iPhone' in n]; shut=[u for u,s,n,rt in cand if s=='Shutdown' and 'iPhone' in n]; anyd=[u for u,s,n,rt in cand]; print((boot or shut or anyd)[0] if (boot or shut or anyd) else '')")
           if [ -z "$UDID" ]; then
@@ -105,7 +109,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "APP_PATH=$APP_PATH"; ls -la "$APP_PATH" || true
+          set -x
+          echo "SIM_UDID=$SIM_UDID"; xcrun simctl list devices | sed -n "1,120p"; echo "APP_PATH=$APP_PATH"; ls -la "$APP_PATH" || true
           APP_PLIST="$APP_PATH/Info.plist"
           if [ ! -f "$APP_PLIST" ]; then
             echo "::error::Info.plist not found at $APP_PLIST"; ls -la "$APP_PATH"; exit 1;
@@ -122,14 +127,15 @@ jobs:
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
           # Start log stream early
           xcrun simctl spawn "$SIM_UDID" log stream --level debug --style syslog > "$RUNNER_TEMP/simlog.txt" 2>&1 &
+          sleep 1
           LOG_PID=$!
           # Install app with logs
           set +e
-          xcrun simctl install "$SIM_UDID" "$APP_PATH" > "$RUNNER_TEMP/install.log" 2>&1
+          xcrun simctl install "$SIM_UDID" "$APP_PATH" > "$RUNNER_TEMP/install.log" 2>&1; cat "$RUNNER_TEMP/install.log"
           INST_EXIT=$?
           # Launch app with autorun and capture stdout/stderr
           B64=$(python3 -c "import base64; s='print(\"PY SMOKE:\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
-          xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt > "$RUNNER_TEMP/launch.out" 2> "$RUNNER_TEMP/launch.err"
+          xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt > "$RUNNER_TEMP/launch.out" 2> "$RUNNER_TEMP/launch.err"; cat "$RUNNER_TEMP/launch.out"; echo "--- launch.err ---"; cat "$RUNNER_TEMP/launch.err"
           LAUNCH_EXIT=$?
           set -e
           echo "LAUNCH_EXIT=$LAUNCH_EXIT" >> $GITHUB_ENV
@@ -142,6 +148,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set -x
           ART=$RUNNER_TEMP/sim-artifacts
           mkdir -p "$ART"
           echo "Launch exit: ${LAUNCH_EXIT:-?}" | tee "$ART/summary.txt"
@@ -174,6 +181,7 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
 
 
 
