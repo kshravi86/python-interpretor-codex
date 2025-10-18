@@ -148,10 +148,7 @@ jobs:
                    -F "file=@$IPA" \
                    -F "custom_id=codesnake_$(date +%s)")
           echo "$RESP" | tee bs_upload.json
-          APP_URL=$(python3 - <<'PY'
-import json;print(json.load(open('bs_upload.json'))['app_url'])
-PY
-)
+          APP_URL=$(python3 -c "import json;print(json.load(open('bs_upload.json'))['app_url'])")
           echo "APP_URL=$APP_URL" >> $GITHUB_ENV
           echo "App uploaded: $APP_URL"
 
@@ -194,4 +191,3 @@ PY
             bs_test_output.txt
             bs_session.txt
             bs_session_url.txt
-
