@@ -105,7 +105,23 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do xcrun simctl bootstatus "$UDID" -b && ok=1 && break || sleep 6; done
           if [ -z "${ok:-}" ]; then xcrun simctl list devices; exit 1; fi
 
-      - name: Install and launch with autorun
+            - name: Inject simulator Python.framework
+        shell: bash
+        run: |
+          set -euo pipefail
+          SIM_FW="$GITHUB_WORKSPACE/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework"
+          if [ ! -d "$SIM_FW" ]; then
+            echo "::error::Simulator Python.framework not found at $SIM_FW"; ls -R "$GITHUB_WORKSPACE/ios/Frameworks" || true; exit 1;
+          fi
+          mkdir -p "$APP_PATH/Frameworks"
+          rm -rf "$APP_PATH/Frameworks/Python.framework" || true
+          rsync -a "$SIM_FW/" "$APP_PATH/Frameworks/Python.framework/"
+          echo "Framework contents:"; ls -la "$APP_PATH/Frameworks/Python.framework" || true
+          echo "Binary types:"
+          file "$APP_PATH/CodeSnake" || true
+          file "$APP_PATH/Frameworks/Python.framework/Python" || true
+          lipo -info "$APP_PATH/Frameworks/Python.framework/Python" || true
+          otool -L "$APP_PATH/Frameworks/Python.framework/Python" || true- name: Install and launch with autorun
         shell: bash
         run: |
           set -euo pipefail
@@ -181,6 +197,7 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
 
 
 
