@@ -47,7 +47,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     private let textView = UITextView()
     private let gutter = LineNumberView()
     private let highlighter = SyntaxHighlighter()
-    private var font: UIFont = .monospacedSystemFont(ofSize: 15, weight: .regular)
+    private var font: UIFont = CodeEditorContainer.fixedMonospaceFont(ofSize: 15)
     private var dark = false
     private var theme: SyntaxHighlighter.Theme = .defaultLight()
     private var breakpoints: [Int: String] = [:]
@@ -92,7 +92,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     func configure(fontSize: CGFloat, isDark: Bool, theme: SyntaxHighlighter.Theme) {
         dark = isDark
         self.theme = theme
-        font = .monospacedSystemFont(ofSize: fontSize, weight: .regular)
+        font = CodeEditorContainer.fixedMonospaceFont(ofSize: fontSize)
         textView.font = font
         backgroundColor = isDark ? UIColor.black : UIColor.systemBackground
         gutter.backgroundColor = isDark ? UIColor(white: 0.1, alpha: 1) : UIColor.secondarySystemBackground
@@ -102,6 +102,14 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         updateCurrentLine()
         applyHighlighting()
         setNeedsLayout()
+    }
+
+    // Prefer a non-variable monospace font to avoid CoreText variable font crashes on some iOS versions
+    static func fixedMonospaceFont(ofSize size: CGFloat) -> UIFont {
+        if let menlo = UIFont(name: "Menlo-Regular", size: size) { return menlo }
+        if let menloAlt = UIFont(name: "Menlo", size: size) { return menloAlt }
+        if let courier = UIFont(name: "CourierNewPSMT", size: size) { return courier }
+        return UIFont.monospacedSystemFont(ofSize: size, weight: .regular)
     }
 
     override func layoutSubviews() {
