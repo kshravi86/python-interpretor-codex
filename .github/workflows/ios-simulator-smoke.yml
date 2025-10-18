@@ -48,9 +48,10 @@ jobs:
             "FRAMEWORK_SEARCH_PATHS=$GITHUB_WORKSPACE/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator" \
             "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks" \
             build | xcpretty || true
-          APP=$(ls "$DERIVED/Build/Products/Release-iphonesimulator"/*.app | head -n 1)
-          if [ -z "$APP" ]; then echo "::error::Simulator .app not found"; exit 1; fi
+          APP=$(find "$DERIVED/Build/Products/Release-iphonesimulator" -type d -name "*.app" -print -quit)
+          if [ -z "$APP" ]; then echo "::group::Products dir"; ls -la "$DERIVED/Build/Products/Release-iphonesimulator" || true; echo "::endgroup::"; echo "::error::Simulator .app not found"; exit 1; fi
           echo "APP_PATH=$APP" >> $GITHUB_ENV
+          echo "Detected APP_PATH=$APP"
       - name: Collect sim inventories
         shell: bash
         run: |
@@ -148,6 +149,7 @@ jobs:
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
 
 
 
