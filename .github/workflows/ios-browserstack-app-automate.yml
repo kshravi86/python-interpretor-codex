@@ -66,7 +66,12 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           security cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist
           PP_UUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' $RUNNER_TEMP/profile.plist)
+          PP_NAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' $RUNNER_TEMP/profile.plist)
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' $RUNNER_TEMP/profile.plist | sed 's/^.*\.//')
+          echo "Using Provisioning Profile: $PP_NAME ($PP_UUID)"
           echo "PP_UUID=$PP_UUID" >> $GITHUB_ENV
+          echo "PP_NAME=$PP_NAME" >> $GITHUB_ENV
+          echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
 
       - name: Compute build number
         run: |
@@ -87,9 +92,6 @@ jobs:
 
       - name: Export IPA (adhoc)
         run: |
-          APP_DIR=$(ls -d ${{ runner.temp }}/CodeSnake-Release.xcarchive/Products/Applications/*.app | head -n 1)
-          PLIST="$APP_DIR/Info.plist"
-          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$PLIST")
           TEAM_ID=${{ env.IOS_TEAM_ID }}
           if [ -z "$TEAM_ID" ]; then TEAM_ID=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true); fi
           cat > $RUNNER_TEMP/export.plist <<EOF
@@ -100,9 +102,10 @@ jobs:
             <key>signingStyle</key><string>manual</string>
             <key>teamID</key><string>${TEAM_ID}</string>
             <key>provisioningProfiles</key><dict>
-              <key>${BUNDLE_ID}</key><string>${PP_UUID}</string>
+              <key>${BUNDLE_ID}</key><string>${PP_NAME}</string>
             </dict>
             <key>stripSwiftSymbols</key><true/>
+            <key>compileBitcode</key><false/>
           </dict></plist>
           EOF
           xcodebuild -exportArchive \
