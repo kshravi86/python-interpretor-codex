@@ -57,8 +57,15 @@ jobs:
         run: |
           set -euo pipefail
           DEV_NAME="${DEVICE_NAME:-iPhone 15}"
-          UDID=$(python3 -c "import json,subprocess,os; sh=lambda *a: subprocess.check_output(list(a)); want=os.environ.get('DEVICE_NAME','iPhone 15'); devices=json.loads(sh('xcrun','simctl','list','devices','available','-j')); cand=[];\n\n\n\n\n
-for rt, devs in devices.get('devices',{}).items():\n    for d in devs:\n        if d.get('isAvailable') and (d['name']==want or d['name'].startswith(want) or (want.startswith('iPhone') and 'iPhone' in d['name'])):\n            cand.append((rt,d['udid'],d['name'],d['state']));\nudid=None;\nfor rt,u,name,state in cand:\n    if state=='Shutdown':\n        udid=u; break\nif not udid and cand: udid=cand[0][1]\nif not udid:\n    dts=json.loads(sh('xcrun','simctl','list','devicetypes','-j')).get('devicetypes',[]);\n    type_id=None;\n    for t in dts:\n        if t['name']==want or t['name'].startswith(want):\n            type_id=t['identifier']; break;\n    if not type_id: type_id='com.apple.CoreSimulator.SimDeviceType.iPhone-15';\n    rts=json.loads(sh('xcrun','simctl','list','runtimes','-j')).get('runtimes',[]);\n    ios=[r for r in rts if r.get('isAvailable') and r.get('identifier','').startswith('com.apple.CoreSimulator.SimRuntime.iOS')];\n    ios.sort(key=lambda r:r.get('version',''), reverse=True);\n    runtime_id=ios[0]['identifier'];\n    udid=subprocess.check_output(['xcrun','simctl','create','CI-'+want,type_id,runtime_id]).decode().strip();\nprint(udid)")
+          # Try to find an existing device by name
+          UDID=$(xcrun simctl list devices available | awk -v d="$DEV_NAME" -F '[()]' '$0 ~ d {print $(NF-1); exit}')
+          if [ -z "$UDID" ]; then
+            # Create a new simulator for the latest available iOS runtime
+            TYPE_ID="com.apple.CoreSimulator.SimDeviceType.${DEV_NAME// /-}"
+            RUNTIME_VER=$(xcrun simctl list runtimes | awk -F '[()]' '/iOS/ {v=$2} END{print v}')
+            RUNTIME_ID="com.apple.CoreSimulator.SimRuntime.iOS-${RUNTIME_VER//./-}"
+            UDID=$(xcrun simctl create "CI-$DEV_NAME" "$TYPE_ID" "$RUNTIME_ID")
+          fi
           echo "SIM_UDID=$UDID" >> $GITHUB_ENV
           xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b
@@ -67,11 +74,10 @@ for rt, devs in devices.get('devices',{}).items():\n    for d in devs:\n        
       - name: Install and launch with autorun
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
           BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")
           echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
           xcrun simctl install "$SIM_UDID" "$APP_PATH"
-          SNIPPET='print("PY SMOKE:", 2+2)'
           B64=$(python3 -c "import base64; s='print(\"PY SMOKE:\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
           # Start a short log stream in background
           xcrun simctl spawn "$SIM_UDID" log stream --level debug --style syslog > "$RUNNER_TEMP/simlog.txt" 2>&1 &
@@ -90,7 +96,7 @@ for rt, devs in devices.get('devices',{}).items():\n    for d in devs:\n        
         if: always()
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
           ART=$RUNNER_TEMP/sim-artifacts
           mkdir -p "$ART"
           echo "Launch exit: ${LAUNCH_EXIT:-?}" | tee "$ART/summary.txt"
@@ -111,3 +117,4 @@ for rt, devs in devices.get('devices',{}).items():\n    for d in devs:\n        
           name: iOS-Simulator-Smoke
           path: |
             ${{ runner.temp }}/sim-artifacts
+
