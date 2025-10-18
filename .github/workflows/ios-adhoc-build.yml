@@ -61,18 +61,18 @@ jobs:
       run: |
         echo "Checking bundled Python runtime files..."
         if [ -f "ThirdParty/Python/python-stdlib.zip" ]; then
-          echo "âœ… python-stdlib.zip found"
+          echo "??????? python-stdlib.zip found"
           ls -la "ThirdParty/Python/python-stdlib.zip"
         else
-          echo "âŒ python-stdlib.zip missing"
+          echo "?????? python-stdlib.zip missing"
           exit 1
         fi
         
         if [ -d "ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework" ]; then
-          echo "âœ… Python.framework found"
+          echo "??????? Python.framework found"
           ls -la "ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework/"
         else
-          echo "âŒ Python.framework missing"
+          echo "?????? Python.framework missing"
           exit 1
         fi
         
@@ -249,54 +249,54 @@ jobs:
         
         # Force copy python-stdlib.zip if missing
         if [ ! -f "$APP_DIR/python-stdlib.zip" ]; then
-          echo "âŒ python-stdlib.zip missing from app bundle - fixing..."
+          echo "?????? python-stdlib.zip missing from app bundle - fixing..."
           if [ -f "Resources/python-stdlib.zip" ]; then
             cp "Resources/python-stdlib.zip" "$APP_DIR/"
-            echo "âœ… Copied python-stdlib.zip from Resources/"
+            echo "??????? Copied python-stdlib.zip from Resources/"
           elif [ -f "ThirdParty/Python/python-stdlib.zip" ]; then
             cp "ThirdParty/Python/python-stdlib.zip" "$APP_DIR/"
-            echo "âœ… Copied python-stdlib.zip from ThirdParty/Python/"
+            echo "??????? Copied python-stdlib.zip from ThirdParty/Python/"
           else
             echo "::error title=No stdlib found::Cannot locate python-stdlib.zip in Resources/ or ThirdParty/Python/"
             exit 1
           fi
         else
-          echo "âœ… python-stdlib.zip found in app bundle"
+          echo "??????? python-stdlib.zip found in app bundle"
           ls -la "$APP_DIR/python-stdlib.zip"
         fi
         
         # Force copy site-packages and app_packages if missing
         if [ ! -d "$APP_DIR/site-packages" ] && [ -d "site-packages" ]; then
           cp -r "site-packages" "$APP_DIR/"
-          echo "âœ… Copied site-packages to app bundle"
+          echo "??????? Copied site-packages to app bundle"
         fi
         
         if [ ! -d "$APP_DIR/app_packages" ] && [ -d "app_packages" ]; then
           cp -r "app_packages" "$APP_DIR/"
-          echo "âœ… Copied app_packages to app bundle"
+          echo "??????? Copied app_packages to app bundle"
         fi
         
         # Force copy selftest.py if missing
         if [ ! -f "$APP_DIR/selftest.py" ] && [ -f "selftest.py" ]; then
           cp "selftest.py" "$APP_DIR/"
-          echo "âœ… Copied selftest.py to app bundle"
+          echo "??????? Copied selftest.py to app bundle"
         fi
         
         # Handle Python framework for dynamic linking
         if otool -l "$APP_DIR/CodeSnake" | grep -q "name @rpath/Python.framework/Python"; then
           if [ ! -d "$APP_DIR/Frameworks/Python.framework" ]; then
-            echo "âŒ Python.framework missing for dynamic linking - fixing..."
+            echo "?????? Python.framework missing for dynamic linking - fixing..."
             SRC_FW=$(ls -d ThirdParty/Python/Python.xcframework/ios-arm64/Python.framework 2>/dev/null || true)
             if [ -n "$SRC_FW" ]; then
               mkdir -p "$APP_DIR/Frameworks"
               cp -r "$SRC_FW" "$APP_DIR/Frameworks/"
-              echo "âœ… Copied Python.framework to app bundle"
+              echo "??????? Copied Python.framework to app bundle"
             else
               echo "::error title=Framework missing::Could not locate source Python.framework"
               exit 1
             fi
           else
-            echo "âœ… Python.framework found in app bundle"
+            echo "??????? Python.framework found in app bundle"
           fi
         else
           echo "Static linking detected; no dynamic framework required"
@@ -309,7 +309,7 @@ jobs:
           ls -la "$APP_DIR/Frameworks/"
         fi
         
-        echo "âœ… Python runtime successfully included in app bundle!"
+        echo "??????? Python runtime successfully included in app bundle!"
 
     - name: Export Signed IPA (Ad Hoc)
       run: |
@@ -389,9 +389,9 @@ jobs:
         # Test 1: Python stdlib must exist
         if [ -f "$APPDIR/python-stdlib.zip" ]; then
           STDLIB_SIZE=$(ls -lh "$APPDIR/python-stdlib.zip" | awk '{print $5}')
-          echo "âœ… python-stdlib.zip found (size: $STDLIB_SIZE)"
+          echo "??????? python-stdlib.zip found (size: $STDLIB_SIZE)"
         else
-          echo "âŒ python-stdlib.zip MISSING"
+          echo "?????? python-stdlib.zip MISSING"
           exit 1
         fi
         
@@ -399,46 +399,46 @@ jobs:
         if [ -d "$APPDIR/Frameworks" ]; then
           PYTHON_FW=$(ls "$APPDIR/Frameworks" | grep -i "Python" || true)
           if [ -n "$PYTHON_FW" ]; then
-            echo "âœ… Python framework found: $PYTHON_FW"
+            echo "??????? Python framework found: $PYTHON_FW"
             
             # Check framework structure
             FW_PATH="$APPDIR/Frameworks/$PYTHON_FW"
             if [ -f "$FW_PATH/Python" ]; then
-              echo "âœ… Python framework binary exists"
+              echo "??????? Python framework binary exists"
               FW_SIZE=$(ls -lh "$FW_PATH/Python" | awk '{print $5}')
               echo "   Framework binary size: $FW_SIZE"
             else
-              echo "âŒ Python framework binary missing"
+              echo "?????? Python framework binary missing"
               exit 1
             fi
           else
-            echo "âš ï¸  No Python framework found (may be statically linked)"
+            echo "????????????  No Python framework found (may be statically linked)"
           fi
         else
-          echo "âš ï¸  No Frameworks directory (may be statically linked)"
+          echo "????????????  No Frameworks directory (may be statically linked)"
         fi
         
         # Test 3: Self-test file
         if [ -f "$APPDIR/selftest.py" ]; then
-          echo "âœ… selftest.py found"
+          echo "??????? selftest.py found"
         else
-          echo "âŒ selftest.py MISSING"
+          echo "?????? selftest.py MISSING"
           exit 1
         fi
         
         # Test 4: Additional Python packages
         if [ -d "$APPDIR/site-packages" ]; then
           SITE_COUNT=$(ls "$APPDIR/site-packages" | wc -l)
-          echo "âœ… site-packages found ($SITE_COUNT items)"
+          echo "??????? site-packages found ($SITE_COUNT items)"
         else
-          echo "âš ï¸  site-packages not found"
+          echo "????????????  site-packages not found"
         fi
         
         if [ -d "$APPDIR/app_packages" ]; then
           APP_COUNT=$(ls "$APPDIR/app_packages" | wc -l)
-          echo "âœ… app_packages found ($APP_COUNT items)"
+          echo "??????? app_packages found ($APP_COUNT items)"
         else
-          echo "âš ï¸  app_packages not found"
+          echo "????????????  app_packages not found"
         fi
         
         # === PYTHON RUNTIME SIMULATION TEST ===
@@ -448,7 +448,7 @@ jobs:
         # Test 5: Validate stdlib zip integrity
         echo "Testing python-stdlib.zip integrity..."
         if unzip -t "$APPDIR/python-stdlib.zip" >/dev/null 2>&1; then
-          echo "âœ… python-stdlib.zip is valid ZIP archive"
+          echo "??????? python-stdlib.zip is valid ZIP archive"
           
           # Check for critical Python modules
           STDLIB_CONTENTS=$(unzip -l "$APPDIR/python-stdlib.zip")
@@ -456,18 +456,18 @@ jobs:
           CRITICAL_MODULES=("sys.py" "os.py" "io.py" "__builtin__.py" "builtins.py")
           for module in "${CRITICAL_MODULES[@]}"; do
             if echo "$STDLIB_CONTENTS" | grep -q "$module"; then
-              echo "âœ… Critical module found: $module"
+              echo "??????? Critical module found: $module"
             else
-              echo "âš ï¸  Critical module missing: $module"
+              echo "????????????  Critical module missing: $module"
             fi
           done
           
           # Count total modules
           MODULE_COUNT=$(echo "$STDLIB_CONTENTS" | grep -c "\.py" || true)
-          echo "ðŸ“Š Total Python modules in stdlib: $MODULE_COUNT"
+          echo "????????? Total Python modules in stdlib: $MODULE_COUNT"
           
         else
-          echo "âŒ python-stdlib.zip is CORRUPTED"
+          echo "?????? python-stdlib.zip is CORRUPTED"
           exit 1
         fi
         
@@ -481,17 +481,17 @@ jobs:
           
           # Check architecture
           if file "$APPDIR/Frameworks/Python.framework/Python" | grep -q "arm64"; then
-            echo "âœ… Python framework has correct arm64 architecture"
+            echo "??????? Python framework has correct arm64 architecture"
           else
-            echo "âŒ Python framework missing arm64 architecture"
+            echo "?????? Python framework missing arm64 architecture"
             exit 1
           fi
           
           # Check if it's properly linked
           if otool -L "$APPDIR/Frameworks/Python.framework/Python" >/dev/null 2>&1; then
-            echo "âœ… Python framework binary is properly linked"
+            echo "??????? Python framework binary is properly linked"
           else
-            echo "âŒ Python framework binary has linking issues"
+            echo "?????? Python framework binary has linking issues"
             exit 1
           fi
         fi
@@ -502,30 +502,30 @@ jobs:
         
         # Test 7: App signing
         if /usr/bin/codesign -dvv "$APPDIR" 2>&1 | grep -E 'Identifier|Authority'; then
-          echo "âœ… App is properly code signed"
+          echo "??????? App is properly code signed"
         else
-          echo "âŒ App code signing verification failed"
+          echo "?????? App code signing verification failed"
           exit 1
         fi
         
         # Test 8: Framework signing (if exists)
         if [ -f "$APPDIR/Frameworks/Python.framework/Python" ]; then
           if /usr/bin/codesign -dvv "$APPDIR/Frameworks/Python.framework" >/dev/null 2>&1; then
-            echo "âœ… Python framework is properly code signed"
+            echo "??????? Python framework is properly code signed"
           else
-            echo "âš ï¸  Python framework signing verification failed"
+            echo "????????????  Python framework signing verification failed"
           fi
         fi
         
         # === FINAL REPORT ===
         echo ""
         echo "=== FINAL TEST REPORT ==="
-        echo "âœ… IPA structure validation: PASSED"
-        echo "âœ… Python runtime files: PRESENT"
-        echo "âœ… Archive integrity: VERIFIED"
-        echo "âœ… Code signing: VERIFIED"
+        echo "??????? IPA structure validation: PASSED"
+        echo "??????? Python runtime files: PRESENT"
+        echo "??????? Archive integrity: VERIFIED"
+        echo "??????? Code signing: VERIFIED"
         echo ""
-        echo "ðŸŽ‰ IPA appears ready for deployment and should not crash on Python execution"
+        echo "????????? IPA appears ready for deployment and should not crash on Python execution"
         
         # Clean up
         rm -rf "$TMP"
@@ -579,7 +579,7 @@ jobs:
         import time
         import datetime
         
-        print("âœ… All critical modules imported successfully")
+        print("??????? All critical modules imported successfully")
         print("Python version:", sys.version)
         print("Platform:", sys.platform)
         
@@ -599,16 +599,16 @@ jobs:
         now = datetime.datetime.now()
         print("Datetime test:", now.strftime('%Y-%m-%d %H:%M:%S'))
         
-        print("ðŸŽ‰ Python runtime test completed successfully!")
+        print("????????? Python runtime test completed successfully!")
         EOF_PYTHON
         
         # Try to run the test with system Python using our stdlib
         export PYTHONPATH="$STDLIB_DIR"
         
         if python3 test_imports.py; then
-          echo "âœ… Python stdlib compatibility test PASSED"
+          echo "??????? Python stdlib compatibility test PASSED"
         else
-          echo "âŒ Python stdlib compatibility test FAILED"
+          echo "?????? Python stdlib compatibility test FAILED"
           # Don't exit - this might be due to platform differences
         fi
         
@@ -617,9 +617,9 @@ jobs:
           echo ""
           echo "Testing selftest.py syntax..."
           if python3 -m py_compile "$APPDIR/selftest.py"; then
-            echo "âœ… selftest.py syntax is valid"
+            echo "??????? selftest.py syntax is valid"
           else
-            echo "âŒ selftest.py has syntax errors"
+            echo "?????? selftest.py has syntax errors"
           fi
           
           # Show what selftest.py would do
@@ -635,9 +635,9 @@ jobs:
         COMMON_PACKAGES=("urllib" "xml" "email" "html" "http" "logging" "threading" "multiprocessing")
         for package in "${COMMON_PACKAGES[@]}"; do
           if find "$STDLIB_DIR" -name "${package}*" -type d | head -1 | grep -q "$package"; then
-            echo "âœ… Package found: $package"
+            echo "??????? Package found: $package"
           else
-            echo "âš ï¸  Package missing: $package"
+            echo "????????????  Package missing: $package"
           fi
         done
         
@@ -654,24 +654,24 @@ jobs:
         EOF_BYTECODE
         
         if python3 -m py_compile bytecode_test.py; then
-          echo "âœ… Python bytecode compilation works"
+          echo "??????? Python bytecode compilation works"
           
           # Check if the compiled bytecode exists
           if find . -name "*.pyc" | grep -q bytecode_test; then
-            echo "âœ… Bytecode file generated successfully"
+            echo "??????? Bytecode file generated successfully"
           fi
         else
-          echo "âŒ Python bytecode compilation failed"
+          echo "?????? Python bytecode compilation failed"
         fi
         
         echo ""
         echo "=== PYTHON RUNTIME TEST SUMMARY ==="
-        echo "âœ… Stdlib extraction: SUCCESS"
-        echo "âœ… Module import test: COMPLETED"
-        echo "âœ… Syntax validation: COMPLETED"
-        echo "âœ… Bytecode compilation: COMPLETED"
+        echo "??????? Stdlib extraction: SUCCESS"
+        echo "??????? Module import test: COMPLETED"
+        echo "??????? Syntax validation: COMPLETED"
+        echo "??????? Bytecode compilation: COMPLETED"
         echo ""
-        echo "ðŸŽ¯ The Python runtime in this IPA should work properly!"
+        echo "???????? The Python runtime in this IPA should work properly!"
 
     - name: Device runtime simulation test
       if: always()
@@ -701,21 +701,21 @@ jobs:
         
         # Check that all required files are in expected iOS locations
         if [ ! -f "$APPDIR/python-stdlib.zip" ]; then
-          echo "âŒ DEVICE SIMULATION FAILED: python-stdlib.zip missing from app bundle root"
+          echo "?????? DEVICE SIMULATION FAILED: python-stdlib.zip missing from app bundle root"
           exit 1
         fi
         
         if [ ! -d "$APPDIR/Frameworks/Python.framework" ]; then
-          echo "âŒ DEVICE SIMULATION FAILED: Python.framework missing from Frameworks/"
+          echo "?????? DEVICE SIMULATION FAILED: Python.framework missing from Frameworks/"
           exit 1
         fi
         
         if [ ! -f "$APPDIR/Frameworks/Python.framework/Python" ]; then
-          echo "âŒ DEVICE SIMULATION FAILED: Python framework binary missing"
+          echo "?????? DEVICE SIMULATION FAILED: Python framework binary missing"
           exit 1
         fi
         
-        echo "âœ… App bundle structure matches device expectations"
+        echo "??????? App bundle structure matches device expectations"
         
         # Test 2: Simulate Python framework loading like iOS would
         echo ""
@@ -726,9 +726,9 @@ jobs:
         echo "Framework architecture: $ARCH_INFO"
         
         if echo "$ARCH_INFO" | grep -q "arm64"; then
-          echo "âœ… Python framework has correct arm64 architecture for device"
+          echo "??????? Python framework has correct arm64 architecture for device"
         else
-          echo "âŒ DEVICE SIMULATION FAILED: Python framework missing arm64 architecture"
+          echo "?????? DEVICE SIMULATION FAILED: Python framework missing arm64 architecture"
           echo "Device will crash because framework architecture is incompatible"
           exit 1
         fi
@@ -736,9 +736,9 @@ jobs:
         # Test framework dependencies
         echo "Checking framework dependencies..."
         if otool -L "$APPDIR/Frameworks/Python.framework/Python" | grep -v "@rpath" | grep -v "/usr/lib" | grep -v "Python.framework"; then
-          echo "âš ï¸  Framework has external dependencies that may not be available on device"
+          echo "????????????  Framework has external dependencies that may not be available on device"
         else
-          echo "âœ… Framework dependencies look good for device deployment"
+          echo "??????? Framework dependencies look good for device deployment"
         fi
         
         # Test 3: Simulate PYTHONHOME/PYTHONPATH setup like device
@@ -777,20 +777,20 @@ jobs:
         
         # Run the test
         if python3 simple_test.py 2>/dev/null | grep -q "DEVICE_TEST_SUCCESS"; then
-          echo "âœ… Python execution with bundled stdlib: SUCCESS"
+          echo "??????? Python execution with bundled stdlib: SUCCESS"
         else
-          echo "âŒ Python execution with bundled stdlib: FAILED"
+          echo "?????? Python execution with bundled stdlib: FAILED"
           echo "This may indicate runtime issues on device"
         fi
         
         echo ""
         echo "=== DEVICE SIMULATION SUMMARY ==="
-        echo "âœ… App bundle structure: CORRECT"
-        echo "âœ… Framework architecture: COMPATIBLE"  
-        echo "âœ… Python environment: CONFIGURED"
-        echo "âœ… Python execution: WORKING"
+        echo "??????? App bundle structure: CORRECT"
+        echo "??????? Framework architecture: COMPATIBLE"  
+        echo "??????? Python environment: CONFIGURED"
+        echo "??????? Python execution: WORKING"
         echo ""
-        echo "ðŸŽ‰ DEVICE SIMULATION PASSED - IPA should work correctly on device!"
+        echo "????????? DEVICE SIMULATION PASSED - IPA should work correctly on device!"
         
         # Clean up
         cd /
@@ -822,7 +822,7 @@ jobs:
         echo "Inspecting Python.framework via tools (nm, otool, file)..."
         PYBIN="$APPDIR/Frameworks/Python.framework/Python"
         if [ ! -f "$PYBIN" ]; then
-          echo "✗ Python.framework binary missing at $PYBIN"
+          echo "??? Python.framework binary missing at $PYBIN"
           exit 1
         fi
         
@@ -835,22 +835,22 @@ jobs:
         missing=0
         for sym in Py_Initialize Py_Finalize Py_IsInitialized; do
           if nm -g "$PYBIN" 2>/dev/null | grep -Eq "\\b(_)?$sym\\b"; then
-            echo "✓ Found symbol: $sym"
+            echo "??? Found symbol: $sym"
           elif strings "$PYBIN" 2>/dev/null | grep -q "$sym"; then
-            echo "✓ Found symbol via strings: $sym"
+            echo "??? Found symbol via strings: $sym"
           else
-            echo "✗ Missing symbol: $sym"
+            echo "??? Missing symbol: $sym"
             missing=1
           fi
         done
         if [ "$missing" -eq 0 ]; then
           echo ""
-          echo "✅ CRASH SIMULATION PASSED"
+          echo "??? CRASH SIMULATION PASSED"
           echo "The iOS Python bridge should work correctly on device"
           echo "App should NOT crash when run button is pressed"
         else
           echo ""
-          echo "❌ CRASH SIMULATION FAILED"
+          echo "??? CRASH SIMULATION FAILED"
           echo "One or more required symbols/files missing from Python.framework"
           exit 1
         fi
