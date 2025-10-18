@@ -796,30 +796,30 @@ jobs:
                 return False
             
             # Test 3: Try to execute Python code using the bundled runtime
-            test_code = '''
+            test_code = """
 import sys
 import os
 import json
 import math
 
 print("Python execution test:")
-print(f"Python version: {sys.version}")
-print(f"Platform: {sys.platform}")
+print("Python version:", sys.version)
+print("Platform:", sys.platform)
 
 # Test basic operations that iOS app would do
 result = 2 + 2
-print(f"Math test: 2 + 2 = {result}")
+print("Math test: 2 + 2 =", result)
 
 data = {"test": "success", "value": 42}
-print(f"JSON test: {json.dumps(data)}")
+print("JSON test:", json.dumps(data))
 
 import datetime
 now = datetime.datetime.now()
-print(f"DateTime test: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+print("DateTime test:", now.strftime('%Y-%m-%d %H:%M:%S'))
 
 print("✅ All Python operations completed successfully")
 print("DEVICE_SIMULATION_SUCCESS")
-'''
+"""
             
             # Write test code to temporary file
             with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
