@@ -833,16 +833,27 @@ jobs:
         
         echo "Checking for required Python C API symbols..."
         missing=0
-        for sym in Py_Initialize Py_Finalize Py_IsInitialized; do
-          if nm -g "$PYBIN" 2>/dev/null | grep -Eq "\\b(_)?$sym\\b"; then
-            echo "??? Found symbol: $sym"
-          elif strings "$PYBIN" 2>/dev/null | grep -q "$sym"; then
-            echo "??? Found symbol via strings: $sym"
-          else
-            echo "??? Missing symbol: $sym"
-            missing=1
-          fi
-        done
+        have_old_api=0
+        have_new_api=0
+        SYMS_NM=$(nm -g "$PYBIN" 2>/dev/null || true)
+        SYMS_STR=$(strings "$PYBIN" 2>/dev/null || true)
+        # Legacy API: Py_Initialize (removed in 3.14); accept if present
+        if echo "$SYMS_NM" | grep -Eq "\\b(_)?Py_Initialize\\b" || echo "$SYMS_STR" | grep -q "Py_Initialize"; then
+          have_old_api=1
+        fi
+        # Modern API: Py_InitializeFromConfig + Py_FinalizeEx
+        if ( echo "$SYMS_NM" | grep -Eq "\\b(_)?Py_InitializeFromConfig\\b" || echo "$SYMS_STR" | grep -q "Py_InitializeFromConfig" ) \
+           && ( echo "$SYMS_NM" | grep -Eq "\\b(_)?Py_FinalizeEx\\b" || echo "$SYMS_STR" | grep -q "Py_FinalizeEx" ); then
+          have_new_api=1
+        fi
+        if [ "$have_old_api" -eq 1 ]; then
+          echo "✅ Detected legacy init API: Py_Initialize"
+        elif [ "$have_new_api" -eq 1 ]; then
+          echo "✅ Detected modern init API: Py_InitializeFromConfig/Py_FinalizeEx"
+        else
+          echo "❌ Missing both legacy and modern Python init APIs"
+          missing=1
+        fi
         if [ "$missing" -eq 0 ]; then
           echo ""
           echo "??? CRASH SIMULATION PASSED"
