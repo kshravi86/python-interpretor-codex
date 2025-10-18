@@ -1,0 +1,122 @@
+name: iOS Simulator Smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: "Simulator device name"
+        required: false
+        default: "iPhone 15"
+
+jobs:
+  sim-smoke:
+    name: Build, Launch on Simulator, Capture Logs
+    runs-on: macos-latest
+    env:
+      DEVICE_NAME: ${{ inputs.device }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Fetch Python runtime (xcframework + stdlib)
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PY_SUPPORT_REPO: beeware/Python-Apple-support
+          PY_SUPPORT_TAG: 3.14-b8
+          PY_TARGET_XCF_DIR: ios/Frameworks/Python.xcframework
+          PY_TARGET_STDLIB: Resources/python-stdlib.zip
+        run: bash scripts/fetch_python_runtime.sh
+
+      - name: Build for Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          DERIVED=$RUNNER_TEMP/DerivedData
+          xcodebuild \
+            -project NotesApp.xcodeproj \
+            -scheme NotesApp \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -derivedDataPath "$DERIVED" \
+            CURRENT_PROJECT_VERSION=$(date +%Y%m%d%H%M) \
+            "FRAMEWORK_SEARCH_PATHS=$GITHUB_WORKSPACE/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator" \
+            "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks" \
+            build | xcpretty || true
+          APP=$(ls "$DERIVED/Build/Products/Release-iphonesimulator"/*.app | head -n 1)
+          if [ -z "$APP" ]; then echo "::error::Simulator .app not found"; exit 1; fi
+          echo "APP_PATH=$APP" >> $GITHUB_ENV
+
+      - name: Boot simulator
+        shell: bash
+        run: |
+          set -e
+          DEV_NAME="${DEVICE_NAME:-iPhone 15}"
+          RUNTIME=$(xcrun simctl list runtimes | awk -F '[() ]+' '/iOS/ {v=$4} END{print v}')
+          UDID=$(xcrun simctl list devices available | awk -v d="$DEV_NAME" -F '[()]' '$0 ~ d && $0 ~ /Booted|Shutdown/ {print $(NF-1); exit}')
+          if [ -z "$UDID" ]; then
+            UDID=$(xcrun simctl create "CI-$DEV_NAME" "com.apple.CoreSimulator.SimDeviceType.$(echo "$DEV_NAME" | tr ' ' '-')" "com.apple.CoreSimulator.SimRuntime.iOS-$RUNTIME")
+          fi
+          echo "SIM_UDID=$UDID" >> $GITHUB_ENV
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl list | sed -n '1,80p'
+
+      - name: Install and launch with autorun
+        shell: bash
+        run: |
+          set -e
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP_PATH/Info.plist")
+          echo "BUNDLE_ID=$BUNDLE_ID" >> $GITHUB_ENV
+          xcrun simctl install "$SIM_UDID" "$APP_PATH"
+          SNIPPET='print("PY SMOKE:", 2+2)'
+          B64=$(python3 - <<'PY'
+import base64,sys
+s='print("PY SMOKE:", 2+2)'
+print(base64.b64encode(s.encode()).decode())
+PY
+)
+          # Start a short log stream in background
+          xcrun simctl spawn "$SIM_UDID" log stream --level debug --style syslog > "$RUNNER_TEMP/simlog.txt" 2>&1 &
+          LOG_PID=$!
+          # Launch app with autorun
+          set +e
+          xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt
+          EXIT=$?
+          set -e
+          echo "LAUNCH_EXIT=$EXIT" >> $GITHUB_ENV
+          # Give the app a moment to write autorun output
+          sleep 3
+          kill $LOG_PID || true
+
+      - name: Collect autorun output and logs
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          ART=$RUNNER_TEMP/sim-artifacts
+          mkdir -p "$ART"
+          echo "Launch exit: ${LAUNCH_EXIT:-?}" | tee "$ART/summary.txt"
+          if [ -f "$RUNNER_TEMP/simlog.txt" ]; then cp "$RUNNER_TEMP/simlog.txt" "$ART/simlog.txt"; fi
+          # Copy autorun output from app container
+          if [ -n "${BUNDLE_ID:-}" ]; then
+            CONTAINER=$(xcrun simctl get_app_container "$SIM_UDID" "$BUNDLE_ID" data || true)
+            if [ -n "$CONTAINER" ] && [ -f "$CONTAINER/Documents/autorun.txt" ]; then
+              cp "$CONTAINER/Documents/autorun.txt" "$ART/autorun.txt"
+            fi
+          fi
+          ls -la "$ART" || true
+
+      - name: Upload simulator artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iOS-Simulator-Smoke
+          path: |
+            ${{ runner.temp }}/sim-artifacts
+
