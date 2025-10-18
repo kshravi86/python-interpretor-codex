@@ -17,22 +17,25 @@ def main():
         print("Missing BROWSERSTACK credentials or APP_URL", file=sys.stderr)
         sys.exit(1)
 
+    # Use W3C capabilities with BrowserStack bstack:options
     caps = {
         "platformName": "iOS",
-        "deviceName": device,
-        "os_version": os_version,
-        "app": app_url,
-        # Logging + debugging
-        "browserstack.debug": True,
-        "browserstack.deviceLogs": True,
-        "browserstack.networkLogs": True,
-        "browserstack.console": "verbose",
-        # Stability
-        "autoAcceptAlerts": True,
-        "newCommandTimeout": 120,
-        "project": "CodeSnake",
-        "build": f"BS Smoke {int(time.time())}",
-        "name": "Launch + Run button tap",
+        "appium:automationName": "XCUITest",
+        "appium:app": app_url,
+        "appium:autoAcceptAlerts": True,
+        "appium:newCommandTimeout": 120,
+        "bstack:options": {
+            "deviceName": device,
+            "osVersion": os_version,
+            "projectName": "CodeSnake",
+            "buildName": f"BS Smoke {int(time.time())}",
+            "sessionName": "Launch + Run button tap",
+            "debug": True,
+            "deviceLogs": True,
+            "networkLogs": True,
+            "appiumLogs": True,
+            "consoleLogs": "verbose",
+        },
     }
 
     remote = f"https://{user}:{key}@hub-cloud.browserstack.com/wd/hub"
@@ -41,8 +44,16 @@ def main():
     session_url = None
     try:
         driver = webdriver.Remote(remote, caps)
-        session_id = driver.session_id
-        session_url = f"https://app-automate.browserstack.com/dashboard/v2/sessions/{session_id}"
+        # Fetch public session URL via executor API for reliability
+        try:
+            details = driver.execute_script('browserstack_executor: {"action": "getSessionDetails"}')
+            if isinstance(details, dict) and details.get("public_url"):
+                session_url = details["public_url"]
+        except Exception:
+            pass
+        if not session_url:
+            session_id = driver.session_id
+            session_url = f"https://app-automate.browserstack.com/dashboard/v2/sessions/{session_id}"
         with open("bs_session.txt", "w") as f:
             f.write(session_url)
         print(f"BrowserStack session: {session_url}")
@@ -101,4 +112,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
