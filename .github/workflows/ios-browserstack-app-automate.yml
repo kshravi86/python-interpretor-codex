@@ -20,7 +20,7 @@ jobs:
       BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
       P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
       KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-      BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+      ADHOC_PROVISION_PROFILE_BASE64: ${{ secrets.ADHOC_PROVISION_PROFILE_BASE64 }}
       IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
     steps:
       - name: Checkout
@@ -58,10 +58,10 @@ jobs:
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
 
-      - name: Install Provisioning Profile (Build)
+      - name: Install Provisioning Profile (Ad Hoc)
         run: |
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          echo -n "$ADHOC_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           security cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist
