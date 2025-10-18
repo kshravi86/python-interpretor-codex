@@ -52,23 +52,25 @@ jobs:
           if [ -z "$APP" ]; then echo "::error::Simulator .app not found"; exit 1; fi
           echo "APP_PATH=$APP" >> $GITHUB_ENV
 
-      - name: Boot simulator
+            - name: Boot simulator
         shell: bash
         run: |
           set -euo pipefail
-          # Prefer an existing iPhone simulator
-          UDID=$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ {print $(NF-1); exit}')
+          set -x
+          # Try first available simulator (any iPhone)
+          UDID=$(xcrun simctl list devices available -j | python3 -c "import sys,json; d=json.load(sys.stdin)['devices']; c=[e['udid'] for rt,arr in d.items() for e in arr if e.get('isAvailable') and 'iPhone' in e.get('name','')]; print(c[0] if c else '')")
           if [ -z "$UDID" ]; then
-            # Create a new iPhone simulator with latest iOS runtime
             TYPE_ID=$(xcrun simctl list devicetypes -j | python3 -c "import sys,json; d=json.load(sys.stdin)['devicetypes']; m=[t['identifier'] for t in d if 'iPhone' in t['name']]; print(m[0])")
             RUNTIME_ID=$(xcrun simctl list runtimes -j | python3 -c "import sys,json; r=[x for x in json.load(sys.stdin)['runtimes'] if x.get('isAvailable') and x.get('identifier','').startswith('com.apple.CoreSimulator.SimRuntime.iOS')]; r.sort(key=lambda x:x.get('version',''), reverse=True); print(r[0]['identifier'])")
+            xcrun simctl list devicetypes | head -n 20
+            xcrun simctl list runtimes | head -n 50
             UDID=$(xcrun simctl create CI-iPhone "$TYPE_ID" "$RUNTIME_ID")
           fi
           echo "SIM_UDID=$UDID" >> $GITHUB_ENV
           xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl bootstatus "$UDID" -b || (xcrun simctl list devices; exit 1)
 
-      - name: Install and launch with autorun
+      - name: Install and launch with autorun Install and launch with autorun
         shell: bash
         run: |
           set -euo pipefail
