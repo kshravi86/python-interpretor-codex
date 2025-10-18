@@ -796,35 +796,30 @@ jobs:
                 return False
             
             # Test 3: Try to execute Python code using the bundled runtime
-            test_code = """
-import sys
-import os
-import json
-import math
-
-print("Python execution test:")
-print("Python version:", sys.version)
-print("Platform:", sys.platform)
-
-# Test basic operations that iOS app would do
-result = 2 + 2
-print("Math test: 2 + 2 =", result)
-
-data = {"test": "success", "value": 42}
-print("JSON test:", json.dumps(data))
-
-import datetime
-now = datetime.datetime.now()
-print("DateTime test:", now.strftime('%Y-%m-%d %H:%M:%S'))
-
-print("✅ All Python operations completed successfully")
-print("DEVICE_SIMULATION_SUCCESS")
-"""
-            
-            # Write test code to temporary file
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-                f.write(test_code)
-                test_file = f.name
+            # Create test code by writing lines individually to avoid YAML issues
+            test_file = tempfile.mktemp(suffix='.py')
+            with open(test_file, 'w') as f:
+                f.write("import sys\\n")
+                f.write("import os\\n") 
+                f.write("import json\\n")
+                f.write("import math\\n")
+                f.write("\\n")
+                f.write("print('Python execution test:')\\n")
+                f.write("print('Python version:', sys.version)\\n")
+                f.write("print('Platform:', sys.platform)\\n")
+                f.write("\\n")
+                f.write("result = 2 + 2\\n")
+                f.write("print('Math test: 2 + 2 =', result)\\n")
+                f.write("\\n")
+                f.write("data = {'test': 'success', 'value': 42}\\n")
+                f.write("print('JSON test:', json.dumps(data))\\n")
+                f.write("\\n")
+                f.write("import datetime\\n")
+                f.write("now = datetime.datetime.now()\\n")
+                f.write("print('DateTime test:', now.strftime('%Y-%m-%d %H:%M:%S'))\\n")
+                f.write("\\n")
+                f.write("print('✅ All Python operations completed successfully')\\n")
+                f.write("print('DEVICE_SIMULATION_SUCCESS')\\n")
             
             try:
                 # Set up environment to use bundled Python runtime
