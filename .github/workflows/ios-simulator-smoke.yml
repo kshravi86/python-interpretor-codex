@@ -74,7 +74,7 @@ jobs:
               plutil -p "$APP_PATH/Info.plist" > "$OUTDIR/info-plist.txt" 2>&1 || true
             fi
           fi
-          echo "Detected APP_PATH=$APP"
+          echo "Detected APP_PATH=$APP_PATH"
       - name: Collect sim inventories
         run: |
           set -euo pipefail
