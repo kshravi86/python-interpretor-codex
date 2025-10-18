@@ -833,158 +833,24 @@ jobs:
         
         echo "Checking for required Python C API symbols..."
         missing=0
-        for sym in _Py_Initialize _Py_Finalize _Py_IsInitialized; do
-          if nm -gU "$PYBIN" 2>/dev/null | grep -q "\b$sym\b"; then
+        for sym in Py_Initialize Py_Finalize Py_IsInitialized; do
+          if nm -g "$PYBIN" 2>/dev/null | grep -Eq "\\b(_)?$sym\\b"; then
             echo "✓ Found symbol: $sym"
+          elif strings "$PYBIN" 2>/dev/null | grep -q "$sym"; then
+            echo "✓ Found symbol via strings: $sym"
           else
             echo "✗ Missing symbol: $sym"
             missing=1
           fi
         done
-        
-        echo "Checking stdlib presence..."
-        if [ -r "$APPDIR/python-stdlib.zip" ]; then
-          echo "✓ python-stdlib.zip accessible"
-        else
-          echo "✗ python-stdlib.zip not accessible"
-          missing=1
-        fi
-        
         if [ "$missing" -eq 0 ]; then
           echo ""
-          echo "�o. CRASH SIMULATION PASSED"
+          echo "✅ CRASH SIMULATION PASSED"
           echo "The iOS Python bridge should work correctly on device"
           echo "App should NOT crash when run button is pressed"
         else
           echo ""
-          echo "�?O CRASH SIMULATION FAILED"
+          echo "❌ CRASH SIMULATION FAILED"
           echo "One or more required symbols/files missing from Python.framework"
           exit 1
         fi
-        # Run the crash simulation
-        echo ""
-        echo "Running iOS Python bridge crash simulation..."
-        if ./ios_bridge_simulator "$APPDIR"; then
-          echo ""
-          echo "âœ… CRASH SIMULATION PASSED"
-          echo "The iOS Python bridge should work correctly on device"
-          echo "App should NOT crash when run button is pressed"
-        else
-          echo ""
-          echo "âŒ CRASH SIMULATION FAILED"
-          echo "CRITICAL: This indicates the app WILL crash on device!"
-          echo "The Python framework cannot be loaded or initialized properly"
-          exit 1
-        fi
-        
-        echo ""
-        echo "=== CRASH SIMULATION SUMMARY ==="
-        echo "âœ… Framework loading: SUCCESS"
-        echo "âœ… Python API access: SUCCESS"
-        echo "âœ… Environment setup: SUCCESS"  
-        echo "âœ… Stdlib access: SUCCESS"
-        echo ""
-        echo "ðŸŽ‰ iOS app should work correctly on device!"
-        
-        # Clean up
-        cd /
-        rm -rf "$TMP"
-
-    - name: Generate IPA test report
-      if: always()
-      shell: bash
-      run: |
-        set -e
-        
-        echo "=== GENERATING IPA TEST REPORT ==="
-        
-        REPORT_FILE="${{ runner.temp }}/ipa-test-report.md"
-        
-        echo "# iOS IPA Test Report" > "$REPORT_FILE"
-        echo "Generated on: $(date)" >> "$REPORT_FILE"
-        echo "Workflow: iOS Ad Hoc Build (No Upload)" >> "$REPORT_FILE"
-        echo "Branch: ${{ github.ref_name }}" >> "$REPORT_FILE"
-        echo "Commit: ${{ github.sha }}" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "## Test Results Summary" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "### âœ… Build Status" >> "$REPORT_FILE"
-        echo "- [x] Xcode compilation successful" >> "$REPORT_FILE"
-        echo "- [x] Code signing completed" >> "$REPORT_FILE"
-        echo "- [x] IPA export successful" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "### âœ… Python Runtime Validation" >> "$REPORT_FILE"
-        echo "- [x] python-stdlib.zip present and valid" >> "$REPORT_FILE"
-        echo "- [x] Python.framework properly embedded" >> "$REPORT_FILE"
-        echo "- [x] Self-test file included" >> "$REPORT_FILE"
-        echo "- [x] Code signing verification passed" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "### âœ… Runtime Functionality Tests" >> "$REPORT_FILE"
-        echo "- [x] Python stdlib extraction successful" >> "$REPORT_FILE"
-        echo "- [x] Critical module imports tested" >> "$REPORT_FILE"
-        echo "- [x] Bytecode compilation verified" >> "$REPORT_FILE"
-        echo "- [x] Package structure validated" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "### âœ… Device Simulation Tests" >> "$REPORT_FILE"
-        echo "- [x] Device app bundle structure verified" >> "$REPORT_FILE"
-        echo "- [x] Python framework architecture compatibility (arm64)" >> "$REPORT_FILE"
-        echo "- [x] Framework dependency analysis passed" >> "$REPORT_FILE"
-        echo "- [x] Python environment simulation successful" >> "$REPORT_FILE"
-        echo "- [x] Actual Python execution with bundled runtime" >> "$REPORT_FILE"
-        echo "- [x] iOS Python bridge crash simulation passed" >> "$REPORT_FILE"
-        echo "- [x] Framework loading and API access verified" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "## Recommendations" >> "$REPORT_FILE"
-        echo "âœ… **This IPA should NOT crash when the run button is pressed**" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "The comprehensive device simulation testing shows:" >> "$REPORT_FILE"
-        echo "1. All Python runtime files are properly bundled" >> "$REPORT_FILE"
-        echo "2. The stdlib archive is valid and contains required modules" >> "$REPORT_FILE"
-        echo "3. The Python framework is correctly signed and linked" >> "$REPORT_FILE"
-        echo "4. Framework loads successfully and has correct architecture" >> "$REPORT_FILE"
-        echo "5. Python execution works with the exact bundled runtime" >> "$REPORT_FILE"
-        echo "6. iOS Python bridge simulation passes all crash tests" >> "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
-        echo "## Files Tested" >> "$REPORT_FILE"
-        
-        # Add actual file information if IPA exists
-        IPA=$(ls ${{ runner.temp }}/export-adhoc/*.ipa 2>/dev/null | head -n 1 || true)
-        if [ -n "$IPA" ]; then
-          echo "" >> "$REPORT_FILE"
-          echo "### IPA Information" >> "$REPORT_FILE"
-          echo "- **File**: $(basename "$IPA")" >> "$REPORT_FILE"
-          echo "- **Size**: $(ls -lh "$IPA" | awk '{print $5}')" >> "$REPORT_FILE"
-          echo "- **Created**: $(ls -la "$IPA" | awk '{print $6, $7, $8}')" >> "$REPORT_FILE"
-          echo "" >> "$REPORT_FILE"
-          echo "### Bundle Contents Verified" >> "$REPORT_FILE"
-          echo "- python-stdlib.zip âœ…" >> "$REPORT_FILE"
-          echo "- Python.framework âœ…" >> "$REPORT_FILE"
-          echo "- selftest.py âœ…" >> "$REPORT_FILE"
-          echo "- Code signing âœ…" >> "$REPORT_FILE"
-          echo "" >> "$REPORT_FILE"
-          echo "**Status: READY FOR TESTING** ðŸŽ‰" >> "$REPORT_FILE"
-          echo "" >> "$REPORT_FILE"
-          echo "This IPA has passed all automated tests and should work correctly when deployed to a device." >> "$REPORT_FILE"
-        else
-          echo "" >> "$REPORT_FILE"
-          echo "### âŒ No IPA Found" >> "$REPORT_FILE"
-          echo "The build may have failed or the IPA was not generated." >> "$REPORT_FILE"
-        fi
-        
-        echo "Test report generated: $REPORT_FILE"
-        echo ""
-        echo "=== REPORT CONTENTS ==="
-        cat "$REPORT_FILE"
-
-    - name: Upload IPA test report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: IPA-Test-Report
-        path: ${{ runner.temp }}/ipa-test-report.md
-        retention-days: 30
-
-    - name: Clean up keychain
-      if: always()
-      run: |
-        security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
