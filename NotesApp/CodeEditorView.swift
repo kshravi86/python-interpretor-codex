@@ -150,7 +150,7 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
         AppLogger.log("selection changed, currentLine before update: \(currentLine)")
         updateCurrentLine()
         AppLogger.log("selection changed, currentLine after update: \(currentLine)")
-        applyHighlighting()
+        // Avoid re-laying out attributed text on every selection change to prevent CoreText instability
         gutter.setNeedsDisplay()
     }
 
@@ -162,27 +162,9 @@ final class CodeEditorContainer: UIView, UITextViewDelegate {
     }
 
     private func applyHighlighting() {
+        // Rebuild attributed text only on actual text changes
         highlighter.highlight(textView: textView, theme: theme, font: font)
-        // Add current-line background highlight
-        guard let text = textView.text else { return }
-        let ns = text as NSString
-        let length = ns.length
-        let caret = min(textView.selectedRange.location, length)
-        let start = ns.range(of: "\n", options: .backwards, range: NSRange(location: 0, length: caret)).location
-        let lineStart = (start == NSNotFound) ? 0 : (start + 1)
-        let nextRangeStart = (caret < length) ? caret : (length - 1)
-        let endSearchRange = NSRange(location: max(0, nextRangeStart), length: length - max(0, nextRangeStart))
-        let next = ns.range(of: "\n", options: [], range: endSearchRange).location
-        let lineEnd = (next == NSNotFound) ? length : next
-        if lineEnd >= lineStart && lineStart <= length {
-            let bgRange = NSRange(location: lineStart, length: lineEnd - lineStart)
-            let bg = (dark ? UIColor.systemBlue.withAlphaComponent(0.18) : UIColor.systemBlue.withAlphaComponent(0.12))
-            let mut = NSMutableAttributedString(attributedString: textView.attributedText)
-            mut.addAttribute(.backgroundColor, value: bg, range: bgRange)
-            let sel = textView.selectedRange
-            textView.attributedText = mut
-            textView.selectedRange = sel
-        }
+        // Temporarily disable current-line background to avoid CoreText crashes on some OS versions
         gutter.currentLine = currentLine
         gutter.breakpoints = breakpoints
     }
