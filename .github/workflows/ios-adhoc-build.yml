@@ -569,38 +569,38 @@ jobs:
         echo "Testing critical module imports..."
         
         # Create test script that mimics what the iOS app does
-        cat > test_imports.py << 'EOF'
-import sys
-import os
-import io
-import json
-import math
-import random
-import time
-import datetime
-
-print("✅ All critical modules imported successfully")
-print(f"Python version: {sys.version}")
-print(f"Platform: {sys.platform}")
-
-# Test basic functionality
-result = 2 + 2
-print(f"Basic math: 2 + 2 = {result}")
-
-# Test string operations
-text = "Hello from Python!"
-print(f"String test: {text.upper()}")
-
-# Test data structures
-data = {"test": "success", "number": 42}
-print(f"JSON test: {json.dumps(data)}")
-
-# Test datetime
-now = datetime.datetime.now()
-print(f"Datetime test: {now.strftime('%Y-%m-%d %H:%M:%S')}")
-
-print("🎉 Python runtime test completed successfully!")
-EOF
+        cat > test_imports.py << 'EOF_PYTHON'
+        import sys
+        import os
+        import io
+        import json
+        import math
+        import random
+        import time
+        import datetime
+        
+        print("✅ All critical modules imported successfully")
+        print("Python version:", sys.version)
+        print("Platform:", sys.platform)
+        
+        # Test basic functionality
+        result = 2 + 2
+        print("Basic math: 2 + 2 =", result)
+        
+        # Test string operations
+        text = "Hello from Python!"
+        print("String test:", text.upper())
+        
+        # Test data structures
+        data = {"test": "success", "number": 42}
+        print("JSON test:", json.dumps(data))
+        
+        # Test datetime
+        now = datetime.datetime.now()
+        print("Datetime test:", now.strftime('%Y-%m-%d %H:%M:%S'))
+        
+        print("🎉 Python runtime test completed successfully!")
+        EOF_PYTHON
         
         # Try to run the test with system Python using our stdlib
         export PYTHONPATH="$STDLIB_DIR"
@@ -645,13 +645,13 @@ EOF
         echo ""
         echo "Testing Python bytecode compilation..."
         
-        cat > bytecode_test.py << 'EOF'
-def test_function():
-    return "Bytecode compilation works!"
-
-if __name__ == "__main__":
-    print(test_function())
-EOF
+        cat > bytecode_test.py << 'EOF_BYTECODE'
+        def test_function():
+            return "Bytecode compilation works!"
+        
+        if __name__ == "__main__":
+            print(test_function())
+        EOF_BYTECODE
         
         if python3 -m py_compile bytecode_test.py; then
           echo "✅ Python bytecode compilation works"
@@ -687,43 +687,43 @@ EOF
         
         REPORT_FILE="${{ runner.temp }}/ipa-test-report.md"
         
-        cat > "$REPORT_FILE" << 'EOF'
-# iOS IPA Test Report
-Generated on: $(date)
-Workflow: iOS Ad Hoc Build (No Upload)
-Branch: ${{ github.ref_name }}
-Commit: ${{ github.sha }}
-
-## Test Results Summary
-
-### ✅ Build Status
-- [x] Xcode compilation successful
-- [x] Code signing completed
-- [x] IPA export successful
-
-### ✅ Python Runtime Validation
-- [x] python-stdlib.zip present and valid
-- [x] Python.framework properly embedded
-- [x] Self-test file included
-- [x] Code signing verification passed
-
-### ✅ Runtime Functionality Tests
-- [x] Python stdlib extraction successful
-- [x] Critical module imports tested
-- [x] Bytecode compilation verified
-- [x] Package structure validated
-
-## Recommendations
-✅ **This IPA should NOT crash when the run button is pressed**
-
-The comprehensive testing shows:
-1. All Python runtime files are properly bundled
-2. The stdlib archive is valid and contains required modules
-3. The Python framework is correctly signed and linked
-4. Basic Python functionality works with the bundled stdlib
-
-## Files Tested
-EOF
+        cat > "$REPORT_FILE" << 'EOF_REPORT'
+        # iOS IPA Test Report
+        Generated on: $(date)
+        Workflow: iOS Ad Hoc Build (No Upload)
+        Branch: ${{ github.ref_name }}
+        Commit: ${{ github.sha }}
+        
+        ## Test Results Summary
+        
+        ### ✅ Build Status
+        - [x] Xcode compilation successful
+        - [x] Code signing completed
+        - [x] IPA export successful
+        
+        ### ✅ Python Runtime Validation
+        - [x] python-stdlib.zip present and valid
+        - [x] Python.framework properly embedded
+        - [x] Self-test file included
+        - [x] Code signing verification passed
+        
+        ### ✅ Runtime Functionality Tests
+        - [x] Python stdlib extraction successful
+        - [x] Critical module imports tested
+        - [x] Bytecode compilation verified
+        - [x] Package structure validated
+        
+        ## Recommendations
+        ✅ **This IPA should NOT crash when the run button is pressed**
+        
+        The comprehensive testing shows:
+        1. All Python runtime files are properly bundled
+        2. The stdlib archive is valid and contains required modules
+        3. The Python framework is correctly signed and linked
+        4. Basic Python functionality works with the bundled stdlib
+        
+        ## Files Tested
+        EOF_REPORT
         
         # Add actual file information if IPA exists
         IPA=$(ls ${{ runner.temp }}/export-adhoc/*.ipa 2>/dev/null | head -n 1 || true)
