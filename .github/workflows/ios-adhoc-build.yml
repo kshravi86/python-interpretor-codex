@@ -766,14 +766,14 @@ jobs:
         
         # Create simple test script
         cat > simple_test.py << 'EOF_SIMPLE'
-import sys
-import os
-import json
-print("Python test: 2+2 =", 2+2)
-data = dict(test="success")
-print("JSON test:", json.dumps(data))
-print("DEVICE_TEST_SUCCESS")
-EOF_SIMPLE
+        import sys
+        import os
+        import json
+        print("Python test: 2+2 =", 2+2)
+        data = dict(test="success")
+        print("JSON test:", json.dumps(data))
+        print("DEVICE_TEST_SUCCESS")
+        EOF_SIMPLE
         
         # Run the test
         if python3 simple_test.py 2>/dev/null | grep -q "DEVICE_TEST_SUCCESS"; then
