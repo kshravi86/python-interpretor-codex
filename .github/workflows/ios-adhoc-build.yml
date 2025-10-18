@@ -770,7 +770,8 @@ import sys
 import os
 import json
 print("Python test: 2+2 =", 2+2)
-print("JSON test:", json.dumps({"test": "success"}))
+data = dict(test="success")
+print("JSON test:", json.dumps(data))
 print("DEVICE_TEST_SUCCESS")
 EOF_SIMPLE
         
