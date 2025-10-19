@@ -230,7 +230,7 @@ jobs:
           DYN_FLAGS=()
           # Prefer device include dir to avoid module.map usage in framework headers
           DYN_FLAGS+=("HEADER_SEARCH_PATHS=${PY_INC_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64/include}")
-          DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python}")
+          DYN_FLAGS+=("FRAMEWORK_SEARCH_PATHS=${PY_FW_DIR:-$PWD/ThirdParty/Python/Python.xcframework/ios-arm64}")
           # Pass framework flags via linker to satisfy swift/clang drivers consistently
           DYN_FLAGS+=("OTHER_LDFLAGS=-Xlinker -framework -Xlinker Python")
           DYN_FLAGS+=("GCC_PREPROCESSOR_DEFINITIONS=EXPECTED_PYVER_PREFIX=\\\"${EXPECTED_PY_PREFIX:-3.14}\\\"")

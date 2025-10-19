@@ -20,7 +20,8 @@
       "Bash(bash:*)",
       "Bash(RUNNER_TEMP=/tmp bash scripts/fetch_python_runtime.sh)",
       "Bash(rm:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
