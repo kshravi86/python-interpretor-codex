@@ -177,6 +177,22 @@ jobs:
             if [ -n "$CONTAINER" ] && [ -f "$CONTAINER/Documents/autorun.txt" ]; then
               cp "$CONTAINER/Documents/autorun.txt" "$ART/autorun.txt"
             fi
+            # Deep search for autorun.txt anywhere in container if not found in Documents
+            if [ -n "$CONTAINER" ] && [ ! -f "$ART/autorun.txt" ]; then
+              FOUND=$(find "$CONTAINER" -maxdepth 5 -type f -name autorun.txt -print -quit 2>/dev/null || true)
+              if [ -n "$FOUND" ]; then
+                echo "Found autorun at: $FOUND"
+                cp "$FOUND" "$ART/autorun.txt" || true
+              fi
+            fi
+            # Dump Documents directory listing for debugging
+            if [ -n "$CONTAINER" ] && [ -d "$CONTAINER/Documents" ]; then
+              (cd "$CONTAINER/Documents" && pwd && ls -laR) > "$ART/documents-tree.txt" 2>&1 || true
+            fi
+          fi
+          # Grep for explicit PY SMOKE output in simlog for quick confirmation
+          if [ -f "$ART/simlog.txt" ]; then
+            (grep -F "PY SMOKE:" "$ART/simlog.txt" || true) > "$ART/py-smoke-grep.txt" 2>&1 || true
           fi
           # Save inventories for debugging
           for f in devices.json runtimes.json devicetypes.json; do
