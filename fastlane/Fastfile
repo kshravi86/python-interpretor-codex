@@ -60,6 +60,7 @@ platform :ios do
 
     # Build Release for simulator (capture logs and xcresult)
     result_bundle = File.join(derived, "build.xcresult")
+    sim_fw_search = File.join(root, 'ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator')
     sh("xcodebuild -list -project \"#{project}\" | tee \"#{File.join(art_dir,'xcodebuild-list.log')}\"")
     sh("bash -lc 'set -o pipefail; xcodebuild clean -project \"#{project}\" -scheme #{scheme} -configuration Release -sdk iphonesimulator | tee \"#{File.join(art_dir,'xcodebuild-clean.log')}\"' || true")
     build_cmd = [
@@ -71,6 +72,8 @@ platform :ios do
       "-destination","id=#{udid}",
       "-derivedDataPath",derived,
       "-resultBundlePath",result_bundle,
+      "FRAMEWORK_SEARCH_PATHS=\"#{sim_fw_search}\"",
+      "LD_RUNPATH_SEARCH_PATHS=@executable_path/Frameworks",
       "ONLY_ACTIVE_ARCH=YES",
       'EXCLUDED_ARCHS="x86_64"',
       'VALID_ARCHS=arm64'
