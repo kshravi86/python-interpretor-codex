@@ -17,6 +17,13 @@ platform :ios do
 
     # Ensure artifacts directory exists even if we fail early
     begin
+    # Fetch Python runtime (xcframework + stdlib) similar to GH workflow
+    ENV['PY_SUPPORT_REPO'] = 'beeware/Python-Apple-support'
+    ENV['PY_SUPPORT_TAG'] = '3.14-b8'
+    ENV['PY_TARGET_XCF_DIR'] = File.join(root, 'ios/Frameworks/Python.xcframework')
+    ENV['PY_TARGET_STDLIB'] = File.join(root, 'ThirdParty/Python/python-stdlib.zip')
+    FileUtils.mkdir_p(File.dirname(ENV['PY_TARGET_STDLIB']))
+    sh("bash scripts/fetch_python_runtime.sh")
     # Resolve a recent iPhone sim + latest available iOS runtime
     dt_json = sh("xcrun simctl list devicetypes -j")
     devtypes = JSON.parse(dt_json)["devicetypes"]
