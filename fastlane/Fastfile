@@ -4,6 +4,132 @@ require 'fileutils'
 default_platform(:ios)
 
 platform :ios do
+  desc "Python runtime smoke test on iPhone simulator via Fastlane"
+  lane :python_smoke do |options|
+    require 'base64'
+    root    = File.expand_path('..', __dir__)
+    project = File.join(root, "NotesApp.xcodeproj")
+    scheme  = options[:scheme]  || "NotesApp"
+    derived = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "DerivedFastlaneSmoke")
+    art_dir = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "fastlane-smoke")
+    FileUtils.mkdir_p([derived, art_dir])
+
+    # Resolve a recent iPhone sim + latest available iOS runtime
+    dt_json = sh("xcrun simctl list devicetypes -j")
+    devtypes = JSON.parse(dt_json)["devicetypes"]
+    phone = devtypes.find { |dt| dt["name"].start_with?("iPhone 15") } || devtypes.find { |dt| dt["name"].include?("iPhone") }
+    UI.user_error!("No iPhone device type found") unless phone
+    dt_id = phone["identifier"]
+
+    runtimes_json = sh("xcrun simctl list runtimes -j")
+    runtimes = JSON.parse(runtimes_json)["runtimes"]
+    ios = runtimes.select { |r| r["identifier"].start_with?("com.apple.CoreSimulator.SimRuntime.iOS-") && (r["isAvailable"] != false) }
+    ios.sort_by! { |r| r["productVersion"].to_s.scan(/\d+/).map(&:to_i) }
+    UI.user_error!("No available iOS runtimes") if ios.empty?
+    runtime_id = ios.last["identifier"]
+
+    sim_name = "CI iPhone PySmoke"
+    devices_json = sh("xcrun simctl list devices #{runtime_id} -j")
+    devices = JSON.parse(devices_json)["devices"][runtime_id] || []
+    udid = devices.find { |d| d["name"] == sim_name }&.dig("udid")
+    unless udid
+      udid = sh("xcrun simctl create \"#{sim_name}\" #{dt_id} #{runtime_id}").strip
+    end
+
+    UI.message("Using runtime=#{runtime_id} udid=#{udid}")
+    sh("xcrun simctl shutdown #{udid} || true")
+    sh("xcrun simctl erase #{udid} || true")
+    sh("open -a Simulator || true")
+    sh("xcrun simctl boot #{udid} || true")
+    sh("xcrun simctl bootstatus #{udid} -b || true")
+
+    # Build Release for simulator
+    sh("xcodebuild clean -project \"#{project}\" -scheme #{scheme} -configuration Release -sdk iphonesimulator || true")
+    sh([
+      "xcodebuild","build",
+      "-project",project,
+      "-scheme",scheme,
+      "-configuration","Release",
+      "-sdk","iphonesimulator",
+      "-destination","id=#{udid}",
+      "-derivedDataPath",derived
+    ].join(" "))
+
+    products = File.join(derived, "Build/Products/Release-iphonesimulator")
+    app_path = Dir[File.join(products, "*.app")].first
+    UI.user_error!("No .app found at #{products}") unless app_path
+
+    # Inject Simulator Python.framework from xcframework if present (mirror existing GH step)
+    sim_fw = File.join(root, "ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework")
+    if File.directory?(sim_fw)
+      FileUtils.mkdir_p(File.join(app_path, "Frameworks"))
+      FileUtils.rm_rf(File.join(app_path, "Frameworks", "Python.framework"))
+      sh("rsync -a \"#{sim_fw}/\" \"#{File.join(app_path, 'Frameworks','Python.framework')}/\"")
+    else
+      UI.important("Simulator Python.framework not found at #{sim_fw}; proceeding without injection")
+    end
+
+    # Install on simulator
+    sh("xcrun simctl install #{udid} \"#{app_path}\"")
+
+    # Resolve bundle identifier
+    info_plist = File.join(app_path, 'Info.plist')
+    bundle_id = nil
+    if File.exist?(info_plist)
+      bundle_id = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' \"#{info_plist}\"").strip rescue nil
+    end
+    if bundle_id.to_s.empty?
+      # Fallback via build settings
+      json = sh("xcodebuild -project \"#{project}\" -scheme #{scheme} -showBuildSettings -json")
+      begin
+        arr = JSON.parse(json)
+        ids = arr.map { |e| e.dig('buildSettings','PRODUCT_BUNDLE_IDENTIFIER') }.compact
+        bundle_id = ids.first
+      rescue
+      end
+    end
+    UI.user_error!("Could not determine bundle identifier") if bundle_id.to_s.empty?
+
+    # Launch with autorun arguments
+    b64 = Base64.strict_encode64("print(\"PY SMOKE:\", 2+2)")
+    sh("bash -lc 'xcrun simctl launch #{udid} #{bundle_id} --args --autorun-b64 #{b64} --autorun-save autorun.txt > #{art_dir}/launch.out 2> #{art_dir}/launch.err || true'")
+
+    # Pull app container artifacts
+    container = sh("xcrun simctl get_app_container #{udid} #{bundle_id} data || true").strip
+    if !container.to_s.empty?
+      doc = File.join(container, 'Documents')
+      if File.exist?(File.join(doc, 'autorun.txt'))
+        FileUtils.cp(File.join(doc,'autorun.txt'), File.join(art_dir,'autorun.txt')) rescue nil
+      end
+      if File.exist?(File.join(doc, 'log.txt'))
+        FileUtils.cp(File.join(doc,'log.txt'), File.join(art_dir,'app-log.txt')) rescue nil
+      end
+      # Save listing for debugging
+      File.write(File.join(art_dir,'documents-tree.txt'), Dir.exist?(doc) ? Dir.entries(doc).join("\n") : "Documents missing") rescue nil
+    end
+
+    # Basic verification: look for explicit PY SMOKE output
+    found = false
+    begin
+      if File.exist?(File.join(art_dir,'autorun.txt')) && File.read(File.join(art_dir,'autorun.txt')).include?("PY SMOKE: 4")
+        found = true
+      end
+      if !found && File.exist?(File.join(art_dir,'app-log.txt')) && File.read(File.join(art_dir,'app-log.txt')).include?("PY SMOKE: 4")
+        found = true
+      end
+      if !found && File.exist?(File.join(art_dir,'launch.out')) && File.read(File.join(art_dir,'launch.out')).include?("PY SMOKE: 4")
+        found = true
+      end
+    rescue => e
+      UI.important("Read error during verification: #{e}")
+    end
+
+    unless found
+      UI.user_error!("Python autorun output not found. Check #{art_dir} for launch.err, app-log.txt, and autorun.txt")
+    end
+
+    UI.success("Python smoke passed. Artifacts in #{art_dir}")
+  end
   desc "UI smoke test on iPhone simulator"
   lane :ui_smoke do |options|
     root    = File.expand_path('..', __dir__)
