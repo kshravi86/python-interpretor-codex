@@ -1,507 +1,298 @@
-37s
-Run set -euo pipefail
-  
-[09:47:04]: Sending anonymous analytics information
-[09:47:04]: Learn more at https://docs.fastlane.tools/#metrics
-[09:47:04]: No personal or sensitive data is sent.
-[09:47:04]: You can disable this by adding `opt_out_usage` at the top of your Fastfile
-[09:47:04]: ------------------------------
-[09:47:04]: --- Step: default_platform ---
-[09:47:04]: ------------------------------
-[09:47:04]: Driving the lane 'ios python_smoke' 🚀
-[09:47:04]: --------------------------------------------------------------------
-[09:47:04]: Step: xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived
-[09:47:04]: --------------------------------------------------------------------
-[09:47:04]: $ xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived
-[09:47:05]: ▸ Command line invocation:
-[09:47:05]: ▸ /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
-[09:47:05]: ▸ User defaults from command line:
-[09:47:05]: ▸ IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
-[09:47:05]: ▸ IDEPackageSupportUseBuiltinSCM = YES
-[09:47:05]: ▸ Build settings from command line:
-[09:47:05]: ▸ SDKROOT = iphonesimulator18.2
-[09:47:37]: ▸ 2025-10-19 09:47:37.866 xcodebuild[20457:76614] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-47-0037.xcresult
-[09:47:39]: ▸ xcodebuild: error: Unable to find a device matching the provided destination specifier:
-[09:47:39]: ▸ { platform:iOS Simulator, OS:latest, name:iPhone 15 }
-[09:47:39]: ▸ The requested device could not be found because no available devices matched the request.
-[09:47:39]: ▸ Available destinations for the "NotesApp" scheme:
-[09:47:39]: ▸ { platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:0000FE00-B7D8BF07EAD829EE, name:My Mac }
-[09:47:39]: ▸ { platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-[09:47:39]: ▸ { platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
-[09:47:39]: ▸ { platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:F6A20526-87A7-456D-9541-92F0B1B56E6C, OS:2.1, name:Apple Vision Pro }
-[09:47:39]: ▸ { platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:37ADD7BA-538A-421B-9965-D67412E7B9B4, OS:2.2, name:Apple Vision Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-[09:47:39]: ▸ { platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-[09:47:39]: ▸ { platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
-[09:47:39]: ▸ { platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
-+-------------------------------------+
-|            Lane Context             |
-+------------------+------------------+
-| DEFAULT_PLATFORM | ios              |
-| PLATFORM_NAME    | ios              |
-| LANE_NAME        | ios python_smoke |
-+------------------+------------------+
-[09:47:39]: Called from Fastfile at line 11
-[09:47:39]: ```
-[09:47:39]:      9:	
-[09:47:39]:     10:	    # build for simulator
-[09:47:39]:  => 11:	    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator}' clean build -derivedDataPath build/derived")
-[09:47:39]:     12:	
-[09:47:39]:     13:	    # find .app
-[09:47:39]: ```
-[09:47:39]: Exit status of command 'xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived' was 70 instead of 0.
-Command line invocation:
-    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
-User defaults from command line:
-    IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
-    IDEPackageSupportUseBuiltinSCM = YES
-Build settings from command line:
-    SDKROOT = iphonesimulator18.2
-2025-10-19 09:47:37.866 xcodebuild[20457:76614] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-47-0037.xcresult
-xcodebuild: error: Unable to find a device matching the provided destination specifier:
-		{ platform:iOS Simulator, OS:latest, name:iPhone 15 }
-	The requested device could not be found because no available devices matched the request.
-	Available destinations for the "NotesApp" scheme:
-		{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:0000FE00-B7D8BF07EAD829EE, name:My Mac }
-		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-		{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
-		{ platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:F6A20526-87A7-456D-9541-92F0B1B56E6C, OS:2.1, name:Apple Vision Pro }
-		{ platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:37ADD7BA-538A-421B-9965-D67412E7B9B4, OS:2.2, name:Apple Vision Pro }
-		{ platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-		{ platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-		{ platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-		{ platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-		{ platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-		{ platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-		{ platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-		{ platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-		{ platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-		{ platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-		{ platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-		{ platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-		{ platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
-+------------------------------------------------------------------------------------+
-|                                  fastlane summary                                  |
-+------+---------------------------------------------------------------+-------------+
-| Step | Action                                                        | Time (in s) |
-+------+---------------------------------------------------------------+-------------+
-| 1    | default_platform                                              | 0           |
-| 💥   | xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -s | 34          |
-+------+---------------------------------------------------------------+-------------+
-[09:47:39]: fastlane finished with errors
-Looking for related GitHub issues on fastlane/fastlane...
-bundler: failed to load command: fastlane (/Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/bin/fastlane)
-/Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane_core/lib/fastlane_core/ui/interface.rb:153:in `shell_error!': [!] Exit status of command 'xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived' was 70 instead of 0. (FastlaneCore::Interface::FastlaneShellError)
-Command line invocation:
-    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project ../NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
-User defaults from command line:
-    IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
-    IDEPackageSupportUseBuiltinSCM = YES
-Build settings from command line:
-    SDKROOT = iphonesimulator18.2
-2025-10-19 09:47:37.866 xcodebuild[20457:76614] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-47-0037.xcresult
-xcodebuild: error: Unable to find a device matching the provided destination specifier:
-		{ platform:iOS Simulator, OS:latest, name:iPhone 15 }
-	The requested device could not be found because no available devices matched the request.
-	Available destinations for the "NotesApp" scheme:
-		{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:0000FE00-B7D8BF07EAD829EE, name:My Mac }
-		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-		{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
-		{ platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:F6A20526-87A7-456D-9541-92F0B1B56E6C, OS:2.1, name:Apple Vision Pro }
-		{ platform:visionOS Simulator, variant:Designed for [iPad,iPhone], id:37ADD7BA-538A-421B-9965-D67412E7B9B4, OS:2.2, name:Apple Vision Pro }
-		{ platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:CBC5AB1A-FD7E-4C9D-996D-FFAAAA80626E, OS:17.0.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07972BF4-095C-48FB-BAB8-2D3F772D008C, OS:17.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:2FF84511-4245-4BDD-B297-E661962A8B79, OS:17.4, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:FBB67889-CAD3-428D-9337-9C6D478849F5, OS:17.5, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:63EEDA4C-DE75-4123-BBDD-AEAE9795B9B9, OS:18.1, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:97057293-9BA8-4EB3-B56D-9EB55D5A95DA, OS:18.2, name:iPad (10th generation) }
-		{ platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:07A29E1D-F9C1-4556-81BE-3413796FDB6B, OS:17.0.1, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9CAA20D5-CD9D-4B3C-ADB5-1FCECE537B6F, OS:17.2, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:88D54D91-8DBE-4363-AC95-F65BF03D0FE5, OS:17.4, name:iPad Air (5th generation) }
-		{ platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:9DD37421-5AAB-47AE-BB54-A47C9CCDDDCE, OS:17.4, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:5A55A88D-1B34-4DB3-B03B-0742E6A6FCA4, OS:17.5, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:A1387FD2-EDE3-4E76-B272-AE5D9EA859DA, OS:18.1, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:EBA36E47-8CEA-4737-9FD3-CF4164258217, OS:18.2, name:iPad Air 11-inch (M2) }
-		{ platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:73401404-1653-425B-B335-8DAF157AE12D, OS:17.4, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:615C4739-FA7C-4D26-AC00-6F6D7B46AC3C, OS:17.5, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:81B1C8ED-6835-40A3-ABD6-B01F69A39D80, OS:18.1, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:BDC1D1C9-359D-424C-AF80-6C9C05EB06B6, OS:18.2, name:iPad Air 13-inch (M2) }
-		{ platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3E68424D-EB8E-4279-A369-FB09445C2AB2, OS:17.0.1, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3B74AD0E-DA3D-47F6-B0EF-47D3E7F3DBBD, OS:17.2, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:3586A320-D674-47B7-AD5C-66493A9F5C23, OS:17.4, name:iPad Pro (11-inch) (4th generation) }
-		{ platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:00A22927-E38E-46DA-A9C4-790996E0F36A, OS:17.0.1, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:399E5327-5A49-4230-9705-A0BE898323FB, OS:17.2, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:0276E19E-DE4A-4641-A6C2-E08619DE7D88, OS:17.4, name:iPad Pro (12.9-inch) (6th generation) }
-		{ platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:88862AFD-C2EE-41BA-BFF5-BE26F44A118E, OS:17.4, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:FFE974B7-ED4D-4F69-97E6-A37D2F41F9C0, OS:17.5, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:9C89BFFA-AE7E-44AA-8E7A-F1DC7EFEDA4C, OS:18.1, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:07BBD536-C57C-4F41-BA45-49BE18CC1799, OS:18.2, name:iPad Pro 11-inch (M4) }
-		{ platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:BF7C67DB-B8B7-43F2-814C-3EE6CAA6921F, OS:17.4, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:7D18C1C6-C1DB-437A-A26C-90574A88DB65, OS:17.5, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:A51AEBEC-2325-4098-A870-875659F2CEA6, OS:18.1, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:370DB4DF-82AC-40AC-903D-CC83D1F843BE, OS:18.2, name:iPad Pro 13-inch (M4) }
-		{ platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:250F3DC3-3843-482D-8B19-0FEE4F359490, OS:17.0.1, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:75AA6CBF-0A7D-4395-8644-2F81DF96507F, OS:17.2, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:17D2A4CB-F8A0-4B32-9D95-C8374F016426, OS:17.4, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:00C3F149-275A-4ED4-966B-07172E81F9C1, OS:17.5, name:iPad mini (6th generation) }
-		{ platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:D905054E-320F-4FB9-A200-DD9E14B1065D, OS:18.1, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:25262B0B-2501-4ABF-9E74-745DCB10ED8C, OS:18.2, name:iPad mini (A17 Pro) }
-		{ platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-		{ platform:iOS Simulator, id:88EF7D09-04DC-41E8-8C1B-B89110F94E7C, OS:17.0.1, name:iPhone 15 }
-		{ platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-		{ platform:iOS Simulator, id:F6957497-DB7D-439F-9898-344888D04086, OS:17.2, name:iPhone 15 }
-		{ platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-		{ platform:iOS Simulator, id:8C8DD10E-E5F0-4A86-90F1-58E3CED94068, OS:17.4, name:iPhone 15 }
-		{ platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-		{ platform:iOS Simulator, id:CCA28066-AAA8-442B-9876-C5A7C15569DE, OS:17.5, name:iPhone 15 }
-		{ platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:750F3BB4-8590-4641-BBA2-EFA8C4020E85, OS:17.0.1, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:9AFE0CDA-0307-40E9-B1A6-AF9A0C44F2AB, OS:17.2, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:1EDC8AB9-0E23-49A2-ACAE-C9FE669F0230, OS:17.4, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:8CE3F9D9-99BA-43E2-BE50-BF1D290D92CB, OS:17.5, name:iPhone 15 Plus }
-		{ platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:CEEE3E6D-C2E0-407A-A184-E52669627D90, OS:17.0.1, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:F55453B2-5DFA-4EB1-8780-33FEB0B8439F, OS:17.2, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:08B9CE8F-9E8E-4766-9609-B9B3BC8F9A0E, OS:17.4, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:DE704CF1-BDB3-4154-8133-04E1C1337546, OS:17.5, name:iPhone 15 Pro }
-		{ platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:C9DCAA50-021D-4BB5-9E5F-AB968AAEB7B0, OS:17.0.1, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:421EC16B-554B-49C0-9C8C-4E51A1F5C14A, OS:17.2, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:D647CD6B-19FD-4E7C-9A6D-C88E3A3A0412, OS:17.4, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:B1C253DE-78E8-4363-BFB5-D0946FD9B5A8, OS:17.5, name:iPhone 15 Pro Max }
-		{ platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-		{ platform:iOS Simulator, id:E9658973-EEBD-4D61-9081-4EF97CDAD099, OS:18.1, name:iPhone 16 }
-		{ platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-		{ platform:iOS Simulator, id:DCF9D463-AC94-45AC-A4BC-94BD283122B6, OS:18.2, name:iPhone 16 }
-		{ platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:D48708B2-505A-4DB1-96B8-B7C6C5D80BD6, OS:18.1, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:091FAD37-63D5-4353-9A3A-D12F77744197, OS:18.2, name:iPhone 16 Plus }
-		{ platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:BB17F6B8-C9CB-4648-B763-73FA76C5A2BE, OS:18.1, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:373F803F-5E2E-4819-8764-C7A50D7F02A1, OS:18.2, name:iPhone 16 Pro }
-		{ platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:16962DCF-A7EF-4C48-A9ED-C8E92EA319E3, OS:18.1, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:D023FF42-E54D-4C17-B899-E4112E193EED, OS:18.2, name:iPhone 16 Pro Max }
-		{ platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:4BA79207-2ABC-4E89-88FA-1DE3BE1F657A, OS:17.0.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:42A68721-E397-4F90-A8D0-0D6CD05ACAB6, OS:17.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:31932512-0515-4EEC-830D-A02388E2810C, OS:17.4, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:3595FE20-AF21-41BC-93DB-45699DA0EA58, OS:17.5, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:243C5B97-0F78-4924-A1CA-E9C4981BEFD5, OS:18.1, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
-		{ platform:iOS Simulator, id:F6A427CB-2259-44A0-B8EF-0D25BD678DEA, OS:18.2, name:iPhone SE (3rd generation) }
+  cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -emit-module -experimental-skip-non-inlinable-function-bodies-without-types /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpre
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift:300:19: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                } catch {
+                  ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift:379:39: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                                    } catch {
+                                      ^
+SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ CPythonExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/pyt
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-swiftTaskExecution -- /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-int
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+[O/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:97:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
+        .onChange(of: code) { _ in 
+         ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:101:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
+        .onChange(of: fontSize) { newValue in
+         ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:104:10: warning: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.
+        .onChange(of: breakpoints) { _ in persistBreakpoints() }
+         ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:321:17: warning: variable 'result' was never mutated; consider changing to 'let' constant
+            var result = try await executor.execute(code: code)
+            ~~~ ^
+            let
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift:408:24: warning: value 'autorunPath' was defined but never used; consider replacing with boolean test
+                if let autorunPath = autorunSavePath {
+                   ~~~~^~~~~~~~~~~~~~
+                                                     != nil
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift:300:19: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                } catch {
+                  ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift:379:39: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                                    } catch {
+                                      ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Snippets.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift -primary-file /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.s
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:21: error: closure captures 'check' before it is declared
+        let check = {
+                    ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:64:13: note: captured value declared here
+        let check = {
+            ^
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift:75:77: note: captured here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                                                                            ^
+SwiftCompile normal arm64 Compiling\ CrashHandler.swift,\ ErrorLogView.swift,\ Logger.swift,\ HydrationEntry+CoreDataClass.swift,\ HydrationEntry+CoreDataProperties.swift,\ UserSettings+CoreDataClass.swift,\ UserSettings+CoreDataProperties.swift,\ NotesModel+CoreDataModel.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CrashHandler.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Logger.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/HydrationEntry+CoreDataClass.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Derived
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-swiftTaskExecution -- /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-code
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CrashHandler.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Logger.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/HydrationEntry+CoreDataClass.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/HydrationEntry+CoreDataProperties.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/UserSettings+CoreDataClass.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/UserSettings+CoreDataProperties.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CoreDataGenerated/NotesModel/NotesModel+CoreDataModel.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftDriverJobDiscovery normal arm64 Emitting module for CodeSnake (in target 'NotesApp' from project 'NotesApp')
+LinkAssetCatalog /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Preview\ Content/Preview\ Assets.xcassets /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Assets.xcassets (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-linkAssetCatalog --thinned /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/assetcatalog_output/thinned --thinned-dependencies /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/assetcatalog_dependencies_thinned --unthinned /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/assetcatalog_dependencies_unthinned --output /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Pr
+note: Emplaced /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.app/Assets.car (in target 'NotesApp' from project 'NotesApp')
+note: Emplaced /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.app/AppIcon76x76@2x~ipad.png (in target 'NotesApp' from project 'NotesApp')
+note: Emplaced /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.app/AppIcon60x60@2x.png (in target 'NotesApp' from project 'NotesApp')
+SwiftDriver\ Compilation\ Requirements NotesApp normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name CodeSnake -Onone -enforce-exclusivity\=checked @/Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_16.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Index.noindex/DataStore -enable-experimental-feature
+SwiftCompile normal arm64 Compiling\ TodayView.swift,\ HistoryView.swift,\ SettingsView.swift,\ HydrationHelpers.swift,\ NotificationManager.swift,\ Theme.swift,\ Toast.swift,\ CelebrationOverlay.swift,\ ScreenshotMode.swift,\ ErrorLogger.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HistoryView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SettingsView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotificationManager.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Theme.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Toast.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CelebrationOverlay.swift /Use
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-swiftTaskExecution -- /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-code
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/TodayView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HistoryView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SettingsView.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/HydrationHelpers.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotificationManager.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Theme.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Toast.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CelebrationOverlay.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ScreenshotMode.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/ErrorLogger.swift (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -c /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift /User
+SwiftDriverJobDiscovery normal arm64 Compiling TodayView.swift, HistoryView.swift, SettingsView.swift, HydrationHelpers.swift, NotificationManager.swift, Theme.swift, Toast.swift, CelebrationOverlay.swift, ScreenshotMode.swift, ErrorLogger.swift (in target 'NotesApp' from project 'NotesApp')
+SwiftMergeGeneratedHeaders /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CodeSnake-Swift.h /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake-Swift.h (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake-Swift.h -o /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/DerivedSources/CodeSnake-Swift.h
+Copy /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftmodule (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftmodule /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+Copy /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftdoc (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftdoc /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+Copy /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.abi.json (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.abi.json /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/arm64-apple-ios-simulator.abi.json
+Copy /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftsourceinfo (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/CodeSnake.swiftsourceinfo /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Products/Debug-iphonesimulator/CodeSnake.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+SwiftDriverJobDiscovery normal arm64 Compiling CrashHandler.swift, ErrorLogView.swift, Logger.swift, HydrationEntry+CoreDataClass.swift, HydrationEntry+CoreDataProperties.swift, UserSettings+CoreDataClass.swift, UserSettings+CoreDataProperties.swift, NotesModel+CoreDataModel.swift, GeneratedAssetSymbols.swift (in target 'NotesApp' from project 'NotesApp')
+CompileC /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/PythonBridge.o /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonBridge.mm normal arm64 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'NotesApp' from project 'NotesApp')
+    cd /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+    
+    Using response file: /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/Build/Intermediates.noindex/NotesApp.build/Debug-iphonesimulator/NotesApp.build/Objects-normal/arm64/af3fcb34312c57c0f52879cdce924b91-common-args.resp
+    
+    /Applications/Xcode_16.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -ivfsstatcache /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/SDKStatCaches.noindex/iphonesimulator18.2-22C146-16b5fc1f628d844b188c57a1ba9d6a81.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Wno-implicit-atomic-properties -Werror\=deprecated-objc-isa-usage -Wno-objc-
+In file included from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonBridge.mm:6:
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework/Headers/Python.h:13:10: warning: double-quoted include "patchlevel.h" in framework header, expected angle-bracketed instead [-Wquoted-include-in-framework-header]
+   13 | #include "patchlevel.h"
+      |          ^~~~~~~~~~~~~~
+      |          <Python/patchlevel.h>
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework/Headers/Python.h:14:10: warning: double-quoted include "pyconfig.h" in framework header, expected angle-bracketed instead [-Wquoted-include-in-framework-header]
+   14 | #include "pyconfig.h"
+      |          ^~~~~~~~~~~~
+      |          <Python/pyconfig.h>
+In file included from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonBridge.mm:6:
+In file included from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework/Headers/Python.h:14:
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework/Headers/pyconfig.h:2:10: warning: double-quoted include "pyconfig-arm64.h" in framework header, expected angle-bracketed instead [-Wquoted-include-in-framework-header]
+    2 | #include "pyconfig-arm64.h"
+      |          ^~~~~~~~~~~~~~~~~~
+      |          <Python/pyconfig-arm64.h>
+In file included from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonBridge.mm:6:
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework/Headers/Python.h:15:10: warning: double-quoted include "pymacconfig.h" in framework header, expected angle-bracketed instead [-Wquoted-include-in-framework-header]
+   15 | #include "pymacconfig.h"
+      |          ^~~~~~~~~~~~~~~
+      |          <Python/pymacconfig.h>
+warning: Run script build phase 'Copy Python.framework slice' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'NotesApp' from project 'NotesApp')
+warning: Run script build phase 'Copy PyodideAssets' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'NotesApp' from project 'NotesApp')
+** BUILD FAILED **
+The following build commands failed:
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CodeEditorView.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/SyntaxHighlighter.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/Snippets.swift (in target 'NotesApp' from project 'NotesApp')
+	SwiftCompile normal arm64 Compiling\ PersistenceController.swift,\ NotesListView.swift,\ NoteDetailView.swift,\ NotesAppApp.swift,\ PythonExecutor.swift,\ PythonInterpreterView.swift,\ CPythonExecutor.swift,\ CodeEditorView.swift,\ SyntaxHighlighter.swift,\ Snippets.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PersistenceController.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesListView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NoteDetailView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/NotesAppApp.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonExecutor.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/PythonInterpreterView.swift /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp/CPythonExecutor.swift /Users/runner/work/python-interpretor-codex/py
+	Building project NotesApp with scheme NotesApp
+(12 failures)
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane_core/lib/fastlane_core/ui/ui.rb:17:in `method_missing'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/helper/sh_helper.rb:80:in `sh_control_output'
-	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/helper/sh_helper.rb:16:in `sh_no_action'
+[I	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/helper/sh_helper.rb:16:in `sh_no_action'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:225:in `block in sh'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/actions/actions_helper.rb:69:in `execute_action'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:224:in `sh'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:216:in `sh'
-	from Fastfile:11:in `block (2 levels) in parsing_binding'
+	from Fastfile:14:in `block (2 levels) in parsing_binding'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/lane.rb:41:in `call'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'
 	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'
@@ -535,3 +326,23 @@ xcodebuild: error: Unable to find a device matching the provided destination spe
 	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/gems/3.2.0/gems/bundler-2.4.19/libexec/bundle:29:in `<top (required)>'
 	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/bin/bundle:25:in `load'
 	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/bin/bundle:25:in `<main>'
+Error: Process completed with exit code 1.
+1s
+Run actions/upload-artifact@v4
+Warning: No files were found with the provided path: fastlane_artifacts. No artifacts will be uploaded.
+0s
+Post job cleanup.
+/opt/homebrew/bin/git version
+git version 2.50.1
+Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/c5f319af-d9b5-42b9-98d0-60672eab3b87/.gitconfig'
+Temporarily overriding HOME='/Users/runner/work/_temp/c5f319af-d9b5-42b9-98d0-60672eab3b87' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/python-interpretor-codex/python-interpretor-codex
+/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+1s
+Terminate orphan process: pid (41072) (ibto
