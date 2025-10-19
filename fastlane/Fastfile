@@ -25,7 +25,11 @@ platform :ios do
     ENV['PY_TARGET_XCF_DIR'] = File.join(root, 'ios/Frameworks/Python.xcframework')
     ENV['PY_TARGET_STDLIB'] = File.join(root, 'ThirdParty/Python/python-stdlib.zip')
     FileUtils.mkdir_p(File.dirname(ENV['PY_TARGET_STDLIB']))
-    sh("bash \"#{File.join(root,'scripts','fetch_python_runtime.sh')}\"")
+    if Dir.exist?(ENV['PY_TARGET_XCF_DIR'])
+      UI.message("Python.xcframework already present; skipping fetch")
+    else
+      sh("bash \"#{File.join(root,'scripts','fetch_python_runtime.sh')}\"")
+    end
     # Resolve a recent iPhone sim + latest available iOS runtime
     dt_json = sh("xcrun simctl list devicetypes -j")
     devtypes = JSON.parse(dt_json)["devicetypes"]
