@@ -9,3 +9,101 @@ struct ExecutionResult: Sendable {
 protocol PythonExecutor {
     func execute(code: String) async throws -> ExecutionResult
 }
+
+// Simple Pyodide-backed executor fallback using WKWebView
+// Loads Pyodide from bundled NotesApp/PyodideAssets and executes code, capturing stdout
+import WebKit
+
+final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
+    static let shared = PyodideExecutor()
+    private var webView: WKWebView?
+    private var isReady = false
+    private var pendingContinuations: [CheckedContinuation<Void, Error>] = []
+
+    private func ensureReady() async throws {
+        if isReady { return }
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            DispatchQueue.main.async {
+                if self.webView == nil {
+                    let cfg = WKWebViewConfiguration()
+                    cfg.limitsNavigationsToAppBoundDomains = false
+                    let wv = WKWebView(frame: .zero, configuration: cfg)
+                    wv.navigationDelegate = self
+                    self.webView = wv
+                    AppLogger.log("PyodideExecutor: created WKWebView")
+                    // Prepare minimal HTML that imports pyodide
+                    let html = """
+                    <!doctype html>
+                    <html><head><meta charset=\"utf-8\"></head>
+                    <body>
+                      <script src=\"PyodideAssets/pyodide.js\"></script>
+                      <script>
+                        window._pyReady = false;
+                        async function boot() {
+                          try {
+                            window.pyodide = await loadPyodide({ indexURL: 'PyodideAssets' });
+                            window._pyReady = true;
+                          } catch (e) { console.error('pyodide boot error', e); }
+                        }
+                        boot();
+                      </script>
+                    </body></html>
+                    """
+                    let base = Bundle.main.bundleURL
+                    wv.loadHTMLString(html, baseURL: base)
+                }
+                self.pendingContinuations.append(cont)
+            }
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        AppLogger.log("PyodideExecutor: WK didFinish; waiting for _pyReady...")
+        // Poll _pyReady in the page until true
+        let check = {
+            [weak self] in
+            webView.evaluateJavaScript("window._pyReady === true") { value, error in
+                guard let self else { return }
+                if (value as? Bool) == true {
+                    self.isReady = true
+                    AppLogger.log("PyodideExecutor: ready=true")
+                    let arr = self.pendingContinuations
+                    self.pendingContinuations.removeAll()
+                    for c in arr { c.resume() }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+                }
+            }
+        }
+        check()
+    }
+
+    func execute(code: String) async throws -> ExecutionResult {
+        try await ensureReady()
+        guard let wv = self.webView else {
+            return ExecutionResult(stdout: "", stderr: "Pyodide webview not available", exitCode: 1)
+        }
+        // Escape backticks and backslashes for JS template literal
+        let safe = code.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "`", with: "\\`")
+        let js = """
+        (async () => {
+          const py = window.pyodide;
+          try {
+            await py.runPythonAsync(`import sys, io; _b=io.StringIO(); _o,_e=sys.stdout,sys.stderr; sys.stdout=_b; sys.stderr=_b;`);
+            await py.runPythonAsync(`\n` + `""" + safe + """` + `\n`);
+            await py.runPythonAsync(`sys.stdout=_o; sys.stderr=_e; _out=_b.getvalue()`);
+            const out = py.globals.get('_out');
+            return out && out.toString ? out.toString() : String(out);
+          } catch (e) {
+            return 'ERROR: ' + (e && e.toString ? e.toString() : 'unknown');
+          }
+        })();
+        """
+        let result: String = try await withCheckedThrowingContinuation { (cont: CheckedContinuation<String, Error>) in
+            wv.evaluateJavaScript(js) { value, error in
+                if let error { cont.resume(throwing: error) } else { cont.resume(returning: (value as? String) ?? "") }
+            }
+        }
+        return ExecutionResult(stdout: result, stderr: "", exitCode: 0)
+    }
+}

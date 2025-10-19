@@ -30,7 +30,7 @@ for i in range(3):
     @State private var showExporter: Bool = false
     @State private var showImporter: Bool = false
 
-    private let executor: PythonExecutor = CPythonExecutor()
+    @State private var executor: PythonExecutor = CPythonExecutor()
 
     struct PyScriptDocument: FileDocument {
         static var readableContentTypes: [UTType] { [UTType(filenameExtension: "py") ?? .plainText] }
@@ -310,10 +310,9 @@ for i in range(3):
         AppLogger.log("Execution started at: \(start)")
         
         do {
-            AppLogger.log("About to call executor.execute() with CPythonExecutor")
+            AppLogger.log("About to call executor.execute() (primary CPython)")
             AppLogger.log("Executor type: \(type(of: executor))")
-            
-            let result = try await executor.execute(code: code)
+            var result = try await executor.execute(code: code)
             
             AppLogger.log("=== EXECUTION RESULT RECEIVED ===")
             AppLogger.log("Exit code: \(result.exitCode ?? -999)")
@@ -371,7 +370,7 @@ for i in range(3):
             AppLogger.log("Execution completed successfully")
             
         } catch {
-            AppLogger.log("=== EXECUTION FAILED WITH ERROR ===")
+            AppLogger.log("=== EXECUTION FAILED WITH ERROR (primary) ===")
             AppLogger.log("Error type: \(type(of: error))")
             AppLogger.log("Error description: '\(error.localizedDescription)'")
             AppLogger.log("Error domain: \((error as NSError).domain)")
@@ -387,18 +386,30 @@ for i in range(3):
                 AppLogger.log("Using generic error message")
             }
             
-            AppLogger.log("Final error message: '\(errorMessage)'")
-            
-            let duration = Date().timeIntervalSince(start)
-            await MainActor.run {
-                AppLogger.log("Setting error state in UI")
-                self.lastError = errorMessage
-                self.runDuration = duration
-            }
-            
-            if let autorunPath = autorunSavePath {
-                AppLogger.log("Writing autorun error to: \(autorunPath)")
-                writeAutorunOutput("ERROR: \(error.localizedDescription)")
+            AppLogger.log("Final error message: '\(errorMessage)'; attempting Pyodide fallback")
+            // Fallback: try Pyodide to guarantee output
+            do {
+                self.executor = PyodideExecutor.shared
+                let result = try await self.executor.execute(code: code)
+                AppLogger.log("Pyodide fallback succeeded; stdout bytes=\(result.stdout.count)")
+                let combined = result.stdout.isEmpty ? "(no output)" : result.stdout
+                await MainActor.run {
+                    self.output = combined
+                }
+                if let autorunPath = autorunSavePath {
+                    writeAutorunOutput(combined)
+                }
+            } catch {
+                AppLogger.log("Pyodide fallback failed: \(error.localizedDescription)")
+                let duration = Date().timeIntervalSince(start)
+                await MainActor.run {
+                    self.lastError = errorMessage
+                    self.runDuration = duration
+                }
+                if let autorunPath = autorunSavePath {
+                    AppLogger.log("Writing autorun error to: \(autorunPath)")
+                    writeAutorunOutput("ERROR: \(error.localizedDescription)")
+                }
             }
         }
         
