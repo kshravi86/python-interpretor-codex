@@ -61,22 +61,24 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         AppLogger.log("PyodideExecutor: WK didFinish; waiting for _pyReady...")
         // Poll _pyReady in the page until true
-        let check = {
-            [weak self] in
-            webView.evaluateJavaScript("window._pyReady === true") { value, error in
-                guard let self else { return }
-                if (value as? Bool) == true {
-                    self.isReady = true
-                    AppLogger.log("PyodideExecutor: ready=true")
-                    let arr = self.pendingContinuations
-                    self.pendingContinuations.removeAll()
-                    for c in arr { c.resume() }
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { check() }
+        checkPyodideReady(webView: webView)
+    }
+    
+    private func checkPyodideReady(webView: WKWebView) {
+        webView.evaluateJavaScript("window._pyReady === true") { [weak self] value, error in
+            guard let self else { return }
+            if (value as? Bool) == true {
+                self.isReady = true
+                AppLogger.log("PyodideExecutor: ready=true")
+                let arr = self.pendingContinuations
+                self.pendingContinuations.removeAll()
+                for c in arr { c.resume() }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { 
+                    self.checkPyodideReady(webView: webView)
                 }
             }
         }
-        check()
     }
 
     func execute(code: String) async throws -> ExecutionResult {
