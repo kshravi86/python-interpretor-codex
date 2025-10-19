@@ -103,8 +103,25 @@ done
 
 # Discover locations
 FOUND_XCF=$(find "$WORKDIR" -type d -name "Python.xcframework" | head -n1 || true)
+# If no xcframework, try to assemble one from device/simulator Python.frameworks in the support tarball
 if [ -z "$FOUND_XCF" ]; then
-  echo "::error title=Python.xcframework not found::No Python.xcframework directory found after extraction"
+  echo "No Python.xcframework found; attempting to construct from support payload"
+  SIM_FW=$(find "$WORKDIR" -type d -path '*/iphonesimulator*/Python.framework' -o -path '*/ios-simulator*/Python.framework' | head -n1 || true)
+  DEV_FW=$(find "$WORKDIR" -type d -path '*/iphoneos*/Python.framework' -o -path '*/ios-device*/Python.framework' | head -n1 || true)
+  if [ -n "$SIM_FW" ] || [ -n "$DEV_FW" ]; then
+    echo "Assembling XCFramework layout at $TARGET_XCF_DIR"
+    mkdir -p "$TARGET_XCF_DIR/ios-arm64_x86_64-simulator" "$TARGET_XCF_DIR/ios-arm64"
+    if [ -n "$SIM_FW" ]; then
+      rsync -a "$SIM_FW/" "$TARGET_XCF_DIR/ios-arm64_x86_64-simulator/Python.framework/"
+    fi
+    if [ -n "$DEV_FW" ]; then
+      rsync -a "$DEV_FW/" "$TARGET_XCF_DIR/ios-arm64/Python.framework/"
+    fi
+    FOUND_XCF="$TARGET_XCF_DIR"
+  fi
+fi
+if [ -z "$FOUND_XCF" ]; then
+  echo "::error title=Python.xcframework not found::No Python.xcframework directory found after extraction or assembly"
   exit 1
 fi
 
