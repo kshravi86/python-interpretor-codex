@@ -177,6 +177,10 @@ jobs:
             if [ -n "$CONTAINER" ] && [ -f "$CONTAINER/Documents/autorun.txt" ]; then
               cp "$CONTAINER/Documents/autorun.txt" "$ART/autorun.txt"
             fi
+            # Also copy generic app log if present (may contain Python output)
+            if [ -n "$CONTAINER" ] && [ -f "$CONTAINER/Documents/log.txt" ]; then
+              cp "$CONTAINER/Documents/log.txt" "$ART/app-log.txt" || true
+            fi
             # Deep search for autorun.txt anywhere in container if not found in Documents
             if [ -n "$CONTAINER" ] && [ ! -f "$ART/autorun.txt" ]; then
               FOUND=$(find "$CONTAINER" -maxdepth 5 -type f -name autorun.txt -print -quit 2>/dev/null || true)
@@ -194,6 +198,26 @@ jobs:
           if [ -f "$ART/simlog.txt" ]; then
             (grep -F "PY SMOKE:" "$ART/simlog.txt" || true) > "$ART/py-smoke-grep.txt" 2>&1 || true
           fi
+
+      - name: Verify autorun execution
+        if: always()
+        run: |
+          set -euo pipefail
+          ART=$RUNNER_TEMP/sim-artifacts
+          echo "Verifying autorun execution..."
+          FOUND=0
+          # Check autorun file
+          if [ -s "$ART/autorun.txt" ] && grep -Fq "PY SMOKE: 4" "$ART/autorun.txt" 2>/dev/null; then FOUND=1; fi
+          # Check app log if present
+          if [ -f "$ART/app-log.txt" ] && grep -Fq "PY SMOKE: 4" "$ART/app-log.txt" 2>/dev/null; then FOUND=1; fi
+          # Check launch/stdout and simlog
+          if [ -f "$ART/launch.out" ] && grep -Fq "PY SMOKE: 4" "$ART/launch.out" 2>/dev/null; then FOUND=1; fi
+          if [ -f "$ART/simlog.txt" ] && grep -Fq "PY SMOKE: 4" "$ART/simlog.txt" 2>/dev/null; then FOUND=1; fi
+          if [ "$FOUND" -ne 1 ]; then
+            echo "::error::Python autorun verification failed: expected 'PY SMOKE: 4' not found in autorun.txt, app log, or logs"
+            exit 1
+          fi
+          echo "Autorun verification passed."
           # Save inventories for debugging
           for f in devices.json runtimes.json devicetypes.json; do
             [ -f "$RUNNER_TEMP/$f" ] && cp "$RUNNER_TEMP/$f" "$ART/$f" || true
