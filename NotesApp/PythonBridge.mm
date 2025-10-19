@@ -134,56 +134,84 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         // We rely on PYTHONHOME + post-initialize sys.path adjustments below instead.
     }
 
-    Py_Initialize();
-    if (!Py_IsInitialized()) {
-        set_error(errbuf, errbuf_len, "Py_Initialize failed");
-        return -1;
+    // Prefer modern initialization via PyConfig so import system is ready for encodings/bootstrap
+    {
+        PyStatus st;
+        PyPreConfig pre;
+        PyPreConfig_InitIsolatedConfig(&pre);
+        st = Py_PreInitialize(&pre);
+        if (PyStatus_Exception(st)) {
+            set_error(errbuf, errbuf_len, "Py_PreInitialize failed");
+            return -1;
+        }
+
+        PyConfig cfg;
+        PyConfig_InitPythonConfig(&cfg);
+        cfg.isolated = 1;
+        cfg.use_environment = 0;
+
+        // Set home to the app bundle resource_dir
+        wchar_t* wHome2 = Py_DecodeLocale(resource_dir ? resource_dir : "", NULL);
+        if (wHome2) {
+            PyConfig_SetString(&cfg, &cfg.home, wHome2);
+        }
+
+        // Pre-configure module search paths
+        cfg.module_search_paths_set = 1;
+        auto appendPath = [&](const char* p) {
+            if (!p || !*p) return;
+            wchar_t* w = Py_DecodeLocale(p, NULL);
+            if (w) {
+                PyWideStringList_Append(&cfg.module_search_paths, w);
+            }
+        };
+
+        // Build candidate paths inside the bundle
+        @autoreleasepool {
+            NSString* res = [NSString stringWithUTF8String:resource_dir ? resource_dir : ""];
+            NSArray<NSString*>* parts = @[
+                [res stringByAppendingPathComponent:@"python-stdlib.zip"],
+                [res stringByAppendingPathComponent:@"stdlib.zip"],
+                [res stringByAppendingPathComponent:@"site-packages"],
+                [res stringByAppendingPathComponent:@"app_packages"],
+            ];
+            for (NSString* s in parts) {
+                appendPath(s.UTF8String);
+            }
+        }
+
+        st = Py_InitializeFromConfig(&cfg);
+        PyConfig_Clear(&cfg);
+        if (PyStatus_Exception(st) || !Py_IsInitialized()) {
+            set_error(errbuf, errbuf_len, "Py_InitializeFromConfig failed");
+            return -1;
+        }
     }
 
+    // Post-init: extend with Application Support site dirs (non-fatal)
     #ifdef PyEval_InitThreads
     PyEval_InitThreads();
     #endif
     PyGILState_STATE g = PyGILState_Ensure();
-
-    // Resolve Application Support directory via Foundation
-    NSString *appSupportPath = nil;
     @autoreleasepool {
         NSArray<NSString*> *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
         if (paths.count > 0) {
-            appSupportPath = paths.firstObject;
+            NSString* appSupportPath = paths.firstObject;
             if (appSupportPath.length > 0) {
                 setenv("PY_BRIDGE_APP_SUPPORT", appSupportPath.UTF8String, 1);
+                const char* py =
+                    "import os, sys\n"
+                    "app_sup = os.environ.get('PY_BRIDGE_APP_SUPPORT') or ''\n"
+                    "for p in ('site-packages','app_packages'):\n"
+                    "    q = os.path.join(app_sup, p)\n"
+                    "    if os.path.isdir(q) and q not in sys.path:\n"
+                    "        sys.path.insert(0, q)\n";
+                (void)PyRun_SimpleString(py);
             }
         }
     }
-
-    const char* py =
-        "import os, sys\n"
-        "res = os.environ.get('PY_BRIDGE_RESOURCE_DIR') or ''\n"
-        "app_sup = os.environ.get('PY_BRIDGE_APP_SUPPORT') or ''\n"
-        "# Add stdlib zip(s)\n"
-        "candidates = []\n"
-        "if res: candidates.append(os.path.join(res, 'python-stdlib.zip'))\n"
-        "if res: candidates.append(os.path.join(res, 'stdlib.zip'))\n"
-        "for p in candidates:\n"
-        "    if os.path.exists(p) and p not in sys.path:\n"
-        "        sys.path.insert(0, p)\n"
-        "# Add site-packages style dirs\n"
-        "site_dirs = []\n"
-        "if res: site_dirs.append(os.path.join(res, 'site-packages'))\n"
-        "if res: site_dirs.append(os.path.join(res, 'app_packages'))\n"
-        "if app_sup: site_dirs.append(os.path.join(app_sup, 'site-packages'))\n"
-        "if app_sup: site_dirs.append(os.path.join(app_sup, 'app_packages'))\n"
-        "for p in site_dirs:\n"
-        "    if os.path.isdir(p) and p not in sys.path:\n"
-        "        sys.path.insert(0, p)\n";
-    int rc = PyRun_SimpleString(py);
     PyGILState_Release(g);
-    // Do not free the Py_SetPythonHome buffer; see note above.
-    if (rc != 0) {
-        set_error(errbuf, errbuf_len, "Failed to set sys.path for stdlib/site-packages");
-        return -2;
-    }
+
     g_initialized = 1;
     return 0;
 #else
