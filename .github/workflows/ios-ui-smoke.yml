@@ -5,7 +5,8 @@ on:
 
 jobs:
   smoke:
-    runs-on: macos-14
+    runs-on:
+    macos-14
     env:
       APP_PROJECT: NotesApp.xcodeproj
       APP_SCHEME: NotesApp
