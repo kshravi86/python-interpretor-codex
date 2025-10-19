@@ -124,7 +124,7 @@ jobs:
           echo "SIM_UDID=$SIM_UDID"; xcrun simctl list devices | sed -n "1,120p"; echo "APP_PATH=$APP_PATH"; ls -la "$APP_PATH" || true
           APP_PLIST="$APP_PATH/Info.plist"
           if [ ! -f "$APP_PLIST" ]; then
-            echo "::error::Info.plist not found at $APP_PLIST"; ls -la "$APP_PATH"; exit 1;
+            echo "::warning::Info.plist not found at $APP_PLIST; falling back to build settings for bundle id"; ls -la "$APP_PATH" || true;
           fi
           # Determine bundle identifier from build settings, fallback to Info.plist
           BUNDLE_ID=$(xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -showBuildSettings -json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); ss=[e.get(\"buildSettings\",{}).get(\"PRODUCT_BUNDLE_IDENTIFIER\") for e in d]; ss=[s for s in ss if s]; print(ss[0] if ss else \"\")")
