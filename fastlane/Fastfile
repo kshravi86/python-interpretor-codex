@@ -6,9 +6,12 @@ platform :ios do
     scheme = "NotesApp"
     project = "../NotesApp.xcodeproj"
     simulator = ENV['SIMULATOR_DEVICE'] || "iPhone 15"
+    
+    # Use specific destination with OS version to ensure simulator is found
+    destination = "platform=iOS Simulator,name=#{simulator},OS=17.5"
 
     # build for simulator
-    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator}' clean build -derivedDataPath build/derived")
+    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination '#{destination}' clean build -derivedDataPath build/derived")
 
     # find .app
     app_path = Dir["build/derived/Build/Products/*-iphonesimulator/#{scheme}.app"].first
