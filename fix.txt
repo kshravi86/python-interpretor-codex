@@ -1,0 +1,85 @@
+Device Python Initialization Failure — Analysis and Exact Fix
+
+What the logs prove
+- Failing inside CPython init, not linking: logs.txt shows "Py_InitializeFromConfig failed" when the app executes code.
+- Runtime assets exist in the bundle:
+  - python-stdlib.zip is present in the app bundle.
+  - Frameworks/Python.framework exists (device slice embedded).
+- The executor passes the bundle root to the C bridge: pybridge_initialize("…/CodeSnake.app").
+
+Root cause
+- PYTHONHOME is set to the app bundle root and CPython is initialized with PyConfig_InitPythonConfig while forcing cfg.module_search_paths_set = 1. This bypasses Python’s standard getpath logic and prevents proper bootstrap (encodings/importlib). The Python-Apple-support pattern expects PYTHONHOME at "<App>.app/python" and uses the isolated config flow with PyConfig_Read to compute canonical sys.path for iOS.
+
+Exact fixes to apply (do not implement here; follow steps)
+
+1) Project layout — put stdlib under a python subfolder in the bundle
+- Add a Copy Files build phase on the app target:
+  - Destination: Resources
+  - Subpath: python
+  - Files: python-stdlib.zip (and optionally site-packages, app_packages)
+- After build/export, verify: <App>.app/python/python-stdlib.zip exists.
+
+2) Ensure Python.framework is embedded and signed for device
+- Target > General > Frameworks, Libraries, and Embedded Content:
+  - Add ios/Frameworks/Python.xcframework if not present.
+  - For “Any iOS Device SDK”: Embed & Sign.
+- Build Settings (Release): LD_RUNPATH_SEARCH_PATHS must include @executable_path/Frameworks.
+
+3) Bridge initialization changes (NotesApp/PythonBridge.mm)
+- Point PYTHONHOME to the python subfolder, not the bundle root:
+  - Compute resource_dir_python = resource_dir + "/python" (from Bundle.main.resourceURL.path).
+  - Use resource_dir_python for:
+    - setenv("PYTHONHOME", resource_dir_python, 1)
+    - PyConfig_SetString(&cfg, &cfg.home, L"<bundle>/python")
+- Use isolated initialization and let Python compute paths:
+  - Replace PyConfig_InitPythonConfig(&cfg) with PyConfig_InitIsolatedConfig(&cfg).
+  - After setting cfg.home, call PyConfig_Read(&cfg) to populate defaults from HOME.
+- Don’t replace search paths; append to them:
+  - Remove cfg.module_search_paths_set = 1.
+  - After PyConfig_Read(&cfg), append (using PyWideStringList_Append):
+    - <HOME>/python-stdlib.zip
+    - <HOME>/site-packages (optional)
+    - <HOME>/app_packages (optional)
+- Keep sensible flags you already use:
+  - Pre: PyPreConfig_InitIsolatedConfig(&pre); pre.utf8_mode = 1
+  - cfg.write_bytecode = 0, cfg.buffered_stdio = 0, cfg.install_signal_handlers = 1
+- Then call Py_InitializeFromConfig(&cfg) and PyConfig_Clear(&cfg).
+
+4) Optional Swift guard (NotesApp/CPythonExecutor.swift)
+- In the list of potentialPythonHomes used before calling pybridge_initialize, prepend the canonical home:
+  - resURL.path + "/python"
+- This helps if the bridge still accepts a path argument but expects HOME to be that subfolder.
+
+5) CI preflight checks (archive job)
+- Before archive:
+  - Verify device slice exists: ios/Frameworks/Python.xcframework/ios-arm64/Python.framework
+- After archive (or during export):
+  - Verify <archive>/Products/Applications/CodeSnake.app/python/python-stdlib.zip exists.
+  - Keep LD_RUNPATH_SEARCH_PATHS and Embed & Sign in Release.
+
+6) Success criteria on device
+- Startup log should show:
+  - PYTHONHOME env: …/CodeSnake.app/python
+- CPython init should succeed; the self-test in CPythonExecutor prints:
+  - "Python self-test: 2+2 = 4"
+- Running user code should then print expected output.
+
+Reference cues in this codebase
+- Current behavior:
+  - NotesApp/PythonBridge.mm: sets PYTHONHOME to bundle root and uses PyConfig_InitPythonConfig, sets cfg.module_search_paths_set = 1, then Py_InitializeFromConfig.
+  - NotesApp/CPythonExecutor.swift: attempts pybridge_initialize with the bundle root.
+- What to mirror:
+  - ThirdParty/Python/testbed/TestbedTests/TestbedTests.m sets home to "<bundle>/python", uses PyConfig_InitIsolatedConfig, calls PyConfig_Read(&config), then Py_InitializeFromConfig, and extends sys.path afterwards.
+
+Checklist of concrete edits
+- Xcode target: add Copy Files (Resources) → Subpath "python"; include python-stdlib.zip.
+- Xcode target: Python.xcframework set to Embed & Sign (device).
+- NotesApp/PythonBridge.mm:
+  - Change PYTHONHOME to "<bundle>/python".
+  - Use PyConfig_InitIsolatedConfig; call PyConfig_Read(&cfg) after setting cfg.home.
+  - Remove cfg.module_search_paths_set = 1; append paths after PyConfig_Read.
+- NotesApp/CPythonExecutor.swift (optional): try resURL.path + "/python" first.
+
+Why this fixes the failure
+- It restores CPython’s supported startup on iOS: HOME at "<bundle>/python" with isolated config and computed sys.path. That enables encodings/importlib bootstrap to load from python-stdlib.zip, eliminating the Py_InitializeFromConfig failure even though the framework and stdlib are present.
+

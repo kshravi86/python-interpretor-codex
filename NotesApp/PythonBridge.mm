@@ -118,54 +118,91 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
     // Set PYTHONHOME to the python subfolder for proper Python-Apple-support initialization
     std::string python_home;
     if (resource_dir && *resource_dir) {
+        printf("PYTHON BRIDGE: SETTING UP PYTHON HOME DIRECTORY\n");
+        printf("Bundle resource directory: %s\n", resource_dir);
+        
         setenv("PY_BRIDGE_RESOURCE_DIR", resource_dir, 1);
         python_home = std::string(resource_dir) + "/python";
+        
+        printf("PYTHON BRIDGE: PYTHONHOME SET TO: %s\n", python_home.c_str());
         setenv("PYTHONHOME", python_home.c_str(), 1);
+        
         // Also set via API for maximum compatibility
         // NOTE: Do not free this pointer after initialization; some CPython versions
         // may retain the pointer. Since this is a one-time init per process,
         // leaking this allocation is acceptable and avoids use-after-free crashes.
         wchar_t *wHome = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome) {
+            printf("PYTHON BRIDGE: SETTING PYTHON HOME VIA API\n");
             Py_SetPythonHome(wHome);
+        } else {
+            printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE PYTHON HOME TO WIDE CHAR\n");
         }
+    } else {
+        printf("PYTHON BRIDGE: ERROR - NO RESOURCE DIRECTORY PROVIDED\n");
     }
 
     // Prefer modern initialization via PyConfig so import system is ready for encodings/bootstrap
     {
+        printf("PYTHON BRIDGE: STARTING MODERN PYCONFIG INITIALIZATION\n");
         PyStatus st;
+        
+        printf("PYTHON BRIDGE: INITIALIZING PRE-CONFIG (ISOLATED)\n");
         PyPreConfig pre;
         PyPreConfig_InitIsolatedConfig(&pre);
+        pre.utf8_mode = 1;  // Force UTF-8 mode for iOS
+        
+        printf("PYTHON BRIDGE: CALLING PY_PREINITIALIZE\n");
         st = Py_PreInitialize(&pre);
         if (PyStatus_Exception(st)) {
+            printf("PYTHON BRIDGE: CRITICAL ERROR - PY_PREINITIALIZE FAILED\n");
+            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
             set_error(errbuf, errbuf_len, "Py_PreInitialize failed");
             return -1;
         }
+        printf("PYTHON BRIDGE: PY_PREINITIALIZE SUCCESS\n");
 
+        printf("PYTHON BRIDGE: INITIALIZING PYCONFIG (ISOLATED)\n");
         PyConfig cfg;
         PyConfig_InitIsolatedConfig(&cfg);
         cfg.use_environment = 0;
+        cfg.write_bytecode = 0;     // Disable .pyc files on iOS
+        cfg.buffered_stdio = 0;     // Unbuffered output for real-time logs
+        cfg.install_signal_handlers = 1;  // Allow KeyboardInterrupt
 
         // Set home to the python subfolder
+        printf("PYTHON BRIDGE: SETTING CONFIG HOME TO PYTHON SUBFOLDER\n");
         wchar_t* wHome2 = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome2) {
+            printf("PYTHON BRIDGE: CONFIG HOME: %s\n", python_home.c_str());
             PyConfig_SetString(&cfg, &cfg.home, wHome2);
+        } else {
+            printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE CONFIG HOME\n");
         }
 
         // Let Python compute the standard paths from PYTHONHOME
+        printf("PYTHON BRIDGE: CALLING PYCONFIG_READ TO COMPUTE SYS.PATH\n");
         st = PyConfig_Read(&cfg);
         if (PyStatus_Exception(st)) {
+            printf("PYTHON BRIDGE: CRITICAL ERROR - PYCONFIG_READ FAILED\n");
+            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
+            printf("This usually means PYTHONHOME is incorrect or stdlib is missing\n");
             set_error(errbuf, errbuf_len, "PyConfig_Read failed");
             PyConfig_Clear(&cfg);
             return -1;
         }
+        printf("PYTHON BRIDGE: PYCONFIG_READ SUCCESS - PATHS COMPUTED\n");
 
         // Append additional paths for our packages (optional)
+        printf("PYTHON BRIDGE: APPENDING ADDITIONAL PACKAGE PATHS\n");
         auto appendPath = [&](const char* p) {
             if (!p || !*p) return;
+            printf("Adding to sys.path: %s\n", p);
             wchar_t* w = Py_DecodeLocale(p, NULL);
             if (w) {
                 PyWideStringList_Append(&cfg.module_search_paths, w);
+            } else {
+                printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE PATH: %s\n", p);
             }
         };
 
@@ -181,15 +218,30 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
             }
         }
 
+        printf("PYTHON BRIDGE: CALLING PY_INITIALIZEFROMCONFIG - CRITICAL MOMENT\n");
         st = Py_InitializeFromConfig(&cfg);
         PyConfig_Clear(&cfg);
-        if (PyStatus_Exception(st) || !Py_IsInitialized()) {
+        
+        if (PyStatus_Exception(st)) {
+            printf("PYTHON BRIDGE: FATAL ERROR - PY_INITIALIZEFROMCONFIG FAILED\n");
+            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
+            printf("This is the critical failure point - check PYTHONHOME and stdlib\n");
             set_error(errbuf, errbuf_len, "Py_InitializeFromConfig failed");
             return -1;
         }
+        
+        if (!Py_IsInitialized()) {
+            printf("PYTHON BRIDGE: FATAL ERROR - PYTHON NOT INITIALIZED AFTER CONFIG\n");
+            set_error(errbuf, errbuf_len, "Py_InitializeFromConfig failed");
+            return -1;
+        }
+        
+        printf("PYTHON BRIDGE: SUCCESS! PY_INITIALIZEFROMCONFIG COMPLETED\n");
+        printf("PYTHON BRIDGE: PYTHON INTERPRETER IS NOW READY\n");
     }
 
     // Post-init: extend with Application Support site dirs (non-fatal)
+    printf("PYTHON BRIDGE: POST-INIT - SETTING UP APPLICATION SUPPORT PATHS\n");
     #ifdef PyEval_InitThreads
     PyEval_InitThreads();
     #endif
@@ -199,20 +251,42 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         if (paths.count > 0) {
             NSString* appSupportPath = paths.firstObject;
             if (appSupportPath.length > 0) {
+                printf("PYTHON BRIDGE: APPLICATION SUPPORT PATH: %s\n", appSupportPath.UTF8String);
                 setenv("PY_BRIDGE_APP_SUPPORT", appSupportPath.UTF8String, 1);
+                
+                printf("PYTHON BRIDGE: RUNNING POST-INIT PYTHON CODE TO EXTEND SYS.PATH\n");
                 const char* py =
                     "import os, sys\n"
+                    "print(f'PYTHON: Current sys.path has {len(sys.path)} entries')\n"
+                    "print(f'PYTHON: PYTHONHOME = {os.environ.get(\"PYTHONHOME\", \"NOT SET\")}')\n"
+                    "print(f'PYTHON: Current working dir = {os.getcwd()}')\n"
                     "app_sup = os.environ.get('PY_BRIDGE_APP_SUPPORT') or ''\n"
+                    "print(f'PYTHON: Application Support = {app_sup}')\n"
                     "for p in ('site-packages','app_packages'):\n"
                     "    q = os.path.join(app_sup, p)\n"
                     "    if os.path.isdir(q) and q not in sys.path:\n"
-                    "        sys.path.insert(0, q)\n";
-                (void)PyRun_SimpleString(py);
+                    "        sys.path.insert(0, q)\n"
+                    "        print(f'PYTHON: Added to sys.path: {q}')\n"
+                    "    else:\n"
+                    "        print(f'PYTHON: Skipped (not found or already in path): {q}')\n"
+                    "print(f'PYTHON: Final sys.path has {len(sys.path)} entries')\n";
+                
+                int py_result = PyRun_SimpleString(py);
+                if (py_result == 0) {
+                    printf("PYTHON BRIDGE: POST-INIT PYTHON CODE EXECUTED SUCCESSFULLY\n");
+                } else {
+                    printf("PYTHON BRIDGE: WARNING - POST-INIT PYTHON CODE FAILED\n");
+                }
+            } else {
+                printf("PYTHON BRIDGE: WARNING - APPLICATION SUPPORT PATH IS EMPTY\n");
             }
+        } else {
+            printf("PYTHON BRIDGE: WARNING - NO APPLICATION SUPPORT PATHS FOUND\n");
         }
     }
     PyGILState_Release(g);
 
+    printf("PYTHON BRIDGE: INITIALIZATION COMPLETE - MARKING AS INITIALIZED\n");
     g_initialized = 1;
     return 0;
 #else

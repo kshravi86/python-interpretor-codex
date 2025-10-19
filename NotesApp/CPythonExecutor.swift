@@ -248,9 +248,9 @@ final class CPythonExecutor: PythonExecutor {
             AppLogger.log("Could not prepare Application Support packages: \(error.localizedDescription)")
         }
 
-        // Check specifically for python-stdlib.zip
+        // Check specifically for python-stdlib.zip in python subfolder
         AppLogger.log("=== CHECKING FOR python-stdlib.zip ===")
-        let stdlibPath = resURL.appendingPathComponent("python-stdlib.zip")
+        let stdlibPath = resURL.appendingPathComponent("python/python-stdlib.zip")
         AppLogger.log("Expected stdlib path: \(stdlibPath.path)")
         AppLogger.log("Expected stdlib URL: \(stdlibPath.absoluteString)")
         
@@ -406,18 +406,32 @@ final class CPythonExecutor: PythonExecutor {
         }
         
         // Initialize CPython
-        AppLogger.log("=== INITIALIZING CPYTHON ===")
+        AppLogger.log("=== CPYTHON INITIALIZATION STARTING ===")
+        AppLogger.log("CRITICAL STEP: INITIALIZING PYTHON INTERPRETER")
         
         // Try multiple potential Python home locations for robustness
+        // Prioritize python subfolder as per Python-Apple-support pattern
         let potentialPythonHomes = [
-            resURL.path,  // Main bundle path
-            Bundle.main.bundlePath,  // Bundle path
-            Bundle.main.resourcePath ?? resURL.path,  // Resource path
+            resURL.appendingPathComponent("python").path,  // Python subfolder (preferred)
+            resURL.path,  // Main bundle path (fallback)
+            Bundle.main.bundlePath,  // Bundle path (fallback)
+            Bundle.main.resourcePath ?? resURL.path,  // Resource path (fallback)
         ]
         
-        AppLogger.log("Attempting Python initialization with potential homes:")
+        AppLogger.log("ATTEMPTING PYTHON INITIALIZATION WITH MULTIPLE HOME DIRECTORIES:")
         for (index, home) in potentialPythonHomes.enumerated() {
-            AppLogger.log("  \(index + 1). \(home)")
+            let priority = index == 0 ? "PREFERRED" : "FALLBACK"
+            AppLogger.log("  \(index + 1). [\(priority)] \(home)")
+        }
+        
+        AppLogger.log("CHECKING FILE SYSTEM STATE BEFORE INITIALIZATION:")
+        for (index, home) in potentialPythonHomes.enumerated() {
+            let exists = FileManager.default.fileExists(atPath: home)
+            let stdlibPath = home + "/python-stdlib.zip"
+            let stdlibExists = FileManager.default.fileExists(atPath: stdlibPath)
+            AppLogger.log("  Home \(index + 1): Directory=\(exists), Stdlib=\(stdlibExists)")
+            AppLogger.log("  Path: \(home)")
+            AppLogger.log("  Expected stdlib: \(stdlibPath)")
         }
         
         var initSuccess = false
@@ -452,33 +466,69 @@ final class CPythonExecutor: PythonExecutor {
         }
         
         if !initSuccess {
-            AppLogger.log("=== ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===")
-            AppLogger.log("Last error: \(lastError)")
+            AppLogger.log("💀💀💀 CRITICAL FAILURE: ALL PYTHON INITIALIZATION ATTEMPTS FAILED 💀💀💀")
+            AppLogger.log("LAST ERROR: \(lastError)")
+            AppLogger.log("TOTAL ATTEMPTS: \(potentialPythonHomes.count)")
             
             // Add extensive debugging for device failures
-            AppLogger.log("=== DEVICE DEBUGGING INFO ===")
-            AppLogger.log("Bundle path: \(Bundle.main.bundlePath)")
-            AppLogger.log("Documents path: \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "unknown")")
+            AppLogger.log("=== COMPREHENSIVE DEVICE DEBUGGING INFO ===")
+            AppLogger.log("BUNDLE INFORMATION:")
+            AppLogger.log("  Bundle path: \(Bundle.main.bundlePath)")
+            AppLogger.log("  Resource path: \(Bundle.main.resourcePath ?? "nil")")
+            AppLogger.log("  Documents path: \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "unknown")")
+            
+            AppLogger.log("ENVIRONMENT VARIABLES:")
+            AppLogger.log("  PYTHONHOME: \(ProcessInfo.processInfo.environment["PYTHONHOME"] ?? "NOT SET")")
+            AppLogger.log("  PY_BRIDGE_RESOURCE_DIR: \(ProcessInfo.processInfo.environment["PY_BRIDGE_RESOURCE_DIR"] ?? "NOT SET")")
+            AppLogger.log("  Current working directory: \(FileManager.default.currentDirectoryPath)")
             
             // Check if Python.framework exists and is accessible
             let frameworkPath = resURL.appendingPathComponent("Frameworks/Python.framework")
             let frameworkExists = FileManager.default.fileExists(atPath: frameworkPath.path)
-            AppLogger.log("Python.framework exists at expected path: \(frameworkExists)")
-            AppLogger.log("Framework path: \(frameworkPath.path)")
+            AppLogger.log("PYTHON FRAMEWORK CHECK:")
+            AppLogger.log("  Framework exists: \(frameworkExists)")
+            AppLogger.log("  Framework path: \(frameworkPath.path)")
             
             if frameworkExists {
                 do {
                     let frameworkContents = try FileManager.default.contentsOfDirectory(atPath: frameworkPath.path)
-                    AppLogger.log("Framework contents: \(frameworkContents)")
+                    AppLogger.log("  Framework contents: \(frameworkContents)")
+                    
+                    // Check framework binary
+                    let binaryPath = frameworkPath.appendingPathComponent("Python")
+                    let binaryExists = FileManager.default.fileExists(atPath: binaryPath.path)
+                    AppLogger.log("  Framework binary exists: \(binaryExists)")
+                    
+                    if binaryExists {
+                        do {
+                            let binaryAttrs = try FileManager.default.attributesOfItem(atPath: binaryPath.path)
+                            let binarySize = binaryAttrs[.size] as? Int64 ?? 0
+                            AppLogger.log("  Framework binary size: \(binarySize) bytes")
+                        } catch {
+                            AppLogger.log("  Failed to get binary attributes: \(error)")
+                        }
+                    }
                 } catch {
-                    AppLogger.log("Failed to read framework contents: \(error)")
+                    AppLogger.log("  Failed to read framework contents: \(error)")
                 }
+            } else {
+                AppLogger.log("  ⚠️ CRITICAL: Python.framework NOT FOUND!")
             }
             
-            // Check current working directory and environment
-            AppLogger.log("Current working directory: \(FileManager.default.currentDirectoryPath)")
-            AppLogger.log("PYTHONHOME env: \(ProcessInfo.processInfo.environment["PYTHONHOME"] ?? "not set")")
-            AppLogger.log("PY_BRIDGE_RESOURCE_DIR env: \(ProcessInfo.processInfo.environment["PY_BRIDGE_RESOURCE_DIR"] ?? "not set")")
+            AppLogger.log("DETAILED PATH ANALYSIS:")
+            for (index, path) in potentialPythonHomes.enumerated() {
+                AppLogger.log("  Path \(index + 1): \(path)")
+                let exists = FileManager.default.fileExists(atPath: path)
+                AppLogger.log("    Directory exists: \(exists)")
+                if exists {
+                    do {
+                        let contents = try FileManager.default.contentsOfDirectory(atPath: path)
+                        AppLogger.log("    Contents (\(contents.count) items): \(contents.prefix(10).joined(separator: ", "))")
+                    } catch {
+                        AppLogger.log("    Failed to list contents: \(error)")
+                    }
+                }
+            }
             
             let errorDetails = """
             All Python initialization attempts failed.

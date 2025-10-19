@@ -310,7 +310,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -euo pipefail\nFRAME_DIR=\"${SRCROOT}/ios/Frameworks/Python.xcframework\"\nif [ \"${EFFECTIVE_PLATFORM_NAME:-}\" = \"-iphonesimulator\" ]; then\n  SLICE=\"${FRAME_DIR}/ios-arm64_x86_64-simulator/Python.framework\"\nelse\n  SLICE=\"${FRAME_DIR}/ios-arm64/Python.framework\"\nfi\nAPP_FW_DIR=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}/Frameworks\"\nmkdir -p \"${APP_FW_DIR}\"\nif [ -d \"${SLICE}\" ]; then\n  cp -R \"${SLICE}\" \"${APP_FW_DIR}/Python.framework\"\nelse\n  echo \"warning: Python.framework slice not found at ${SLICE}\"\nfi\n";
+			shellScript = "set -euo pipefail\nFRAME_DIR=\"${SRCROOT}/ios/Frameworks/Python.xcframework\"\nif [ \"${EFFECTIVE_PLATFORM_NAME:-}\" = \"-iphonesimulator\" ]; then\n  SLICE=\"${FRAME_DIR}/ios-arm64_x86_64-simulator/Python.framework\"\nelse\n  SLICE=\"${FRAME_DIR}/ios-arm64/Python.framework\"\nfi\nAPP_FW_DIR=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}/Frameworks\"\nAPP_PYTHON_DIR=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}/python\"\nmkdir -p \"${APP_FW_DIR}\" \"${APP_PYTHON_DIR}\"\nif [ -d \"${SLICE}\" ]; then\n  cp -R \"${SLICE}\" \"${APP_FW_DIR}/Python.framework\"\nelse\n  echo \"warning: Python.framework slice not found at ${SLICE}\"\nfi\n# Move python-stdlib.zip to python subfolder if it exists in root\nROOT_STDLIB=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}/python-stdlib.zip\"\nPYTHON_STDLIB=\"${APP_PYTHON_DIR}/python-stdlib.zip\"\nif [ -f \"${ROOT_STDLIB}\" ]; then\n  mv \"${ROOT_STDLIB}\" \"${PYTHON_STDLIB}\"\n  echo \"Moved python-stdlib.zip to python subfolder\"\nfi\n";
 		};
 		PY9999999999999999999911 /* Copy PyodideAssets */ = {
 			isa = PBXShellScriptBuildPhase;
