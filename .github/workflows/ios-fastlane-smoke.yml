@@ -22,6 +22,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: '3.2'
           bundler-cache: true
 
       - name: Bundle install
@@ -42,4 +43,3 @@ jobs:
           name: iOS-Fastlane-Smoke
           path: |
             ${{ runner.temp }}/fastlane-smoke
-
