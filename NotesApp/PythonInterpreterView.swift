@@ -51,7 +51,8 @@ for i in range(3):
     }
 
     var body: some View {
-        VStack(spacing: 0) {
+        AppLogger.log("PythonInterpreterView: rendering body")
+        return VStack(spacing: 0) {
             headerControls
             // (env summary removed)
             editor
@@ -62,6 +63,11 @@ for i in range(3):
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .navigationTitle("Python Runner")
         .toolbar { runToolbar }
+        .onAppear {
+            AppLogger.log("PythonInterpreterView: onAppear called")
+            AppLogger.log("Current executor type: \(type(of: executor))")
+            AppLogger.log("Initial code length: \(code.count) chars")
+        }
         // File export/import for .py scripts in Files.app (Documents)
         .fileExporter(isPresented: $showExporter, document: PyScriptDocument(text: code), contentType: UTType(filenameExtension: "py") ?? .plainText, defaultFilename: "script.py") { result in
             switch result {
@@ -391,7 +397,10 @@ for i in range(3):
             do {
                 self.executor = PyodideExecutor.shared
                 let result = try await self.executor.execute(code: code)
-                AppLogger.log("Pyodide fallback succeeded; stdout bytes=\(result.stdout.count)")
+                AppLogger.log("=== PYODIDE FALLBACK SUCCEEDED ===")
+            AppLogger.log("Pyodide fallback stdout bytes: \(result.stdout.count)")
+            AppLogger.log("Pyodide fallback stderr bytes: \(result.stderr.count)")
+            AppLogger.log("Pyodide fallback exit code: \(result.exitCode ?? -1)")
                 let combined = result.stdout.isEmpty ? "(no output)" : result.stdout
                 await MainActor.run {
                     self.output = combined
@@ -400,7 +409,9 @@ for i in range(3):
                     writeAutorunOutput(combined)
                 }
             } catch {
-                AppLogger.log("Pyodide fallback failed: \(error.localizedDescription)")
+                AppLogger.log("=== PYODIDE FALLBACK FAILED ===")
+                AppLogger.log("Pyodide fallback error: \(error.localizedDescription)")
+                AppLogger.log("Pyodide fallback error type: \(type(of: error))")
                 let duration = Date().timeIntervalSince(start)
                 await MainActor.run {
                     self.lastError = errorMessage

@@ -166,7 +166,10 @@ echo "Mirroring into ThirdParty/Python for existing workflows"
 mkdir -p ThirdParty/Python
 rm -rf ThirdParty/Python/Python.xcframework
 rsync -a "$TARGET_XCF_DIR/" ThirdParty/Python/Python.xcframework/
-cp "$TARGET_STDLIB" ThirdParty/Python/python-stdlib.zip
+# Only copy stdlib if source and destination differ
+if [ "$(cd "$(dirname "$TARGET_STDLIB")" && pwd)/$(basename "$TARGET_STDLIB")" != "$(cd "$(dirname "ThirdParty/Python/python-stdlib.zip")" && pwd)/$(basename "ThirdParty/Python/python-stdlib.zip")" ]; then
+  cp "$TARGET_STDLIB" ThirdParty/Python/python-stdlib.zip
+fi
 
 # Ensure PYTHON_VERSION.txt exists in stdlib zip to allow CI version checks
 if ! unzip -l "$TARGET_STDLIB" | grep -q "PYTHON_VERSION.txt"; then

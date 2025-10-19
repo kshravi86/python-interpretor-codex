@@ -542,10 +542,10 @@ final class CPythonExecutor: PythonExecutor {
                 Self.didInit = true
             } else {
                 AppLogger.log("âŒ Python self-test FAILED")
-                AppLogger.log("Exit code: \(testResult.exitCode)")
+                AppLogger.log("Exit code: \(testResult.exitCode ?? -1)")
                 AppLogger.log("Stdout: '\(testResult.stdout)'")
                 AppLogger.log("Stderr: '\(testResult.stderr)'")
-                throw PythonRuntimeError.initializationFailed("Python initialized but basic execution test failed. Exit code: \(testResult.exitCode), Stderr: \(testResult.stderr)")
+                throw PythonRuntimeError.initializationFailed("Python initialized but basic execution test failed. Exit code: \(testResult.exitCode ?? -1), Stderr: \(testResult.stderr)")
             }
             
         } catch {

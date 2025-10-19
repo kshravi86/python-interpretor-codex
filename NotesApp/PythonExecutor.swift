@@ -21,6 +21,7 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
     private var pendingContinuations: [CheckedContinuation<Void, Error>] = []
 
     private func ensureReady() async throws {
+        AppLogger.log("PyodideExecutor: ensureReady called, isReady=\(isReady)")
         if isReady { return }
         try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             DispatchQueue.main.async {
@@ -30,7 +31,7 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
                     let wv = WKWebView(frame: .zero, configuration: cfg)
                     wv.navigationDelegate = self
                     self.webView = wv
-                    AppLogger.log("PyodideExecutor: created WKWebView")
+                    AppLogger.log("PyodideExecutor: created WKWebView with baseURL: \(base)")
                     // Prepare minimal HTML that imports pyodide
                     let html = """
                     <!doctype html>
@@ -79,18 +80,23 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
     }
 
     func execute(code: String) async throws -> ExecutionResult {
+        AppLogger.log("PyodideExecutor: execute called with code length: \(code.count)")
         try await ensureReady()
         guard let wv = self.webView else {
+            AppLogger.log("PyodideExecutor: ERROR - webview not available")
             return ExecutionResult(stdout: "", stderr: "Pyodide webview not available", exitCode: 1)
         }
         // Escape backticks and backslashes for JS template literal
         let safe = code.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "`", with: "\\`")
+        AppLogger.log("PyodideExecutor: escaped code length: \(safe.count)")
         let js = """
         (async () => {
           const py = window.pyodide;
           try {
             await py.runPythonAsync(`import sys, io; _b=io.StringIO(); _o,_e=sys.stdout,sys.stderr; sys.stdout=_b; sys.stderr=_b;`);
-            await py.runPythonAsync(`\n` + `""" + safe + """` + `\n`);
+            await py.runPythonAsync(`
+\(safe)
+`);
             await py.runPythonAsync(`sys.stdout=_o; sys.stderr=_e; _out=_b.getvalue()`);
             const out = py.globals.get('_out');
             return out && out.toString ? out.toString() : String(out);
@@ -99,11 +105,20 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
           }
         })();
         """
+        AppLogger.log("PyodideExecutor: executing JavaScript...")
         let result: String = try await withCheckedThrowingContinuation { (cont: CheckedContinuation<String, Error>) in
             wv.evaluateJavaScript(js) { value, error in
-                if let error { cont.resume(throwing: error) } else { cont.resume(returning: (value as? String) ?? "") }
+                if let error {
+                    AppLogger.log("PyodideExecutor: JavaScript execution error: \(error.localizedDescription)")
+                    cont.resume(throwing: error)
+                } else {
+                    let resultStr = (value as? String) ?? ""
+                    AppLogger.log("PyodideExecutor: JavaScript execution completed, result length: \(resultStr.count)")
+                    cont.resume(returning: resultStr)
+                }
             }
         }
+        AppLogger.log("PyodideExecutor: returning result with stdout length: \(result.count)")
         return ExecutionResult(stdout: result, stderr: "", exitCode: 0)
     }
 }
