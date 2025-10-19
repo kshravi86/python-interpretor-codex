@@ -58,9 +58,11 @@ platform :ios do
     end
     UI.user_error!("Simulator #{udid} did not reach Booted state") unless booted
 
-    # Build Release for simulator
-    sh("xcodebuild clean -project \"#{project}\" -scheme #{scheme} -configuration Release -sdk iphonesimulator || true")
-    sh([
+    # Build Release for simulator (capture logs and xcresult)
+    result_bundle = File.join(derived, "build.xcresult")
+    sh("xcodebuild -list -project \"#{project}\" | tee \"#{File.join(art_dir,'xcodebuild-list.log')}\"")
+    sh("bash -lc 'set -o pipefail; xcodebuild clean -project \"#{project}\" -scheme #{scheme} -configuration Release -sdk iphonesimulator | tee \"#{File.join(art_dir,'xcodebuild-clean.log')}\"' || true")
+    build_cmd = [
       "xcodebuild","build",
       "-project",project,
       "-scheme",scheme,
@@ -68,14 +70,29 @@ platform :ios do
       "-sdk","iphonesimulator",
       "-destination","id=#{udid}",
       "-derivedDataPath",derived,
+      "-resultBundlePath",result_bundle,
       "ONLY_ACTIVE_ARCH=YES",
       'EXCLUDED_ARCHS="x86_64"',
       'VALID_ARCHS=arm64'
-    ].join(" "))
+    ].join(" ")
+    sh("bash -lc 'set -o pipefail; #{build_cmd} | tee \"#{File.join(art_dir,'xcodebuild-build.log')}\"'")
 
     products = File.join(derived, "Build/Products/Release-iphonesimulator")
     app_path = Dir[File.join(products, "*.app")].first
     UI.user_error!("No .app found at #{products}") unless app_path
+    # Persist products listing and xcresult to artifacts
+    begin
+      File.write(File.join(art_dir,'products.txt'), Dir.exist?(products) ? Dir.children(products).join("\n") : "Products dir missing")
+    rescue => e
+      UI.important("Failed writing products listing: #{e}")
+    end
+    if File.directory?(result_bundle)
+      begin
+        FileUtils.cp_r(result_bundle, File.join(art_dir, 'build.xcresult'))
+      rescue => e
+        UI.important("Failed to copy xcresult: #{e}")
+      end
+    end
 
     # Inject Simulator Python.framework from xcframework if present (mirror existing GH step)
     sim_fw = File.join(root, "ios/Frameworks/Python.xcframework/ios-arm64_x86_64-simulator/Python.framework")
