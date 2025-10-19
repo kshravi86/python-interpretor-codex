@@ -42,4 +42,4 @@ jobs:
         with:
           name: iOS-Fastlane-Smoke
           path: |
-            ${{ runner.temp }}/fastlane-smoke
+            fastlane_artifacts

@@ -11,7 +11,8 @@ platform :ios do
     project = File.join(root, "NotesApp.xcodeproj")
     scheme  = options[:scheme]  || "NotesApp"
     derived = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "DerivedFastlaneSmoke")
-    art_dir = File.join((ENV["RUNNER_TEMP"] || Dir.pwd), "fastlane-smoke")
+    # Write artifacts inside the repo to avoid env/path mismatches with runner.temp
+    art_dir = File.join(root, "fastlane_artifacts")
     FileUtils.mkdir_p([derived, art_dir])
 
     # Resolve a recent iPhone sim + latest available iOS runtime
@@ -41,7 +42,19 @@ platform :ios do
     sh("xcrun simctl erase #{udid} || true")
     sh("open -a Simulator || true")
     sh("xcrun simctl boot #{udid} || true")
+    # Wait robustly for Booted state to avoid SimError 405
     sh("xcrun simctl bootstatus #{udid} -b || true")
+    retries = 20
+    booted = false
+    (1..retries).each do |i|
+      state = sh("xcrun simctl list devices | /usr/bin/grep #{udid} | sed -E 's/.*\\(([^()]*)\\).*/\\1/' || true").strip
+      if state == 'Booted'
+        booted = true
+        break
+      end
+      sleep 3
+    end
+    UI.user_error!("Simulator #{udid} did not reach Booted state") unless booted
 
     # Build Release for simulator
     sh("xcodebuild clean -project \"#{project}\" -scheme #{scheme} -configuration Release -sdk iphonesimulator || true")
@@ -70,7 +83,19 @@ platform :ios do
     end
 
     # Install on simulator
-    sh("xcrun simctl install #{udid} \"#{app_path}\"")
+    # Install with a couple retries to handle transient SimError
+    installed = false
+    3.times do |i|
+      begin
+        sh("xcrun simctl install #{udid} \"#{app_path}\"")
+        installed = true
+        break
+      rescue => e
+        UI.important("install attempt #{i+1} failed: #{e}")
+        sleep 2
+      end
+    end
+    UI.user_error!("Failed to install app on simulator") unless installed
 
     # Resolve bundle identifier
     info_plist = File.join(app_path, 'Info.plist')
@@ -93,6 +118,8 @@ platform :ios do
     # Launch with autorun arguments
     b64 = Base64.strict_encode64("print(\"PY SMOKE:\", 2+2)")
     sh("bash -lc 'xcrun simctl launch #{udid} #{bundle_id} --args --autorun-b64 #{b64} --autorun-save autorun.txt > #{art_dir}/launch.out 2> #{art_dir}/launch.err || true'")
+    # Write quick status context
+    File.write(File.join(art_dir,'status.json'), JSON.pretty_generate({udid: udid, bundle_id: bundle_id, app_path: app_path})) rescue nil
 
     # Pull app container artifacts
     container = sh("xcrun simctl get_app_container #{udid} #{bundle_id} data || true").strip
