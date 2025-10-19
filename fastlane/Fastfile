@@ -15,6 +15,8 @@ platform :ios do
     art_dir = File.join(root, "fastlane_artifacts")
     FileUtils.mkdir_p([derived, art_dir])
 
+    # Ensure artifacts directory exists even if we fail early
+    begin
     # Resolve a recent iPhone sim + latest available iOS runtime
     dt_json = sh("xcrun simctl list devicetypes -j")
     devtypes = JSON.parse(dt_json)["devicetypes"]
@@ -156,6 +158,14 @@ platform :ios do
     end
 
     UI.success("Python smoke passed. Artifacts in #{art_dir}")
+    ensure
+      begin
+        FileUtils.mkdir_p(art_dir)
+        File.write(File.join(art_dir, 'README.txt'), "Fastlane python_smoke artifacts") unless File.exist?(File.join(art_dir,'README.txt'))
+      rescue => e
+        UI.important("Failed to finalize artifact directory: #{e}")
+      end
+    end
   end
   desc "UI smoke test on iPhone simulator"
   lane :ui_smoke do |options|
