@@ -1,87 +1,124 @@
-Conversation opened. 1 unread message.
+[09:37:45]: Sending anonymous analytics information
+[09:37:45]: Learn more at https://docs.fastlane.tools/#metrics
+[09:37:45]: No personal or sensitive data is sent.
+[09:37:45]: You can disable this by adding `opt_out_usage` at the top of your Fastfile
+[09:37:45]: ------------------------------
+[09:37:45]: --- Step: default_platform ---
+[09:37:45]: ------------------------------
+[09:37:45]: Driving the lane 'ios python_smoke' 🚀
+[09:37:45]: --------------------------------------------------------------------
+[09:37:45]: Step: xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived
+[09:37:45]: --------------------------------------------------------------------
+[09:37:45]: $ xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived
+[09:37:46]: ▸ Command line invocation:
+[09:37:46]: ▸ /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
+[09:37:46]: ▸ User defaults from command line:
+[09:37:46]: ▸ IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
+[09:37:46]: ▸ IDEPackageSupportUseBuiltinSCM = YES
+[09:37:46]: ▸ Build settings from command line:
+[09:37:46]: ▸ SDKROOT = iphonesimulator18.2
+[09:37:47]: ▸ 2025-10-19 09:37:47.327 xcodebuild[28540:109354] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-37-0047.xcresult
+[09:37:48]: ▸ xcodebuild: error: 'NotesApp.xcodeproj' does not exist.
++-------------------------------------+
+|            Lane Context             |
++------------------+------------------+
+| DEFAULT_PLATFORM | ios              |
+| PLATFORM_NAME    | ios              |
+| LANE_NAME        | ios python_smoke |
++------------------+------------------+
+[09:37:48]: Called from Fastfile at line 11
+[09:37:48]: ```
+[09:37:48]:      9:	
+[09:37:48]:     10:	    # build for simulator
+[09:37:48]:  => 11:	    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator}' clean build -derivedDataPath build/derived")
+[09:37:48]:     12:	
+[09:37:48]:     13:	    # find .app
+[09:37:48]: ```
+[09:37:48]: Exit status of command 'xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived' was 66 instead of 0.
+Command line invocation:
+    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
 
-Skip to content
-Using Gmail with screen readers
-1 of 65,879
-(no subject)
-Inbox
+User defaults from command line:
+    IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
+    IDEPackageSupportUseBuiltinSCM = YES
 
-aakash ravi <kshravi86@gmail.com>
-9:00 PM (0 minutes ago)
-to me
+Build settings from command line:
+    SDKROOT = iphonesimulator18.2
 
-[2025-10-14 20:59:41.608] App launch
-[2025-10-14 20:59:41.731] InterpreterView appear
-[2025-10-14 20:59:42.952] RUN button tapped - about to call runCode()
-[2025-10-14 20:59:42.952] Task started for runCode()
-[2025-10-14 20:59:42.953] === PythonInterpreterView.runCode() START ===
-[2025-10-14 20:59:42.953] Code to execute (length: 59 chars):
-[2025-10-14 20:59:42.953] Code content: 'print('Hello from Python!')
-for i in range(3):
-print(i)'
-[2025-10-14 20:59:42.955] Setting UI state: isRunning = true
-[2025-10-14 20:59:42.957] Execution started at: 2025-10-14 15:29:42 +0000
-[2025-10-14 20:59:42.957] About to call executor.execute() with CPythonExecutor
-[2025-10-14 20:59:42.957] Executor type: CPythonExecutor
-[2025-10-14 20:59:42.957] === CPythonExecutor.execute() START ===
-[2025-10-14 20:59:42.957] Code length: 59 characters
-[2025-10-14 20:59:42.958] Code preview (first 100 chars): print('Hello from Python!')
-for i in range(3):
-print(i)
-[2025-10-14 20:59:42.958] Code after trimming: 59 characters
-[2025-10-14 20:59:42.958] Ensuring CPython is initialized...
-[2025-10-14 20:59:42.958] === CPythonExecutor.ensureInitialized() START ===
-[2025-10-14 20:59:42.959] CPythonExecutor not yet initialized, proceeding with setup
-[2025-10-14 20:59:42.959] Checking Bundle.main.resourceURL...
-[2025-10-14 20:59:42.959] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/
-[2025-10-14 20:59:42.959] Resource URL path: /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app
-[2025-10-14 20:59:42.959] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/
-[2025-10-14 20:59:42.960] Resource directory exists: true at /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app
-[2025-10-14 20:59:42.960] Resource directory accessible: true, isDirectory: true
-[2025-10-14 20:59:42.960] === LISTING ALL FILES IN APP BUNDLE ===
-[2025-10-14 20:59:42.961] Total files in bundle: 9
-[2025-10-14 20:59:42.964] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 5946 bytes)
-[2025-10-14 20:59:42.965] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
-[2025-10-14 20:59:42.967] File 3: CodeSnake (exists: true, isDir: false, size: 672208 bytes)
-[2025-10-14 20:59:42.969] File 4: Info.plist (exists: true, isDir: false, size: 1463 bytes)
-[2025-10-14 20:59:42.970] File 5: PkgInfo (exists: true, isDir: false, size: 8 bytes)
-[2025-10-14 20:59:42.971] File 6: Assets.car (exists: true, isDir: false, size: 114872 bytes)
-[2025-10-14 20:59:42.972] File 7: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
-[2025-10-14 20:59:42.973] File 8: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
-[2025-10-14 20:59:42.974] File 9: AppIcon60x60@2x.png (exists: true, isDir: false, size: 5244 bytes)
-[2025-10-14 20:59:42.975] NO Python/stdlib related files found in bundle!
-[2025-10-14 20:59:42.975] === CHECKING FOR python-stdlib.zip ===
-[2025-10-14 20:59:42.975] Expected stdlib path: /private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:59:42.975] Expected stdlib URL: file:///private/var/containers/Bundle/Application/3855CCEC-302B-4406-AAE8-486C1D43B6A4/CodeSnake.app/python-stdlib.zip
-[2025-10-14 20:59:42.975] python-stdlib.zip exists: false
-[2025-10-14 20:59:42.975] CRITICAL: python-stdlib.zip MISSING from app bundle!
-[2025-10-14 20:59:42.975] Checking for alternative stdlib file names...
-[2025-10-14 20:59:42.976] Alternative stdlib.zip: exists=false
-[2025-10-14 20:59:42.976] Alternative python314.zip: exists=false
-[2025-10-14 20:59:42.976] Alternative lib.zip: exists=false
-[2025-10-14 20:59:42.976] Frameworks directory exists: false
-[2025-10-14 20:59:42.977] === END STDLIB SEARCH ===
-[2025-10-14 20:59:42.977] No Python framework found either - complete Python runtime missing
-[2025-10-14 20:59:42.977] CPythonExecutor.execute: initialization FAILED - Error Domain=CPythonExecutor Code=-1 "Python runtime not available. Missing both python-stdlib.zip and Python.framework." UserInfo={NSLocalizedDescription=Python runtime not available. Missing both python-stdlib.zip and Python.framework.}
-[2025-10-14 20:59:42.977] Error type: NSError
-[2025-10-14 20:59:42.977] Error description: Python runtime not available. Missing both python-stdlib.zip and Python.framework.
-[2025-10-14 20:59:42.977] === EXECUTION RESULT RECEIVED ===
-[2025-10-14 20:59:42.978] Exit code: 1
-[2025-10-14 20:59:42.978] Stdout length: 0 bytes
-[2025-10-14 20:59:42.978] Stderr length: 120 bytes
-[2025-10-14 20:59:42.978] Stderr content: 'Python runtime initialization failed: Python runtime not available. Missing both python-stdlib.zip and Python.framework.'
-[2025-10-14 20:59:42.978] Combining output strings...
-[2025-10-14 20:59:42.978] Added exit code to output: 1
-[2025-10-14 20:59:42.978] Added stderr to combined output
-[2025-10-14 20:59:42.978] Final combined output length: 129 chars
-[2025-10-14 20:59:42.978] Final combined output: '[exit 1]
-Python runtime initialization failed: Python runtime not available. Missing both python-stdlib.zip and Python.framework.'
-[2025-10-14 20:59:42.981] Updating UI with execution result
-[2025-10-14 20:59:42.999] Setting execution duration: 0.02512502670288086s
-[2025-10-14 20:59:42.999] Execution completed successfully
-[2025-10-14 20:59:43.005] Setting UI state: isRunning = false
-[2025-10-14 20:59:43.005] === PythonInterpreterView.runCode() COMPLETE ===
-[2025-10-14 20:59:43.005] Total execution time: 0.04889202117919922s
-[2025-10-14 20:59:43.005] runCode() task completed
+2025-10-19 09:37:47.327 xcodebuild[28540:109354] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-37-0047.xcresult
+xcodebuild: error: 'NotesApp.xcodeproj' does not exist.
 
+
++------------------------------------------------------------------------------------+
+|                                  fastlane summary                                  |
++------+---------------------------------------------------------------+-------------+
+| Step | Action                                                        | Time (in s) |
++------+---------------------------------------------------------------+-------------+
+| 1    | default_platform                                              | 0           |
+| 💥   | xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk  | 3           |
++------+---------------------------------------------------------------+-------------+
+
+[09:37:48]: fastlane finished with errors
+
+Looking for related GitHub issues on fastlane/fastlane...
+
+bundler: failed to load command: fastlane (/Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/bin/fastlane)
+/Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane_core/lib/fastlane_core/ui/interface.rb:153:in `shell_error!': [!] Exit status of command 'xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build -derivedDataPath build/derived' was 66 instead of 0. (FastlaneCore::Interface::FastlaneShellError)
+Command line invocation:
+    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -project NotesApp.xcodeproj -scheme NotesApp -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15" clean build -derivedDataPath build/derived
+
+User defaults from command line:
+    IDEDerivedDataPathOverride = /Users/runner/work/python-interpretor-codex/python-interpretor-codex/fastlane/build/derived
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Build settings from command line:
+    SDKROOT = iphonesimulator18.2
+
+2025-10-19 09:37:47.327 xcodebuild[28540:109354] Writing error result bundle to /var/folders/y6/nj790rtn62lfktb1sh__79hc0000gn/T/ResultBundle_2025-19-10_09-37-0047.xcresult
+xcodebuild: error: 'NotesApp.xcodeproj' does not exist.
+
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane_core/lib/fastlane_core/ui/ui.rb:17:in `method_missing'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/helper/sh_helper.rb:80:in `sh_control_output'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/helper/sh_helper.rb:16:in `sh_no_action'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:225:in `block in sh'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/actions/actions_helper.rb:69:in `execute_action'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:224:in `sh'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/fast_file.rb:216:in `sh'
+	from Fastfile:11:in `block (2 levels) in parsing_binding'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/lane.rb:41:in `call'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/runner.rb:45:in `execute'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/lane_manager.rb:46:in `cruise_lane'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/command_line_handler.rb:34:in `handle'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/commander-4.6.0/lib/commander/command.rb:187:in `call'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/commander-4.6.0/lib/commander/command.rb:157:in `run'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/commands_generator.rb:363:in `run'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/gems/fastlane-2.228.0/bin/fastlane:23:in `<top (required)>'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/bin/fastlane:25:in `load'
+	from /Users/runner/work/python-interpretor-codex/python-interpretor-codex/vendor/bundle/ruby/3.2.0/bin/fastlane:25:in `<top (required)>'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli/exec.rb:58:in `load'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli/exec.rb:58:in `kernel_load'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli/exec.rb:23:in `run'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli.rb:492:in `exec'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/vendor/thor/lib/thor/command.rb:27:in `run'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/vendor/thor/lib/thor/invocation.rb:127:in `invoke_command'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/vendor/thor/lib/thor.rb:392:in `dispatch'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli.rb:34:in `dispatch'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/vendor/thor/lib/thor/base.rb:485:in `start'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/cli.rb:28:in `start'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/gems/3.2.0/gems/bundler-2.4.19/libexec/bundle:37:in `block in <top (required)>'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/3.2.0/bundler/friendly_errors.rb:117:in `with_friendly_errors'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/lib/ruby/gems/3.2.0/gems/bundler-2.4.19/libexec/bundle:29:in `<top (required)>'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/bin/bundle:25:in `load'
+	from /Users/runner/hostedtoolcache/Ruby/3.2.9/arm64/bin/bundle:25:in `<main>'
+Error: Process completed with exit code 1.
+2s
+1s
 

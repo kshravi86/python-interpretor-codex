@@ -4,7 +4,7 @@ platform :ios do
   desc "Simple non-interactive smoke lane: build for simulator, install & launch, capture logs"
   lane :python_smoke do
     scheme = "NotesApp"
-    project = "NotesApp.xcodeproj"
+    project = "../NotesApp.xcodeproj"
     simulator = ENV['SIMULATOR_DEVICE'] || "iPhone 15"
 
     # build for simulator
