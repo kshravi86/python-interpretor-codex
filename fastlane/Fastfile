@@ -19,7 +19,9 @@ platform :ios do
     begin
     # Fetch Python runtime (xcframework + stdlib) similar to GH workflow
     ENV['PY_SUPPORT_REPO'] = 'beeware/Python-Apple-support'
-    ENV['PY_SUPPORT_TAG'] = (options[:py_tag] || 'latest').to_s
+    ENV['PY_SUPPORT_TAG'] = '3.14-b8'
+    # Forward token to gh in script
+    ENV['GH_TOKEN'] = ENV['GITHUB_TOKEN'] if ENV['GITHUB_TOKEN']
     ENV['PY_TARGET_XCF_DIR'] = File.join(root, 'ios/Frameworks/Python.xcframework')
     ENV['PY_TARGET_STDLIB'] = File.join(root, 'ThirdParty/Python/python-stdlib.zip')
     FileUtils.mkdir_p(File.dirname(ENV['PY_TARGET_STDLIB']))
