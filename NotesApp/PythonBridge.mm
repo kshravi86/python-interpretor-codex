@@ -115,23 +115,20 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
     }
     #endif
 
+    // Set PYTHONHOME to the python subfolder for proper Python-Apple-support initialization
+    std::string python_home;
     if (resource_dir && *resource_dir) {
         setenv("PY_BRIDGE_RESOURCE_DIR", resource_dir, 1);
-        setenv("PYTHONHOME", resource_dir, 1);
+        python_home = std::string(resource_dir) + "/python";
+        setenv("PYTHONHOME", python_home.c_str(), 1);
         // Also set via API for maximum compatibility
         // NOTE: Do not free this pointer after initialization; some CPython versions
         // may retain the pointer. Since this is a one-time init per process,
         // leaking this allocation is acceptable and avoids use-after-free crashes.
-        wchar_t *wHome = Py_DecodeLocale(resource_dir, NULL);
+        wchar_t *wHome = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome) {
             Py_SetPythonHome(wHome);
         }
-
-        // Preconfigure sys.path before Py_Initialize so that core encodings and
-        // importlib bootstrap can be found. Using Py_SetPath here ensures
-        // python-stdlib.zip is available during initialization.
-        // Note: Py_SetPath is not available in all embedded configurations for iOS support
-        // We rely on PYTHONHOME + post-initialize sys.path adjustments below instead.
     }
 
     // Prefer modern initialization via PyConfig so import system is ready for encodings/bootstrap
@@ -146,18 +143,24 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         }
 
         PyConfig cfg;
-        PyConfig_InitPythonConfig(&cfg);
-        cfg.isolated = 1;
+        PyConfig_InitIsolatedConfig(&cfg);
         cfg.use_environment = 0;
 
-        // Set home to the app bundle resource_dir
-        wchar_t* wHome2 = Py_DecodeLocale(resource_dir ? resource_dir : "", NULL);
+        // Set home to the python subfolder
+        wchar_t* wHome2 = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome2) {
             PyConfig_SetString(&cfg, &cfg.home, wHome2);
         }
 
-        // Pre-configure module search paths
-        cfg.module_search_paths_set = 1;
+        // Let Python compute the standard paths from PYTHONHOME
+        st = PyConfig_Read(&cfg);
+        if (PyStatus_Exception(st)) {
+            set_error(errbuf, errbuf_len, "PyConfig_Read failed");
+            PyConfig_Clear(&cfg);
+            return -1;
+        }
+
+        // Append additional paths for our packages (optional)
         auto appendPath = [&](const char* p) {
             if (!p || !*p) return;
             wchar_t* w = Py_DecodeLocale(p, NULL);
@@ -166,16 +169,14 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
             }
         };
 
-        // Build candidate paths inside the bundle
+        // Add site-packages and app_packages from python subfolder
         @autoreleasepool {
-            NSString* res = [NSString stringWithUTF8String:resource_dir ? resource_dir : ""];
-            NSArray<NSString*>* parts = @[
-                [res stringByAppendingPathComponent:@"python-stdlib.zip"],
-                [res stringByAppendingPathComponent:@"stdlib.zip"],
-                [res stringByAppendingPathComponent:@"site-packages"],
-                [res stringByAppendingPathComponent:@"app_packages"],
+            NSString* pythonDir = [NSString stringWithUTF8String:python_home.c_str()];
+            NSArray<NSString*>* additionalPaths = @[
+                [pythonDir stringByAppendingPathComponent:@"site-packages"],
+                [pythonDir stringByAppendingPathComponent:@"app_packages"],
             ];
-            for (NSString* s in parts) {
+            for (NSString* s in additionalPaths) {
                 appendPath(s.UTF8String);
             }
         }

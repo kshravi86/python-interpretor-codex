@@ -28,6 +28,10 @@ platform :ios do
     bundle_id = sh("/usr/libexec/PlistBuddy -c \"Print :CFBundleIdentifier\" \"#{app_path}/Info.plist\"").strip
     sh("xcrun simctl launch booted #{bundle_id}")
 
+    # check app bundle structure for debugging
+    sh("ls -la #{app_path}")
+    sh("ls -la #{app_path}/python || echo 'No python subfolder found'")
+    
     # capture logs into fastlane_artifacts
     sh("mkdir -p fastlane_artifacts")
     sh("xcrun simctl spawn booted log stream --style compact > fastlane_artifacts/sim_log.txt & sleep 5; pkill -P $$ log || true")

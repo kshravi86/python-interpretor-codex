@@ -1,48 +1,1100 @@
-1s
-Run set -e
-  set -e
-  IPA=$(ls /Users/runner/work/_temp/export-release/*.ipa | head -n 1)
-  if [ -z "$IPA" ]; then echo "No IPA to inspect"; exit 0; fi
-  TMP=$(mktemp -d)
-  unzip -q "$IPA" -d "$TMP"
-  APPDIR=$(ls -d "$TMP"/Payload/*.app)
-  # must have stdlib zip
-  test -f "$APPDIR/python-stdlib.zip"
-  # must have Python framework in Frameworks/
-  ls "$APPDIR/Frameworks" | grep -i "Python"
-  # must include selftest.py
-  test -f "$APPDIR/selftest.py"
-  # verify final app is signed
-  /usr/bin/codesign -dvv "$APPDIR" | grep -E 'Identifier|Authority'
-  shell: /bin/bash --noprofile --norc -e -o pipefail {0}
-  env:
-    BUILD_CERTIFICATE_BASE64: ***
-    P12_PASSWORD: ***
-    KEYCHAIN_PASSWORD: ***
-    BUILD_PROVISION_PROFILE_BASE64: ***
-    IOS_TEAM_ID: ***
-    MD_APPLE_SDK_ROOT: /Applications/Xcode_26.0.1.app
-    NEW_BUILD: 202510191433
-    PP_PATH: /Users/runner/work/_temp/build_pp.mobileprovision
-    PP_UUID: a95175c5-59b9-4156-a2bb-0e06c28776d8
-    PP_NAME: code snake mobilr provision profile
-    APP_VERSION: 1.0
-    APP_BUILD: 202510191433
-    BUNDLE_ID: com.venki18.codesnake
-    IPA_PATH: /Users/runner/work/_temp/export-release/CodeSnake.ipa
-  
-Python.framework
-Executable=/private/var/folders/q0/wmf37v850txck86cpnvwm_zw0000gn/T/tmp.TKnvxazVnQ/Payload/CodeSnake.app/CodeSnake
-Identifier=com.venki18.codesnake
-Format=app bundle with Mach-O thin (arm64)
-CodeDirectory v=20400 size=3481 flags=0x0(none) hashes=98+7 location=embedded
-Signature size=4780
-Authority=Apple Distribution: Aakash Ravi (***)
-Authority=Apple Worldwide Developer Relations Certification Authority
-Authority=Apple Root CA
-Signed Time=Oct 19, 2025 at 2:34:23 PM
-Info.plist entries=31
-TeamIdentifier=***
-Sealed Resources version=2 rules=10 files=299
-Internal requirements count=1 size=184
-Error: Process completed with exit code 
+[2025-10-19 20:29:34.070] CrashHandler installed
+[2025-10-19 20:29:34.083] App launch
+[2025-10-19 20:29:34.089] App version: 1.0 (202510191439), Device: iPhone, System: iOS 18.5
+[2025-10-19 20:29:34.090] Log file: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents/log.txt
+[2025-10-19 20:29:34.627] PythonInterpreterView: rendering body
+[2025-10-19 20:29:34.755] CodeEditor.makeUIView
+[2025-10-19 20:29:34.769] selection changed, currentLine before update: 1
+[2025-10-19 20:29:34.769] selection changed, currentLine after update: 3
+[2025-10-19 20:29:34.769] setText called, new length: 59
+[2025-10-19 20:29:34.783] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:34.796] PythonInterpreterView: onAppear called
+[2025-10-19 20:29:34.796] Current executor type: CPythonExecutor
+[2025-10-19 20:29:34.796] Initial code length: 59 chars
+[2025-10-19 20:29:34.796] InterpreterView appear
+[2025-10-19 20:29:34.796] No persisted editor code found
+[2025-10-19 20:29:36.387] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:36.389] Task started for runCode()
+[2025-10-19 20:29:36.389] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:36.389] Code to execute (length: 59 chars):
+[2025-10-19 20:29:36.389] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:36.389] Setting UI state: isRunning = true
+[2025-10-19 20:29:36.390] Execution started at: 2025-10-19 14:59:36 +0000
+[2025-10-19 20:29:36.390] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:36.390] Executor type: CPythonExecutor
+[2025-10-19 20:29:36.390] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:36.391] Code length: 59 characters
+[2025-10-19 20:29:36.391] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:36.391] Code after trimming: 59 characters
+[2025-10-19 20:29:36.391] Ensuring CPython is initialized...
+[2025-10-19 20:29:36.391] PythonInterpreterView: rendering body
+[2025-10-19 20:29:36.391] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:36.391] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:36.391] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:36.392] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:36.392] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.392] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:36.392] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.392] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:36.392] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:36.393] Total files in bundle: 15
+[2025-10-19 20:29:36.394] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:36.395] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:36.396] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:36.397] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:36.397] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:36.399] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:36.399] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:36.400] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:36.401] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:36.401] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:36.401] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:36.402] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:36.403] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:36.403] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:36.404] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:36.405] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:36.405] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:36.406] Python-related: Frameworks
+[2025-10-19 20:29:36.406] Python-related: python-stdlib.zip
+[2025-10-19 20:29:36.406] Copying site-packages from Resources to Application Support...
+[2025-10-19 20:29:36.417] Copied site-packages -> /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Library/Application Support/site-packages
+[2025-10-19 20:29:36.417] Copying app_packages from Resources to Application Support...
+[2025-10-19 20:29:36.421] Copied app_packages -> /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Library/Application Support/app_packages
+[2025-10-19 20:29:36.421] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:36.421] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:36.421] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:36.421] python-stdlib.zip exists: true
+[2025-10-19 20:29:36.421] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:36.421] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:36.421] python-stdlib.zip readable: true
+[2025-10-19 20:29:36.422] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:36.422] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:36.422] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.422] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.422] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.422] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.422] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.441] pybridge_initialize returned: -1
+[2025-10-19 20:29:36.441] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.441] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:36.441] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.441] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.442] pybridge_initialize returned: -1
+[2025-10-19 20:29:36.442] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.442] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:36.442] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.442] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.442] pybridge_initialize returned: -1
+[2025-10-19 20:29:36.443] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.443] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:36.443] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:36.443] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:36.443] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:36.443] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.443] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:36.443] Python.framework exists at expected path: true
+[2025-10-19 20:29:36.443] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:36.443] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:36.443] Current working directory: /
+[2025-10-19 20:29:36.443] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.443] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.443] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:36.443] Error type: PythonRuntimeError
+[2025-10-19 20:29:36.444] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:36.444] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:36.444] Exit code: 1
+[2025-10-19 20:29:36.444] Stdout length: 0 bytes
+[2025-10-19 20:29:36.444] Stderr length: 857 bytes
+[2025-10-19 20:29:36.444] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:36.444] Combining output strings...
+[2025-10-19 20:29:36.444] Added exit code to output: 1
+[2025-10-19 20:29:36.444] Added stderr to combined output
+[2025-10-19 20:29:36.444] Final combined output length: 866 chars
+[2025-10-19 20:29:36.444] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:36.444] Updating UI with execution result
+[2025-10-19 20:29:36.444] PythonInterpreterView: rendering body
+[2025-10-19 20:29:36.446] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:36.452] Setting execution duration: 0.05448102951049805s
+[2025-10-19 20:29:36.452] Execution completed successfully
+[2025-10-19 20:29:36.452] PythonInterpreterView: rendering body
+[2025-10-19 20:29:36.454] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:36.457] Setting UI state: isRunning = false
+[2025-10-19 20:29:36.457] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:36.457] Total execution time: 0.06788802146911621s
+[2025-10-19 20:29:36.458] runCode() task completed
+[2025-10-19 20:29:36.458] PythonInterpreterView: rendering body
+[2025-10-19 20:29:36.460] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:37.356] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:37.358] Task started for runCode()
+[2025-10-19 20:29:37.359] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:37.359] Code to execute (length: 59 chars):
+[2025-10-19 20:29:37.359] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:37.360] Setting UI state: isRunning = true
+[2025-10-19 20:29:37.360] Execution started at: 2025-10-19 14:59:37 +0000
+[2025-10-19 20:29:37.361] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:37.361] Executor type: CPythonExecutor
+[2025-10-19 20:29:37.361] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:37.362] Code length: 59 characters
+[2025-10-19 20:29:37.362] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:37.363] Code after trimming: 59 characters
+[2025-10-19 20:29:37.363] PythonInterpreterView: rendering body
+[2025-10-19 20:29:37.363] Ensuring CPython is initialized...
+[2025-10-19 20:29:37.363] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:37.363] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:37.364] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:37.364] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:37.364] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.364] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:37.365] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.365] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:37.365] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:37.366] Total files in bundle: 15
+[2025-10-19 20:29:37.367] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:37.369] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:37.370] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:37.371] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:37.372] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:37.374] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:37.374] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:37.375] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:37.376] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:37.377] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:37.377] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:37.378] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:37.379] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:37.380] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:37.381] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:37.382] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:37.382] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:37.382] Python-related: Frameworks
+[2025-10-19 20:29:37.382] Python-related: python-stdlib.zip
+[2025-10-19 20:29:37.384] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:37.384] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:37.384] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:37.384] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:37.384] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:37.385] python-stdlib.zip exists: true
+[2025-10-19 20:29:37.385] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:37.385] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:37.386] python-stdlib.zip readable: true
+[2025-10-19 20:29:37.386] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:37.386] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:37.386] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.386] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.386] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.386] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.386] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.387] pybridge_initialize returned: -1
+[2025-10-19 20:29:37.387] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.387] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:37.387] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.387] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.390] pybridge_initialize returned: -1
+[2025-10-19 20:29:37.390] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.390] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:37.391] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.391] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.391] pybridge_initialize returned: -1
+[2025-10-19 20:29:37.391] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.391] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:37.391] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:37.391] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:37.391] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:37.392] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.392] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:37.392] Python.framework exists at expected path: true
+[2025-10-19 20:29:37.392] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:37.393] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:37.393] Current working directory: /
+[2025-10-19 20:29:37.393] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.393] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.393] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:37.393] Error type: PythonRuntimeError
+[2025-10-19 20:29:37.393] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:37.396] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:37.396] Exit code: 1
+[2025-10-19 20:29:37.396] Stdout length: 0 bytes
+[2025-10-19 20:29:37.396] Stderr length: 857 bytes
+[2025-10-19 20:29:37.397] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:37.397] Combining output strings...
+[2025-10-19 20:29:37.397] Added exit code to output: 1
+[2025-10-19 20:29:37.397] Added stderr to combined output
+[2025-10-19 20:29:37.397] Final combined output length: 866 chars
+[2025-10-19 20:29:37.397] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:37.397] Updating UI with execution result
+[2025-10-19 20:29:37.398] PythonInterpreterView: rendering body
+[2025-10-19 20:29:37.401] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:37.412] Setting execution duration: 0.03700411319732666s
+[2025-10-19 20:29:37.412] Execution completed successfully
+[2025-10-19 20:29:37.413] PythonInterpreterView: rendering body
+[2025-10-19 20:29:37.416] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:37.419] Setting UI state: isRunning = false
+[2025-10-19 20:29:37.419] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:37.419] Total execution time: 0.0586550235748291s
+[2025-10-19 20:29:37.419] runCode() task completed
+[2025-10-19 20:29:37.419] PythonInterpreterView: rendering body
+[2025-10-19 20:29:37.422] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:41.667] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:41.669] Task started for runCode()
+[2025-10-19 20:29:41.670] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:41.670] Code to execute (length: 59 chars):
+[2025-10-19 20:29:41.670] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:41.671] Setting UI state: isRunning = true
+[2025-10-19 20:29:41.671] Execution started at: 2025-10-19 14:59:41 +0000
+[2025-10-19 20:29:41.672] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:41.672] Executor type: CPythonExecutor
+[2025-10-19 20:29:41.672] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:41.673] Code length: 59 characters
+[2025-10-19 20:29:41.673] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:41.673] Code after trimming: 59 characters
+[2025-10-19 20:29:41.674] PythonInterpreterView: rendering body
+[2025-10-19 20:29:41.674] Ensuring CPython is initialized...
+[2025-10-19 20:29:41.674] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:41.674] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:41.675] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:41.675] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:41.675] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.676] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:41.677] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.677] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:41.677] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:41.678] Total files in bundle: 15
+[2025-10-19 20:29:41.680] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:41.681] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:41.682] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:41.683] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:41.685] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:41.685] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:41.686] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:41.687] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:41.688] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:41.689] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:41.690] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:41.691] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:41.692] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:41.693] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:41.694] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:41.694] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:41.695] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:41.695] Python-related: Frameworks
+[2025-10-19 20:29:41.695] Python-related: python-stdlib.zip
+[2025-10-19 20:29:41.696] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:41.696] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:41.697] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:41.697] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:41.697] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:41.697] python-stdlib.zip exists: true
+[2025-10-19 20:29:41.698] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:41.698] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:41.698] python-stdlib.zip readable: true
+[2025-10-19 20:29:41.698] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:41.698] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:41.698] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.698] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] pybridge_initialize returned: -1
+[2025-10-19 20:29:41.699] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:41.699] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.699] pybridge_initialize returned: -1
+[2025-10-19 20:29:41.700] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.700] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:41.700] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.700] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.700] pybridge_initialize returned: -1
+[2025-10-19 20:29:41.700] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.700] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:41.700] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:41.700] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:41.701] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:41.701] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.701] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:41.701] Python.framework exists at expected path: true
+[2025-10-19 20:29:41.701] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:41.702] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:41.702] Current working directory: /
+[2025-10-19 20:29:41.702] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.702] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.702] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:41.702] Error type: PythonRuntimeError
+[2025-10-19 20:29:41.703] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:41.709] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:41.709] Exit code: 1
+[2025-10-19 20:29:41.709] Stdout length: 0 bytes
+[2025-10-19 20:29:41.709] Stderr length: 857 bytes
+[2025-10-19 20:29:41.709] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:41.709] Combining output strings...
+[2025-10-19 20:29:41.709] Added exit code to output: 1
+[2025-10-19 20:29:41.710] Added stderr to combined output
+[2025-10-19 20:29:41.710] Final combined output length: 866 chars
+[2025-10-19 20:29:41.710] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:41.710] Updating UI with execution result
+[2025-10-19 20:29:41.710] PythonInterpreterView: rendering body
+[2025-10-19 20:29:41.714] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:41.720] Setting execution duration: 0.03872799873352051s
+[2025-10-19 20:29:41.720] Execution completed successfully
+[2025-10-19 20:29:41.721] PythonInterpreterView: rendering body
+[2025-10-19 20:29:41.724] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:41.728] Setting UI state: isRunning = false
+[2025-10-19 20:29:41.728] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:41.728] Total execution time: 0.0568389892578125s
+[2025-10-19 20:29:41.728] runCode() task completed
+[2025-10-19 20:29:41.728] PythonInterpreterView: rendering body
+[2025-10-19 20:29:41.731] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.302] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:42.304] Task started for runCode()
+[2025-10-19 20:29:42.305] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:42.305] Code to execute (length: 59 chars):
+[2025-10-19 20:29:42.305] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:42.306] Setting UI state: isRunning = true
+[2025-10-19 20:29:42.306] Execution started at: 2025-10-19 14:59:42 +0000
+[2025-10-19 20:29:42.307] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:42.307] Executor type: CPythonExecutor
+[2025-10-19 20:29:42.307] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:42.308] Code length: 59 characters
+[2025-10-19 20:29:42.308] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:42.309] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.309] Code after trimming: 59 characters
+[2025-10-19 20:29:42.309] Ensuring CPython is initialized...
+[2025-10-19 20:29:42.309] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:42.310] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:42.310] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:42.310] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:42.311] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.311] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:42.311] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.312] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:42.312] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:42.312] Total files in bundle: 15
+[2025-10-19 20:29:42.314] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:42.315] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.316] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.317] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:42.319] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.320] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:42.321] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.321] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.322] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:42.323] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:42.324] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.325] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:42.326] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:42.327] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:42.328] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:42.329] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:42.329] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:42.329] Python-related: Frameworks
+[2025-10-19 20:29:42.329] Python-related: python-stdlib.zip
+[2025-10-19 20:29:42.331] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:42.331] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:42.331] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:42.331] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:42.331] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:42.331] python-stdlib.zip exists: true
+[2025-10-19 20:29:42.332] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:42.332] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:42.332] python-stdlib.zip readable: true
+[2025-10-19 20:29:42.332] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:42.333] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:42.333] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.333] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.333] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.334] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.334] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.334] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.334] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.334] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.334] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.334] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.334] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.334] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.335] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.335] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:42.335] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:42.335] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:42.335] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.336] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:42.336] Python.framework exists at expected path: true
+[2025-10-19 20:29:42.336] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:42.336] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:42.337] Current working directory: /
+[2025-10-19 20:29:42.337] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.337] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.337] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:42.337] Error type: PythonRuntimeError
+[2025-10-19 20:29:42.337] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.342] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:42.342] Exit code: 1
+[2025-10-19 20:29:42.342] Stdout length: 0 bytes
+[2025-10-19 20:29:42.343] Stderr length: 857 bytes
+[2025-10-19 20:29:42.343] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:42.343] Combining output strings...
+[2025-10-19 20:29:42.343] Added exit code to output: 1
+[2025-10-19 20:29:42.343] Added stderr to combined output
+[2025-10-19 20:29:42.343] Final combined output length: 866 chars
+[2025-10-19 20:29:42.343] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:42.343] Updating UI with execution result
+[2025-10-19 20:29:42.344] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.348] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.354] Setting execution duration: 0.03693497180938721s
+[2025-10-19 20:29:42.354] Execution completed successfully
+[2025-10-19 20:29:42.354] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.357] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.365] Setting UI state: isRunning = false
+[2025-10-19 20:29:42.365] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:42.365] Total execution time: 0.05843496322631836s
+[2025-10-19 20:29:42.365] runCode() task completed
+[2025-10-19 20:29:42.365] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.368] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.536] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:42.539] Task started for runCode()
+[2025-10-19 20:29:42.539] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:42.539] Code to execute (length: 59 chars):
+[2025-10-19 20:29:42.540] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:42.540] Setting UI state: isRunning = true
+[2025-10-19 20:29:42.541] Execution started at: 2025-10-19 14:59:42 +0000
+[2025-10-19 20:29:42.541] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:42.541] Executor type: CPythonExecutor
+[2025-10-19 20:29:42.541] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:42.542] Code length: 59 characters
+[2025-10-19 20:29:42.542] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:42.542] Code after trimming: 59 characters
+[2025-10-19 20:29:42.542] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.542] Ensuring CPython is initialized...
+[2025-10-19 20:29:42.543] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:42.543] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:42.543] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:42.544] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:42.544] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.544] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:42.544] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.545] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:42.545] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:42.545] Total files in bundle: 15
+[2025-10-19 20:29:42.547] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:42.548] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.549] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.550] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:42.551] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.552] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:42.553] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.553] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.554] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:42.555] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:42.556] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:42.556] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:42.557] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:42.558] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:42.559] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:42.560] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:42.560] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:42.560] Python-related: Frameworks
+[2025-10-19 20:29:42.560] Python-related: python-stdlib.zip
+[2025-10-19 20:29:42.562] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:42.562] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:42.562] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:42.562] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:42.562] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:42.562] python-stdlib.zip exists: true
+[2025-10-19 20:29:42.563] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:42.563] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:42.563] python-stdlib.zip readable: true
+[2025-10-19 20:29:42.563] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:42.564] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:42.564] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.564] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.564] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.564] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.565] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.565] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] pybridge_initialize returned: -1
+[2025-10-19 20:29:42.565] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.565] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:42.566] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:42.566] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:42.566] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:42.566] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.566] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:42.566] Python.framework exists at expected path: true
+[2025-10-19 20:29:42.567] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:42.567] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:42.567] Current working directory: /
+[2025-10-19 20:29:42.567] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.567] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.568] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:42.568] Error type: PythonRuntimeError
+[2025-10-19 20:29:42.568] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:42.574] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:42.574] Exit code: 1
+[2025-10-19 20:29:42.574] Stdout length: 0 bytes
+[2025-10-19 20:29:42.574] Stderr length: 857 bytes
+[2025-10-19 20:29:42.574] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:42.574] Combining output strings...
+[2025-10-19 20:29:42.574] Added exit code to output: 1
+[2025-10-19 20:29:42.574] Added stderr to combined output
+[2025-10-19 20:29:42.574] Final combined output length: 866 chars
+[2025-10-19 20:29:42.574] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:42.575] Updating UI with execution result
+[2025-10-19 20:29:42.575] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.579] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.585] Setting execution duration: 0.03421604633331299s
+[2025-10-19 20:29:42.585] Execution completed successfully
+[2025-10-19 20:29:42.585] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.588] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:42.596] Setting UI state: isRunning = false
+[2025-10-19 20:29:42.596] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:42.596] Total execution time: 0.055505990982055664s
+[2025-10-19 20:29:42.596] runCode() task completed
+[2025-10-19 20:29:42.596] PythonInterpreterView: rendering body
+[2025-10-19 20:29:42.599] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:43.723] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:43.725] Task started for runCode()
+[2025-10-19 20:29:43.725] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:43.726] Code to execute (length: 59 chars):
+[2025-10-19 20:29:43.726] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:43.726] Setting UI state: isRunning = true
+[2025-10-19 20:29:43.727] Execution started at: 2025-10-19 14:59:43 +0000
+[2025-10-19 20:29:43.727] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:43.728] Executor type: CPythonExecutor
+[2025-10-19 20:29:43.728] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:43.728] Code length: 59 characters
+[2025-10-19 20:29:43.729] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:43.729] Code after trimming: 59 characters
+[2025-10-19 20:29:43.729] Ensuring CPython is initialized...
+[2025-10-19 20:29:43.730] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:43.730] PythonInterpreterView: rendering body
+[2025-10-19 20:29:43.730] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:43.730] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:43.731] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:43.731] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.731] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:43.732] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.732] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:43.733] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:43.733] Total files in bundle: 15
+[2025-10-19 20:29:43.735] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:43.736] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:43.737] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:43.738] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:43.740] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:43.742] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:43.742] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:43.743] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:43.744] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:43.745] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:43.746] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:43.747] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:43.748] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:43.749] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:43.750] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:43.751] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:43.751] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:43.751] Python-related: Frameworks
+[2025-10-19 20:29:43.751] Python-related: python-stdlib.zip
+[2025-10-19 20:29:43.753] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:43.753] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:43.753] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:43.753] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:43.753] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:43.754] python-stdlib.zip exists: true
+[2025-10-19 20:29:43.754] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:43.754] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:43.754] python-stdlib.zip readable: true
+[2025-10-19 20:29:43.755] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:43.755] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:43.755] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.755] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.755] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.755] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.755] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.755] pybridge_initialize returned: -1
+[2025-10-19 20:29:43.755] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:43.756] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] pybridge_initialize returned: -1
+[2025-10-19 20:29:43.756] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:43.756] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.756] pybridge_initialize returned: -1
+[2025-10-19 20:29:43.756] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.757] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:43.757] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:43.757] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:43.757] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:43.757] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.757] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:43.758] Python.framework exists at expected path: true
+[2025-10-19 20:29:43.758] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:43.758] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:43.758] Current working directory: /
+[2025-10-19 20:29:43.758] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.758] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.759] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:43.759] Error type: PythonRuntimeError
+[2025-10-19 20:29:43.759] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:43.764] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:43.764] Exit code: 1
+[2025-10-19 20:29:43.764] Stdout length: 0 bytes
+[2025-10-19 20:29:43.764] Stderr length: 857 bytes
+[2025-10-19 20:29:43.764] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:43.764] Combining output strings...
+[2025-10-19 20:29:43.765] Added exit code to output: 1
+[2025-10-19 20:29:43.765] Added stderr to combined output
+[2025-10-19 20:29:43.765] Final combined output length: 866 chars
+[2025-10-19 20:29:43.765] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:43.765] Updating UI with execution result
+[2025-10-19 20:29:43.765] PythonInterpreterView: rendering body
+[2025-10-19 20:29:43.769] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:43.780] Setting execution duration: 0.03798401355743408s
+[2025-10-19 20:29:43.780] Execution completed successfully
+[2025-10-19 20:29:43.781] PythonInterpreterView: rendering body
+[2025-10-19 20:29:43.784] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:43.787] Setting UI state: isRunning = false
+[2025-10-19 20:29:43.787] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:43.787] Total execution time: 0.059954047203063965s
+[2025-10-19 20:29:43.787] runCode() task completed
+[2025-10-19 20:29:43.787] PythonInterpreterView: rendering body
+[2025-10-19 20:29:43.790] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:44.207] RUN button tapped - about to call runCode()
+[2025-10-19 20:29:44.210] Task started for runCode()
+[2025-10-19 20:29:44.210] === PythonInterpreterView.runCode() START ===
+[2025-10-19 20:29:44.210] Code to execute (length: 59 chars):
+[2025-10-19 20:29:44.211] Code content: 'print('Hello from Python!')
+for i in range(3):
+print(i)'
+[2025-10-19 20:29:44.211] Setting UI state: isRunning = true
+[2025-10-19 20:29:44.211] Execution started at: 2025-10-19 14:59:44 +0000
+[2025-10-19 20:29:44.212] About to call executor.execute() (primary CPython)
+[2025-10-19 20:29:44.212] Executor type: CPythonExecutor
+[2025-10-19 20:29:44.212] === CPythonExecutor.execute() START ===
+[2025-10-19 20:29:44.213] Code length: 59 characters
+[2025-10-19 20:29:44.213] Code preview (first 100 chars): print('Hello from Python!')
+for i in range(3):
+print(i)
+[2025-10-19 20:29:44.213] Code after trimming: 59 characters
+[2025-10-19 20:29:44.214] Ensuring CPython is initialized...
+[2025-10-19 20:29:44.214] PythonInterpreterView: rendering body
+[2025-10-19 20:29:44.214] === CPythonExecutor.ensureInitialized() START ===
+[2025-10-19 20:29:44.214] CPythonExecutor not yet initialized, proceeding with setup
+[2025-10-19 20:29:44.215] Checking Bundle.main.resourceURL...
+[2025-10-19 20:29:44.215] Bundle.main.resourceURL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:44.215] Resource URL path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.215] Resource URL absoluteString: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/
+[2025-10-19 20:29:44.216] Resource directory exists: true at /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.216] Resource directory accessible: true, isDirectory: true
+[2025-10-19 20:29:44.216] === LISTING ALL FILES IN APP BUNDLE ===
+[2025-10-19 20:29:44.217] Total files in bundle: 15
+[2025-10-19 20:29:44.218] File 1: AppIcon76x76@2x~ipad.png (exists: true, isDir: false, size: 3519 bytes)
+[2025-10-19 20:29:44.220] File 2: _CodeSignature (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:44.221] File 3: site-packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:44.222] File 4: selftest.py (exists: true, isDir: false, size: 83 bytes)
+[2025-10-19 20:29:44.223] File 5: app_packages (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:44.225] File 6: CodeSnake (exists: true, isDir: false, size: 415056 bytes)
+[2025-10-19 20:29:44.225] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:44.226] File 7: Frameworks (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:44.227] File 8: Info.plist (exists: true, isDir: false, size: 1510 bytes)
+[2025-10-19 20:29:44.228] File 9: python-stdlib.zip (exists: true, isDir: false, size: 22854254 bytes)
+[2025-10-19 20:29:44.229] File 10: PyodideAssets (exists: true, isDir: true, size: 96 bytes)
+[2025-10-19 20:29:44.230] File 11: PkgInfo (exists: true, isDir: false, size: 8 bytes)
+[2025-10-19 20:29:44.231] File 12: Assets.car (exists: true, isDir: false, size: 67784 bytes)
+[2025-10-19 20:29:44.232] File 13: embedded.mobileprovision (exists: true, isDir: false, size: 14359 bytes)
+[2025-10-19 20:29:44.233] File 14: NotesModel.momd (exists: true, isDir: true, size: 128 bytes)
+[2025-10-19 20:29:44.233] File 15: AppIcon60x60@2x.png (exists: true, isDir: false, size: 2844 bytes)
+[2025-10-19 20:29:44.234] === PYTHON/STDLIB RELATED FILES ===
+[2025-10-19 20:29:44.234] Python-related: Frameworks
+[2025-10-19 20:29:44.234] Python-related: python-stdlib.zip
+[2025-10-19 20:29:44.235] Application Support site-packages already exists; skipping copy
+[2025-10-19 20:29:44.235] Application Support app_packages already exists; skipping copy
+[2025-10-19 20:29:44.236] === CHECKING FOR python-stdlib.zip ===
+[2025-10-19 20:29:44.236] Expected stdlib path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:44.236] Expected stdlib URL: file:///private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/python-stdlib.zip
+[2025-10-19 20:29:44.236] python-stdlib.zip exists: true
+[2025-10-19 20:29:44.237] python-stdlib.zip size: 22854254 bytes
+[2025-10-19 20:29:44.237] python-stdlib.zip modified: 2025-10-19 14:59:16 +0000
+[2025-10-19 20:29:44.237] python-stdlib.zip readable: true
+[2025-10-19 20:29:44.237] === INITIALIZING CPYTHON ===
+[2025-10-19 20:29:44.237] Attempting Python initialization with potential homes:
+[2025-10-19 20:29:44.237] 1. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.237] 2. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.237] 3. /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.237] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] pybridge_initialize returned: -1
+[2025-10-19 20:29:44.238] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:44.238] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] pybridge_initialize returned: -1
+[2025-10-19 20:29:44.238] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.238] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:44.239] Trying Python home: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.239] Path passed to pybridge_initialize (C string): /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.239] pybridge_initialize returned: -1
+[2025-10-19 20:29:44.239] â Œ Python initialization FAILED with path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.239] Return code: -1, Error: 'Py_InitializeFromConfig failed'
+[2025-10-19 20:29:44.239] === ALL PYTHON INITIALIZATION ATTEMPTS FAILED ===
+[2025-10-19 20:29:44.239] Last error: Py_InitializeFromConfig failed
+[2025-10-19 20:29:44.240] === DEVICE DEBUGGING INFO ===
+[2025-10-19 20:29:44.240] Bundle path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.240] Documents path: /var/mobile/Containers/Data/Application/23C1D6C0-22CE-45FB-9B29-705A307EBBFB/Documents
+[2025-10-19 20:29:44.240] Python.framework exists at expected path: true
+[2025-10-19 20:29:44.240] Framework path: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app/Frameworks/Python.framework
+[2025-10-19 20:29:44.241] Framework contents: ["_CodeSignature", "Headers", "Info.plist", "Python"]
+[2025-10-19 20:29:44.241] Current working directory: /
+[2025-10-19 20:29:44.241] PYTHONHOME env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.241] PY_BRIDGE_RESOURCE_DIR env: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.241] CPythonExecutor.execute: initialization FAILED - initializationFailed("All Python initialization attempts failed.\nLast error: Py_InitializeFromConfig failed\n\nDEVICE CRASH DEBUG:\nThis crash indicates Python\'s C library initialization failed.\nCommon causes on device:\n1. Python.framework not properly embedded or signed\n2. PYTHONHOME pointing to wrong location \n3. Missing or corrupted python-stdlib.zip\n4. Framework architecture mismatch (arm64 vs simulator)\n5. Code signing issues preventing framework loading\n\nCheck device logs for additional crash details.\nAttempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app")
+[2025-10-19 20:29:44.242] Error type: PythonRuntimeError
+[2025-10-19 20:29:44.242] Error description: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app
+[2025-10-19 20:29:44.248] === EXECUTION RESULT RECEIVED ===
+[2025-10-19 20:29:44.248] Exit code: 1
+[2025-10-19 20:29:44.248] Stdout length: 0 bytes
+[2025-10-19 20:29:44.248] Stderr length: 857 bytes
+[2025-10-19 20:29:44.248] Stderr content: 'Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:44.248] Combining output strings...
+[2025-10-19 20:29:44.249] Added exit code to output: 1
+[2025-10-19 20:29:44.249] Added stderr to combined output
+[2025-10-19 20:29:44.249] Final combined output length: 866 chars
+[2025-10-19 20:29:44.249] Final combined output: '[exit 1]
+Python runtime initialization failed: Python Initialization Failed: All Python initialization attempts failed.
+Last error: Py_InitializeFromConfig failed
+
+DEVICE CRASH DEBUG:
+This crash indicates Python's C library initialization failed.
+Common causes on device:
+1. Python.framework not properly embedded or signed
+2. PYTHONHOME pointing to wrong location
+3. Missing or corrupted python-stdlib.zip
+4. Framework architecture mismatch (arm64 vs simulator)
+5. Code signing issues preventing framework loading
+
+Check device logs for additional crash details.
+Attempted paths: /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app, /private/var/containers/Bundle/Application/CBA12DBD-EC6A-4900-922A-6CE50C62B6F5/CodeSnake.app'
+[2025-10-19 20:29:44.249] Updating UI with execution result
+[2025-10-19 20:29:44.249] PythonInterpreterView: rendering body
+[2025-10-19 20:29:44.253] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:44.259] Setting execution duration: 0.037541985511779785s
+[2025-10-19 20:29:44.260] Execution completed successfully
+[2025-10-19 20:29:44.260] PythonInterpreterView: rendering body
+[2025-10-19 20:29:44.263] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:44.267] Setting UI state: isRunning = false
+[2025-10-19 20:29:44.267] === PythonInterpreterView.runCode() COMPLETE ===
+[2025-10-19 20:29:44.267] Total execution time: 0.055621981620788574s
+[2025-10-19 20:29:44.267] runCode() task completed
+[2025-10-19 20:29:44.268] PythonInterpreterView: rendering body
+[2025-10-19 20:29:44.270] CodeEditor.updateUIView (fontSize=15.0, dark=false)
+[2025-10-19 20:29:47.382] Logs sheet opened
+...
+
+[Message clipped]  View entire message
+

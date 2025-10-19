@@ -52,7 +52,7 @@ jobs:
         PY_SUPPORT_REPO: beeware/Python-Apple-support
         PY_SUPPORT_TAG: 3.14-b8
         PY_TARGET_XCF_DIR: ios/Frameworks/Python.xcframework
-        PY_TARGET_STDLIB: Resources/python-stdlib.zip
+        PY_TARGET_STDLIB: Resources/python/python-stdlib.zip
       run: bash scripts/fetch_python_runtime.sh
 
     - name: Verify runtime files exist pre-archive
@@ -60,7 +60,7 @@ jobs:
       run: |
         set -e
         ls -lah ios/Frameworks/Python.xcframework || { echo "::error::Missing ios/Frameworks/Python.xcframework"; exit 1; }
-        ls -lah Resources/python-stdlib.zip || { echo "::error::Missing Resources/python-stdlib.zip"; exit 1; }
+        ls -lah Resources/python/python-stdlib.zip || { echo "::error::Missing Resources/python/python-stdlib.zip"; exit 1; }
 
     - name: Enforce version alignment
       shell: bash
@@ -75,7 +75,7 @@ jobs:
           *) echo "Tag $PY_SUPPORT_TAG does not match ${EXPECTED_PY_PREFIX}*"; exit 1;; \
         esac
         # 2) Ensure stdlib zip advertises the same major.minor
-        unzip -p Resources/python-stdlib.zip PYTHON_VERSION.txt > ver.txt || { echo "PYTHON_VERSION.txt missing"; exit 1; }
+        unzip -p Resources/python/python-stdlib.zip PYTHON_VERSION.txt > ver.txt || { echo "PYTHON_VERSION.txt missing"; exit 1; }
         VER=$(cut -d. -f1-2 ver.txt)
         [ "$VER" = "$EXPECTED_PY_PREFIX" ] || { echo "stdlib $VER != $EXPECTED_PY_PREFIX"; exit 1; }
 
@@ -269,10 +269,11 @@ jobs:
         if [ ! -d "$ARCHIVE_DIR" ]; then echo "No archive dir found: $ARCHIVE_DIR"; exit 0; fi
         APP_DIR=$(find "$ARCHIVE_DIR" -type d -name "*.app" -maxdepth 4 | head -n 1 || true)
         if [ -z "$APP_DIR" ]; then echo "No app bundle found to inject"; exit 0; fi
-        # Copy stdlib zip
+        # Copy stdlib zip to python subfolder
         if [ -f ThirdParty/Python/python-stdlib.zip ]; then
-          cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/"
-          echo "Injected python-stdlib.zip into app bundle"
+          mkdir -p "$APP_DIR/python"
+          cp ThirdParty/Python/python-stdlib.zip "$APP_DIR/python/"
+          echo "Injected python-stdlib.zip into app bundle python subfolder"
         fi
         # Copy Python.framework from xcframework slice (device) if it exists
         if [ -d ThirdParty/Python/Python.xcframework ]; then
@@ -405,8 +406,8 @@ jobs:
         TMP=$(mktemp -d)
         unzip -q "$IPA" -d "$TMP"
         APPDIR=$(ls -d "$TMP"/Payload/*.app)
-        # must have stdlib zip
-        test -f "$APPDIR/python-stdlib.zip"
+        # must have stdlib zip in python subfolder
+        test -f "$APPDIR/python/python-stdlib.zip"
         # must have Python framework in Frameworks/
         ls "$APPDIR/Frameworks" | grep -i "Python"
         # check for selftest.py (warn if missing but don't fail)
