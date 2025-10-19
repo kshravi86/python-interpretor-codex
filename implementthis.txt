@@ -1,0 +1,27 @@
+Fixes to make CPython initialize on device
+
+NotesApp/PythonBridge.mm
+- Compute resource_dir_python = resource_dir + "/python" (from Bundle.main.resourceURL.path).
+- Use resource_dir_python for both:
+  - setenv("PYTHONHOME", resource_dir_python, 1)
+  - PyConfig_SetString(&cfg, &cfg.home, L"<bundle>/python")
+- Replace PyConfig_InitPythonConfig(&cfg) with PyConfig_InitIsolatedConfig(&cfg).
+- After setting cfg.home, call PyConfig_Read(&cfg).
+- Remove any cfg.module_search_paths_set = 1 assignment (do not replace defaults).
+- Append these paths AFTER PyConfig_Read(&cfg) using PyWideStringList_Append:
+  - <HOME>/python-stdlib.zip
+  - <HOME>/site-packages (optional)
+  - <HOME>/app_packages (optional)
+- Keep flags you already use:
+  - Preconfig: PyPreConfig_InitIsolatedConfig(&pre); pre.utf8_mode = 1
+  - Config: cfg.write_bytecode = 0; cfg.buffered_stdio = 0; cfg.install_signal_handlers = 1
+- Then call Py_InitializeFromConfig(&cfg) and PyConfig_Clear(&cfg).
+
+Xcode target settings
+- Add a Copy Files build phase on the app target:
+  - Destination: Resources; Subpath: python; include python-stdlib.zip (and optionally site-packages, app_packages).
+- Ensure ios/Frameworks/Python.xcframework is added to the target and set to "Embed & Sign" for Any iOS Device SDK.
+- Build Settings (Release): ensure LD_RUNPATH_SEARCH_PATHS includes @executable_path/Frameworks.
+
+Optional (Swift)
+- In NotesApp/CPythonExecutor.swift, when building potentialPythonHomes, prepend: resURL.path + "/python".

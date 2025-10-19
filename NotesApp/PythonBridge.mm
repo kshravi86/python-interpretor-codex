@@ -206,14 +206,17 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
             }
         };
 
-        // Add site-packages and app_packages from python subfolder
+        // Add required paths from python subfolder in correct order
         @autoreleasepool {
             NSString* pythonDir = [NSString stringWithUTF8String:python_home.c_str()];
-            NSArray<NSString*>* additionalPaths = @[
-                [pythonDir stringByAppendingPathComponent:@"site-packages"],
-                [pythonDir stringByAppendingPathComponent:@"app_packages"],
+            NSArray<NSString*>* requiredPaths = @[
+                [pythonDir stringByAppendingPathComponent:@"python-stdlib.zip"],  // CRITICAL: Must be first
+                [pythonDir stringByAppendingPathComponent:@"site-packages"],     // Optional
+                [pythonDir stringByAppendingPathComponent:@"app_packages"],      // Optional
             ];
-            for (NSString* s in additionalPaths) {
+            printf("PYTHON BRIDGE: ADDING REQUIRED PATHS TO MODULE SEARCH PATHS:\n");
+            for (NSString* s in requiredPaths) {
+                printf("  Adding path: %s\n", s.UTF8String);
                 appendPath(s.UTF8String);
             }
         }
