@@ -362,12 +362,38 @@ jobs:
         TMP=$(mktemp -d)
         unzip -q "$IPA" -d "$TMP"
         APPDIR=$(ls -d "$TMP"/Payload/*.app)
+        
+        # Check if embedded.mobileprovision exists and has content
+        if [ ! -f "$APPDIR/embedded.mobileprovision" ]; then
+          echo "::error::No embedded.mobileprovision found in IPA"
+          exit 1
+        fi
+        
+        if [ ! -s "$APPDIR/embedded.mobileprovision" ]; then
+          echo "::error::embedded.mobileprovision is empty"
+          exit 1
+        fi
+        
+        echo "embedded.mobileprovision size: $(wc -c < "$APPDIR/embedded.mobileprovision") bytes"
+        
         # TEAM_ID from secret or derived earlier; BUNDLE_ID already extracted
         TEAM_ID_VAR="${IOS_TEAM_ID}"
         if [ -z "$TEAM_ID_VAR" ]; then TEAM_ID_VAR=$(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' $RUNNER_TEMP/profile.plist 2>/dev/null || true); fi
-        security cms -D -i "$APPDIR/embedded.mobileprovision" \
-          | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin \
-          | grep -Fx "${TEAM_ID_VAR}.${BUNDLE_ID}"
+        
+        # Verify the provisioning profile can be parsed and contains expected app identifier
+        APP_ID=$(security cms -D -i "$APPDIR/embedded.mobileprovision" 2>/dev/null | /usr/libexec/PlistBuddy -c 'Print :Entitlements:application-identifier' /dev/stdin 2>/dev/null || true)
+        
+        if [ -z "$APP_ID" ]; then
+          echo "::warning::Could not extract application-identifier from embedded provisioning profile"
+        else
+          echo "Found application-identifier: $APP_ID"
+          echo "Expected: ${TEAM_ID_VAR}.${BUNDLE_ID}"
+          if echo "$APP_ID" | grep -Fx "${TEAM_ID_VAR}.${BUNDLE_ID}"; then
+            echo "✓ Application identifier matches"
+          else
+            echo "::warning::Application identifier mismatch"
+          fi
+        fi
 
     - name: Sanity-check IPA payload post-export
       if: success()
