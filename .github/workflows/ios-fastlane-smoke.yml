@@ -30,6 +30,7 @@ jobs:
           bundle install --path vendor/bundle
 
       - name: Fetch Python runtime (xcframework + stdlib)
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PY_SUPPORT_REPO: beeware/Python-Apple-support
