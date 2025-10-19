@@ -1,0 +1,31 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Simple non-interactive smoke lane: build for simulator, install & launch, capture logs"
+  lane :python_smoke do
+    scheme = "NotesApp"
+    project = "NotesApp.xcodeproj"
+    simulator = ENV['SIMULATOR_DEVICE'] || "iPhone 15"
+
+    # build for simulator
+    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator}' clean build -derivedDataPath build/derived")
+
+    # find .app
+    app_path = Dir["build/derived/Build/Products/*-iphonesimulator/#{scheme}.app"].first
+    unless app_path && File.exist?(app_path)
+      UI.user_error!("Built .app not found at #{app_path}")
+    end
+
+    # boot simulator, install and launch
+    sh("xcrun simctl boot '#{simulator}' || true")
+    sh("xcrun simctl install booted #{app_path}")
+    
+    # get bundle identifier from Info.plist
+    bundle_id = sh("/usr/libexec/PlistBuddy -c \"Print :CFBundleIdentifier\" \"#{app_path}/Info.plist\"").strip
+    sh("xcrun simctl launch booted #{bundle_id}")
+
+    # capture logs into fastlane_artifacts
+    sh("mkdir -p fastlane_artifacts")
+    sh("xcrun simctl spawn booted log stream --style compact > fastlane_artifacts/sim_log.txt & sleep 5; pkill -P $$ log || true")
+  end
+end
