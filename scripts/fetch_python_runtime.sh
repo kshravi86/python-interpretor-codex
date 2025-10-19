@@ -142,6 +142,7 @@ if [ -z "$ZIP_STDLIB" ]; then
   if [ -n "$PYVERDIR" ]; then
     echo "Building stdlib zip from: $PYVERDIR"
     mkdir -p "$(dirname "$TARGET_STDLIB")"
+    rm -f "$TARGET_STDLIB"
     (cd "$PYVERDIR" && zip -qry "$OLDPWD/$TARGET_STDLIB" .)
     ZIP_STDLIB="$TARGET_STDLIB"
   fi
