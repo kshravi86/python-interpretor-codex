@@ -23,7 +23,7 @@ platform :ios do
     ENV['PY_TARGET_XCF_DIR'] = File.join(root, 'ios/Frameworks/Python.xcframework')
     ENV['PY_TARGET_STDLIB'] = File.join(root, 'ThirdParty/Python/python-stdlib.zip')
     FileUtils.mkdir_p(File.dirname(ENV['PY_TARGET_STDLIB']))
-    sh("bash scripts/fetch_python_runtime.sh")
+    sh("bash \"#{File.join(root,'scripts','fetch_python_runtime.sh')}\"")
     # Resolve a recent iPhone sim + latest available iOS runtime
     dt_json = sh("xcrun simctl list devicetypes -j")
     devtypes = JSON.parse(dt_json)["devicetypes"]
