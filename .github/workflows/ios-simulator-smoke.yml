@@ -144,14 +144,27 @@ jobs:
           set +e
           xcrun simctl install "$SIM_UDID" "$APP_PATH" > "$RUNNER_TEMP/install.log" 2>&1; cat "$RUNNER_TEMP/install.log"
           INST_EXIT=$?
-          # Launch app with autorun and capture stdout/stderr
-          B64=$(python3 -c "import base64; s='print(\"PY SMOKE:\", 2+2)'; print(base64.b64encode(s.encode()).decode())")
+          # Launch app with autorun: print + write to Documents/autorun.txt to guarantee capture
+          B64=$(python3 - << 'PY'
+import base64
+code = r'''
+import os, sys, time
+s = 'PY SMOKE: ' + str(2+2)
+print(s, flush=True)
+p = os.path.expanduser('~/Documents/autorun.txt')
+with open(p, 'w') as f:
+    f.write(s)
+time.sleep(0.5)
+'''
+print(base64.b64encode(code.encode()).decode())
+PY
+)
           xcrun simctl launch "$SIM_UDID" "$BUNDLE_ID" --args --autorun-b64 "$B64" --autorun-save autorun.txt > "$RUNNER_TEMP/launch.out" 2> "$RUNNER_TEMP/launch.err"; cat "$RUNNER_TEMP/launch.out"; echo "--- launch.err ---"; cat "$RUNNER_TEMP/launch.err"
           LAUNCH_EXIT=$?
           set -e
           echo "LAUNCH_EXIT=$LAUNCH_EXIT" >> $GITHUB_ENV
           # Allow a few seconds for autorun file write
-          sleep 4
+          sleep 8
           kill $LOG_PID || true
 
       - name: Collect autorun output and logs
