@@ -126,6 +126,27 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         if (wHome) {
             Py_SetPythonHome(wHome);
         }
+
+        // Preconfigure sys.path before Py_Initialize so that core encodings and
+        // importlib bootstrap can be found. Using Py_SetPath here ensures
+        // python-stdlib.zip is available during initialization.
+        @autoreleasepool {
+            NSString *res = [NSString stringWithUTF8String:resource_dir];
+            NSMutableArray<NSString*> *parts = [NSMutableArray array];
+            // Standard library zips commonly used by support packages
+            [parts addObject:[res stringByAppendingPathComponent:@"python-stdlib.zip"]];
+            [parts addObject:[res stringByAppendingPathComponent:@"stdlib.zip"]];
+            // Pre-bundled pure-Python packages
+            [parts addObject:[res stringByAppendingPathComponent:@"site-packages"]];
+            [parts addObject:[res stringByAppendingPathComponent:@"app_packages"]];
+            // Build delimiter-separated path (use ':' which CPython accepts on POSIX)
+            NSString *joined = [parts componentsJoinedByString:@":"];
+            wchar_t *wPath = Py_DecodeLocale(joined.UTF8String, NULL);
+            if (wPath) {
+                Py_SetPath(wPath);
+                // Intentionally do not free wPath; see note above regarding Py_* retention.
+            }
+        }
     }
 
     Py_Initialize();
