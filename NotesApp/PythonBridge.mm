@@ -118,13 +118,13 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
     // Set PYTHONHOME to the python subfolder for proper Python-Apple-support initialization
     std::string python_home;
     if (resource_dir && *resource_dir) {
-        printf("PYTHON BRIDGE: SETTING UP PYTHON HOME DIRECTORY\n");
-        printf("Bundle resource directory: %s\n", resource_dir);
+        NSLog(@"PYTHON BRIDGE: SETTING UP PYTHON HOME DIRECTORY");
+        NSLog(@"Bundle resource directory: %s", resource_dir);
         
         setenv("PY_BRIDGE_RESOURCE_DIR", resource_dir, 1);
         python_home = std::string(resource_dir) + "/python";
         
-        printf("PYTHON BRIDGE: PYTHONHOME SET TO: %s\n", python_home.c_str());
+        NSLog(@"PYTHON BRIDGE: PYTHONHOME SET TO: %s", python_home.c_str());
         setenv("PYTHONHOME", python_home.c_str(), 1);
         
         // Also set via API for maximum compatibility
@@ -133,36 +133,36 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         // leaking this allocation is acceptable and avoids use-after-free crashes.
         wchar_t *wHome = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome) {
-            printf("PYTHON BRIDGE: SETTING PYTHON HOME VIA API\n");
+            NSLog(@"PYTHON BRIDGE: SETTING PYTHON HOME VIA API");
             Py_SetPythonHome(wHome);
         } else {
-            printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE PYTHON HOME TO WIDE CHAR\n");
+            NSLog(@"PYTHON BRIDGE: WARNING - FAILED TO DECODE PYTHON HOME TO WIDE CHAR");
         }
     } else {
-        printf("PYTHON BRIDGE: ERROR - NO RESOURCE DIRECTORY PROVIDED\n");
+        NSLog(@"PYTHON BRIDGE: ERROR - NO RESOURCE DIRECTORY PROVIDED");
     }
 
     // Prefer modern initialization via PyConfig so import system is ready for encodings/bootstrap
     {
-        printf("PYTHON BRIDGE: STARTING MODERN PYCONFIG INITIALIZATION\n");
+        NSLog(@"PYTHON BRIDGE: STARTING MODERN PYCONFIG INITIALIZATION");
         PyStatus st;
         
-        printf("PYTHON BRIDGE: INITIALIZING PRE-CONFIG (ISOLATED)\n");
+        NSLog(@"PYTHON BRIDGE: INITIALIZING PRE-CONFIG (ISOLATED)");
         PyPreConfig pre;
         PyPreConfig_InitIsolatedConfig(&pre);
         pre.utf8_mode = 1;  // Force UTF-8 mode for iOS
         
-        printf("PYTHON BRIDGE: CALLING PY_PREINITIALIZE\n");
+        NSLog(@"PYTHON BRIDGE: CALLING PY_PREINITIALIZE");
         st = Py_PreInitialize(&pre);
         if (PyStatus_Exception(st)) {
-            printf("PYTHON BRIDGE: CRITICAL ERROR - PY_PREINITIALIZE FAILED\n");
-            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
+            NSLog(@"PYTHON BRIDGE: CRITICAL ERROR - PY_PREINITIALIZE FAILED");
+            NSLog(@"Error message: %s", st.err_msg ? st.err_msg : "unknown");
             set_error(errbuf, errbuf_len, "Py_PreInitialize failed");
             return -1;
         }
-        printf("PYTHON BRIDGE: PY_PREINITIALIZE SUCCESS\n");
+        NSLog(@"PYTHON BRIDGE: PY_PREINITIALIZE SUCCESS");
 
-        printf("PYTHON BRIDGE: INITIALIZING PYCONFIG (ISOLATED)\n");
+        NSLog(@"PYTHON BRIDGE: INITIALIZING PYCONFIG (ISOLATED)");
         PyConfig cfg;
         PyConfig_InitIsolatedConfig(&cfg);
         cfg.use_environment = 0;
@@ -171,38 +171,38 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         cfg.install_signal_handlers = 1;  // Allow KeyboardInterrupt
 
         // Set home to the python subfolder
-        printf("PYTHON BRIDGE: SETTING CONFIG HOME TO PYTHON SUBFOLDER\n");
+        NSLog(@"PYTHON BRIDGE: SETTING CONFIG HOME TO PYTHON SUBFOLDER");
         wchar_t* wHome2 = Py_DecodeLocale(python_home.c_str(), NULL);
         if (wHome2) {
-            printf("PYTHON BRIDGE: CONFIG HOME: %s\n", python_home.c_str());
+            NSLog(@"PYTHON BRIDGE: CONFIG HOME: %s", python_home.c_str());
             PyConfig_SetString(&cfg, &cfg.home, wHome2);
         } else {
-            printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE CONFIG HOME\n");
+            NSLog(@"PYTHON BRIDGE: WARNING - FAILED TO DECODE CONFIG HOME");
         }
 
         // Let Python compute the standard paths from PYTHONHOME
-        printf("PYTHON BRIDGE: CALLING PYCONFIG_READ TO COMPUTE SYS.PATH\n");
+        NSLog(@"PYTHON BRIDGE: CALLING PYCONFIG_READ TO COMPUTE SYS.PATH");
         st = PyConfig_Read(&cfg);
         if (PyStatus_Exception(st)) {
-            printf("PYTHON BRIDGE: CRITICAL ERROR - PYCONFIG_READ FAILED\n");
-            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
-            printf("This usually means PYTHONHOME is incorrect or stdlib is missing\n");
+            NSLog(@"PYTHON BRIDGE: CRITICAL ERROR - PYCONFIG_READ FAILED");
+            NSLog(@"Error message: %s", st.err_msg ? st.err_msg : "unknown");
+            NSLog(@"This usually means PYTHONHOME is incorrect or stdlib is missing");
             set_error(errbuf, errbuf_len, "PyConfig_Read failed");
             PyConfig_Clear(&cfg);
             return -1;
         }
-        printf("PYTHON BRIDGE: PYCONFIG_READ SUCCESS - PATHS COMPUTED\n");
+        NSLog(@"PYTHON BRIDGE: PYCONFIG_READ SUCCESS - PATHS COMPUTED");
 
         // Append additional paths for our packages (optional)
-        printf("PYTHON BRIDGE: APPENDING ADDITIONAL PACKAGE PATHS\n");
+        NSLog(@"PYTHON BRIDGE: APPENDING ADDITIONAL PACKAGE PATHS");
         auto appendPath = [&](const char* p) {
             if (!p || !*p) return;
-            printf("Adding to sys.path: %s\n", p);
+            NSLog(@"Adding to sys.path: %s", p);
             wchar_t* w = Py_DecodeLocale(p, NULL);
             if (w) {
                 PyWideStringList_Append(&cfg.module_search_paths, w);
             } else {
-                printf("PYTHON BRIDGE: WARNING - FAILED TO DECODE PATH: %s\n", p);
+                NSLog(@"PYTHON BRIDGE: WARNING - FAILED TO DECODE PATH: %s", p);
             }
         };
 
@@ -214,37 +214,37 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
                 [pythonDir stringByAppendingPathComponent:@"site-packages"],     // Optional
                 [pythonDir stringByAppendingPathComponent:@"app_packages"],      // Optional
             ];
-            printf("PYTHON BRIDGE: ADDING REQUIRED PATHS TO MODULE SEARCH PATHS:\n");
+            NSLog(@"PYTHON BRIDGE: ADDING REQUIRED PATHS TO MODULE SEARCH PATHS:");
             for (NSString* s in requiredPaths) {
-                printf("  Adding path: %s\n", s.UTF8String);
+                NSLog(@"  Adding path: %s", s.UTF8String);
                 appendPath(s.UTF8String);
             }
         }
 
-        printf("PYTHON BRIDGE: CALLING PY_INITIALIZEFROMCONFIG - CRITICAL MOMENT\n");
+        NSLog(@"PYTHON BRIDGE: CALLING PY_INITIALIZEFROMCONFIG - CRITICAL MOMENT");
         st = Py_InitializeFromConfig(&cfg);
         PyConfig_Clear(&cfg);
         
         if (PyStatus_Exception(st)) {
-            printf("PYTHON BRIDGE: FATAL ERROR - PY_INITIALIZEFROMCONFIG FAILED\n");
-            printf("Error message: %s\n", st.err_msg ? st.err_msg : "unknown");
-            printf("This is the critical failure point - check PYTHONHOME and stdlib\n");
+            NSLog(@"PYTHON BRIDGE: FATAL ERROR - PY_INITIALIZEFROMCONFIG FAILED");
+            NSLog(@"Error message: %s", st.err_msg ? st.err_msg : "unknown");
+            NSLog(@"This is the critical failure point - check PYTHONHOME and stdlib");
             set_error(errbuf, errbuf_len, "Py_InitializeFromConfig failed");
             return -1;
         }
         
         if (!Py_IsInitialized()) {
-            printf("PYTHON BRIDGE: FATAL ERROR - PYTHON NOT INITIALIZED AFTER CONFIG\n");
+            NSLog(@"PYTHON BRIDGE: FATAL ERROR - PYTHON NOT INITIALIZED AFTER CONFIG");
             set_error(errbuf, errbuf_len, "Py_InitializeFromConfig failed");
             return -1;
         }
         
-        printf("PYTHON BRIDGE: SUCCESS! PY_INITIALIZEFROMCONFIG COMPLETED\n");
-        printf("PYTHON BRIDGE: PYTHON INTERPRETER IS NOW READY\n");
+        NSLog(@"PYTHON BRIDGE: SUCCESS! PY_INITIALIZEFROMCONFIG COMPLETED");
+        NSLog(@"PYTHON BRIDGE: PYTHON INTERPRETER IS NOW READY");
     }
 
     // Post-init: extend with Application Support site dirs (non-fatal)
-    printf("PYTHON BRIDGE: POST-INIT - SETTING UP APPLICATION SUPPORT PATHS\n");
+    NSLog(@"PYTHON BRIDGE: POST-INIT - SETTING UP APPLICATION SUPPORT PATHS");
     #ifdef PyEval_InitThreads
     PyEval_InitThreads();
     #endif
@@ -254,10 +254,10 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
         if (paths.count > 0) {
             NSString* appSupportPath = paths.firstObject;
             if (appSupportPath.length > 0) {
-                printf("PYTHON BRIDGE: APPLICATION SUPPORT PATH: %s\n", appSupportPath.UTF8String);
+                NSLog(@"PYTHON BRIDGE: APPLICATION SUPPORT PATH: %s", appSupportPath.UTF8String);
                 setenv("PY_BRIDGE_APP_SUPPORT", appSupportPath.UTF8String, 1);
                 
-                printf("PYTHON BRIDGE: RUNNING POST-INIT PYTHON CODE TO EXTEND SYS.PATH\n");
+                NSLog(@"PYTHON BRIDGE: RUNNING POST-INIT PYTHON CODE TO EXTEND SYS.PATH");
                 const char* py =
                     "import os, sys\n"
                     "print(f'PYTHON: Current sys.path has {len(sys.path)} entries')\n"
@@ -276,20 +276,20 @@ int pybridge_initialize(const char* resource_dir, char* errbuf, size_t errbuf_le
                 
                 int py_result = PyRun_SimpleString(py);
                 if (py_result == 0) {
-                    printf("PYTHON BRIDGE: POST-INIT PYTHON CODE EXECUTED SUCCESSFULLY\n");
+                    NSLog(@"PYTHON BRIDGE: POST-INIT PYTHON CODE EXECUTED SUCCESSFULLY");
                 } else {
-                    printf("PYTHON BRIDGE: WARNING - POST-INIT PYTHON CODE FAILED\n");
+                    NSLog(@"PYTHON BRIDGE: WARNING - POST-INIT PYTHON CODE FAILED");
                 }
             } else {
-                printf("PYTHON BRIDGE: WARNING - APPLICATION SUPPORT PATH IS EMPTY\n");
+                NSLog(@"PYTHON BRIDGE: WARNING - APPLICATION SUPPORT PATH IS EMPTY");
             }
         } else {
-            printf("PYTHON BRIDGE: WARNING - NO APPLICATION SUPPORT PATHS FOUND\n");
+            NSLog(@"PYTHON BRIDGE: WARNING - NO APPLICATION SUPPORT PATHS FOUND");
         }
     }
     PyGILState_Release(g);
 
-    printf("PYTHON BRIDGE: INITIALIZATION COMPLETE - MARKING AS INITIALIZED\n");
+    NSLog(@"PYTHON BRIDGE: INITIALIZATION COMPLETE - MARKING AS INITIALIZED");
     g_initialized = 1;
     return 0;
 #else
