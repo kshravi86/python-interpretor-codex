@@ -11,7 +11,7 @@ platform :ios do
     destination = "platform=iOS Simulator,name=#{simulator},OS=17.5"
 
     # build for simulator
-    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination '#{destination}' clean build -derivedDataPath build/derived")
+    sh("xcodebuild -project #{project} -scheme #{scheme} -sdk iphonesimulator -destination '#{destination}' clean build -derivedDataPath build/derived ENABLE_USER_SCRIPT_SANDBOXING=NO")
 
     # find .app
     app_path = Dir["build/derived/Build/Products/*-iphonesimulator/#{scheme}.app"].first
