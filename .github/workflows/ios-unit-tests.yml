@@ -30,19 +30,11 @@ jobs:
       - name: Run unit tests (simulator)
         run: |
           set -euo pipefail
-          xcodebuild -list -project NotesApp.xcodeproj
-          DEST=$(xcrun simctl list runtimes -j | python3 - <<'PY'
-import json,sys
-d=json.load(sys.stdin)['runtimes']
-ios=[x for x in d if x.get('identifier','').startswith('com.apple.CoreSimulator.SimRuntime.iOS-') and x.get('isAvailable')]
-ios.sort(key=lambda r:r.get('version') or r.get('productVersion'))
-print(f"platform=iOS Simulator,name=iPhone 15,OS={ios[-1]['version'] if ios else 'latest'}")
-PY
-          )
+          xcodebuild -list -project NotesApp.xcodeproj || true
+          DEST="platform=iOS Simulator,name=iPhone 15"
           xcodebuild test \
             -project NotesApp.xcodeproj \
             -scheme NotesApp \
             -destination "$DEST" \
             -sdk iphonesimulator \
-            -enableCodeCoverage YES | xcpretty
-
+            -enableCodeCoverage YES
