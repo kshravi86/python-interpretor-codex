@@ -1,0 +1,19 @@
+Command line invocation:
+    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild -list -project /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Information about project "NotesApp":
+    Targets:
+        NotesApp
+
+    Build Configurations:
+        Debug
+        Release
+
+    If no build configuration is specified and -scheme is not passed then "Release" is used.
+
+    Schemes:
+        NotesApp
+

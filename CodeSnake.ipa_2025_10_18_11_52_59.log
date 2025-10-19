@@ -1,0 +1,663 @@
+Oct 18 06:21:55 financed(CoreData)[272] <Error>: warning: cache_handle_memory_pressure invoked for core 0xcba204c80 / 7C144653-2672-4876-B2BD-9EE89522B6C1
+Oct 18 06:21:57 CommCenter[94] <Error>: Unknown device type.
+Oct 18 06:21:59 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc1b42dc30; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30216f2e0>>], frame not updated
+Oct 18 06:21:59 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:21:59 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:21:59 SpringBoard(XCTAutomationSupport)[34] <Error>: )}
+Oct 18 06:21:59 contextstored(CoreDuet)[64] <Error>: Simulating crash. Reason: <private>
+Oct 18 06:21:59 contextstored(CoreDuet)[64] <Error>: Simulating crash. Reason: <private>
+Oct 18 06:21:59 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:21:59 CollectionsPoster(PosterKit)[253] <Error>: Rendering extension timed-out: <private>
+Oct 18 06:21:59 kernel(IOGPUFamily)[0] <Fault>: trying to get apparently bogus texture handle 0
+Oct 18 06:21:59 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:00 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:00 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:00 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:00 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:00 audiomxd(AudioToolbox)[104] <Error>:            AQMEIO_HAL.cpp:874   kAudioDevicePropertyMute returned err 2003332927
+Oct 18 06:22:01 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream ActivitySuggestionFeedback, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:01 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream ActivitySuggestionFeedback, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:01 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream ActivitySuggestionFeedback, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:01 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream ActivitySuggestionFeedback, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Could not create primary backing account
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Couldn't pull url from backing account <private> or container <private>
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Couldn't pull url from backing account <private> or container <private>
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 538: strict TLS Trust evaluation failed(-9802)
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 538: TLS Trust encountered error 3:-9802
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 538: encountered error(3:-9802)
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 539: strict TLS Trust evaluation failed(-9802)
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 539: TLS Trust encountered error 3:-9802
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 539: encountered error(3:-9802)
+Oct 18 06:22:01 cloudd(libboringssl.dylib)[147] <Error>: boringssl_context_handle_fatal_alert(2072) [C540.1.1.1:2][0x52c827c00] read alert, level: fatal, description: inappropriate fallback
+Oct 18 06:22:01 cloudd(libboringssl.dylib)[147] <Error>: boringssl_session_handshake_incomplete(210) [C540.1.1.1:2][0x52c827c00] SSL library error
+Oct 18 06:22:01 cloudd(libboringssl.dylib)[147] <Error>: boringssl_session_handshake_error_print(44) [C540.1.1.1:2][0x52c827c00] Error: 22214534784:error:1000043e:SSL routines:OPENSSL_internal:TLSV1_ALERT_INAPPROPRIATE_FALLBACK:/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls_record.cc:592:SSL alert number 86
+Oct 18 06:22:01 cloudd(libboringssl.dylib)[147] <Error>: nw_protocol_boringssl_handshake_negotiate_proceed(779) [C540.1.1.1:2][0x52c827c00] handshake failed at state 12288: not completed
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 540: received failure notification
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 540: failed to connect 3:-9860, reason -1
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Connection 540: encountered error(3:-9860)
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Task <E91E7F24-4D79-457E-9B4B-9867643B0548>.<1> HTTP load failed, 0/0 bytes (error code: -1200 [3:-9860])
+Oct 18 06:22:01 cloudd(CFNetwork)[147] <Error>: Task <E91E7F24-4D79-457E-9B4B-9867643B0548>.<1> finished with error [-1200] Error Domain=NSURLErrorDomain Code=-1200 UserInfo={NSErrorFailingURLStringKey=<private>, NSLocalizedRecoverySuggestion=<private>, _kCFStreamErrorDomainKey=3, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>, NSErrorFailingURLKey=<private>, NSUnderlyingError=0x52c89fab0 {Error Domain=kCFErrorDomainCFNetwork Code=-1200 UserInfo={_kCFStreamPropertySSLClientCertificateState=0, _kCFNetworkCFStreamSSLErrorOriginalValue=-9860, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9860, _NSURLErrorNWPathKey=satisfied (Path is satisfied), viable, interface: en2, ipv4, dns, proxy}}, _kCFStreamErrorCodeKey=-9860}
+Oct 18 06:22:01 cloudd(C2)[147] <Error>: NetworkingError NSURLErrorDomain/-1200
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Error fetching configuration from the server: Error Domain=NSURLErrorDomain Code=-1200 UserInfo={NSErrorFailingURLStringKey=<private>, NSLocalizedRecoverySuggestion=<private>, _kCFStreamErrorDomainKey=3, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>, NSErrorFailingURLKey=<private>, NSUnderlyingError=0x52c89fab0 {Error Domain=kCFErrorDomainCFNetwork Code=-1200 UserInfo={_kCFStreamPropertySSLClientCertificateState=0, _kCFNetworkCFStreamSSLErrorOriginalValue=-9860, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9860, _NSURLErrorNWPathKey=satisfied (Path is satisfied), viable, interface: en2, ipv4, dns, proxy}}, _kCFStreamErrorCodeKey=-9860}
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Couldn't pull url from backing account <private> or container <private>
+Oct 18 06:22:01 cloudd(CloudKitDaemon)[147] <Error>: Couldn't pull url from backing account <private> or container <private>
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:02 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>:     <BLSRequestUnrestrictedFramerateAttribute: 0x302439a40; identityToken: @com.apple.frontboard.systemappservices/FBSceneManager:SystemAperture>;
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>:     <BLSIgnoreWhenBacklightInactivatesAttribute: 0x302439150>;
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>:     <BLSInvalidOnSystemSleepAttribute: 0x302438380>;
+Oct 18 06:22:03 SpringBoard(XCTAutomationSupport)[34] <Error>: }; identifier: <BLSAssertionIdentifier: 0x302178ae0; clientPid: 34; hostPid: 34; count: 57>; service: 0x300257600; observerCount: 0> wasPaused:NO
+Oct 18 06:22:04 mobile_installation_proxy(InstallCoordination)[338] <Error>: -[IXOwnedDataPromise releaseSandboxExtension]: Failed to release sandbox extension 0: Invalid argument (22)
+Oct 18 06:22:04 mobile_installation_proxy(InstallCoordination)[338] <Error>: -[IXOwnedDataPromise releaseSandboxExtension]: Failed to release sandbox extension 0: Invalid argument (22)
+Oct 18 06:22:04 containermanagerd_system(ContainerManagerCommon)[103] <Error>: [<private>(1)] Current schema version (1) is newer than the latest (0), ignoring.
+Oct 18 06:22:04 containermanagerd_system(ContainerManagerCommon)[103] <Error>: Didn't find info value for key: StaticDiskUsage
+Oct 18 06:22:04 lsd(CoreServices)[126] <Error>: LSStringLocalizer development region en not found in localizations available for bundle <private>
+Oct 18 06:22:04 SpringBoard(FrontBoardServices)[34] <Error>: Non-demoted placeholder for <private> has no associated NSProgress!
+Oct 18 06:22:04 clipserviced(ClipServices)[429] <Error>: CPSClipCleanupManager: Failed to find launched app's bundleID in XPC event
+Oct 18 06:22:04 clipserviced(ClipServices)[429] <Error>: CPSClipCleanupManager: Failed to find launched app's bundleID in XPC event
+Oct 18 06:22:04 attributionkitd[426] <Error>: Failed to get bundle record from bundle ID: Error Domain=NSOSStatusErrorDomain Code=-10814 UserInfo={_LSLine=1741, _LSFunction=<private>}
+Oct 18 06:22:04 attributionkitd[426] <Error>: Failed to get bundle record from bundle ID: Error Domain=NSOSStatusErrorDomain Code=-10814 UserInfo={_LSLine=1741, _LSFunction=<private>}
+Oct 18 06:22:04 kernel(Sandbox)[0] <Error>: System Policy: SetStoreUpdateService(278) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] E2D150FB-D906-4AF1-9DE1-4AC7A4C4FCF8: Could not lock asset set com.apple.siri.understanding: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 UserEventAgent(MemoryMonitor)[31] <Error>: missed SYSPROTO_EVENT event, buffer not big enough
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding.nl.overrides ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding.nl.overrides for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 26ED840E-452A-40B5-B9E8-A2FAB5E0F436: Could not lock asset set com.apple.siri.understanding.nl.overrides: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 45B65E29-9DF1-4DF8-A89D-EF1186251415: Could not lock asset set com.apple.siri.understanding: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding.nl.overrides ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding.nl.overrides for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] DD1CE5D2-3785-4D1A-A971-47312E1BC66A: Could not lock asset set com.apple.siri.understanding.nl.overrides: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.rd is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.psc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.owl is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.md is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.nlv4 is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.voc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.ccqr is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.snlc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.mr is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.data_detectors is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.cati is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 8ECC8650-9A3C-4726-866F-12FBB8557146: Could not lock asset set com.apple.siri.understanding: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding.nl.overrides ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding.nl.overrides for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 6C53C244-1BF3-472A-B4B0-1AC3E57710DE: Could not lock asset set com.apple.siri.understanding.nl.overrides: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 duetexpertd(AppPredictionInternal)[184] <Error>: No poi category received from biome stream, so returning default poi category
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 5E413A35-1BC4-4575-8FF3-326CC8E453CA: Could not lock asset set com.apple.siri.understanding: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 assistant_cdmd(MobileAsset)[190] <Error>: MA-auto-set[AUTO-SHORT-TERM][FRAMEWORK]{_shortTermLockAtomicSync} com.apple.siri.understanding.nl.overrides ERROR | lockReason:UAFAssetSet lock of com.apple.siri.understanding.nl.overrides for SHORT_TERM_LOCKER | forAtomicInstance:N | atomicInstanceFilename:/private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | setStatus:N | error:com.apple.MobileAssetError.AutoAsset:6582 | [auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2
+Oct 18 06:22:04 assistant_cdmd(UnifiedAssetFramework)[190] <Error>: -[UAFAutoAssetSet lockAtomicInstance:specifierToAssetName:] 8F26E738-FFDC-4A6F-BE00-CDBF0A3FE8AC: Could not lock asset set com.apple.siri.understanding.nl.overrides: Error Domain=com.apple.MobileAssetError.AutoAsset Code=6582 "[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2" UserInfo={NSLocalizedDescription=[auto-set(_shortTermLockAtomicSync):NoSharedLock(6582)] Unable to obtain shared lock on /private/var/MobileAsset/AssetsV2/locks/com.apple.UnifiedAssetFramework/com.apple.siri.understanding.nl.overrides/shared_locks/atomic_instance_latest.locker | errno:2}
+Oct 18 06:22:04 duetexpertd(AppPredictionInternal)[184] <Error>: No poi category received from biome stream, so returning default poi category
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.rd is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.psc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.owl is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.md is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.nlv4 is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.voc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.ccqr is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.snlc is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.marrs.mr is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.data_detectors is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: com.apple.siri.nl.cati is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 assistant_cdmd(CDMFoundation)[190] <Error>: +[CDMUAFAssetsManager getNLAssetFromUAFAssetPostValidation:asset:locale:assetSetName:] [ERR]: UAF asset: (null) for factorName: <private> is invalid for locale: <private>. Return nil.
+Oct 18 06:22:04 siriknowledged(AssistantServices)[186] <Error>: -[AFLocalization _localizedStringForKey:tables:localizations:bundle:] Could not find localization for key: <private>, tables: <private>, localizations: <private>, bundle: <private>
+Oct 18 06:22:04 siriknowledged(AssistantServices)[186] <Error>: -[AFLocalization localizedStringForKey:gender:table:bundle:languageCode:]_block_invoke Missing localization strings for key: <private>, table: InfoPlist, languageCode: <private>
+Oct 18 06:22:04 duetexpertd(AppPredictionInternal)[184] <Error>: No poi category received from biome stream, so returning default poi category
+Oct 18 06:22:04 kernel(Sandbox)[0] <Error>: System Policy: siriknowledged(186) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:04 profiled(IOKit)[171] <Error>: Assertion retain not supported in async mode
+Oct 18 06:22:05 SpringBoard(ChronoServices)[34] <Error>: Unable to perform isLinkedOnOrAfter as widget descriptor `_sdkVersion` is nil or unknown
+Oct 18 06:22:05 SpringBoard(ChronoServices)[34] <Error>: Unable to perform isLinkedOnOrAfter as widget descriptor `_sdkVersion` is nil or unknown
+Oct 18 06:22:05 profiled(IOKit)[171] <Error>: _releaseAsyncAssertion: Failed to get the assertion details for id:0x805b0000
+Oct 18 06:22:05 online-auth-agent[423] <Error>: No bloom filter configured.
+Oct 18 06:22:05 containermanagerd(ContainerManagerCommon)[72] <Error>: [0] command=19, client=<com.apple.installd, u=<501/501/~~/2/1000>, uid=33, pid=324, sandboxed=1, platform=2 (1/1/1) [(null)], cached>, error=(21|3|0|[(null)])
+Oct 18 06:22:05 containermanagerd_system(ContainerManagerCommon)[103] <Error>: [<private>(1)] Current schema version (1) is newer than the latest (0), ignoring.
+Oct 18 06:22:05 containermanagerd_system(ContainerManagerCommon)[103] <Error>: Didn't find info value for key: StaticDiskUsage
+Oct 18 06:22:05 iconservicesagent(CoreServices)[201] <Error>: Failed to get unit 188532 from store <private>
+Oct 18 06:22:05 clipserviced(ClipServices)[429] <Error>: CPSClipCleanupManager: Failed to find launched app's bundleID in XPC event
+Oct 18 06:22:06 axassetsd(SiriTTSService)[40] <Error>: Unable to list voice folder
+Oct 18 06:22:06 axassetsd(SiriTTSService)[40] <Error>: Unable to list voice folder
+Oct 18 06:22:06 axassetsd(SiriTTSService)[40] <Error>: Unable to list voice folder
+Oct 18 06:22:06 calaccessd(CalendarDaemon)[138] <Error>: A client attempted to call [<private>] and was denied due to insufficient privileges.  Client identity: [<private>]
+Oct 18 06:22:06 calaccessd(CalendarDaemon)[138] <Error>: ERROR: access denied to perform invocation <private>. The CADXPCImplementation has the following TCC status: Reminders NO, Events 0.
+Oct 18 06:22:06 AppPredictionIntentsHelperService(EventKit)[279] <Error>: Error getting defaultTimedAlarmOffset: Error Domain=EKCADErrorDomain Code=1013 UserInfo={NSLocalizedDescription=<private>}
+Oct 18 06:22:06 AppPredictionIntentsHelperService(ReminderKit)[279] <Error>: XPC connection was invalidated
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: 2 duplicate reports for System Policy: siriknowledged(186) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: System Policy: SetStoreUpdateService(278) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: -[AFLocalization _localizedStringForKey:tables:localizations:bundle:] Could not find localization for key: <private>, tables: <private>, localizations: <private>, bundle: <private>
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: -[AFLocalization localizedStringForKey:gender:table:bundle:languageCode:]_block_invoke Missing localization strings for key: <private>, table: InfoPlist, languageCode: <private>
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Timestamp:           515000155991
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Timestamp type:      Absolute
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Total Latency:       0 us
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: \134^[[1mSenderID:            0x000D0F4DFA0000BE NON KERNEL SENDER
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: \134^[[0mBuiltIn:             1
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: ValueType:           Absolute
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: EventType:           Digitizer
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Flags:               0xa0051
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: DisplayIntegrated:   1
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: TransducerType:      Finger
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: TransducerIndex:     0
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Identity:            0
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: EventMask:           68
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Events:              Position Attribute 
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: ButtonMask:          0
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Range:               0
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Touch:               1
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Pressure:            0.000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: AuxiliaryPressure:   0.000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Twist:               0.000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: GenerationCount:     0
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: WillUpdateMask:      00000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: DidUpdateMask:       00000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: X:                   0.155212
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Y:                   0.485901
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: Z:                   0.000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: TiltX:               0.000000
+Oct 18 06:22:06 siriknowledged(AssistantServices)[186] <Error>: TiltY:               <\M-b\M^@\M-&> sender <decode: missing data>
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: System Policy: corespeechd(182) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: System Policy: siriknowledged(186) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:06 siriknowledged(libsqlite3.dylib)[186] <Error>: misuse at line 97610 of [1b37c146ee]
+Oct 18 06:22:06 siriknowledged(libsqlite3.dylib)[186] <Error>: misuse at line 97610 of [1b37c146ee]
+Oct 18 06:22:06 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18c58150; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x3026cec60>>], frame not updated
+Oct 18 06:22:06 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18c58150; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x3026cec60>>], frame not updated
+Oct 18 06:22:06 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18c58150; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x3026cec60>>], frame not updated
+Oct 18 06:22:06 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18c58150; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x3026cec60>>], frame not updated
+Oct 18 06:22:06 sharingd[68] <Error>: SDAirDropNearFieldService.startNearFieldController SKIP - AirDrop is restricted
+Oct 18 06:22:06 sharingd[68] <Error>: SDAirDropNearFieldService: missing Near field Controller, will not start polling
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: 3 duplicate reports for System Policy: siriknowledged(186) deny(1) file-read-metadata /private/var/mobile/Library/Biome
+Oct 18 06:22:06 kernel(Sandbox)[0] <Error>: Sandbox: CodeSnake(1652) deny(1) sysctl-read kern.bootargs
+Oct 18 06:22:06 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18c58150; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x3026cec60>>], frame not updated
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeviceApplicationSceneViewController;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: <XCSynthesizedEventRecord 'tap display 1'>
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Path 1:
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: 	Touch down at 61.0, 414.0, offset=0.00s
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: 	Touch up at 61.0, 414.0, offset=0.05s confirmed by TouchEventsCompleted.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeviceApplicationSceneViewController;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBSwitcherViewController;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBSwitcherViewController;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeckSwitcherViewController;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = TouchEventsCompleted;
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:06 SpringBoard(BaseBoard)[34] <Error>: [BSBlockSentinel:<private>] unexpected signal! 2 of 1
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCompositeOperation: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextFillRects: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextScaleCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGBitmapContextCreateImage: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCompositeOperation: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextFillRects: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextScaleCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGBitmapContextCreateImage: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCompositeOperation: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextFillRects: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextScaleCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetFontRenderingStyle: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetTextMatrix: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetFont: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetFontSize: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetFontRenderingStyle: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetFillColorWithColor: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetStrokeColorWithColor: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCharacterSpacing: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetTextPosition: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetFontRenderingStyle: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGBitmapContextCreateImage: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCompositeOperation: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextFillRects: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextScaleCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetTextMatrix: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextConcatCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGBitmapContextCreateImage: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetCompositeOperation: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextFillRects: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextRestoreGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextScaleCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextTranslateCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextGetCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGContextSetBaseCTM: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 SpringBoard(CoreGraphics)[34] <Error>: CGBitmapContextCreateImage: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.
+Oct 18 06:22:08 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:08 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:09 duetexpertd(AppPredictionInternal)[184] <Error>: HSLS [SWPreviewGeneration]: Not enough suggestion to generate preview AppSuggestions4x4
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingHomeScreen, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingSpotlightUnknown, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingActionSptltUnknown, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingMediaControls, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingFaceTimeZKW, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingAppDirectory, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingActionLockScreen, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingAppSwitcher, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingShortcutsEditor, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingMegadomeIntent, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingActionLockScreen, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:09 duetexpertd(BiomeStorage)[184] <Error>: Data type not yet set for stream blendingSiriDiscoverability, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:10 SpringBoard(KeyboardArbiter)[34] <Error>: Advisor: No handle found for currently focused PID: 1652; sceneIdentity: @com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: RBSStateCapture remove item called for untracked item <RBConnectionClient| 1652 name:app<com.venki18.codesnake(5609237B-C741-42BE-8430-4BD67CA3B648)> entitlements:<RBEntitlements| [
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: 			
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: 			]> inheritanceManager:<RBClientInheritanceManager|  inheritances:[
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: 	<RBSInheritance| environment:UIScene:@com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C name:com.apple.frontboard.visibility origID:33-34-3646 payload 17704066076621721363>,
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: 	<RBSInheritance| environment:(none) name:com.apple.frontboard.visibility origID:33-34-3652 0>
+Oct 18 06:22:10 runningboardd(RunningBoard)[33] <Error>: 	]>>
+Oct 18 06:22:10 SpringBoard(BiomeStorage)[34] <Error>: Data type not yet set for stream blendingUIHomeScreen, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:10 SpringBoard(RunningBoardServices)[34] <Error>: Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process does not exist" UserInfo={NSLocalizedFailureReason=Specified target process does not exist}>
+Oct 18 06:22:10 SpringBoard(FrontBoard)[34] <Error>: Ignoring update for invalidated scene: (FBSceneManager):sceneID:com.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C
+Oct 18 06:22:10 SpringBoard(FrontBoard)[34] <Error>: Scene FBSceneManager/sceneID:com.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C update failed: <NSError: 0x30296e370; domain: FBSceneErrorDomain; code: 1 ("operation-failed"); "Scene update failed."> {
+Oct 18 06:22:10 SpringBoard(FrontBoard)[34] <Error>:     NSUnderlyingError = <NSError: 0x302bf95f0; domain: FBWorkspace; code: 1; "Scene client is invalid.">;
+Oct 18 06:22:10 SpringBoard(FrontBoard)[34] <Error>: }
+Oct 18 06:22:11 bluetoothd(CoreUtils)[91] <Error>: ### CBExtension: app not entitled, com.apple.NewDeviceSetupUIService
+Oct 18 06:22:12 duetexpertd(AppPredictionInternal)[184] <Error>: No poi category received from biome stream, so returning default poi category
+Oct 18 06:22:12 nsurlsessiond(CFNetwork)[115] <Error>: Connection 267: timed out with error(4:-2104)
+Oct 18 06:22:12 nsurlsessiond(CFNetwork)[115] <Error>: Connection 267: encountered error(4:-2104)
+Oct 18 06:22:12 nsurlsessiond(CFNetwork)[115] <Error>: Task <947B4FEE-EE9E-4B36-876B-B0369B8CFC35>.<9> HTTP load failed, 0/0 bytes (error code: -1001 [4:-2104])
+Oct 18 06:22:12 nsurlsessiond(CFNetwork)[115] <Error>: Task <947B4FEE-EE9E-4B36-876B-B0369B8CFC35>.<9> finished with error [-1001] Error Domain=NSURLErrorDomain Code=-1001 UserInfo={_kCFStreamErrorCodeKey=-2104, NSUnderlyingError=0x49e999020 {Error Domain=kCFErrorDomainCFNetwork Code=-1001 UserInfo={_NSURLErrorNWPathKey=satisfied (Path is satisfied), viable, interface: en2, ipv4, dns, proxy, _kCFStreamErrorCodeKey=-2104, _kCFStreamErrorDomainKey=4}}, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>, NSErrorFailingURLStringKey=<private>, NSErrorFailingURLKey=<private>, _kCFStreamErrorDomainKey=4}
+Oct 18 06:22:12 cloudd(C2)[147] <Error>: RetryableNetworkingError NSURLErrorDomain/-1001
+Oct 18 06:22:13 nsurlsessiond(CFNetwork)[115] <Error>: Connection 268: strict TLS Trust evaluation failed(-9802)
+Oct 18 06:22:13 nsurlsessiond(CFNetwork)[115] <Error>: Connection 268: TLS Trust encountered error 3:-9802
+Oct 18 06:22:13 nsurlsessiond(CFNetwork)[115] <Error>: Connection 268: encountered error(3:-9802)
+Oct 18 06:22:13 nsurlsessiond(CFNetwork)[115] <Error>: Task <947B4FEE-EE9E-4B36-876B-B0369B8CFC35>.<9> HTTP load failed, 0/0 bytes (error code: -1200 [3:-9802])
+Oct 18 06:22:13 nsurlsessiond(CFNetwork)[115] <Error>: Task <947B4FEE-EE9E-4B36-876B-B0369B8CFC35>.<9> finished with error [-1200] Error Domain=NSURLErrorDomain Code=-1200 UserInfo={NSLocalizedRecoverySuggestion=<private>, _kCFStreamErrorDomainKey=3, NSErrorPeerCertificateChainKey=<private>, NSErrorClientCertificateStateKey=0, NSErrorFailingURLKey=<private>, NSErrorFailingURLStringKey=<private>, NSUnderlyingError=0x49ea3e010 {Error Domain=kCFErrorDomainCFNetwork Code=-1200 UserInfo={_kCFStreamPropertySSLClientCertificateState=0, kCFStreamPropertySSLPeerTrust=<private>, _kCFNetworkCFStreamSSLErrorOriginalValue=-9802, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9802, kCFStreamPropertySSLPeerCertificates=<private>}}, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, _kCFStreamErrorCodeKey=-9802, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, NSURLErrorFailingURLPeerTrustErrorKey=<private>, NSLocalizedDescription=<private>}
+Oct 18 06:22:13 cloudd(CFNetwork)[147] <Error>: Task <947B4FEE-EE9E-4B36-876B-B0369B8CFC35>.<9> finished with error [-1200] Error Domain=NSURLErrorDomain Code=-1200 UserInfo={NSErrorClientCertificateStateKey=0, NSLocalizedRecoverySuggestion=<private>, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, NSErrorFailingURLKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>, NSErrorFailingURLStringKey=<private>, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9802}
+Oct 18 06:22:13 cloudd(C2)[147] <Error>: NetworkingError NSURLErrorDomain/-1200
+Oct 18 06:22:13 cloudd(CloudKitDaemon)[147] <Error>: Error fetching configuration from the server: Error Domain=NSURLErrorDomain Code=-1200 UserInfo={NSErrorClientCertificateStateKey=0, NSLocalizedRecoverySuggestion=<private>, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, NSErrorFailingURLKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>, NSErrorFailingURLStringKey=<private>, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9802}
+Oct 18 06:22:14 rtcreportingd[1062] <Error>: gap in hierarchy: <private> level 1
+Oct 18 06:22:15 appstored[176] <Error>: PURGING : Purge failed to clear asset packs directory.  Kicking off maintenance operation.
+Oct 18 06:22:20 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:20 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:24 rtcreportingd[1062] <Error>: gap in hierarchy: <private> level 1
+Oct 18 06:22:28 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:28 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:34 rtcreportingd[1062] <Error>: gap in hierarchy: <private> level 1
+Oct 18 06:22:38 kernel(Sandbox)[0] <Error>: Sandbox: CodeSnake(1661) deny(1) sysctl-read kern.bootargs
+Oct 18 06:22:38 kernel(Sandbox)[0] <Error>: Sandbox: CodeSnake(1661) deny(2) file-test-existence /usr/bin/swift-backtrace
+Oct 18 06:22:38 kernel(Sandbox)[0] <Error>: Sandbox: CodeSnake(1661) deny(2) file-test-existence /usr/bin/arm64e
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[(null)] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = TouchEventsCompleted;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = TouchEventsCompleted;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeviceApplicationSceneViewController;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeckSwitcherViewController;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBSwitcherViewController;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBDeckSwitcherViewController;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = TouchEventsCompleted;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = TouchEventsCompleted;
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:38 sharingd[68] <Error>: SDAirDropNearFieldService.startNearFieldController SKIP - AirDrop is restricted
+Oct 18 06:22:38 sharingd[68] <Error>: SDAirDropNearFieldService: missing Near field Controller, will not start polling
+Oct 18 06:22:38 SpringBoard(KeyboardArbiter)[34] <Error>: Advisor: No handle found for currently focused PID: 0; sceneIdentity: (null)
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: Live host view super view[<SBCrossfadeView: 0xc1b499020; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x302695bc0>>] not matching container view[<UIView: 0xc18b56a60; frame = (0 0; 393 852); clipsToBounds = YES; layer = <CALayer: 0x30215e5a0>>], frame not updated
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "_TtGC7SwiftUI19UIHostingControllerGVS_15ModifiedContentVS_7AnyViewVS_12RootModifier__";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "_TtGC7SwiftUI19UIHostingControllerGVS_15ModifiedContentVS_7AnyViewVS_12RootModifier__";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "SwiftUI.UIKitNavigationController";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "SwiftUI.UIKitNavigationController";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "_TtGC7SwiftUI32NavigationStackHostingControllerVS_7AnyView_";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     navigationItemTitle = "Python Runner";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     controllerClass = "_TtGC7SwiftUI32NavigationStackHostingControllerVS_7AnyView_";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     event = ViewDidAppear;
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>:     navigationItemTitle = "Python Runner";
+Oct 18 06:22:38 SpringBoard(SpringBoardUI)[34] <Error>: }
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:39 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBRootFolderController;
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidDisappear;
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>:     controllerClass = SBRootFolderController;
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>:     event = ViewDidDisappear;
+Oct 18 06:22:39 SpringBoard(XCTAutomationSupport)[34] <Error>: }
+Oct 18 06:22:40 wifid(WiFiPolicy)[50] <Error>: WiFiManagerHelperInsertWiFiServiceToNetworkSetsIfNotPresent: FOUND network service 3BB62577-74EA-47B9-90D9-4B55FADAC3F4 with matching BSD name en0 and interface type IEEE80211
+Oct 18 06:22:41 SpringBoard(KeyboardArbiter)[34] <Error>: Advisor: No handle found for currently focused PID: 1661; sceneIdentity: @com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: RBSStateCapture remove item called for untracked item <RBConnectionClient| 1661 name:app<com.venki18.codesnake(5609237B-C741-42BE-8430-4BD67CA3B648)> entitlements:<RBEntitlements| [
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: 			
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: 			]> inheritanceManager:<RBClientInheritanceManager|  inheritances:[
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: 	<RBSInheritance| environment:(none) name:com.apple.frontboard.visibility origID:33-34-3673 0>,
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: 	<RBSInheritance| environment:UIScene:@com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C name:com.apple.frontboard.visibility origID:33-34-3672 payload 17704066076621721363>
+Oct 18 06:22:41 runningboardd(RunningBoard)[33] <Error>: 	]>>
+Oct 18 06:22:41 SpringBoard(BiomeStorage)[34] <Error>: Data type not yet set for stream blendingUIHomeScreen, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:41 SpringBoard(RunningBoardServices)[34] <Error>: Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process does not exist" UserInfo={NSLocalizedFailureReason=Specified target process does not exist}>
+Oct 18 06:22:41 wifid(WiFiPolicy)[50] <Error>: -[WiFiTimeDeferredNetworksAJManager setScanResultsWithAutoJoinSessionCompletion:complete:]: no scan results
+Oct 18 06:22:41 SpringBoard(FrontBoard)[34] <Error>: Ignoring update for invalidated scene: (FBSceneManager):sceneID:com.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C
+Oct 18 06:22:41 SpringBoard(FrontBoard)[34] <Error>: Scene FBSceneManager/sceneID:com.venki18.codesnake-07CABE10-4866-46D0-A3CD-60345E09E10C update failed: <NSError: 0x3029f7c30; domain: FBSceneErrorDomain; code: 1 ("operation-failed"); "Scene update failed."> {
+Oct 18 06:22:41 SpringBoard(FrontBoard)[34] <Error>:     NSUnderlyingError = <NSError: 0x302a70330; domain: FBWorkspace; code: 1; "Scene client is invalid.">;
+Oct 18 06:22:41 SpringBoard(FrontBoard)[34] <Error>: }
+Oct 18 06:22:41 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:41 SpringBoard(XCTAutomationSupport)[34] <Error>: Unexpectedly received animationDidStop without a matching animationDidStart. Monitoring for idle animations may no longer function correctly.
+Oct 18 06:22:41 dasd(BiomeStorage)[76] <Error>: Data type not yet set for stream APRSBiomeAppKillEvent, please switch to APIs that take eventDataClass as a parameter.
+Oct 18 06:22:41 sharingd[68] <Error>: SDAirDropNearFieldService.startNearFieldController SKIP - AirDrop is restricted
+Oct 18 06:22:41 sharingd[68] <Error>: SDAirDropNearFieldService: missing Near field Controller, will not start polling
+Oct 18 06:22:41 symptomsd(SymptomEvaluator)[140] <Error>: Process state is unknown (null)
+Oct 18 06:22:41 symptomsd(SymptomEvaluator)[140] <Error>: COSMCtrl _foregroundAppActivity incoming bundle com.venki18.codesnake has nil supplied UUID, finds existing E1335DA7-4A0E-3943-8BDC-7214D1AF5B57
+Oct 18 06:22:41 contextstored(CoreDuet)[64] <Error>: Simulating crash. Reason: <private>
+Oct 18 06:22:41 contextstored(CoreDuet)[64] <Error>: Simulating crash. Reason: <private>
+Oct 18 06:22:44 duetexpertd(AppPredictionInternal)[184] <Error>: No poi category received from biome stream, so returning default poi category
+Oct 18 06:22:44 rtcreportingd[1062] <Error>: gap in hierarchy: <private> level 1
+Oct 18 06:22:48 webbookmarksd[246] <Error>: Failed to read contents of password icons directory: Error Domain=NSCocoaErrorDomain Code=260 "The file couldn\M-b\M^@\M^Yt be opened because it doesn\M-b\M^@\M^Yt exist." UserInfo={NSUnderlyingError=0xb7e05a550 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+Oct 18 06:22:48 webbookmarksd[246] <Error>: Deferring password icons cleanup
+Oct 18 06:22:48 com.apple.Safari.SafeBrowsing.Service(Network)[467] <Error>: Task <1151F188-9D67-4B8D-8D0D-E8755DF36E84>.<420> finished with error [-1009] Error Domain=NSURLErrorDomain Code=-1009 UserInfo={_NSURLErrorNWPathKey=satisfied (Path is satisfied), interface: en2, ipv4, dns, proxy, NSErrorFailingURLKey=<private>, NSUnderlyingError=0x4583e7e40 {Error Domain=NSPOSIXErrorDomain Code=50 UserInfo={NSDescription=<private>}}, _NSURLErrorPrivacyProxyFailureKey=1, NSLocalizedDescription=<private>}
+Oct 18 06:22:48 com.apple.Safari.SafeBrowsing.Service(SafariSafeBrowsing)[467] <Error>: Service: Database update failed for protection type 1 and provider 3
+Oct 18 06:22:49 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]
+Oct 18 06:22:49 cfprefsd(CoreFoundation)[101] <Error>: Couldn't open parent path due to [2: No such file or directory]

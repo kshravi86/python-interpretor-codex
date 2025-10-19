@@ -131,23 +131,23 @@ jobs:
           if [ ! -f "$APP_PLIST" ]; then
             echo "::warning::Info.plist not found; synthesizing minimal Info.plist"
             cat > "$APP_PLIST" <<'PLIST'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>CFBundleIdentifier</key>
-  <string>com.example.placeholder</string>
-  <key>CFBundleName</key>
-  <string>CodeSnake</string>
-  <key>CFBundleExecutable</key>
-  <string>CodeSnake</string>
-  <key>CFBundleVersion</key>
-  <string>1</string>
-  <key>CFBundleShortVersionString</key>
-  <string>1.0</string>
-</dict>
-</plist>
-PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleIdentifier</key>
+            <string>com.example.placeholder</string>
+            <key>CFBundleName</key>
+            <string>CodeSnake</string>
+            <key>CFBundleExecutable</key>
+            <string>CodeSnake</string>
+            <key>CFBundleVersion</key>
+            <string>1</string>
+            <key>CFBundleShortVersionString</key>
+            <string>1.0</string>
+          </dict>
+          </plist>
+          PLIST
           fi
           # Update identifier and version
           if [ -n "$BID_FROM_SETTINGS" ]; then /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $BID_FROM_SETTINGS" "$APP_PLIST" || /usr/libexec/PlistBuddy -c "Add :CFBundleIdentifier string $BID_FROM_SETTINGS" "$APP_PLIST"; fi

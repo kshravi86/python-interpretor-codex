@@ -1,0 +1,12 @@
+Command line invocation:
+    /Applications/Xcode_16.2.app/Contents/Developer/usr/bin/xcodebuild clean -project /Users/runner/work/python-interpretor-codex/python-interpretor-codex/NotesApp.xcodeproj -scheme NotesApp -configuration Release -sdk iphonesimulator
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Build settings from command line:
+    SDKROOT = iphonesimulator18.2
+
+
+** CLEAN SUCCEEDED **
+

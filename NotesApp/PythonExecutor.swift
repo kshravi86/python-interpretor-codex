@@ -31,6 +31,7 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
                     let wv = WKWebView(frame: .zero, configuration: cfg)
                     wv.navigationDelegate = self
                     self.webView = wv
+                    let base = Bundle.main.bundleURL
                     AppLogger.log("PyodideExecutor: created WKWebView with baseURL: \(base)")
                     // Prepare minimal HTML that imports pyodide
                     let html = """
@@ -50,7 +51,6 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
                       </script>
                     </body></html>
                     """
-                    let base = Bundle.main.bundleURL
                     wv.loadHTMLString(html, baseURL: base)
                 }
                 self.pendingContinuations.append(cont)
@@ -95,8 +95,8 @@ final class PyodideExecutor: NSObject, PythonExecutor, WKNavigationDelegate {
           try {
             await py.runPythonAsync(`import sys, io; _b=io.StringIO(); _o,_e=sys.stdout,sys.stderr; sys.stdout=_b; sys.stderr=_b;`);
             await py.runPythonAsync(`
-\(safe)
-`);
+            \(safe)
+            `);
             await py.runPythonAsync(`sys.stdout=_o; sys.stderr=_e; _out=_b.getvalue()`);
             const out = py.globals.get('_out');
             return out && out.toString ? out.toString() : String(out);

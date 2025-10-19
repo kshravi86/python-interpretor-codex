@@ -1,0 +1,67 @@
+Here are the main issues causing the job failure and how to fix them:
+
+---
+
+### 1. Swift Compilation Errors
+
+#### a. Multi-line String Literal Indentation
+**Error:**  
+`PythonExecutor.swift:98:1: error: insufficient indentation of next 2 lines in multi-line string literal`
+
+**Solution:**  
+Ensure that every line in a multi-line Swift string literal has the same indentation as the closing delimiter. For example:
+```swift
+let multilineString = """
+    First line
+    Second line
+    """
+```
+**Fix:**  
+Update lines around line 98 in [`PythonExecutor.swift`](https://github.com/kshravi86/python-interpretor-codex/blob/d2a73cf797442a7000f07b3acdc7e25c5ffe4a07/NotesApp/PythonExecutor.swift) so the contents and closing delimiter match indentation.
+
+---
+
+#### b. Use of Undeclared Variable
+**Error:**  
+`PythonExecutor.swift:34:87: error: use of local variable 'base' before its declaration`
+
+**Solution:**  
+Declare `base` before using it:
+```swift
+let base = /* appropriate value */
+AppLogger.log("PyodideExecutor: created WKWebView with baseURL: \(base)")
+```
+**Fix:**  
+Check line 34 in [`PythonExecutor.swift`](https://github.com/kshravi86/python-interpretor-codex/blob/d2a73cf797442a7000f07b3acdc7e25c5ffe4a07/NotesApp/PythonExecutor.swift) to ensure `base` is defined before logging.
+
+---
+
+### 2. Missing Asset Files
+
+**Error:**  
+`warning: Failed to read file attributes for "/NotesApp/Preview Content/Preview Assets.xcassets" Failure Reason: No such file or directory`
+
+**Solution:**  
+- Ensure the directory and files exist in the repo: `NotesApp/Preview Content/Preview Assets.xcassets`
+- If not needed, remove reference from Xcode project settings.
+
+---
+
+### 3. Build Script Warnings
+
+**Warning:**  
+Run script build phases do not specify outputs.
+
+**Solution:**  
+Add output files to the script build phase or, if intentional, uncheck “Based on dependency analysis” for those phases in your Xcode project.
+
+---
+
+## Summary of Actions
+
+1. Fix string literal indentation in `PythonExecutor.swift` around line 98.
+2. Declare the `base` variable before its first use in `PythonExecutor.swift` around line 34.
+3. Add missing asset files or remove them from the Xcode project if not required.
+4. For script phase warnings, add output dependencies or adjust build script settings.
+
+Would you like to see the exact code for the problematic lines? If so, please specify which file and line you want to review.
