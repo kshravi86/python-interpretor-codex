@@ -29,6 +29,20 @@ jobs:
         run: |
           bundle install --path vendor/bundle
 
+      - name: Fetch Pyodide assets (fallback runtime)
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEST="NotesApp/PyodideAssets"
+          mkdir -p "$DEST"
+          if [ -f "$DEST/pyodide.js" ]; then echo "PyodideAssets present"; exit 0; fi
+          VER="0.24.1"
+          URL="https://github.com/pyodide/pyodide/releases/download/${VER}/pyodide-${VER}.tar.bz2"
+          TMP=$(mktemp -d)
+          curl -L "$URL" -o "$TMP/pyodide.tar.bz2"
+          tar -xjf "$TMP/pyodide.tar.bz2" -C "$TMP"
+          rsync -a "$TMP/pyodide/" "$DEST/"
+
       - name: Fetch Python runtime (xcframework + stdlib)
         continue-on-error: true
         env:
